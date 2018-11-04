@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.site-menu li {
+	margin: 0 2%;
+}
+
+.search {
+	max-width: 100%;
+}
+
+.search-input {
+	padding-left: 20%;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.productImage">  
+    <!-- 물품등록 조인해야함 -->                  
+	<insert id="registImage" parameterType="ProductImage">
+		INSERT INTO SM_product_image
+				(id,
+				image_type,
+				product_id,
+				file_id)
+		VALUES	(#{imageId},
+				#{imageType},
+				#{productId},
+				#{fileId})
+	</insert>
+
+	<!--  제품 정보 수정(브랜드, 설명, 제고, 수정일자, 최소연령 최고연령)-->
+	<update id="updateImage" parameterType="ProductImage">
+		UPDATE SM_product_image
+		<set>
+		file_id = #{fileId}   
+		</set>
+		WHERE product_id=#{productId}
+		AND image_type=#{imageType}	
+	</update>
+	
+	<!-- 물품별 전체 이미지  조회 -->
+	<select id="imageAll" resultType="ProductImage" parameterType = "Integer">			   
+		SELECT image.id 		AS imageId, 
+		       image.image_type AS imageType, 
+		       image.product_id AS productId, 
+		       fileInfo.file_name    AS  fileId
+		FROM   sm_product_image image, 
+		       sm_product product,
+		       sm_file_info fileInfo 
+		WHERE  image.product_id = product.product_id
+		 AND   image.file_id = fileInfo.file_id 
+		 AND   product.product_id = #{value} 		   
+	</select>
+	<!-- 물품삭제 -->
+	<delete id="deleteImage" parameterType="Map">
+		    delete SM_product_image
+    		where product_id = #{productId}
+    		and image_type = #{imageType}
+	</delete>
+	
+</mapper>

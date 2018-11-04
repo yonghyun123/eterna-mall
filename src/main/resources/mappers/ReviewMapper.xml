@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.review">
+
+	<!-- 리뷰 추가 -->
+	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+	<insert id="create" parameterType="Review">
+		INSERT INTO sm_product_review 
+            (id, 
+             user_id, 
+             product_id, 
+             board_id, 
+             content, 
+             score) 
+		VALUES     (7, 
+            #{userId}, 
+            #{productId}, 
+            1, 
+            #{content}, 
+            #{score})
+	</insert>
+
+	<!-- 상품별 리뷰 리스트 -->
+	<select id="listItem" resultType="Review">
+	 SELECT user_id     AS userId, 
+       product_id  AS productId, 
+       regdate, 
+       content, 
+       score,
+       board_id as boardId, 
+       answer_flag AS answerFlag 
+	FROM   sm_product_review 
+	WHERE  product_id = #{productId}
+	</select>
+	
+	<!-- 회원별 리뷰 리스트 -->
+	<select id="myReviewList" resultType="Review">
+	 SELECT user_id     AS userId, 
+       product_id  AS productId, 
+       regdate, 
+       content, 
+       score,
+       board_id as boardId, 
+       answer_flag AS answerFlag 
+	FROM   sm_product_review 
+	WHERE  user_id = #{userId}
+	</select>
+	
+	<!-- 전체 리뷰 리스트 -->
+	<select id="listAll" resultType="Review">
+	 SELECT user_id     AS userId,
+	   id, 
+       product_id  AS productId, 
+       regdate, 
+       content, 
+       score,
+       board_id as boardId, 
+       answer_flag AS answerFlag 
+	FROM   sm_product_review
+  	order by regdate desc
+	</select>
+</mapper>

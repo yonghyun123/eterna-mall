@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+	<!-- 회원관리 -->
+	<bean type="controller" name="/user/list" class="kr.or.kosta.eterna.user.controller.UserListController" />
+	<!--  관리자페이지 -->
+	<bean type="controller" name="/admin/index" class="kr.or.kosta.eterna.user.controller.adminIndexController" />
+	<!-- 장바구니관리 -->
+	<bean type="controller" name="/user/cartlist" class="kr.or.kosta.eterna.cart.controller.CartListController" />
+	<!-- 구매관리 -->	
+	<bean type="controller" name="/user/buylist" class="kr.or.kosta.eterna.buy.controller.BuyListController" />
+	<!-- 리뷰관리 -->	
+	<bean type="controller" name="/user/reviewlist" class="kr.or.kosta.eterna.review.controller.ReviewListController" />
+
+</beans>

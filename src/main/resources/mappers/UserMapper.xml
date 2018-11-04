@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.user">
+
+	<!-- 회원 생성 -->                        
+	<insert id="create" parameterType="User">
+		INSERT INTO sm_user 
+            (user_id, 
+             user_name, 
+             user_email, 
+             user_passwd, 
+             user_address, 
+             user_tel) 
+		VALUES      (#{userId}, 
+             #{userName}, 
+             #{userEmail}, 
+             #{userPasswd}, 
+             #{userAddress}, 
+             #{userTel})
+	</insert>
+
+	<!-- id를 이용한 회원 검색 -->                        
+	<select id="read" resultType="User" parameterType="String">
+		SELECT user_id                      AS "userId", 
+		       user_name                       AS "userName",
+		       user_email					AS "userEmail",
+		       user_passwd					AS "userPasswd",
+		       user_address					AS "userAddress",
+		       user_tel						AS "userTel",
+		       tier_id						AS "tierId",
+		       user_grade					AS "userGrade",
+		       user_point					AS "userPoint",
+		       TO_CHAR(user_regdate, 'YYYY-MM-DD') AS "userRegdate" 
+		FROM   SM_user 
+		WHERE user_id=#{userId}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="update" parameterType="User">
+		UPDATE SM_user
+		<set>	
+			<if test="userPasswd != null">user_passwd = #{userPasswd},</if>   
+			<if test="userEmail != null">user_email = #{userEmail},</if>   	
+			<if test="userAddress != null">user_address = #{userAddress}</if>   	
+		</set>
+		WHERE user_id=#{userId}	
+	</update>
+
+	<!-- 전체 회원 리스트 -->
+	<select id="listAll" resultType="User">
+			SELECT user_id 		AS "userId", 
+		       user_name 		AS "userName", 
+		       user_passwd 		AS "userPasswd", 
+		       user_email		AS "userEmail",
+		       user_address		AS "userAddress", 
+             user_tel 			AS "userTel",
+		       TO_CHAR(user_regdate, 'YYYY-MM-DD') AS "userRegdate"
+		FROM   SM_user
+	</select>
+	
+	<!-- 로그인시 id와 passwd를 통한 회원 조회 -->
+	<select id="certify" resultType="User" parameterType="map">
+				SELECT user_id                      AS "userId", 
+		       user_name                       AS "userName",
+		       user_email					AS "userEmail",
+		       user_passwd					AS "userPasswd",
+		       user_address					AS "userAddress",
+		       user_tel						AS "userTel",
+		       tier_id						AS "tierId",
+		       user_grade					AS "userGrade",
+		       user_point					AS "userPoint",
+		       TO_CHAR(user_regdate, 'YYYY-MM-DD') AS "userRegdate" 
+			   FROM SM_user
+			   WHERE user_id=#{userId} AND user_passwd=#{userPasswd}
+	   
+	</select>
+	
+	
+	<!-- 회원 삭제(id를 제외한 나머지 정보들 삭제) -->
+	<update id="delete" parameterType="map">
+		UPDATE SM_user 
+SET    user_name = NULL, 
+       user_email = NULL, 
+       user_passwd = NULL, 
+       user_address = NULL, 
+       user_tel = NULL, 
+       tier_id = NULL, 
+       user_grade = NULL, 
+       user_point = NULL, 
+       user_regdate = NULL 
+WHERE  user_id = #{userId} 
+       AND user_passwd = #{userPasswd}
+	</update>
+	
+</mapper>

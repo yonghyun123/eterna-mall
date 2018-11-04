@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.product">  
+    <!-- 물품등록 조인해야함 -->                  
+	<insert id="regist" parameterType="Product">
+		INSERT INTO SM_product
+				(product_id,
+				category_id,
+				product_brand,
+				product_sex,
+				product_description,
+				product_stock,
+				min_age,
+				max_aged)
+		VALUES	(#{productId},
+				#{categoryId},
+				#{productBrand},
+				#{productSex},
+				#{productDescription},
+				#{productStock},
+				#{minAge},
+				#{maxAge})
+	</insert>
+	
+	<!-- 제품조회  이미지 조회는 별도로 해줘야함-->
+	<select id="read" resultType="Product" parameterType="Integer">
+		
+			SELECT product.product_id 			AS "productId", 
+			       product.category_id			AS "categoryId", 
+			       product.product_brand		AS "productBrand", 
+			       product.product_sex   		AS "productSex", 
+			       product.product_description  AS "productDescription", 
+			       product.product_stock        AS "productStock",
+			       TO_CHAR(product.create_date, 'YYYY-MM-DD') AS "createDate",
+		       	   TO_CHAR(product.modify_date, 'YYYY-MM-DD') AS "modifyDate", 
+			       product.min_age 				AS "minAge", 
+			       product.max_age 				AS "maxAge",	
+			       price.price 					AS price
+			FROM   sm_product product, 
+			       sm_product_price price 
+			WHERE  product.product_id = price.product_id 
+			AND    product.product_id=#{productId}
+			ORDER  BY product.product_id		
+	</select>
+	
+	<!--  제품 정보 수정(브랜드, 설명, 제고, 수정일자, 최소연령 최고연령)-->
+	<update id="update" parameterType="Product">
+		UPDATE SM_product
+		<set>	
+			<if test="productBrand != null">product_id = #{productId},</if>   
+			<if test="productDescription != null">product_description = #{productDescription},</if>
+			<if test="productStock != null">product_stock = #{productStock},</if>
+			<if test="modifyDate != null">modify_date = #{modifyDate},</if>
+			<if test="minAge != null">min_age = #{minAge},</if>
+			<if test="maxAge != null">max_age = #{maxAge}</if>
+		</set>
+		WHERE product_id=#{productId}	
+	</update>
+	
+	<!-- 전체물품 조회 -->
+	<select id="listAll" resultType="Product">			   
+			SELECT product.product_id 			AS "productId", 
+			       product.category_id			AS "categoryId", 
+			       product.product_brand		AS "productBrand", 
+			       product.product_sex   		AS "productSex", 
+			       product.product_description  AS "productDescription", 
+			       product.product_stock        AS "productStock", 
+			       product.min_age 				AS "minAge", 
+			       product.max_age 				AS "maxAge",	
+			       image.id 					AS thumnail, 
+			       price.price 					AS price
+			FROM   sm_product product, 
+			       sm_product_image image, 
+			       sm_file_info fileinfo, 
+			       sm_product_price price 
+			WHERE  product.product_id = image.product_id 
+			AND    image.file_id = fileinfo.file_id 
+			AND    product.product_id = price.product_id 
+			AND    image.image_type = 'th'
+			ORDER  BY product.product_id			   
+	</select>
+	<!-- 물품삭제 -->
+	<delete id="delete" parameterType="Integer">
+		    delete SM_product
+    		where product_id = #{value}
+	</delete>
+	
+	<!-- id 중복검사 -->
+	<select id="duplicateCheck" parameterType="Integer" resultType="Product">
+			SELECT product_id AS "productId"
+			FROM SM_product
+			WHERE product_id=#{value}
+	</select>
+</mapper>

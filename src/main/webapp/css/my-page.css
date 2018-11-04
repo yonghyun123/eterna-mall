@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+@media all and (max-width: 1000px) {
+	.my-page-top-section .user-grade {
+		width: 50%;
+		font-size: 13px;
+		padding: 2% 2% 0 3%;
+	}
+	
+	.my-page-top-section .user-saving {
+		width: 50%;
+		font-size: 13px;
+	}
+	
+	.my-page-top-section .name {
+		font-size: 18px;
+	}
+	
+	.my-page-top-section .info {
+		font-size: 15px;
+	}
+}
+
+.my-page-top-section, my-page-bottom-section {
+    padding: 1em 0; 
+}
+
+.my-page-top {
+	border: 2px solid #dddfe1;
+	width: 100%;
+	margin: 0;
+}
+
+.user-grade {
+	width: 40%;
+	float: left;
+	border-right: 2px solid #dddfe1;
+	padding: 3% 2% 0 3%;
+}
+
+.user-saving {
+	width: 60%;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+.name {
+	font-weight: bold;
+	font-size: 25px;
+	padding: 0 3%;
+}
+
+.grade-score {
+	font-weight: bold;
+}
+
+.my-page-top-section .user-saving li {
+	list-style-type: none;
+	text-align: center;
+	float: left;
+	width: 33.2%;
+}
+
+.user-saving a {
+	width: 100%;
+	float: left;
+	padding: 6% 0;
+}
+
+.inner-class {
+	border-right: 1px solid #dddfe1;
+}
+
+.info-text {
+	padding: 11% 0 3% 0;
+}
+
+.info {
+	font-size: 20px;
+	padding-bottom: 11%;
+}
+
+/* Style the tab */
+.tab {
+   overflow: hidden;
+   border: 1px solid #ccc;
+   background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+   background-color: inherit;
+   float: left;
+   border: none;
+   outline: none;
+   cursor: pointer;
+   padding: 14px;
+   width: 25%;
+   transition: 0.3s;
+   font-size: 17px;
+   transition: 0.3s;
+}
+
+.tab button:hover {
+   background-color: #ddd;
+}
+
+.tab button.active {
+   background-color: #ccc;
+}
+
+.tabcontent {
+   display: none;
+   padding: 2% 12px;
+   border: 1px solid #ccc;
+   border-top: none;
+   width:100%;
+}
+
+.review {
+   margin-top: 2%;
+   width: 100%;
+   border: solid 1px #7971ea;
+   border-radius: 10px;
+   resize: none;
+}

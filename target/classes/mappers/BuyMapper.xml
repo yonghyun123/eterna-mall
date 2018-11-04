@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.buy">
+
+	<!-- 주문리스트 추가 -->
+	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+	<insert id="createInfo" parameterType="Buy">
+		INSERT INTO sm_buy_info 
+            (id, 
+             buyer_name,
+             buyer_tel, 
+             buyer_address, 
+             receiver_name, 
+             receiver_tel, 
+             receiver_address,
+            <if test="passwd!=null">passwd,</if>
+             user_id) 
+		VALUES     (9, 
+            #{buyerName}, 
+            #{buyerTel}, 
+            #{buyerAddress}, 
+            #{receiverName}, 
+            #{receiverTel}, 
+            #{receiverAddress}, 
+            <if test="passwd!=null">#{passwd},</if>
+            #{userId})
+	</insert>
+	
+	<!-- 주문번호별 구매 목록 추가 -->
+	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+	<insert id="createManage" parameterType="Buy">
+	INSERT INTO sm_buy_manage 
+            (id, 
+             count, 
+             buy_id, 
+             product_id) 
+	VALUES  (8, 
+             #{count}, 
+             (select MAX(id) from SM_buy_info), 
+             (select product_id from SM_product where product_description = #{productDescription})) 
+	</insert>
+
+	<!-- 유저별 구매 리스트 -->
+	<select id="listAll" resultType="Buy">
+	 SELECT i.buyer_name as buyerName, 
+       i.buyer_tel as buyerTel,
+       i.buyer_address as buyerAddress,
+       i.receiver_name as receiverName,
+       i.receiver_tel as receiverTel,
+       i.receiver_address as receiverAddress,       
+       i.user_id as userId,
+       i.order_flag as orderFlag,
+       m.count as count,
+       p.product_brand as productBrand,
+       p.product_description as productDescription,
+       f.file_name as fileName
+	 FROM   SM_buy_info i 
+       join SM_buy_manage m 
+         ON i.id=m.buy_id 
+       join SM_product p 
+         ON m.product_id=p.product_id 
+       join SM_product_image e 
+         ON p.product_id=e.product_id
+       join SM_file_info f
+          ON e.file_id = f.file_id
+	 WHERE user_id=#{userId} and image_type='th'
+	</select>
+	
+	<!-- 최근 3개의 배송지 조회 -->
+	<select id="recentAddress" resultType="Buy">
+	SELECT receiver_address as receiverAddress,
+		   receiver_name as receiverName 
+	FROM (SELECT * 
+       FROM   sm_buy_info 
+       ORDER  BY create_date DESC) 
+	WHERE ROWNUM between 1 and 3 
+       AND user_id = #{userId} 
+	</select>
+	
+</mapper>

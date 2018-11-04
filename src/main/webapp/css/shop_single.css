@@ -1,0 +1,114 @@
+@charset "utf-8";
+
+.detail {
+   width: 100%;
+   margin-top: 2%;
+}
+
+.fa-arrow-alt-circle-up {
+   font-size: 50px;
+   position: fixed;
+   bottom: 100px;
+   right: 5px;
+   width: 8%;
+   color: #7971ea;
+}
+
+.btn-group-justified {
+   display: table;
+   margin: 0 auto;
+   width: 90%;
+   table-layout: fixed;
+   border-collapse: separate;
+   margin-bottom: 2%;
+   width: 90%
+}
+
+.btn-group-justified>.btn, .btn-group-justified>.btn-group {
+   float: none;
+   display: table-cell;
+   width: 1%;
+}
+
+.btn-group-justified>.btn-group .btn {
+   width: 100%;
+}
+
+.btn-group-justified>.btn-group .dropdown-menu {
+   left: auto;
+}
+/* Style the tab */
+.tab {
+   overflow: hidden;
+   border: 1px solid #ccc;
+   background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+   background-color: inherit;
+   float: left;
+   border: none;
+   outline: none;
+   cursor: pointer;
+   padding: 14px;
+   width: 50%;
+   transition: 0.3s;
+   font-size: 17px;
+   transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+   background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+   background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+   display: none;
+   padding: 2% 12px;
+   border: 1px solid #ccc;
+   border-top: none;
+   width:100%;
+}
+
+#tab {
+   width: 100%;
+   margin: 0 auto;
+}
+
+.review {
+   margin-top: 2%;
+   width: 100%;
+   border: solid 1px #7971ea;
+   border-radius: 10px;
+   resize: none;
+}
+
+#create {
+   float: right;
+   margin-bottom: 2%;
+}
+
+.image-row {
+   text-align: center;
+}
+
+.test_page{
+	float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.custom_pagination{
+	float: right;
+}

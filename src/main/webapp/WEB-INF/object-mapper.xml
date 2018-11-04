@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+ 	<!-- DataSource 설정 -->
+<!--	<bean type="component" name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521"/>
+		<property name="username" value="hr"/>
+		<property name="password" value="hr"/>
+		<property name="initialSize" value="2"/>
+		<property name="maxTotal" value="10"/>
+		<property name="maxIdle" value="5"/>
+	</bean> -->
+	
+	<!-- Mybatis SqlSessionFactory 설정-->
+	<bean type="component" name="sqlSessionFactory" class="kr.or.kosta.eterna.common.factory.SqlSessionFactoryCreator">
+		<property name="configLocation" value="mybatis-config.xml"/>
+		<property name="environment" value="development"/>
+	</bean>
+	
+	<!-- dao 등록 -->
+	<bean type="dao" name="userDao" class="kr.or.kosta.eterna.user.dao.MybatisUserDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean type="dao" name="cartDao" class="kr.or.kosta.eterna.cart.dao.MybatisCartDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean type="dao" name="buyDao" class="kr.or.kosta.eterna.buy.dao.MybatisBuyDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean type="dao" name="reviewDao" class="kr.or.kosta.eterna.review.dao.MybatisReviewDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- service 등록 -->
+	<bean type="service" name="userService" class="kr.or.kosta.eterna.user.service.UserServiceImpl">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	
+	<bean type="service" name="cartService" class="kr.or.kosta.eterna.cart.service.CartServiceImpl">
+		<property name="cartDao" ref="cartDao"/>
+	</bean>
+	
+	<bean type="service" name="buyService" class="kr.or.kosta.eterna.buy.service.BuyServiceImpl">
+		<property name="buyDao" ref="buyDao"/>
+	</bean>
+	
+	<bean type="service" name="reviewService" class="kr.or.kosta.eterna.review.service.ReviewServiceImpl">
+		<property name="reviewDao" ref="reviewDao"/>
+	</bean>
+	
+	
+</beans>

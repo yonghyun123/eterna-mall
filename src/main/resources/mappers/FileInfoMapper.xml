@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.fileInfo">  
+    <!-- 파일 등록 -->                  
+   <insert id="registFile" parameterType="FileInfo">
+      INSERT INTO SM_file_info
+            (file_id,
+            file_name,
+            content_type)
+      VALUES   (#{fileId},
+            #{fileName},
+            #{contentType}
+            )
+   </insert>
+
+   <!--  파일 정보 수정(파일명, 타입)-->
+   <update id="updateFile" parameterType="FileInfo">
+      UPDATE SM_file_info
+      <set>
+      file_name = #{fileName}
+      content_type = #{contentType}
+      </set>
+      WHERE file_id=#{fileId}
+   </update>
+   
+   <!-- 전체파일 조회 -->
+   <select id="fileListAll" resultType="FileInfo">            
+      SELECT file_id       AS fileId, 
+             file_name    AS fileName, 
+             content_type AS contentType 
+      FROM   SM_file_info      
+   </select>
+   
+   <!-- 파일삭제 -->
+   <delete id="deleteFile" parameterType="Map">
+          DELETE SM_file_info
+          WHERE file_id = #{fileId}
+   </delete>
+</mapper> 

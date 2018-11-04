@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+                          "http://mybatis.org/dtd/mybatis-3-config.dtd">
+                           <!-- dtd -->
+
+<!-- MyBatis XML 설정 파일(MyBatis설정의 중앙 허브 역할) -->
+<configuration>
+	
+	<!-- Database properties 설정파일 경로 설정 -->
+	<properties resource="db-config.properties"/> <!-- 따로분리해 놓은 db정도  -->
+	
+	<!--  MyBatis에서 사용할 자바클래스(패키지명 포함 풀네임)에 대한 짧은 별칭 등록 (도메인 -> 별칭)-->
+	<typeAliases>
+		<typeAlias type="kr.or.kosta.eterna.user.domain.User" alias="User"/>	
+		<typeAlias type="kr.or.kosta.eterna.common.web.Params" alias="Params"/>	
+		<typeAlias type="kr.or.kosta.eterna.cart.domain.Cart" alias="Cart"/>	
+		<typeAlias type="kr.or.kosta.eterna.buy.domain.Buy" alias="Buy"/>	
+		<typeAlias type="kr.or.kosta.eterna.product.domain.Product" alias="Product"/>
+      	<typeAlias type="kr.or.kosta.eterna.productImage.domain.ProductImage" alias="ProductImage"/>
+      	<typeAlias type="kr.or.kosta.eterna.fileInfo.domain.FileInfo" alias="FileInfo"/>
+      	<typeAlias type="kr.or.kosta.eterna.review.domain.Review" alias="Review"/>
+      	<typeAlias type="kr.or.kosta.eterna.qna.domain.QnA" alias="QnA"/>
+	</typeAliases>
+	
+	<!-- 다수의 Database에 접근하거나 개발, 테스트, 운영 환경에 맞는 다중 환경 설정 지원 -->
+	<environments default="development">
+		
+		<!-- Database당 하나의 SqlSessionFactory 객체가 필요하며, Environment는 SqlSessionFactory 생성시 필요 -->
+		<environment id="development">
+			
+			<transactionManager type="JDBC" />
+			
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+				<property name="poolMaximumActiveConnections" value="5"/> <!-- Default 10 -->
+				<property name="poolMaximumIdleConnections" value="2"/>   <!-- Default 5 -->
+				<property name="poolMaximumCheckoutTime" value="10000"/>  <!-- Default 20000 -->
+			</dataSource>
+		</environment>
+		
+	</environments>
+	
+	<!-- SQL XML Mapper 파일 경로 설정 -->
+	<mappers>
+		<!-- 클래스패스에 위치한 XML 매퍼 파일 지정 -->
+		<mapper resource="mappers/UserMapper.xml"  />	
+		<mapper resource="mappers/CartMapper.xml"  />	
+		<mapper resource="mappers/BuyMapper.xml"  />	
+		<mapper resource="mappers/ProductMapper.xml"  />
+      	<mapper resource="mappers/ProductImageMapper.xml"  />
+      	<mapper resource="mappers/ReviewMapper.xml"  />
+      	<mapper resource="mappers/FileInfoMapper.xml"  /> 
+      	<mapper resource="mappers/QnAMapper.xml"  /> 
+	</mappers>
+
+</configuration>

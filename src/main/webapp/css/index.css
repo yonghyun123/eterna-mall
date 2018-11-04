@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#myVideo {
+	width: 80%;
+	height: 80%;
+}
+
+.site-video-cover {
+	height: 100%;
+}
+
+.video-cover {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.building {
+	padding-right: 20%;
+}

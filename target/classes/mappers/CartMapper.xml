@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.cart">
+
+	<!-- 장바구니에 물건 추가 -->
+	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->                        
+	<insert id="create" parameterType="Cart">
+		INSERT INTO sm_cart 
+            (id, 
+             count, 
+             product_id, 
+             user_id) 
+		VALUES     (7, 
+            #{count}, 
+            #{productId}, 
+            #{userId})
+	</insert>
+
+	<!-- userId와 productId를 통한 장바구니 검색(동일상품 체크시) -->                        
+	<select id="read" resultType="Cart" parameterType="map">
+		SELECT c.count as count,
+	 		c.user_id as userId,
+	 		c.product_id as productId, 
+       		p.product_brand as productBrand, 
+       		p.product_description as productDescription, 
+      		m.price as price,
+       		f.file_name as fileName
+	 FROM   SM_cart c 
+       	join SM_product p 
+         ON c.product_id = p.product_id 
+       	join SM_product_price m 
+         ON p.product_id=m.product_id 
+      	join SM_product_image i 
+         ON p.product_id=i.product_id
+       	join SM_file_info f
+         ON i.file_id=f.file_id
+	 Where c.user_id = #{userId} and i.image_type = 'th' and c.product_id = #{productId}
+	</select>
+	
+	<!-- 장바구니 수량 수정 -->
+	<update id="update" parameterType="User">
+		UPDATE sm_cart 
+		SET    count = #{count} 
+		WHERE  user_id = #{userId} 
+       		 AND product_id = #{productId}
+	</update>
+
+	<!-- 전체 장바구니 리스트 -->
+	<select id="listAll" resultType="Cart">
+	 SELECT c.count as count,
+	 		c.user_id as userId,
+	 		c.product_id as productId, 
+       		p.product_brand as productBrand, 
+       		p.product_description as productDescription, 
+      		m.price as price,
+       		f.file_name as fileName
+	 FROM   SM_cart c 
+       	join SM_product p 
+         ON c.product_id = p.product_id 
+       	join SM_product_price m 
+         ON p.product_id=m.product_id 
+      	join SM_product_image i 
+         ON p.product_id=i.product_id
+       	join SM_file_info f
+         ON i.file_id=f.file_id
+	 Where c.user_id = #{userId} and i.image_type = 'th'
+	</select>
+	
+	<!-- 장바구니 제품 삭제 -->
+	<delete id="delete" parameterType="map">
+		DELETE FROM sm_cart 
+		WHERE  user_id = #{userId} 
+       		AND product_id = #{productId}
+	</delete>
+	
+</mapper>
