@@ -50,8 +50,7 @@
             </li>
           </ul>
         </li>
-        <li><a href="about.jsp">New</a></li>
-        <li><a href="shop.jsp">Best</a></li>
+        <li><a href="shop.jsp">Products</a></li>
         <li><a href="notice.jsp">FAQ</a></li>
         <!-- 이 부분 동적으로 변환해야함 -->
         <li><a id="signup-btn">Join</a></li>

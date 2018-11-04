@@ -21,7 +21,7 @@
             
 			<div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Check Password</label>
-              <input type="password" class="form-control" id="passwd-check" placeholder="Enter password">
+              <input type="password" class="form-control" id="passwd-check" placeholder="Check password">
             </div>
             
 			<div class="form-group">
@@ -30,14 +30,15 @@
             </div>
             
            	<div class="form-group">
-           		<label for="postal"><span class="glyphicon glyphicon-eye-open"></span>Search Location</label>
-           		<input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호">
-           		<input type="button" class="btn btn-success" onclick="sample6_execDaumPostcode()" value="search"><br>
+         	  <label for="zip-code"><span class="glyphicon glyphicon-eye-open"></span>Zip code</label>
+         	  <input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호">
+         	  <input type="button" class="btn btn-success" onclick="sample6_execDaumPostcode()" value="search"><br>
            	</div>
-          
-			<input type="text" id="sample6_address" class="form-control"placeholder="주소">
-			<input type="text" id="sample6_address2" class="form-control"placeholder="상세주소">
-			
+            <div class="form-group">
+              <label for="street-address"><span class="glyphicon glyphicon-eye-open"></span>Street address</label>
+  			  <input type="text" id="sample6_address" class="form-control"placeholder="주소">
+  			  <input type="text" id="sample6_address2" class="form-control"placeholder="상세주소">
+			</div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
             </div>
