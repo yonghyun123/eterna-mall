@@ -98,20 +98,20 @@
               <h2>Buyer Information</h2>
             </div>
             <table class="cart-table">
-              <tbody>
-                <tr>
+              <thead>
+                <tr class="col-md-12">
                   <th>Name</th>
                   <td>서지원</td>
                 </tr>
-                <tr>
+                <tr class="col-md-12">
                   <th>Phone</th>
                   <td>010-1234-1234</td>
                 </tr>
-                <tr>
+                <tr class="col-md-12">
                   <th>E-mail</th>
                   <td>g1@gmail.com</td>
                 </tr>
-              </tbody>
+              </thead>
             </table>
           </div>
           <div class="col-md-12">
@@ -119,20 +119,95 @@
               <h2>Shipping Information</h2>
             </div>
             <table class="cart-table">
-              <tbody>
-                <tr>
+              <thead>
+                <tr class="col-md-12">
                   <th>주소</th>
-                  <td>선택선택</td>
+                  <td>
+                  <div>
+                  <div class="address"><input type="radio" value="현재주소" name="address"> 주문자 주소와 동일 </div>
+                  <div class="address"><input type="radio" value="최근주소" name="address"> 최근주소 </div>
+                  <div class="address"><input type="radio" value="새주소" name="address"> 새주소 </div></div>
+                  <div><input type="text" class="form-control" id="address" name="address"></div>
+                  </td>
                 </tr>
-                <tr>
-                  <th>Phone</th>
-                  <td>010-1234-1234</td>
+                <tr class="col-md-12">
+                  <th>수령인 이름</th>
+                  <td><input type="text" class="form-control" id="name" name="name"></td>
                 </tr>
-                <tr>
-                  <th>E-mail</th>
-                  <td>g1@gmail.com</td>
+                <tr class="col-md-12">
+                  <th>휴대폰</th>
+                  <td class=" phone"><input type="text" class="form-control" name="name" maxlength="11">
+                  </td>
                 </tr>
-              </tbody>
+                <tr class="col-md-12">
+                <th>배송요청사항</th>
+                <td><textarea name="request" cols="30" rows="5" class="form-control" maxlength="50"></textarea>
+                <div class="chk_bytes"><span>0</span>자 / 50자</div></td>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="col-md-8">
+            <div class="title">
+              <h2>Coupon / Point</h2>
+            </div>
+            <table class="cart-table">
+              <thead>
+                <tr class="col-md-12">
+                  <th>쿠폰 적용</th>
+                  <td>
+                  <div><a href="#" class="btn btn-primary btn-sm">쿠폰 선택</a></div>
+                  </td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>적립금 적용</th>
+                  <td><div>사용가능 적립금 : <span>3,000</span> (원)</div>
+                  <div class="address"><span>사용할 적립금 : </span><input type="text" class="form-control" id="name" name="name"><span>(원)</span> </div></td>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="col-md-8">
+            <div class="title">
+              <h2>Payment</h2>
+            </div>
+            <table class="cart-table">
+              <thead>
+                <tr class="col-md-12">
+                  <th>일반결제</th>
+                  <td>
+                  <div class="address"><input type="radio" value="신용카드" name="generalPay"> 신용카드 </div>
+                  <div class="address"><input type="radio" value="휴대폰" name="generalPay"> 휴대폰 </div>
+                  </td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>Paynow 결제</th>
+                  <td><div class="address"><input type="radio" value="신용카드" name="generalPay" > <img src="images/logo_paynow.png"></div>
+                </tr>
+                <tr class="col-md-12">
+                  <th>PAYCO 결제</th>
+                  <td><div class="address"><input type="radio" value="신용카드" name="generalPay"> <img src="images/logo_payco.png"> </div>
+                </tr>  
+                <tr class="col-md-12">
+                  <th>에스크로 결제</th>
+                  <td><div class="address"><input type="radio" value="신용카드" name="generalPay"> 계좌이체  </div>
+                </tr>                                                               
+              </thead>
+            </table>
+          </div>
+                    <div class="col-md-8">
+            <div class="title">
+              <h2>개인정보 수집/제공</h2>
+            </div>
+            <table class="cart-table">
+              <thead>
+                <tr class="col-md-12">
+                  <th>일반결제</th>
+                  <td>
+                  <div class="address"><input type="checkbox" value="신용카드" name="generalPay"> [필수] 개인정보 수집 및 이용 동의 </div>
+                  </td>
+                </tr>
+              </thead>
             </table>
           </div>
         </div>
@@ -420,7 +495,7 @@
                           <p class="mb-0">Make your payment directly
                             into our bank account. Please use your Order
                             ID as the payment reference. Your order
-                            wonât be shipped until the funds have
+                            wonâ  t be shipped until the funds have
                             cleared in our account.</p>
                         </div>
                       </div>
@@ -438,7 +513,7 @@
                           <p class="mb-0">Make your payment directly
                             into our bank account. Please use your Order
                             ID as the payment reference. Your order
-                            wonât be shipped until the funds have
+                            wonâ  t be shipped until the funds have
                             cleared in our account.</p>
                         </div>
                       </div>
@@ -455,7 +530,7 @@
                           <p class="mb-0">Make your payment directly
                             into our bank account. Please use your Order
                             ID as the payment reference. Your order
-                            wonât be shipped until the funds have
+                            wonâ  t be shipped until the funds have
                             cleared in our account.</p>
                         </div>
                       </div>
