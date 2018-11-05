@@ -28,16 +28,15 @@
 	
 	<!-- 물품별 전체 이미지  조회 -->
 	<select id="imageAll" resultType="ProductImage" parameterType = "Integer">			   
-		SELECT image.id 		AS imageId, 
-		       image.image_type AS imageType, 
-		       image.product_id AS productId, 
-		       fileInfo.file_name    AS  fileId
-		FROM   sm_product_image image, 
-		       sm_product product,
-		       sm_file_info fileInfo 
-		WHERE  image.product_id = product.product_id
-		 AND   image.file_id = fileInfo.file_id 
-		 AND   product.product_id = #{value} 		   
+		SELECT pi.id 		AS "imageId", 
+		       pi.image_type AS "imageType", 
+		       pi.product_id AS "productId", 
+		       fi.file_id AS "fileId",
+		       fi.file_name    AS  "fileName"
+		FROM   sm_product_image pi, 
+		       sm_file_info fi 
+		WHERE  pi.product_id = #{value}
+		 AND   pi.file_id = fi.file_id 		 
 	</select>
 	<!-- 물품삭제 -->
 	<delete id="deleteImage" parameterType="Map">
