@@ -45,6 +45,18 @@
 			ORDER  BY product.product_id		
 	</select>
 	
+		<!-- 제품조회  이미지 조회는 별도로 해줘야함-->
+	<select id="readImage" resultType="Product" parameterType="Integer">
+			SELECT pi.category_id			AS "imageType", 
+			       pi.product_id	     	AS "productId", 
+			       fn.file_name 			AS "fileName"
+			FROM   sm_product_image pi, 
+			       sm_file_info fn 
+			WHERE  pi.file_id = fn.file_id 
+			AND    pi.product_id=#{productId}
+			ORDER  BY product.product_id		
+	</select>
+	
 	<!--  제품 정보 수정(브랜드, 설명, 제고, 수정일자, 최소연령 최고연령)-->
 	<update id="update" parameterType="Product">
 		UPDATE SM_product

@@ -5,25 +5,20 @@
 <head>
 <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
 <meta charset="utf-8">
-<meta name="viewport"
-  content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/jquery-ui.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet"
-  href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
-  integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
-  crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+<link rel="stylesheet" href="../fonts/icomoon/style.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/magnific-popup.css">
+<link rel="stylesheet" href="../css/jquery-ui.css">
+<link rel="stylesheet" href="../css/owl.carousel.min.css">
+<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/shop_single.css">
-<link rel="stylesheet" href="css/aos.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../css/index.css">
+<link rel="stylesheet" href="../css/shop_single.css">
+<link rel="stylesheet" href="../css/aos.css">
+<link rel="stylesheet" href="../css/style.css">
 <jsp:include page="/includes/header.jsp"></jsp:include>
 </head>
 <body>
@@ -33,24 +28,28 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0">
-            <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
-            <strong class="text-black">Tank Top T-Shirt</strong>
+            <a href="/eternamall/index.jsp">Home</a> <span class="mx-2 mb-0">/</span>
+            <strong class="text-black">${selectProduct.productDescription }</strong>
           </div>
         </div>
       </div>
     </div>
     <div class="site-section">
+    <c:forEach var="imageList" items="${imageList}" varStatus="status">
+
+    </c:forEach>
+    
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
+            <img src="../images/${imageList[0].fileName}" alt="Image" class="img-fluid">
           </div>
           <div class="col-md-6">
-            <h2 class="text-black">Tank Top T-Shirt</h2>
+            <h2 class="text-black">${selectProduct.productDescription }</h2>
             <div class="mb-5">
               <p>
                 <strong class="text-black h5">Price </strong> <strong
-                  class="text-primary h4">5,000</strong>
+                  class="text-primary h4">${selectProduct.price }</strong>
               </p>
               <p>Point : 50원 적립예정</p>
               <p>배송비 : 2,500원 (30,000원 이상 무료배송)</p>
@@ -70,7 +69,7 @@
               </div>
               <p>
                 <strong class="text-black h5">Total Price </strong> <strong
-                  class="text-primary h4">5,000</strong>
+                  class="text-primary h4">${selectProduct.price}</strong>
               </p>
               <p>
                 <a href="cart.html"
@@ -82,6 +81,8 @@
           </div>
         </div>
       </div>
+      
+      
       <div class="site-section block-3 site-blocks-2 bg-light">
         <div class="container">
           <div class="row justify-content-center">
@@ -91,7 +92,7 @@
           </div>
           <div class="row image-row">
             <div class="col-md-12">
-              <img src="images/cloth_1.jpg" alt="Image placeholder"
+              <img src="../images/${imageList[1].fileName}" alt="Image placeholder"
                 class="img-fluid detail">
             </div>
           </div>
@@ -333,16 +334,16 @@
     </div>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/main.js"></script>
+  <script src="../js/jquery-3.3.1.min.js"></script>
+  <script src="../js/jquery-ui.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/owl.carousel.min.js"></script>
+  <script src="../js/jquery.magnific-popup.min.js"></script>
+  <script src="../js/aos.js"></script>
+  <script src="../js/main.js"></script>
   <script src="//code.jquery.com/jquery.min.js"></script>
-  <script src="js/paginathing.js"></script>
+  <script src="../js/paginathing.js"></script>
   <script>
            $('#table-review tbody').paginathing({
            // Limites your pagination number
