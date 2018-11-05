@@ -203,6 +203,8 @@ jQuery(document).ready(function($) {
     $("#signup-btn").click(function(){
         $("#signup-modal").modal();
     });
-    
+    $("#loading-btn").click(function(){
+        $("#loading-modal").modal();
+    });
 
 });
