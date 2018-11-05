@@ -43,7 +43,7 @@
 	</insert>
 
 	<!-- 유저별 구매 리스트 -->
-	<select id="listAll" resultType="Buy">
+	<select id="listClient" resultType="Buy">
 	 SELECT i.buyer_name as buyerName, 
        i.buyer_tel as buyerTel,
        i.buyer_address as buyerAddress,
@@ -66,6 +66,32 @@
        join SM_file_info f
           ON e.file_id = f.file_id
 	 WHERE user_id=#{userId} and image_type='th'
+	</select>
+	
+	<!-- 유저별 구매 리스트 -->
+	<select id="listAll" resultType="Buy">
+	 SELECT i.buyer_name as buyerName, 
+       i.buyer_tel as buyerTel,
+       i.buyer_address as buyerAddress,
+       i.receiver_name as receiverName,
+       i.receiver_tel as receiverTel,
+       i.receiver_address as receiverAddress,       
+       i.user_id as userId,
+       i.order_flag as orderFlag,
+       m.count as count,
+       p.product_brand as productBrand,
+       p.product_description as productDescription,
+       f.file_name as fileName
+	 FROM   SM_buy_info i 
+       join SM_buy_manage m 
+         ON i.id=m.buy_id 
+       join SM_product p 
+         ON m.product_id=p.product_id 
+       join SM_product_image e 
+         ON p.product_id=e.product_id
+       join SM_file_info f
+          ON e.file_id = f.file_id
+	 WHERE image_type='th'
 	</select>
 	
 	<!-- 최근 3개의 배송지 조회 -->

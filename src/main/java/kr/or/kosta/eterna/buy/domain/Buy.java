@@ -65,7 +65,7 @@ public class Buy {
 	}
 
 
-	public String getUserId() {
+	public String receiverTel() {
 		return userId;
 	}
 
@@ -73,6 +73,12 @@ public class Buy {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+
+	public String getUserId() {
+		return userId;
+	}
+
 
 	public String getPasswd() {
 		return passwd;

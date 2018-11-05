@@ -46,11 +46,19 @@ public class MybatisBuyDao implements BuyDao {
 	@Override
 	public List<Buy> listAll(String userId) throws Exception {
 		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
-		List<Buy> buyList = sqlSession.selectList(NAMESPACE+"listAll",userId);
+		List<Buy> buyList = sqlSession.selectList(NAMESPACE+"listClient",userId);
 		sqlSession.close();
 		return buyList;
 		}
 
+	@Override
+	public List<Buy> listAll() throws Exception {
+		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
+		List<Buy> buyList = sqlSession.selectList(NAMESPACE+"listAll");
+		sqlSession.close();
+		return buyList;
+		}
+	
 	@Override
 	public List<Buy> recentAddress(String userId) throws Exception {
 		SqlSession  sqlSession = sqlSessionFactory.openSession(true);

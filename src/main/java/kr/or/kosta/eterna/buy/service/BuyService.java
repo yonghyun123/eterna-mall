@@ -17,6 +17,9 @@ public interface BuyService {
 	/* 회원별 구매내역 조회 */
 	public List<Buy> listAll(String userId) throws Exception;
 	
+	/* 전체 구매내역 조회 */
+	public List<Buy> listAll() throws Exception;
+	
 	/* 회원별 최근 3개의 배송지 조회 */
 	public List<Buy> recentAddress(String userId) throws Exception;
 	
