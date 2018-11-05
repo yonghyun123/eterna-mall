@@ -9,17 +9,19 @@ public class ProductImage {
 	private int productId;
 	/** 파일 식별자*/
 	private int fileId;
+	private String fileName;
 	
 	public ProductImage() {
 		super();
 	}
 	
-	public ProductImage(int imageId, String imageType, int productId, int fileId) {
+	public ProductImage(int imageId, String imageType, int productId, int fileId, String fileName) {
 		super();
 		this.imageId = imageId;
 		this.imageType = imageType;
 		this.productId = productId;
 		this.fileId = fileId;
+		this.fileName = fileName;
 	}
 
 	public int getImageId() {
@@ -54,8 +56,18 @@ public class ProductImage {
 		this.fileId = fileId;
 	}
 
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	@Override
 	public String toString() {
-		return "productImage [imageId=" + imageId + ", imageType=" + imageType + ", productId=" + productId + ", fileId=" + fileId +"]";
+		return "ProductImage [imageId=" + imageId + ", imageType=" + imageType + ", productId=" + productId
+				+ ", fileId=" + fileId + ", fileName=" + fileName + "]";
 	}
+
 }
