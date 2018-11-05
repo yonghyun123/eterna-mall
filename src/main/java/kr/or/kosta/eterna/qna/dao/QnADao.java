@@ -30,4 +30,5 @@ public interface QnADao {
 	/* Q&A 전체 조회(관리자용) */
 	public List<QnA> listAll() throws Exception;
 
+
 }

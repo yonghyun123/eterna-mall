@@ -32,7 +32,12 @@ public class BuyServiceImpl implements BuyService {
 	public List<Buy> listAll(String userId) throws Exception {
 		return buyDao.listAll(userId);
 	}
-
+	
+	@Override
+	public List<Buy> listAll() throws Exception {
+		return buyDao.listAll();
+	}
+	
 	@Override
 	public List<Buy> recentAddress(String userId) throws Exception {
 		return buyDao.recentAddress(userId);

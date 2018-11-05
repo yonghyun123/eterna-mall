@@ -115,7 +115,7 @@ public void testMyReviewList() {
 		e.printStackTrace();
 	}
 }
-//@Test
+@Test
 public void testListAll() {
 try {
 	List<QnA> list = qnaDao.listAll();
