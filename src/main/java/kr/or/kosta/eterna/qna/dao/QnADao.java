@@ -19,7 +19,7 @@ public interface QnADao {
 	public void createComment(QnA qna) throws Exception;
 	
 	/* Q&A 수정*/
-	public void update(QnA qna) throws Exception;
+	public void update(QnA qna, String id) throws Exception;
 
 	/* 상품별 Q&A 전체 조회 */
 	public List<QnA> listItem(String productId) throws Exception;

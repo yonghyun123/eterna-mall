@@ -1,6 +1,8 @@
 package kr.or.kosta.eterna.qna.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -59,14 +61,21 @@ public class MybatisQnADao implements QnADao {
 
 	@Override
 	public void createComment(QnA qna) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update(QnA qna) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void update(QnA qna, String id) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		String subject = qna.getSubject();
+		String content = qna.getContent();
+		map.put("subject", subject);
+		map.put("content", content);
+		map.put("id", id);
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.update(NAMESPACE+"update", map);
+		sqlSession.commit();
+		sqlSession.close();
 	}
 
 }

@@ -20,6 +20,8 @@
       	<typeAlias type="kr.or.kosta.eterna.fileInfo.domain.FileInfo" alias="FileInfo"/>
       	<typeAlias type="kr.or.kosta.eterna.review.domain.Review" alias="Review"/>
       	<typeAlias type="kr.or.kosta.eterna.qna.domain.QnA" alias="QnA"/>
+      	<typeAlias type="kr.or.kosta.eterna.price.domain.Price" alias="Price"/>   
+        <typeAlias type="kr.or.kosta.eterna.category.domain.Category" alias="Category"/>
 	</typeAliases>
 	
 	<!-- 다수의 Database에 접근하거나 개발, 테스트, 운영 환경에 맞는 다중 환경 설정 지원 -->
@@ -53,7 +55,9 @@
       	<mapper resource="mappers/ProductImageMapper.xml"  />
       	<mapper resource="mappers/ReviewMapper.xml"  />
       	<mapper resource="mappers/FileInfoMapper.xml"  /> 
-      	<mapper resource="mappers/QnAMapper.xml"  /> 
+      	<mapper resource="mappers/QnAMapper.xml"  />
+      	<mapper resource="mappers/PriceMapper.xml"  />
+        <mapper resource="mappers/CategoryMapper.xml"  /> 
 	</mappers>
 
 </configuration>
