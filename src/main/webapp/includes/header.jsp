@@ -44,7 +44,7 @@
             <li><a href="#">선케어</a></li>
           </ul>
         </li>
-        <li><a href="shop.jsp">Products</a></li>
+        <li><a href="/eternamall/main/product.mall">Products</a></li>
         <li><a href="notice.jsp">FAQ</a></li>
         <!-- 이 부분 동적으로 변환해야함 -->
         <li><a id="signup-btn">Join</a></li>
