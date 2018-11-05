@@ -14,9 +14,13 @@ import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 import kr.or.kosta.eterna.product.domain.Product;
 import kr.or.kosta.eterna.product.service.ProductService;
 import kr.or.kosta.eterna.product.service.ProductServiceImpl;
+import kr.or.kosta.eterna.productImage.domain.ProductImage;
+import kr.or.kosta.eterna.productImage.service.ProductImageService;
+import kr.or.kosta.eterna.productImage.service.ProductImageServiceImpl;
 
 public class ProductDetailController implements Controller {
 	private ProductService productService;
+	private ProductImageService productImageService;
 	Logger logger = Logger.getLogger(ProductDetailController.class);
 	
 
@@ -27,7 +31,10 @@ public class ProductDetailController implements Controller {
 		
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		productService = (ProductService)factory.getBean(ProductServiceImpl.class);
-		List<Product> list = null;
+		productImageService = (ProductImageService)factory.getBean(ProductImageServiceImpl.class);
+		
+		Product selectProduct = null;
+		List<ProductImage> imageList = null;
 		
 		String productId = request.getParameter("productId");
 		logger.debug("productId"+productId);
@@ -35,12 +42,15 @@ public class ProductDetailController implements Controller {
 		try {
 			//가져오는 데이터 만들어줘야함
 			//list = productService.listAll();
+			selectProduct = productService.read(productId);
+			imageList = productImageService.imageAll(productId);
 		} catch (Exception e) {
-			throw new ServletException("CartService.list() 예외 발생", e);
+			throw new ServletException("ProductDetailController 예외 발생", e);
 		}
-		//mav.addObject("productList", list);
-		//mav.setView("/shop_single.jsp");
 		
+		mav.addObject("selectProduct", selectProduct);
+		mav.addObject("imageList", imageList);
+		mav.setView("/shop_single.jsp");
 		return mav;
 		
 	}

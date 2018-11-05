@@ -64,13 +64,16 @@
                 </div>
               </div>
             </div>
+            
             <ul class="row mb-5 product_info">
-
-              <c:forEach var="product" items="${productList}">
+              <c:forEach var="product" items="${productList}" varStatus="status">
 				<li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
               	  <div class="block-4 text-center border">
                    <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="../images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
+                   	<form id="form${status.index}" action="/eternamall/main/detail.mall" method="post">
+                   		<a class="images-btn"><img src="../images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
+                 	  	<input type="hidden" name="productId" value="${product.productId }">
+                   	</form>
                    </figure>
                    <div class="block-4-text p-4">
                     <h3><a href="shop-single.html">${product.productBrand}</a></h3>
@@ -79,11 +82,10 @@
                    </div>
                  </div>
                </li>
-           </c:forEach>
-
+           	</c:forEach>
             </ul>
+			
           </div>
-
         <jsp:include page="/includes/side.jsp"></jsp:include>  
         </div>
       </div>
@@ -102,6 +104,8 @@
   <script src="../js/paginathing.js"></script>
   
   <script type="text/javascript">
+  
+ 
   $('.product_info').paginathing({
       // Limites your pagination number
       // false or number
@@ -121,7 +125,17 @@
       disabledClass: 'disabled',
       insertAfter: '.product_info'
     });  
+  var imagesBtn = document.querySelectorAll('.images-btn');
+  
+  imagesBtn.forEach(function(v){
+	  v.addEventListener('click',function(e){
+		 console.log(e.target.parentNode.parentNode.id);
+		 $("#"+e.target.parentNode.parentNode.id).submit();
+	  })
+  })
+  
   </script>
-    
+
+
   </body>
 </html>
