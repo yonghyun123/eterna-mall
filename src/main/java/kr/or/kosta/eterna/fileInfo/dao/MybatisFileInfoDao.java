@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import kr.or.kosta.eterna.fileInfo.domain.FileInfo;
 
-/**Mybatis를 적용한 productDAO
+/**Mybatis를 적용한 FileInfoDAO
  * @author 권현우
  *
  */
@@ -39,8 +39,7 @@ public class MybatisFileInfoDao implements FileInfoDao {
 	@Override
 	public void delete(String file_id) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);	
-		sqlSession.delete(NAMESPACE+"deleteFile", file_id);
-
+		sqlSession.delete(NAMESPACE+"deleteFile", Integer.parseInt(file_id));
 	}
 
 	@Override
