@@ -9,7 +9,7 @@
         </div>
         <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
           <div class="site-logo">
-            <a href="index.jsp" class="js-logo-clone">Shoppers</a>
+            <a href="/eternamall/index.jsp" class="js-logo-clone">Shoppers</a>
           </div>
         </div>
 
@@ -35,7 +35,7 @@
     <div class="container">
       <ul class="site-menu js-clone-nav d-none d-md-block">
         <li class="has-children active">
-          <a href="index.jsp">Category</a>
+          <a href="/eternamall/index.jsp">Category</a>
           <ul class="dropdown">
             <li><a href="#">Menu One</a></li>
             <li><a href="#">Menu Two</a></li>
@@ -51,7 +51,7 @@
           </ul>
         </li>
         <li><a href="about.jsp">New</a></li>
-        <li><a href="shop.jsp">Best</a></li>
+        <li><a href="main/product.mall">Best</a></li>
         <li><a href="notice.jsp">FAQ</a></li>
         <!-- 이 부분 동적으로 변환해야함 -->
         <li><a id="signup-btn">Join</a></li>
