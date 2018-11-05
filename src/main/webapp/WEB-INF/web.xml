@@ -29,7 +29,7 @@
 	<!-- Listener 초기 파라메터 설정 -->
 	<context-param>
 		<param-name>configLocation</param-name>
-		<param-value>C:/KOSTA187/workspace/Project_eternamall/src/main/webapp/WEB-INF/object-mapper.xml</param-value>
+		<param-value>C:\Users\USER\Documents\eterna-mall\src\main\webapp\WEB-INF\object-mapper.xml</param-value>
 	</context-param>
 
 	<!-- 필터 설정 -->
@@ -70,7 +70,7 @@
 		<servlet-class>kr.or.kosta.eterna.common.controller.FrontControllerServlet</servlet-class>
 		<init-param>
 			<param-name>configLocation</param-name>
-			<param-value>C:/KOSTA187/workspace/Project_eternamall/src/main/webapp/WEB-INF/controller-mapper.xml</param-value>
+			<param-value>C:\Users\USER\Documents\eterna-mall\src\main\webapp\WEB-INF\controller-mapper.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
