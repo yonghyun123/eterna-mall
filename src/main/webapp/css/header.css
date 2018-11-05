@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* header CSS */
 .site-menu li {
 	margin: 0 2%;
 }
@@ -10,4 +11,43 @@
 
 .search-input {
 	padding-left: 20%;
+}
+
+.site-navigation .top-dropdown > li {
+	min-width: 100px !important;
+}
+
+/* modal CSS */
+
+.modal-content {
+	margin-top: 200px;
+}
+
+.modal-body {
+	padding: 40px 50px;
+}
+
+#detail-address {
+	margin-top: 1%;
+}
+
+.checkbox {
+	margin: 1% 1% 0 0;
+}
+.btn-success {
+	margin-top: 1%;
+	width: 100%;
+}
+
+.btn-cancel {
+	width: 100%;
+	margin-top: 1%;
+}
+
+.user-support {
+	display: block;
+}
+
+.user-support p {
+	display: inline-block;
 }

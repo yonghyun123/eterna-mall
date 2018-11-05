@@ -35,23 +35,16 @@
     <div class="container">
       <ul class="site-menu js-clone-nav d-none d-md-block">
         <li class="has-children active">
-          <a href="/eternamall/index.jsp">Category</a>
-          <ul class="dropdown">
-            <li><a href="#">Menu One</a></li>
-            <li><a href="#">Menu Two</a></li>
-            <li><a href="#">Menu Three</a></li>
-            <li class="has-children">
-              <a href="#">Sub Menu</a>
-              <ul class="dropdown">
-                <li><a href="#">Menu One</a></li>
-                <li><a href="#">Menu Two</a></li>
-                <li><a href="#">Menu Three</a></li>
-              </ul>
-            </li>
+          <a href="index.jsp">Category</a>
+          <ul class="dropdown top-dropdown">
+            <li><a href="#">클렌징</a></li>
+            <li><a href="#">립제품</a></li>
+            <li><a href="#">스킨</a></li>
+            <li><a href="#">로션</a></li>
+            <li><a href="#">선케어</a></li>
           </ul>
         </li>
-        <li><a href="about.jsp">New</a></li>
-        <li><a href="main/product.mall">Best</a></li>
+        <li><a href="shop.jsp">Products</a></li>
         <li><a href="notice.jsp">FAQ</a></li>
         <!-- 이 부분 동적으로 변환해야함 -->
         <li><a id="signup-btn">Join</a></li>

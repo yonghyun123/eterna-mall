@@ -28,7 +28,6 @@
   </head>
   <body>
   <div class="site-wrap">
-        <a>지원수정 ___</a>
     <div class="container" data-aos="fade">
       <div class="col-lg-10 video-cover">
         <video autoplay muted loop id="myVideo">
