@@ -11,7 +11,5 @@
 	<bean type="controller" name="/user/buylist" class="kr.or.kosta.eterna.buy.controller.BuyListController" />
 	<!-- 리뷰관리 -->	
 	<bean type="controller" name="/user/reviewlist" class="kr.or.kosta.eterna.review.controller.ReviewListController" />
-	<!-- 상품관리 -->
-	<bean type="controller" name="/main/product" class="kr.or.kosta.eterna.product.controller.ProductController" />
 
 </beans>

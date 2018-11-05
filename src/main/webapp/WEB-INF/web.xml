@@ -29,7 +29,7 @@
 	<!-- Listener 초기 파라메터 설정 -->
 	<context-param>
 		<param-name>configLocation</param-name>
-		<param-value>/Users/yonghyun/Desktop/eternamall/src/main/webapp/WEB-INF/object-mapper.xml</param-value>
+		<param-value>C:/KOSTA187/workspace/Project_eternamall/src/main/webapp/WEB-INF/object-mapper.xml</param-value>
 	</context-param>
 
 	<!-- 필터 설정 -->
@@ -40,10 +40,6 @@
 			<param-name>encoding</param-name>
 			<param-value>utf-8</param-value>
 		</init-param>
-		<init-param>
-      	   <param-name>forceEncoding</param-name>
-      	   <param-value>true</param-value>
-     	 </init-param>
 	</filter>
 	
 	<filter>
@@ -74,7 +70,7 @@
 		<servlet-class>kr.or.kosta.eterna.common.controller.FrontControllerServlet</servlet-class>
 		<init-param>
 			<param-name>configLocation</param-name>
-			<param-value>/Users/yonghyun/Desktop/eternamall/src/main/webapp/WEB-INF/controller-mapper.xml</param-value>
+			<param-value>C:/KOSTA187/workspace/Project_eternamall/src/main/webapp/WEB-INF/controller-mapper.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
