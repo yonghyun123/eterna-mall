@@ -7,9 +7,9 @@
   <div class="modal fade" id="signup-modal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content" style="margin-top: 200px;">
-        <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" style="text-align: left">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form role="form" class="text-left">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Id</label>
               <input type="text" class="form-control" id="userId" placeholder="Enter ID">
@@ -31,13 +31,13 @@
             
            	<div class="form-group">
          	  <label for="zip-code"><span class="glyphicon glyphicon-eye-open"></span>Zip code</label>
-         	  <input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호">
-         	  <input type="button" class="btn btn-success" onclick="sample6_execDaumPostcode()" value="search"><br>
+         	  <input type="text" id="zip-code" class="form-control" placeholder="우편번호">
+         	  <input type="button" class="btn btn-success" onclick="execDaumPostcode()" value="search"><br>
            	</div>
             <div class="form-group">
               <label for="street-address"><span class="glyphicon glyphicon-eye-open"></span>Street address</label>
-  			  <input type="text" id="sample6_address" class="form-control"placeholder="주소">
-  			  <input type="text" id="sample6_address2" class="form-control"placeholder="상세주소">
+  			  <input type="text" id="street-address" class="form-control" placeholder="주소">
+  			  <input type="text" id="detail-address" class="form-control" placeholder="상세주소">
 			</div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
@@ -52,7 +52,7 @@
  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     // 우편번호 찾기 화면을 넣을 element
-    function sample6_execDaumPostcode() {
+    function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -85,11 +85,11 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('sample6_address').value = fullAddr;
+                document.getElementById('zip-code').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('street-address').value = fullAddr;
 
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('sample6_address2').focus();
+                document.getElementById('detail-address').focus();
             }
         }).open();
     }
