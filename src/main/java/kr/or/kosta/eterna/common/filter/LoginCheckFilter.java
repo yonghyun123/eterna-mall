@@ -19,12 +19,11 @@ public class LoginCheckFilter implements Filter {
 	
 	private Logger logger = Logger.getLogger(LoginCheckFilter.class);
 	
-//	private String loginPage = "/user/login.jsp";
 	private String loginPage;
+	private String cookieName;
 
     @Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-    	loginPage = filterConfig.getInitParameter("loginPage");
 	}
 
     @Override
@@ -36,21 +35,18 @@ public class LoginCheckFilter implements Filter {
 			for (Cookie cookie : cookies) {
 				if(cookie.getName().equals("loginId")) {
 					isLogin = true;
+					cookieName = cookie.getValue();
+					logger.debug("로그인 중!");
 					break;
 				}
 			}
 		}
 		
 		if(isLogin) {
-			chain.doFilter(request, response);
-		}else {
-			if(loginPage == null) {
-				throw new ServletException("LoginCheckFilter에 loginPage가 설정되어 있지 않습니다.");
-			}
-			request.setAttribute("uri", ((HttpServletRequest)request).getRequestURI());
-//			((HttpServletRequest)request).getSr
-			request.getServletContext().getRequestDispatcher(loginPage).forward(request, response);
-		}
+			request.setAttribute("loginId", cookieName);
+		} 
+		request.setAttribute("uri", ((HttpServletRequest)request).getRequestURI());
+		chain.doFilter(request, response);
 	}
     
     @Override
