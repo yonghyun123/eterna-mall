@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,26 +62,37 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<!-- 상품 정보 -->
-								<td class="product-inform" colspan="5"><img
-									src="images/cloth_2.jpg" alt="Image" class="product-thumbnail">
-									<div class="product-text">
-										<div class="name">Top Up T-Shirts</div>
-										<div class="price">3,000원</div>
-									</div></td>
-								<!-- 수량 -->
-								<td class="product-quantity">
-									<div class="cart-button-group input-group">
-										<input type="text" class="form-control text-center" value="1"
-											aria-label="Example text with button addon"
-											aria-describedby="button-addon1" disabled="disabled">
-									</div>
-								</td>
-								<!-- 금액 -->
-								<td class="product-price text-right">30,000원</td>
-								<td></td>
-							</tr>
+							<c:choose>
+								<c:when test="${not empty cartList }">
+									<c:forEach var="cart" items="${cartList }" varStatus="status">
+										<tr>
+											<!-- 상품 정보 -->
+											<td class="product-inform" colspan="5"><img
+												src="images/${cart.fileName }" alt="Image"
+												class="product-thumbnail">
+												<div class="product-text">
+													<div class="name">${cart.productDescription }</div>
+													<div class="price">
+														<span class="cartPrice">${cart.price }</span>원
+													</div>
+												</div></td>
+											<!-- 수량 -->
+											<td class="product-quantity">
+												<div class="cart-button-group input-group">
+													<input type="text" class="form-control text-center cartCount"
+														value="${cart.count }"
+														aria-label="Example text with button addon"
+														aria-describedby="button-addon1" disabled="disabled">
+												</div>
+											</td>
+											<!-- 금액 -->
+											<td class="product-price text-right"><span
+												class="totalCost"></span>원</td>
+											<td></td>
+										</tr>
+									</c:forEach>
+								</c:when>
+							</c:choose>
 						</tbody>
 					</table>
 				</div>
@@ -97,15 +109,15 @@
 							<thead>
 								<tr class="col-md-12">
 									<th>Name</th>
-									<td>서지원</td>
+									<td>${user.userId }</td>
 								</tr>
 								<tr class="col-md-12">
 									<th>Phone</th>
-									<td>010-1234-1234</td>
+									<td>${user.userTel }</td>
 								</tr>
 								<tr class="col-md-12">
 									<th>E-mail</th>
-									<td>g1@gmail.com</td>
+									<td>${user.userEmail }</td>
 								</tr>
 							</thead>
 						</table>
@@ -140,13 +152,13 @@
 								</tr>
 								<tr class="col-md-12">
 									<th>수령인 이름</th>
-									<td><input type="text" class="form-control col-md-3" id="name"
-										name="name"></td>
+									<td><input type="text" class="form-control col-md-3"
+										id="receiver" name="name"></td>
 								</tr>
 								<tr class="col-md-12">
 									<th>휴대폰</th>
-									<td class=" phone"><input type="text" class="form-control col-md-3"
-										name="name" maxlength="11"></td>
+									<td class=" phone"><input type="text"
+										class="form-control col-md-3" name="phone" maxlength="11"></td>
 								</tr>
 								<tr class="col-md-12">
 									<th>배송요청사항</th>
@@ -175,14 +187,17 @@
 									<th>쿠폰 적용</th>
 									<td>
 										<div>
-											<a href="#" class="btn btn-primary btn-sm">쿠폰 선택</a>
+											<div>
+											선택 쿠폰 : <span class="selectedCoupon"></span>	
+											</div>
+											<a id="coupon" class="btn btn-primary btn-sm">쿠폰 선택</a>
 										</div>
 									</td>
 								</tr>
 								<tr class="col-md-12">
 									<th>적립금 적용</th>
 									<td><div>
-											사용가능 적립금 : <span>3,000</span> (원)
+											사용가능 적립금 : <span>${user.userPoint }</span> (원)
 										</div>
 										<div class="address">
 											<span>사용할 적립금 : </span><input type="text"
@@ -263,7 +278,7 @@
 									</tr>
 									<tr>
 										<td>shipping fee</td>
-										<td><span>2,500</span>원</td>
+										<td><span>3,000</span>원</td>
 									</tr>
 									<tr>
 									<tr>
@@ -284,7 +299,7 @@
 							<div class="form-group">
 								<button class="btn btn-primary btn-lg py-3 btn-block"
 									id="loading-btn">Place Order</button>
-									    <%@ include file="/loading.jsp"%>
+								<%-- 									    <%@ include file="/loading.jsp"%> --%>
 							</div>
 						</div>
 					</div>
@@ -292,6 +307,7 @@
 				<!-- </form> -->
 			</div>
 		</div>
+		<%@ include file="coupon.jsp"%>
 		<jsp:include page="/includes/footer.jsp"></jsp:include>
 	</div>
 	<script src="js/jquery-3.3.1.min.js"></script>
@@ -302,6 +318,21 @@
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/aos.js"></script>
 	<script src="js/main.js"></script>
-	
+	<script type="text/javascript">
+	$(function(){
+		console.log("cartCount");
+		var cartCount = document.querySelectorAll('.cartCount');
+		console.log(cartCount);
+		var cartPrice = document.querySelectorAll('.cartPrice');
+		var totalCost = document.querySelectorAll('.totalCost');
+		for (key in cartCount) {
+			if (cartCount[key].value) {
+				totalCost[key].innerText = Number(cartCount[key].value)
+						* Number(cartPrice[key].innerText);
+			}
+		}
+		
+	});
+	</script>
 </body>
 </html>

@@ -69,11 +69,11 @@
 										<th class="product-remove"></th>
 									</tr>
 								</thead>
-								<c:choose>
-									<c:when test="${not empty list }">
-										<c:forEach var="cart" items="${list }" varStatus="status">
 
-											<tbody>
+								<tbody>
+									<c:choose>
+										<c:when test="${not empty list }">
+											<c:forEach var="cart" items="${list }" varStatus="status">
 												<tr>
 													<!-- 체크버튼 -->
 													<td class="cart-button text-center"><input
@@ -113,10 +113,15 @@
 													<td class="cart-button text-center"><i
 														class="fas fa-trash"></i></td>
 												</tr>
-											</tbody>
-										</c:forEach>
-									</c:when>
-								</c:choose>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<tr>
+												<td colspan="11">장바구니에 담긴 상품이 존재하지 않습니다.</td>
+											</tr>
+										</c:otherwise>
+									</c:choose>
+								</tbody>
 							</table>
 
 						</div>

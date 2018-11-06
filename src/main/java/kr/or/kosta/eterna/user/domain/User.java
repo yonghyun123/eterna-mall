@@ -2,11 +2,12 @@ package kr.or.kosta.eterna.user.domain;
 
 /**
  * 회원 domain
+ * 
  * @author 조희진
  *
  */
 public class User {
-	
+
 	private String userId;
 	private String userName;
 	private String userEmail;
@@ -17,13 +18,19 @@ public class User {
 	private String userGrade;
 	private String userPoint;
 	private String userRegdate;
-	
+	private String couponName;
+	private String couponStartDate;
+	private String couponEndDate;
+	private String couponId;
+
 	public User() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public User(String userId, String userName, String userEmail, String userPasswd, String userAddress, String userTel,
-			String tierId, String userGrade, String userPoint, String userRegdate) {
+			String tierId, String userGrade, String userPoint, String userRegdate, String couponName,
+			String couponStartDate, String couponEndDate, String couponId) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -35,16 +42,10 @@ public class User {
 		this.userGrade = userGrade;
 		this.userPoint = userPoint;
 		this.userRegdate = userRegdate;
-	}
-	
-	public User(String userId, String userName, String userEmail, String userPasswd, String userAddress, String userTel) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.userEmail = userEmail;
-		this.userPasswd = userPasswd;
-		this.userAddress = userAddress;
-		this.userTel = userTel;
+		this.couponName = couponName;
+		this.couponStartDate = couponStartDate;
+		this.couponEndDate = couponEndDate;
+		this.couponId = couponId;
 	}
 
 	public String getUserId() {
@@ -127,12 +128,45 @@ public class User {
 		this.userRegdate = userRegdate;
 	}
 
+	public String getCouponName() {
+		return couponName;
+	}
+
+	public void setCouponName(String couponName) {
+		this.couponName = couponName;
+	}
+
+	public String getCouponStartDate() {
+		return couponStartDate;
+	}
+
+	public void setCouponStartDate(String couponStartDate) {
+		this.couponStartDate = couponStartDate;
+	}
+
+	public String getCouponEndDate() {
+		return couponEndDate;
+	}
+
+	public void setCouponEndDate(String couponEndDate) {
+		this.couponEndDate = couponEndDate;
+	}
+	
+	public String getCouponId() {
+		return couponId;
+	}
+	
+	public void setCouponId(String couponId) {
+		this.couponId = couponId;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPasswd="
 				+ userPasswd + ", userAddress=" + userAddress + ", userTel=" + userTel + ", tierId=" + tierId
-				+ ", userGrade=" + userGrade + ", userPoint=" + userPoint + ", userRegdate=" + userRegdate + "]";
+				+ ", userGrade=" + userGrade + ", userPoint=" + userPoint + ", userRegdate=" + userRegdate
+				+ ", couponName=" + couponName + ", couponStartDate=" + couponStartDate + ", couponEndDate="
+				+ couponEndDate + ", couponId=" +couponId+ "]";
 	}
 
-	
 }

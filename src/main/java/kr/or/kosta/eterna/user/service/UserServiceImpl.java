@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.certify(userId, userPasswd);
 	}
 
+	@Override
+	public List<User> listCoupon(String userId) throws Exception {
+		return userDao.listCoupon(userId);
+	}
+
 }
