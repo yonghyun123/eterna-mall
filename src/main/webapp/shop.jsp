@@ -102,7 +102,7 @@
   <script src="../js/aos.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/paginathing.js"></script>
-  
+  <script src="../js/ajax.js"></script>
   <script type="text/javascript">
   
  

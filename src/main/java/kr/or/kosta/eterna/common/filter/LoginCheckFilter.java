@@ -28,7 +28,6 @@ public class LoginCheckFilter implements Filter {
 
     @Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    	logger.debug("LoginCheckFiler 실행..");
 		boolean isLogin = false;
 		Cookie[] cookies = ((HttpServletRequest)request).getCookies();
 		if(cookies != null) {
@@ -36,7 +35,6 @@ public class LoginCheckFilter implements Filter {
 				if(cookie.getName().equals("loginId")) {
 					isLogin = true;
 					cookieName = cookie.getValue();
-					logger.debug("로그인 중!");
 					break;
 				}
 			}

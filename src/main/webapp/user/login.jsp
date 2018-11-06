@@ -11,7 +11,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
-          <form role="form" id="login-form" class="text-left" action="login.mall" method="post">
+          <form role="form" class="text-left" action="login.mall">
             <div class="form-group">
               <label for="id"><span class="glyphicon glyphicon-user"></span> ID</label>
               <input type="text" class="form-control" name="inputId" id="id" placeholder="Enter ID">
@@ -55,9 +55,8 @@
 			} else {
 				params = "inputId=" + id.value + "&inputPasswd=" + password.value;
 			}
-			
  			$.ajax({
- 				url: "login.mall",
+ 				url: "/eternamall/login.mall",
  				data: params,
  				success: function (data) {
  					setTimeout(() => {
@@ -70,7 +69,7 @@
  	 					}	
  					}, 1000)
  				}
- 			})
+ 			});
  		}
  	}
  </script>

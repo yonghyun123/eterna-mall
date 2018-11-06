@@ -11,7 +11,7 @@
         </div>
         <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
           <div class="site-logo">
-            <a href="index.jsp" class="js-logo-clone">Shoppers</a>
+            <a href="/eternamall/index.jsp" class="js-logo-clone">Shoppers</a>
           </div>
         </div>
 
@@ -46,7 +46,7 @@
             <li><a href="#">선케어</a></li>
           </ul>
         </li>
-        <li><a href="shop.jsp">Products</a></li>
+        <li><a href="/eternamall/main/product.mall">Products</a></li>
         <li><a href="notice.jsp">FAQ</a></li>
         <c:choose>
           <c:when test="${!empty cookie.loginId.value}">
@@ -67,13 +67,13 @@
         </li>
       </ul>
     </div>
-    <script src="js/ajax.js"></script>
+    
     <script>
       	var logout = document.getElementById("logout-btn");
       	var login = document.getElementById("login-button");
       	if(logout) {
         	logout.onclick = function() {
-          		window.location.href="logout.mall"; 
+          		window.location.href="/eternamall/logout.mall"; 
         	} 
       	}      	
     </script>
