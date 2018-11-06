@@ -34,6 +34,7 @@
 .checkbox {
 	margin: 1% 1% 0 0;
 }
+
 .btn-success {
 	margin-top: 1%;
 	width: 100%;
@@ -50,4 +51,15 @@
 
 .user-support p {
 	display: inline-block;
+}
+
+/* fail modal CSS */
+
+.fail-body {
+	padding: 0 40px;
+}
+
+.fail-content {
+	height: 100%;
+	padding: 15%;
 }

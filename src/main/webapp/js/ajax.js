@@ -4,18 +4,17 @@ function ajax(obj){
    var url = obj.url;
    var param =  obj.param; // name=value
    var callback = obj.callback;
-   
    var request = createXMLHttpRequest();
-   
    request.onreadystatechange = function(){
+	  
       if(request.readyState == 4){
-         if(request.status == 200){
+         if(request.status == 200 || request.status == 0){
             callback(request);
          }else if(request.status == 400){
             alert("잘못된 요청입니다..");
          }else if(request.status == 404){
             alert("요청한 페이지를 찾을 수 없습니다..");         
-         }else{
+         } else{
             alert("서버장애로 서비스 할 수 없습니다..");   
          }
       }
@@ -30,6 +29,7 @@ function ajax(obj){
       request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       request.send(param);
    }
+   
 }
 
 function createXMLHttpRequest(){
