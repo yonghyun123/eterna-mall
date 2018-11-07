@@ -206,5 +206,8 @@ jQuery(document).ready(function($) {
     $("#loading-btn").click(function(){
         $("#loading-modal").modal();
     });
+    $("#coupon").click(function(){
+        $("#coupon-modal").modal();
+    });
 
 });

@@ -36,6 +36,7 @@
        content, 
        board_id as boardId, 
        answer_flag AS answerFlag,
+       secret_flag AS secretFlag,
        group_no as groupNo,
        level_no as levelNo 
 	FROM   SM_product_answer 

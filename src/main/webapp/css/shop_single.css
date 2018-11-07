@@ -112,3 +112,8 @@
 .custom_pagination{
 	float: right;
 }
+.open-close{
+	font-size: 5px;
+    color: green;
+    cursor: alias;
+}

@@ -12,17 +12,22 @@ public class Review {
 	private String productId;
 	private String boardId;
 	private String regdate;
+	private String subject;
+	
+
+
 	private String content;
 	private String score;
 	private String answerFlag;
 	
 	
+
 	public Review() {
 		super();
 	}
 
 
-	public Review(String userId, String productId, String boardId, String regdate, String content, String score,
+	public Review(String userId, String productId, String boardId, String regdate, String subject, String content, String score,
 			String answerFlag, String id) {
 		super();
 		this.userId = userId;
@@ -30,6 +35,7 @@ public class Review {
 		this.boardId = boardId;
 		this.regdate = regdate;
 		this.content = content;
+		this.subject = subject;
 		this.score = score;
 		this.answerFlag = answerFlag;
 		this.id = id;
@@ -121,18 +127,21 @@ public class Review {
 	public void setAnswerFlag(String answerFlag) {
 		this.answerFlag = answerFlag;
 	}
+	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 
 
 	@Override
 	public String toString() {
 		return "Review [id=" + id + ", userId=" + userId + ", productId=" + productId + ", boardId=" + boardId
-				+ ", regdate=" + regdate + ", content=" + content + ", score=" + score + ", answerFlag=" + answerFlag
-				+ "]";
+				+ ", regdate=" + regdate + ", subject=" + subject + ", content=" + content + ", score=" + score
+				+ ", answerFlag=" + answerFlag + "]";
 	}
-
-
-	
-	
 
 
 }

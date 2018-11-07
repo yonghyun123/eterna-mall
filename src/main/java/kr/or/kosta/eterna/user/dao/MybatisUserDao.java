@@ -87,6 +87,14 @@ public class MybatisUserDao implements UserDao {
 		
 	}
 
+	@Override
+	public List<User> listCoupon(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<User> listCoupon = sqlSession.selectList(NAMESPACE+"coupon", userId);
+		sqlSession.close();
+		return listCoupon;
+	}
+
 }
 
 

@@ -23,7 +23,6 @@ public class ProductDetailController implements Controller {
 	private ProductImageService productImageService;
 	Logger logger = Logger.getLogger(ProductDetailController.class);
 	
-
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
