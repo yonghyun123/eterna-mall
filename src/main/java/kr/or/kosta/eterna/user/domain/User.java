@@ -48,6 +48,15 @@ public class User {
 		this.couponId = couponId;
 	}
 
+	public User(String userId, String userName, String userEmail, String userPasswd, String userAddress, String userTel) {
+		this.userId = userId;
+		this.userName = userName;
+		this.userEmail = userEmail;
+		this.userPasswd = userPasswd;
+		this.userAddress = userAddress;
+		this.userTel = userTel;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

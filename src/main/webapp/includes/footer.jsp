@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <footer class="site-footer border-top">
+  
+<!-- 에러에 맞는 메세지를 hidden으로 저장하고 있다가 띄운다. -->
+  <div id="popup-message-login-success">로그인 성공!</div>
+  <div id="popup-message-join-success">회원가입 성공!</div>
+  <div id="popup-message-join-fail">회원가입에 실패하셨습니다.</div>
+  
   <div class="container">
     <div class="row">
       <div class="site-section site-section-sm">
@@ -48,3 +54,16 @@
     </div>
   </div>
 </footer>
+
+<script>
+  function popup(flag) {
+      var x = document.getElementById("${flag}");
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      
+  }
+    if("${flag}" != null) {
+    popup("${flag}");
+  }
+</script>
+<% session.invalidate(); %>
