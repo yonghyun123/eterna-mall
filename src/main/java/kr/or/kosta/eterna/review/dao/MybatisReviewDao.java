@@ -1,6 +1,8 @@
 package kr.or.kosta.eterna.review.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -55,6 +57,17 @@ public class MybatisReviewDao implements ReviewDao {
 		List<Review> reviewList = sqlSession.selectList(NAMESPACE+"listAll");
 		sqlSession.close();
 		return reviewList;
+	}
+
+	@Override
+	public Map<String,String> reviewCheck(String userId, String productId) throws Exception {
+		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
+		Map<String, String> params = new HashMap<>();
+		params.put("userId", userId);
+		params.put("productId",productId);
+		
+		Map<String,String> checkList = sqlSession.selectOne(NAMESPACE+"checkUser", params);
+		return checkList;
 	}
 
 }

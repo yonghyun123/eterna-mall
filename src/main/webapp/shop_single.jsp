@@ -105,16 +105,13 @@
             <div id="제품 리뷰" class="tabcontent" style="display: block;">
               <div class="container">
                 <div class="row justify-content-center">
-                  <div
-                    class="col-md-7 site-section-heading text-center pt-4">
+                  <div class="col-md-7 site-section-heading text-center pt-4">
                     <h2>제품 리뷰</h2>
                   </div>
                 </div>
                 <div class="row">
                   <div class="container">
-                    <input type="button" value="리뷰등록"
-                      class="btn btn-outline-primary js-btn-plus"
-                      id="create">
+                    <input type="button" value="리뷰등록" class="btn btn-outline-primary js-btn-plus create" id="review-create">
                     <table class="table table-hover " id="table-review">
                       <thead>
                         <tr>
@@ -141,10 +138,8 @@
                         </div>
                       </div>
                     </div>
-                    <p class="h6">고객님이 작성해 주시는 상품평은 다른 분들께 소중한 정보가
-                      됩니다.</p>
-                    <p class="h6">상품평 작성시 200원, 포토 상품평 작성시 300원을 적립해
-                      드립니다.</p>
+                    <p class="h6">고객님이 작성해 주시는 상품평은 다른 분들께 소중한 정보가 됩니다.</p>
+                    <p class="h6">상품평 작성시 200원, 포토 상품평 작성시 300원을 적립해 드립니다.</p>
                   </div>
                 </div>
               </div>
@@ -163,13 +158,8 @@
                 <div class="row">
                   <div class="container">
                     <div class="field">
-                      <textarea class="review" name="contents"
-                        id="message" rows="6"
-                        placeholder="로그인한 경우에만 문의 작성이 가능합니다"
-                        maxlength="200"></textarea>
-                      <input type="button" value="등록"
-                        class="btn btn-outline-primary js-btn-plus"
-                        id="create">
+                      <textarea class="review" name="contents" id="message" rows="6" placeholder="로그인한 경우에만 문의 작성이 가능합니다" maxlength="200"></textarea>
+                      <input type="button" value="등록" class="btn btn-outline-primary js-btn-plus create" id="qna-create">
                     </div>
                     <table class="table table-hover col-md-12" id="table-qNa">
                       <thead>
@@ -203,7 +193,6 @@
   <script src="../js/jquery.magnific-popup.min.js"></script>
   <script src="../js/aos.js"></script>
   <script src="../js/main.js"></script>
-  <script src="//code.jquery.com/jquery.min.js"></script>
   <script src="../js/paginathing.js"></script>
   <script type="my-template" id="review-body">
 <tr>
@@ -246,16 +235,51 @@
 </tr>
   </script>
   <script>
+  var loginId = "${cookie.loginId.value}";
+  var productId = ${selectProduct.productId};
   
   var lickBtn =  document.querySelectorAll('.modify-count');
  
   $(document).on('click','.modify-count',function(){
 	  insertText();
   });
+  
+
+  reviewCreateBtn();
+  function reviewCreateBtn(){
+	  var reviewBtn = document.querySelector('#review-create');
+	  reviewBtn.addEventListener('click', function(){
+		  checkBuyerInfoAjax();
+	  });
+  }
+  
+  function checkBuyerInfoAjax(){
+	  $.ajax({
+			 url: "/eternamall/product/reviewCheck.mall",
+			 type:"get",
+			 data: {
+				 userId: loginId,
+				 productId: productId
+			 },
+			 dataType:"text",
+			 success: function(data){
+				 if(data == 1){
+					 //modal
+					 console.log(data);
+					 console.log('적합한 회원입니다.');
+				     $("#review-modal").modal();						 
+					 
+					 
+				 } else {
+					 alert('상품을 구매하지 않았습니다');
+				 }
+			 }
+	  })
+  }
 
   function insertText(){
 	  var count = document.querySelector('#product-count').value;
-	  var productPrice = document.querySelector('#product-price').innerText
+	  var productPrice = document.querySelector('#product-price').innerText;
 	  const totalPrice = Number(productPrice) * Number(count);
 	  console.log(totalPrice);
 	  $('#total-price').text(totalPrice);
@@ -377,3 +401,4 @@
      </script>
 </body>
 </html>
+<%@ include file="reviewModal.jsp" %>

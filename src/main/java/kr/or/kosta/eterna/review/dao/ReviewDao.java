@@ -1,6 +1,7 @@
 package kr.or.kosta.eterna.review.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.eterna.review.domain.Review;
 
@@ -20,8 +21,13 @@ public interface ReviewDao {
 
 	/* 회원별 리뷰 전체 조회 */
 	public List<Review> myReviewList(String userId) throws Exception;
-
+	
+	/* 제품을 구매한 회원만 리뷰등록 */
+	public Map<String, String> reviewCheck(String userId, String productId) throws Exception;
+	
 	/* 리뷰 전체 조회(관리자용) */
 	public List<Review> listAll() throws Exception;
+	
+	
 
 }

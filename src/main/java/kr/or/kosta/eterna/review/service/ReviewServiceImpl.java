@@ -1,6 +1,7 @@
 package kr.or.kosta.eterna.review.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.eterna.review.dao.ReviewDao;
 import kr.or.kosta.eterna.review.domain.Review;
@@ -35,6 +36,16 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> listAll() throws Exception {
 		return reviewDao.listAll();
+	}
+
+	@Override
+	public boolean checkReview(String userId, String productId) throws Exception {
+		Map<String,String> checkReview = reviewDao.reviewCheck(userId, productId);
+		if(checkReview == null){
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 
