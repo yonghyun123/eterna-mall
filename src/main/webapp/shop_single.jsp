@@ -111,7 +111,7 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <input type="button" value="리뷰등록" class="btn btn-outline-primary js-btn-plus" id="review-create">
+                    <input type="button" value="리뷰등록" class="btn btn-outline-primary js-btn-plus create" id="review-create">
                     <table class="table table-hover " id="table-review">
                       <thead>
                         <tr>
@@ -158,11 +158,8 @@
                 <div class="row">
                   <div class="container">
                     <div class="field">
-                      <textarea class="review" name="contents"
-                        id="message" rows="6"
-                        placeholder="로그인한 경우에만 문의 작성이 가능합니다"
-                        maxlength="200"></textarea>
-                      <input type="button" value="등록" class="btn btn-outline-primary js-btn-plus" id="qna-create">
+                      <textarea class="review" name="contents" id="message" rows="6" placeholder="로그인한 경우에만 문의 작성이 가능합니다" maxlength="200"></textarea>
+                      <input type="button" value="등록" class="btn btn-outline-primary js-btn-plus create" id="qna-create">
                     </div>
                     <table class="table table-hover col-md-12" id="table-qNa">
                       <thead>
@@ -196,7 +193,6 @@
   <script src="../js/jquery.magnific-popup.min.js"></script>
   <script src="../js/aos.js"></script>
   <script src="../js/main.js"></script>
-  <script src="//code.jquery.com/jquery.min.js"></script>
   <script src="../js/paginathing.js"></script>
   <script type="my-template" id="review-body">
 <tr>
@@ -248,6 +244,8 @@
 	  insertText();
   });
   
+
+  reviewCreateBtn();
   function reviewCreateBtn(){
 	  var reviewBtn = document.querySelector('#review-create');
 	  reviewBtn.addEventListener('click', function(){
@@ -257,15 +255,24 @@
   
   function checkBuyerInfoAjax(){
 	  $.ajax({
-			 url: "/eternamall/product/reviewlist.mall",
+			 url: "/eternamall/product/reviewCheck.mall",
 			 type:"get",
 			 data: {
+				 userId: loginId,
 				 productId: productId
 			 },
 			 dataType:"text",
 			 success: function(data){
-				 var jsonReviewData = JSON.parse(data);
-				 reviewTemplate(jsonReviewData);
+				 if(data == 1){
+					 //modal
+					 console.log(data);
+					 console.log('적합한 회원입니다.');
+				     $("#review-modal").modal();						 
+					 
+					 
+				 } else {
+					 alert('상품을 구매하지 않았습니다');
+				 }
 			 }
 	  })
   }
@@ -394,3 +401,4 @@
      </script>
 </body>
 </html>
+<%@ include file="reviewModal.jsp" %>
