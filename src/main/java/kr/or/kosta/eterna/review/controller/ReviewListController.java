@@ -1,10 +1,15 @@
 package kr.or.kosta.eterna.review.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
@@ -30,15 +35,42 @@ public class ReviewListController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		reviewService = (ReviewService)factory.getBean(ReviewServiceImpl.class);
 		List<Review> list = null;
+		String productId = request.getParameter("productId");
+		System.out.println("---------productId: "+productId);
 		try {
-			list = reviewService.listItem("9");
+			list = reviewService.listItem(productId);
 		} catch (Exception e) {
-			throw new ServletException("CartService.list() 예외 발생", e);
+			throw new ServletException("reviewService.list() 예외 발생", e);
 		}
-		mav.addObject("list", list);
-		mav.setView("/user/reviewlist.jsp");
-		return mav;
+		response.setContentType("application/json; charset=utf-8");
+		
+		JSONArray jsonArray = new JSONArray();
 
+		for (Review review : list) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", review.getId());
+			jsonObject.put("userId", review.getUserId());
+			jsonObject.put("productId", review.getProductId());
+			jsonObject.put("regdate", review.getRegdate());
+			jsonObject.put("score", review.getScore());
+			jsonObject.put("content", review.getContent());
+			jsonObject.put("subject", review.getSubject());
+			jsonArray.add(jsonObject);
+		}
+		
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(jsonArray.toJSONString());
+		out.println(jsonArray.toJSONString());
+		
+		//mav.addObject("list", list);
+		//mav.setView("/user/reviewlist.jsp");
+		return null;
 	}
 
 }

@@ -26,7 +26,8 @@
 	<select id="listItem" resultType="Review">
 	 SELECT user_id     AS userId, 
        product_id  AS productId, 
-       regdate, 
+       regdate,
+       subject, 
        content, 
        score,
        board_id as boardId, 
