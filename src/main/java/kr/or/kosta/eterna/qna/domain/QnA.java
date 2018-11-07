@@ -15,14 +15,13 @@ public class QnA {
 	private String content;
 	private String regdate;
 	private String answerFlag;
+	private String secretFlag;
 	private String groupNo;
 	private String levelNo;
-	
-	
+
 	public QnA() {
 		super();
 	}
-
 
 	public QnA(String id, String userId, String productId, String boardId, String subject, String content,
 			String regdate, String answerFlag, String groupNo, String levelNo) {
@@ -47,6 +46,14 @@ public class QnA {
 	}
 
 	
+	public String getSecretFlag() {
+		return secretFlag;
+	}
+
+	public void setSecretFlag(String secretFlag) {
+		this.secretFlag = secretFlag;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -146,13 +153,10 @@ public class QnA {
 		this.levelNo = levelNo;
 	}
 
-
 	@Override
 	public String toString() {
 		return "QnA [id=" + id + ", userId=" + userId + ", productId=" + productId + ", boardId=" + boardId
 				+ ", subject=" + subject + ", content=" + content + ", regdate=" + regdate + ", answerFlag="
-				+ answerFlag + ", groupNo=" + groupNo + ", levelNo=" + levelNo + "]";
+				+ answerFlag + ", secretFlag=" + secretFlag + ", groupNo=" + groupNo + ", levelNo=" + levelNo + "]";
 	}
-
-
 }

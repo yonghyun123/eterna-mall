@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../css/shop_single.css">
 <link rel="stylesheet" href="../css/aos.css">
 <link rel="stylesheet" href="../css/style.css">
+
 <jsp:include page="/includes/header.jsp"></jsp:include>
 </head>
 <body>
@@ -104,14 +105,10 @@
           <div class="row">
           <div class="col-md-12">
             <div class="tab" id="tab">
-              <button class="tablinks active"
-                onclick="openCity(event, '제품 리뷰')" id="defaultOpen">제품
-                리뷰</button>
-              <button class="tablinks"
-                onclick="openCity(event, '상품 문의')">상품 문의</button>
+              <button class="tablinks active" onclick="openCity(event, '제품 리뷰')" id="defaultOpen">제품리뷰</button>
+              <button class="tablinks" onclick="openCity(event, '상품 문의')" id="product-qNa">상품 문의</button>
             </div>
-            <div id="제품 리뷰" class="tabcontent"
-              style="display: block;">
+            <div id="제품 리뷰" class="tabcontent" style="display: block;">
               <div class="container">
                 <div class="row justify-content-center">
                   <div
@@ -127,133 +124,16 @@
                     <table class="table table-hover " id="table-review">
                       <thead>
                         <tr>
-                          <th>Firstname</th>
-                          <th>Lastname</th>
-                          <th>Email</th>
+                          <th>번호</th>
+                          <th>제목</th>
+                          <th>작성자</th>
+                          <th>등록일자</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
+                      <tbody id="in-tbody">
+                      <!-- 여기에 리뷰 내용들어가야해 -->
                       </tbody>
+                      
                     </table>
                     <div class="in-page">
                     
@@ -300,27 +180,14 @@
                     <table class="table table-hover col-md-12" id="table-qNa">
                       <thead>
                         <tr>
-                          <th>Firstname</th>
-                          <th>Lastname</th>
-                          <th>Email</th>
+                          <th>번호</th>
+                          <th>제목</th>
+                          <th>작성자</th>
+                          <th>등록일자</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
+                      <tbody id="qNa-body">
+                      <!-- qNa body -->
                       </tbody>
                     </table>
                   </div>
@@ -344,64 +211,161 @@
   <script src="../js/main.js"></script>
   <script src="//code.jquery.com/jquery.min.js"></script>
   <script src="../js/paginathing.js"></script>
+  <script type="my-template" id="review-body">
+<tr>
+	<td class="title">
+		{number}
+	</td>
+	<td class="title">
+		{subject}
+		<span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+		<span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+	</td>
+	<td class="title">
+		{userId}
+	</td>
+	<td class="title">
+		{regdate}
+	</td>
+</tr>
+<tr style='display:none;'>
+	<td colspan="4">{content}</td>
+</tr>
+  </script>
+  <script type="my-template" id="qna-body">
+<tr>
+	<td class="title">
+		{number}
+	</td>
+	<td class="title">
+		{subject}
+	</td>
+	<td class="title">
+		{userId}
+	</td>
+	<td class="title">
+		{regdate}
+	</td>
+</tr>
+<tr style='display:none;'>
+	<td colspan="4">{content}</td>
+</tr>
+  </script>
   <script>
-           $('#table-review tbody').paginathing({
-           // Limites your pagination number
-           // false or number
-           limitPagination: 5,
-           perPage: 5,
-           // Pagination controls
-           prevNext: true,
-           firstLast: true,
-           prevText: '&laquo;',
-           nextText: '&raquo;',
-           firstText: 'First',
-           lastText: 'Last',
-           firstClass: 'test_page',
-           ulClass: 'pagination custom_pagination',
-           liClass: 'test_page page',
-           activeClass: 'active',
-           disabledClass: 'disabled',
-           insertAfter: '#table-review'
-         }); 
+  var productId = ${selectProduct.productId};
+  document.getElementById("defaultOpen").click();
+  
+  $.ajax({
+	 url: "/eternamall/product/reviewlist.mall",
+	 type:"get",
+	 data: {
+		 productId: productId
+	 },
+	 dataType:"text",
+	 success: function(data){
+		 var jsonReviewData = JSON.parse(data);
+		 reviewTemplate(jsonReviewData);
+	 }
+	 
+  });
+
+  function reviewTemplate(reviewData){
+	  var templateHtml = document.querySelector('#review-body').innerHTML;
+	  var originHtml = document.querySelector('#in-tbody');
+	  var newHtml = '';
+	  reviewData.forEach(function(v,i){
+		  newHtml += templateHtml.replace('{number}', i+1)
+		  						 .replace('{subject}', v.subject)
+		  						 .replace('{userId}', v.userId)
+		  						 .replace('{regdate}', v.regdate)
+		  						 .replace('{content}', v.content);
+	  });
+	  
+	  originHtml.innerHTML = newHtml;
+	  $(".plusIcon").on("click",function(){
+		  var obj = $(this);
+		  if( obj.hasClass("glyphicon-plus") ){
+		    obj.hide();
+		    obj.next().show();            
+		    obj.parent().parent().next().show();
+		  }else{
+		     obj.hide();
+		     obj.prev().show();
+		     obj.parent().parent().next().hide();
+		  }
+		});
+	 }
+  
+     function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+           tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
            
-
-         document.getElementById("defaultOpen").click();
-         function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-               tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-               tablinks[i].className = tablinks[i].className.replace(
-                     " active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-         }
-         
-         $('#table-qNa tbody').paginathing({
-             // Limites your pagination number
-             // false or number
-             limitPagination: 5,
-             perPage: 5,
-             // Pagination controls
-             prevNext: true,
-             firstLast: true,
-             prevText: '&laquo;',
-             nextText: '&raquo;',
-             firstText: 'First',
-             lastText: 'Last',
-             firstClass: 'test_page',
-             ulClass: 'pagination custom_pagination',
-             liClass: 'test_page page',
-             activeClass: 'active',
-             disabledClass: 'disabled',
-             insertAfter: '#table-qNa'
-           });  
-
-      </script>
+           tablinks[i].className = tablinks[i].className.replace("active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+        console.log(evt.currentTarget.id);
+        if(evt.currentTarget.id == 'product-qNa'){
+        	$.ajax({
+        		 url: "/eternamall/product/qnalist.mall",
+        		 type:"get",
+        		 data: {
+        			 productId: productId
+        		 },
+        		 dataType:"text",
+        		 success: function(data){
+        			 var jsonQnAData = JSON.parse(data);
+        			 console.log(jsonQnAData);
+        			 qnaTemplate(jsonQnAData);
+        		 }
+        		 
+        	  });
+        }
+     }
+       
+     function qnaTemplate(jsonQnAData){
+   	  var secretHtml = document.querySelector('#qna-body').innerHTML;
+  	  var generalHtml = document.querySelector('#review-body').innerHTML;
+	  var originHtml = document.querySelector('#qNa-body');
+	  var newHtml = '';
+	  jsonQnAData.forEach(function(v,i){
+		  /* 일반글일때 */
+		  
+		  if(v.secretFlag == '0'){
+			  newHtml += generalHtml.replace('{number}', i+1)
+				 .replace('{subject}', v.subject)
+				 .replace('{userId}', v.userId)
+				 .replace('{regdate}', v.regdate)
+				 .replace('{content}', v.content);
+		  } else if(v.secretFlag == '1'){
+			  /* 비밀글일때 조건이 userId와 쿠키와 가으면 generalHtml로 만들어줌 */
+			  newHtml += secretHtml.replace('{number}', i+1)
+				 .replace('{subject}', '비밀글입니다')
+				 .replace('{userId}', v.userId)
+				 .replace('{regdate}', v.regdate)
+				 .replace('{content}', v.content);
+		  }
+	  });
+	  
+	  originHtml.innerHTML = newHtml;
+	  $(".plusIcon").on("click",function(){
+		  var obj = $(this);
+		  if( obj.hasClass("glyphicon-plus") ){
+		    obj.hide();
+		    obj.next().show();            
+		    obj.parent().parent().next().show();
+		  }else{
+		     obj.hide();
+		     obj.prev().show();
+		     obj.parent().parent().next().hide();
+		  }
+		});
+     }
+     </script>
 </body>
 </html>
