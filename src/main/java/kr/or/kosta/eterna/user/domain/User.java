@@ -22,6 +22,7 @@ public class User {
 	private String couponStartDate;
 	private String couponEndDate;
 	private String couponId;
+	private String couponRate;
 
 	public User() {
 		super();
@@ -30,7 +31,7 @@ public class User {
 
 	public User(String userId, String userName, String userEmail, String userPasswd, String userAddress, String userTel,
 			String tierId, String userGrade, String userPoint, String userRegdate, String couponName,
-			String couponStartDate, String couponEndDate, String couponId) {
+			String couponStartDate, String couponEndDate, String couponId, String couponRate) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -46,9 +47,11 @@ public class User {
 		this.couponStartDate = couponStartDate;
 		this.couponEndDate = couponEndDate;
 		this.couponId = couponId;
+		this.couponRate = couponRate;
 	}
 
-	public User(String userId, String userName, String userEmail, String userPasswd, String userAddress, String userTel) {
+	public User(String userId, String userName, String userEmail, String userPasswd, String userAddress,
+			String userTel) {
 		this.userId = userId;
 		this.userName = userName;
 		this.userEmail = userEmail;
@@ -160,22 +163,30 @@ public class User {
 	public void setCouponEndDate(String couponEndDate) {
 		this.couponEndDate = couponEndDate;
 	}
-	
+
 	public String getCouponId() {
 		return couponId;
 	}
-	
+
 	public void setCouponId(String couponId) {
 		this.couponId = couponId;
 	}
-	
+
+	public String getCouponRate() {
+		return couponRate;
+	}
+
+	public void setCouponRate(String couponRate) {
+		this.couponRate = couponRate;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPasswd="
 				+ userPasswd + ", userAddress=" + userAddress + ", userTel=" + userTel + ", tierId=" + tierId
 				+ ", userGrade=" + userGrade + ", userPoint=" + userPoint + ", userRegdate=" + userRegdate
 				+ ", couponName=" + couponName + ", couponStartDate=" + couponStartDate + ", couponEndDate="
-				+ couponEndDate + ", couponId=" +couponId+ "]";
+				+ couponEndDate + ", couponId=" + couponId + ",couponRate=" + "]";
 	}
 
 }

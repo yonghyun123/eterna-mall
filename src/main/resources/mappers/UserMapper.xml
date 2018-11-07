@@ -46,6 +46,7 @@
 		c.coupon_name AS "couponName",
 		cu.start_date AS "couponStartDate",
 		cu.end_date AS "couponEndDate",
+		c.COUPON_RATE AS "couponRate",
 		cu.ID AS "couponId"
 		FROM sm_coupon_user cu
 		LEFT OUTER JOIN sm_coupon c
