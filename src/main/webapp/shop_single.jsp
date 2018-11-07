@@ -49,28 +49,22 @@
             <h2 class="text-black">${selectProduct.productDescription }</h2>
             <div class="mb-5">
               <p>
-                <strong class="text-black h5">Price </strong> <strong
-                  class="text-primary h4">${selectProduct.price }</strong>
+                <strong class="text-black h5">Price </strong>
+                 <strong class="text-primary h4" id="product-price">${selectProduct.price }</strong>
               </p>
-              <p>Point : 50원 적립예정</p>
-              <p>배송비 : 2,500원 (30,000원 이상 무료배송)</p>
+              <p>배송비 : 3,000원 (30,000원 이상 무료배송)</p>
               <div class="input-group mb-3" style="max-width: 120px;">
                 <div class="input-group-prepend">
-                  <button class="btn btn-outline-primary js-btn-minus"
-                    type="button">&minus;</button>
+                  <button class="btn btn-outline-primary js-btn-minus modify-count" type="button">&minus;</button>
                 </div>
-                <input type="text" class="form-control text-center"
-                  value="1" placeholder=""
-                  aria-label="Example text with button addon"
-                  aria-describedby="button-addon1">
+                <input type="text" id="product-count" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-primary js-btn-plus"
-                    type="button">&plus;</button>
+                  <button class="btn btn-outline-primary js-btn-plus modify-count" type="button">&plus;</button>
                 </div>
               </div>
               <p>
-                <strong class="text-black h5">Total Price </strong> <strong
-                  class="text-primary h4">${selectProduct.price}</strong>
+                <strong class="text-black h5">Total Price </strong>
+                 <strong class="text-primary h4" id="total-price">${selectProduct.price}</strong>
               </p>
               <p>
                 <a href="cart.html"
@@ -252,6 +246,21 @@
 </tr>
   </script>
   <script>
+  
+  var lickBtn =  document.querySelectorAll('.modify-count');
+ 
+  $(document).on('click','.modify-count',function(){
+	  insertText();
+  });
+
+  function insertText(){
+	  var count = document.querySelector('#product-count').value;
+	  var productPrice = document.querySelector('#product-price').innerText
+	  const totalPrice = Number(productPrice) * Number(count);
+	  console.log(totalPrice);
+	  $('#total-price').text(totalPrice);
+  }
+
   var productId = ${selectProduct.productId};
   document.getElementById("defaultOpen").click();
   
@@ -335,7 +344,6 @@
 	  var newHtml = '';
 	  jsonQnAData.forEach(function(v,i){
 		  /* 일반글일때 */
-		  
 		  if(v.secretFlag == '0'){
 			  newHtml += generalHtml.replace('{number}', i+1)
 				 .replace('{subject}', v.subject)
@@ -356,9 +364,9 @@
 	  $(".plusIcon").on("click",function(){
 		  var obj = $(this);
 		  if( obj.hasClass("glyphicon-plus") ){
-		    obj.hide();
-		    obj.next().show();            
-		    obj.parent().parent().next().show();
+		  	  obj.hide();
+		  	  obj.next().show();            
+		  	  obj.parent().parent().next().show();
 		  }else{
 		     obj.hide();
 		     obj.prev().show();
