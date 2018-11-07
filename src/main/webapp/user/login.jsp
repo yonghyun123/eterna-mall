@@ -14,11 +14,11 @@
           <form role="form" class="text-left" action="login.mall">
             <div class="form-group">
               <label for="id"><span class="glyphicon glyphicon-user"></span> ID</label>
-              <input type="text" class="form-control" name="inputId" id="id" placeholder="Enter ID">
+              <input type="text" class="form-control" name="inputId" id="id" placeholder="Enter ID" required>
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" name="inputPasswd" id="psw" placeholder="Enter Password">
+              <input type="password" class="form-control" name="inputPasswd" id="psw" placeholder="Enter Password" required>
               
             </div>
             <div class="checkbox">
@@ -38,38 +38,35 @@
  </div>
     
  <script>
- 	window.onload = function() {
- 		// 아이디 저장
- 		if("${cookie.rememberId}" != null) { 
-  			document.getElementById("id").value = "${cookie.rememberId.value}";
- 		}
- 		
- 		document.getElementById("login-button").onclick = function () {
- 			var id = document.getElementById("id");
- 			var password = document.getElementById("psw");
-			var rememberId = document.getElementById("rememberId");
-			var params = null;
-			
-			if(rememberId.checked == true) {
-				params = "inputId=" + id.value + "&inputPasswd=" + password.value + "&rememberId=" + rememberId.id;
-			} else {
-				params = "inputId=" + id.value + "&inputPasswd=" + password.value;
+	if("${cookie.rememberId}" != null) { 
+			document.getElementById("id").value = "${cookie.rememberId.value}";
+	}
+	
+	document.getElementById("login-button").onclick = function () {
+		var id = document.getElementById("id");
+		var password = document.getElementById("psw");
+		var rememberId = document.getElementById("rememberId");
+		var params = null;
+		
+		if(rememberId.checked == true) {
+			params = "inputId=" + id.value + "&inputPasswd=" + password.value + "&rememberId=" + rememberId.id;
+		} else {
+			params = "inputId=" + id.value + "&inputPasswd=" + password.value;
+		}
+		
+		$.ajax({
+			url: "/eternamall/login.mall",
+			data: params,
+			success: function (data) {
+				setTimeout(() => {
+					if(data.trim() == 'userNone') {
+ 						$("#login-modal").modal('hide');
+ 						$("#login-fail").modal('show');
+ 					} else {
+ 						window.location.reload();
+ 					}	
+				}, 500)
 			}
- 			$.ajax({
- 				url: "/eternamall/login.mall",
- 				data: params,
- 				success: function (data) {
- 					setTimeout(() => {
- 						if(data.trim() == 'userNone') {
- 	 						/* window.location.reload(); */
- 	 						$("#login-modal").modal('hide');
- 	 						$("#login-fail").modal('show');
- 	 					} else {
- 	 						window.location.reload();
- 	 					}	
- 					}, 1000)
- 				}
- 			});
- 		}
- 	}
+		})
+	}
  </script>

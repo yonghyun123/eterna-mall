@@ -20,7 +20,7 @@
             <ul>
               <li><a href="my-page.jsp"><span class="icon icon-person"></span></a></li>
               <li>
-                <a href="cart.jsp" class="site-cart">
+                <a href="/eternamall/cart.jsp" class="site-cart">
                   <span class="icon icon-shopping_cart"></span>
                   <span class="count">2</span>
                 </a>

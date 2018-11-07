@@ -8,6 +8,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
@@ -21,7 +22,7 @@ import kr.or.kosta.eterna.user.service.UserServiceImpl;
  * @author 조희진
  *
  */
-public class UserLoginController implements Controller {
+public class UserJoinController implements Controller {
 	
 	private UserService userService;
 	
@@ -29,53 +30,36 @@ public class UserLoginController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
+		ModelAndView mav = new ModelAndView();
 		userService = (UserService)factory.getBean(UserServiceImpl.class);
+		String id, name, password, email, tel, address;
 		HttpSession session = request.getSession();
-		String loginId, password, rememberId;
-		Cookie[] cookies;
-		PrintWriter out = null;
 		User user = null;
 		
-		loginId = request.getParameter("inputId");
-		password = request.getParameter("inputPasswd");
-		rememberId = request.getParameter("rememberId");
+		id = request.getParameter("user-id");
+		name = request.getParameter("user-name");
+		password = request.getParameter("passwd");
+		email = request.getParameter("user-email");
+		tel = request.getParameter("tel");
+		address = request.getParameter("zip-code") + "/" 
+				+ request.getParameter("street-address") + "/" 
+				+ request.getParameter("detail-address");
 		
 		try {
-			out = response.getWriter();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		try {
-			user = userService.certify(loginId, password);
-		} catch (Exception e) {
-			throw new ServletException("login 실패", e);
-		}
-		// 로그인 못했을 시 에러페이지 처리할 것
-		if(user == null) {
-			out.println("userNone");
-		} else {
-			out.println(user);
-			session.setAttribute("flag", "popup-message-login-success");
-			Cookie cookie = new Cookie("loginId", loginId);
-			response.addCookie(cookie);
-		}
-		
-		if(rememberId != null) {
-			Cookie reCookie = new Cookie("rememberId", loginId);
-			response.addCookie(reCookie);
-		} else {
-			if(request.getCookies() != null) {
-				cookies = request.getCookies();
-				for (Cookie cookie : cookies) {
-					if(cookie.getName().equals("rememberId")) {
-						cookie.setMaxAge(0);
-						response.addCookie(cookie);
-						break;
-					}
-				}
+			if(email.trim().length() != 0) {
+				userService.create(new User(id, name, email, password, address, tel));
+				user = userService.read(id);
 			}
+		} catch (Exception e) {
+			throw new ServletException("join 실패", e);
 		}
-		return null;
+		
+		if(user == null) {
+			session.setAttribute("flag", "popup-message-join-fail");
+		} else {
+			session.setAttribute("flag", "popup-message-join-success");
+		}
+		mav.setView("redirect:index.jsp");
+		return mav;
 	}
 }

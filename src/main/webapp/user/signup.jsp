@@ -9,40 +9,48 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
-          <form role="form" class="text-left">
+          <form role="form" class="text-left" id="join-form" action="/eternamall/join.mall">
             <div class="form-group">
-              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Id</label>
-              <input type="text" class="form-control" id="userId" placeholder="Enter ID">
+              <label for="usrid"><span class="glyphicon glyphicon-user"></span> ID</label>
+              <input type="text" class="form-control" name="user-id" id="user-id" placeholder="Enter ID" required>
             </div>
+            
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Name</label>
+              <input type="text" class="form-control" name="user-name" id="user-name" placeholder="Enter Name" required>
+            </div>
+            
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" id="passwd" placeholder="Enter password">
+              <input type="password" class="form-control" name="passwd" id="passwd" placeholder="Enter password" required>
             </div>
             
 			<div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Check Password</label>
-              <input type="password" class="form-control" id="passwd-check" placeholder="Check password">
+              <input type="password" class="form-control" name="passwd-check" id="passwd-check" placeholder="Check password" required>
             </div>
             
 			<div class="form-group">
               <label for="email"><span class="glyphicon glyphicon-eye-open"></span> Email</label>
-              <input type="email" class="form-control" id="userEmail" placeholder="Enter Email">
+              <input type="email" class="form-control" name="user-email" id="user-email" placeholder="Enter Email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="tel"><span class="glyphicon glyphicon-eye-open"></span> Tel</label>
+              <input type="text" class="form-control" name="tel" id="tel" placeholder="Enter Tel" required>
             </div>
             
            	<div class="form-group">
          	  <label for="zip-code"><span class="glyphicon glyphicon-eye-open"></span>Zip code</label>
-         	  <input type="text" id="zip-code" class="form-control" placeholder="우편번호">
+         	  <input type="text" class="form-control" name="zip-code" id="zip-code"  placeholder="우편번호" required>
          	  <input type="button" class="btn btn-success" onclick="execDaumPostcode()" value="search"><br>
            	</div>
             <div class="form-group">
               <label for="street-address"><span class="glyphicon glyphicon-eye-open"></span>Street address</label>
-  			  <input type="text" id="street-address" class="form-control" placeholder="주소">
-  			  <input type="text" id="detail-address" class="form-control" placeholder="상세주소">
+  			  <input type="text" id="street-address" name="street-address" class="form-control" placeholder="주소" required>
+  			  <input type="text" id="detail-address" name="detail-address" class="form-control" placeholder="상세주소" required>
 			</div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="" checked>Remember me</label>
-            </div>
-              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Signup</button>
+              <button type="button" class="btn btn-success btn-block" id="join"><span class="glyphicon glyphicon-off"></span>Signup</button>
           </form>
         </div>
       </div>
@@ -50,7 +58,20 @@
   </div> 
  </div>
  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
+ <script>
+  	window.onload = function() {
+		document.getElementById("join").onclick = function() {
+			var form = document.getElementById("join-form");
+			var passwd = document.getElementById("passwd").value;
+			var checkpasswd = document.getElementById("passwd-check").value;
+			if(passwd == checkpasswd) {
+				form.submit();
+			} else {
+				alert("비밀번호가 다릅니다!");
+			}
+  		}
+	}
+
     // 우편번호 찾기 화면을 넣을 element
     function execDaumPostcode() {
         new daum.Postcode({
