@@ -12,13 +12,15 @@
              user_id, 
              product_id, 
              board_id, 
-             content, 
+             content,
+             subject, 
              score) 
-		VALUES     (7, 
+		VALUES     (20, 
             #{userId}, 
             #{productId}, 
             1, 
-            #{content}, 
+            #{content},
+            #{subject},
             #{score})
 	</insert>
 
@@ -61,5 +63,16 @@
        answer_flag AS answerFlag 
 	FROM   sm_product_review
   	order by regdate desc
+	</select>
+	
+	<!-- 상품 구매한 회원 체크 -->
+	
+	<select id="checkUser" resultType="map" parameterType="map">
+	 SELECT distinct(bm.product_id)     AS "productId"
+	 FROM   SM_buy_manage bm
+	 WHERE  bm.product_id = #{productId}
+     AND    bm.buy_id =  (SELECT id 
+     					 FROM   SM_buy_info
+     					 WHERE  user_id = #{userId})
 	</select>
 </mapper>

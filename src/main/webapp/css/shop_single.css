@@ -1,5 +1,8 @@
 @charset "utf-8";
-
+.create {
+   float: right;
+   margin-bottom: 2%;
+}
 .detail {
    width: 100%;
    margin-top: 2%;
@@ -90,10 +93,7 @@
    resize: none;
 }
 
-#create {
-   float: right;
-   margin-bottom: 2%;
-}
+
 
 .image-row {
    text-align: center;

@@ -36,7 +36,7 @@ public class CartListController implements Controller {
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}
 		mav.addObject("list", list);
-		mav.setView("/user/cartlist.jsp");
+		mav.setView("/cart.jsp");
 		return mav;
 
 	}
