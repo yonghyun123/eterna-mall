@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="css/style.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/checkout.css">
+<link rel="stylesheet" href="css/header.css">
 <jsp:include page="/includes/header.jsp"></jsp:include>
 </head>
 <body>
@@ -79,7 +80,8 @@
 											<!-- 수량 -->
 											<td class="product-quantity">
 												<div class="cart-button-group input-group">
-													<input type="text" class="form-control text-center cartCount"
+													<input type="text"
+														class="form-control text-center cartCount"
 														value="${cart.count }"
 														aria-label="Example text with button addon"
 														aria-describedby="button-addon1" disabled="disabled">
@@ -133,20 +135,15 @@
 									<td>
 										<div>
 											<div class="address">
-												<input type="radio" value="현재주소" name="address"> 주문자
-												주소와 동일
-											</div>
-											<div class="address">
-												<input type="radio" value="최근주소" name="address">
-												최근주소
-											</div>
-											<div class="address">
-												<input type="radio" value="새주소" name="address"> 새주소
+												<input type="radio" value="equealAdr" name="address"
+													id="equealAdr"> 주문자 주소와 동일
+												<input type="radio" value="RecentAdr" name="address" id="RecentAdr">
+												최근주소<a id="ChoiceRecentAdr" class="btn btn-primary btn-sm">최근 주소 선택</a>
+												<input type="radio" value="newAdr" name="address" id="newAdr"> 새주소
 											</div>
 										</div>
 										<div>
-											<input type="text" class="form-control" id="address"
-												name="address">
+											<input type="text" class="form-control" id="receiverAddress">
 										</div>
 									</td>
 								</tr>
@@ -158,7 +155,8 @@
 								<tr class="col-md-12">
 									<th>휴대폰</th>
 									<td class=" phone"><input type="text"
-										class="form-control col-md-3" name="phone" maxlength="11"></td>
+										class="form-control col-md-3" id="receiverPhone" name="phone"
+										maxlength="11"></td>
 								</tr>
 								<tr class="col-md-12">
 									<th>배송요청사항</th>
@@ -186,22 +184,24 @@
 								<tr class="col-md-12">
 									<th>쿠폰 적용</th>
 									<td>
-										<div>
-											<div>
-											선택 쿠폰 : <span class="selectedCoupon"></span>	
-											</div>
-											<a id="coupon" class="btn btn-primary btn-sm">쿠폰 선택</a>
+										<div class="find">
+
+											선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon"
+												class="btn btn-primary btn-sm">쿠폰 선택</a> <input
+												type="hidden"  class="couponId">
+											<input type="hidden" class="couponRate">
 										</div>
 									</td>
 								</tr>
 								<tr class="col-md-12">
 									<th>적립금 적용</th>
 									<td><div>
-											사용가능 적립금 : <span>${user.userPoint }</span> (원)
+											사용가능 적립금 : <span class="availablePoint">${user.userPoint }</span>
+											(원) <a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
 										</div>
-										<div class="address">
+										<div class="toUsePoint">
 											<span>사용할 적립금 : </span><input type="text"
-												class="form-control" id="name" name="name"><span>(원)</span>
+												class="form-control" id="toUsePoint" name="name"><span>(원)</span>
 										</div></td>
 								</tr>
 							</thead>
@@ -214,31 +214,31 @@
 								<tr class="col-md-12">
 									<th>일반결제</th>
 									<td>
-										<div class="address">
+										<div class="payCard">
 											<input type="radio" value="신용카드" name="generalPay"> <span>신용카드</span>
 										</div>
-										<div class="address">
+										<div class="payTel">
 											<input type="radio" value="휴대폰" name="generalPay"> <span>휴대폰</span>
 										</div>
 									</td>
 								</tr>
 								<tr class="col-md-12">
 									<th>Paynow 결제</th>
-									<td><div class="address">
+									<td><div class="payPaynow">
 											<input type="radio" value="신용카드" name="generalPay"> <img
 												src="images/logo_paynow.png">
 										</div>
 								</tr>
 								<tr class="col-md-12">
 									<th>PAYCO 결제</th>
-									<td><div class="address">
+									<td><div class="payPayco">
 											<input type="radio" value="신용카드" name="generalPay"> <img
 												src="images/logo_payco.png">
 										</div>
 								</tr>
 								<tr class="col-md-12">
 									<th>에스크로 결제</th>
-									<td><div class="address">
+									<td><div class="payEscro">
 											<input type="radio" value="신용카드" name="generalPay"><span>계좌이체</span>
 										</div>
 								</tr>
@@ -252,7 +252,7 @@
 								<tr class="col-md-12">
 									<th>일반결제</th>
 									<td>
-										<div class="address">
+										<div class="checkInfo">
 											<input type="checkbox" value="신용카드" name="generalPay">
 											<span>[필수] 개인정보 수집 및 이용 동의</span>
 										</div>
@@ -268,31 +268,28 @@
 								<thead>
 									<tr>
 										<th>Product Price</th>
-										<th><span>3,000</span>원</th>
+										<th><span class="productPrice"></span>원</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td>discount</td>
-										<td><span>500</span>원</td>
-									</tr>
-									<tr>
-										<td>shipping fee</td>
-										<td><span>3,000</span>원</td>
+										<td>(+) shipping fee</td>
+										<td><span class="shippingFee">3000</span>원</td>
 									</tr>
 									<tr>
 									<tr>
-										<td>Coupon</td>
-										<td><span>2,500</span>원</td>
+										<td>(-) Coupon</td>
+										<td><span class="applyCoupon">2500</span>원</td>
 									</tr>
 									<tr>
-										<td>Point</td>
-										<td><span>2,500</span>원</td>
+										<td>(-) Point</td>
+										<td><span class="applyPoint">0</span>원</td>
 									</tr>
 									<tr>
 										<td class="text-black font-weight-bold"><strong>Order
 												Total</strong></td>
-										<td class="text-black font-weight-bold"><strong>$350.00</strong></td>
+										<th class="text-black font-weight-bold"><span
+											class="orderTotal"></span>원</th>
 									</tr>
 								</tbody>
 							</table>
@@ -307,7 +304,8 @@
 				<!-- </form> -->
 			</div>
 		</div>
-		<%@ include file="coupon.jsp"%>
+		
+		<%@ include file="recentAddress.jsp"%>
 		<jsp:include page="/includes/footer.jsp"></jsp:include>
 	</div>
 	<script src="js/jquery-3.3.1.min.js"></script>
@@ -319,20 +317,85 @@
 	<script src="js/aos.js"></script>
 	<script src="js/main.js"></script>
 	<script type="text/javascript">
-	$(function(){
-		console.log("cartCount");
-		var cartCount = document.querySelectorAll('.cartCount');
-		console.log(cartCount);
-		var cartPrice = document.querySelectorAll('.cartPrice');
-		var totalCost = document.querySelectorAll('.totalCost');
-		for (key in cartCount) {
-			if (cartCount[key].value) {
-				totalCost[key].innerText = Number(cartCount[key].value)
-						* Number(cartPrice[key].innerText);
+		$(function() {
+			/* totalPrice뿌려주기 */
+			var cartCount = document.querySelectorAll('.cartCount');
+			var cartPrice = document.querySelectorAll('.cartPrice');
+			var totalCost = document.querySelectorAll('.totalCost');
+			for (key in cartCount) {
+				if (cartCount[key].value) {
+					totalCost[key].innerText = Number(cartCount[key].value)
+							* Number(cartPrice[key].innerText);
+				}
 			}
-		}
-		
-	});
+			/* total product Price */
+			var productPrice = 0;
+			for (key in totalCost) {
+				if (totalCost[key].innerText) {
+					productPrice += Number(totalCost[key].innerText);
+				}
+			}
+			$('.productPrice').text(productPrice);
+				/* 물건금액 30000원 이상일때 shippingFee 0원*/
+				var shippingFee = $('.shippingFee').text();
+				if (productPrice > 30000) {
+					shippingFee = 0;
+					$('.shippingFee').text(0);
+				}
+			var applyCoupon = $('.applyCoupon').text();
+			var applyPoint = $('.applyPoint').text();
+			var orderTotal = Number(productPrice) + Number(shippingFee)
+					- Number(applyCoupon) - Number(applyPoint);
+			$('.orderTotal').text(orderTotal);
+
+		/* 적립금 사용벝튼 클릭할 때마다 yourOrder 변화 */
+		var pointBtn = document.getElementById("pointBtn");
+		pointBtn.addEventListener('click', function() {
+			var availablePoint = Number($('.availablePoint').text());
+			var applyPoint = $('.applyPoint').text();
+			var toUsePoint = Number($('#toUsePoint').val());
+			if (availablePoint == 0) {
+				alert("적립금이 0점이면 못씀");
+			} else if ((availablePoint - toUsePoint) < 0) {
+				alert("보유한 적립금보다 적게 입력해주세요");
+			} else {
+				applyPoint = availablePoint - toUsePoint;
+				$('.applyPoint').text(toUsePoint);
+				var orderTotal = Number(productPrice)  + Number(shippingFee) 
+						- Number(applyCoupon) - Number(toUsePoint);
+				$('.orderTotal').text(orderTotal);
+			}
+		});
+		/* 라디오 버튼 */
+		$('.address').click(function(){
+			var check = document.getElementsByName('address');
+			for (var i = 0; i < check.length; i++) {
+				if(check[i].checked){
+					switch(check[i].value){
+					case "equealAdr": 
+						document.getElementById('receiverAddress').value= '${user.userAddress}';
+						document.getElementById('receiver').value= '${user.userId}';
+						document.getElementById('receiverPhone').value= '${user.userTel}';
+						break;
+					case "RecentAdr":
+						break;
+					case "newAdr":
+						document.getElementById('receiverAddress').value= '';
+						document.getElementById('receiver').value= '';
+						document.getElementById('receiverPhone').value= '';
+						break;
+					}
+				}
+			}
+// 			for(key in checked){
+// 				console.log(checked[key].value);
+// 			}
+// 			alert(checked);
+		});	
+		});
+		/* 주문자 정보와 동일 */
+
 	</script>
-</body>
+	</body>
 </html>
+<%@ include file="coupon.jsp"%>

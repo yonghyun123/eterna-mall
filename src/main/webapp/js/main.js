@@ -208,5 +208,7 @@ jQuery(document).ready(function($) {
     $("#coupon").click(function(){
         $("#coupon-modal").modal();
     });
-
+    $("#ChoiceRecentAdr").click(function(){
+        $("#recentAddress-modal").modal();
+    });
 });

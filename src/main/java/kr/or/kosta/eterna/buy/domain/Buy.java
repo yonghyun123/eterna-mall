@@ -14,6 +14,7 @@ public class Buy {
 	private String receiverName;
 	private String receiverTel;
 	private String receiverAddress;
+	private String recentAddressName;
 	private String count;
 	private String productBrand;
 	private String productDescription;
@@ -29,7 +30,7 @@ public class Buy {
 
 	public Buy(String userId, String buyerName, String buyerTel, String buyerAddress, String receiverName,
 			String receiverTel, String receiverAddress, String count, String productBrand, String productDescription,
-			String fileName, String passwd, String orderFlag) {
+			String fileName, String passwd, String orderFlag ,String recentAddressName) {
 		super();
 		this.userId = userId;
 		this.buyerName = buyerName;
@@ -44,6 +45,7 @@ public class Buy {
 		this.fileName = fileName;
 		this.passwd = passwd;
 		this.orderFlag = orderFlag;
+		this.recentAddressName = recentAddressName;
 	}
 	
 	public Buy(String userId, String buyerName, String buyerTel, String buyerAddress, String receiverName,
@@ -197,7 +199,15 @@ public class Buy {
 	public void setOrderFlag(String orderFlag) {
 		this.orderFlag = orderFlag;
 	}
+	
+	public String getRecentAddressName() {
+		return recentAddressName;
+	}
 
+
+	public void setRecentAddressName(String recentAddressName) {
+		this.recentAddressName = recentAddressName;
+	}
 
 	@Override
 	public String toString() {
@@ -205,7 +215,7 @@ public class Buy {
 				+ buyerAddress + ", receiverName=" + receiverName + ", receiverTel=" + receiverTel
 				+ ", receiverAddress=" + receiverAddress + ", count=" + count + ", productBrand=" + productBrand
 				+ ", productDescription=" + productDescription + ", fileName=" + fileName + ", passwd=" + passwd
-				+ ", orderFlag=" + orderFlag + "]";
+				+ ", orderFlag=" + orderFlag + ",recentAddressName="+recentAddressName+ "]";
 	}
 
 
