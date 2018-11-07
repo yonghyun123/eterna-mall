@@ -135,11 +135,11 @@
 									<td>
 										<div>
 											<div class="address">
-												<input type="radio" value="equealAdr" name="address"
+												<label><input type="radio" value="equealAdr" name="address"
 													id="equealAdr"> 주문자 주소와 동일
-												<input type="radio" value="RecentAdr" name="address" id="RecentAdr">
-												최근주소<a id="ChoiceRecentAdr" class="btn btn-primary btn-sm">최근 주소 선택</a>
-												<input type="radio" value="newAdr" name="address" id="newAdr"> 새주소
+												</label><label><input type="radio" value="RecentAdr" name="address" id="ChoiceRecentAdr">
+												최근주소
+												</label><label><input type="radio" value="newAdr" name="address" id="newAdr"> 새주소</label>
 											</div>
 										</div>
 										<div>
@@ -182,14 +182,14 @@
 						<table class="cart-table">
 							<thead>
 								<tr class="col-md-12">
-									<th>쿠폰 적용</th>
+									<th>쿠폰 적용 </th>
 									<td>
 										<div class="find">
-
 											선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon"
 												class="btn btn-primary btn-sm">쿠폰 선택</a> <input
 												type="hidden"  class="couponId">
 											<input type="hidden" class="couponRate">
+                      <a id="cancleCoupon" class="btn btn-primary btn-sm">적용 취소</a>
 										</div>
 									</td>
 								</tr>
@@ -198,6 +198,7 @@
 									<td><div>
 											사용가능 적립금 : <span class="availablePoint">${user.userPoint }</span>
 											(원) <a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
+                                                  <a id="canclePointBtn" class="btn btn-primary btn-sm">적용 취소</a>
 										</div>
 										<div class="toUsePoint">
 											<span>사용할 적립금 : </span><input type="text"
@@ -207,43 +208,38 @@
 							</thead>
 						</table>
 						<div class="title">
-							<h2>Payment</h2>
+							<h2>Payment<input type="hidden" id="pay"></h2>
 						</div>
+                          <div class="generalPay">
 						<table class="cart-table">
 							<thead>
 								<tr class="col-md-12">
 									<th>일반결제</th>
-									<td>
-										<div class="payCard">
-											<input type="radio" value="신용카드" name="generalPay"> <span>신용카드</span>
+									<td><div>
+										<label>
+											<input type="radio" value="creditCard" name="generalPay"> <span>신용카드</span></label>
 										</div>
-										<div class="payTel">
-											<input type="radio" value="휴대폰" name="generalPay"> <span>휴대폰</span>
+										<div><label>
+											<input type="radio" value="tele" name="generalPay"> <span>휴대폰</span></label>
 										</div>
 									</td>
 								</tr>
 								<tr class="col-md-12">
 									<th>Paynow 결제</th>
-									<td><div class="payPaynow">
-											<input type="radio" value="신용카드" name="generalPay"> <img
-												src="images/logo_paynow.png">
-										</div>
+									<td><label><input type="radio" value="paynow" name="generalPay"> <img src="images/logo_paynow.png"></label></td>
 								</tr>
 								<tr class="col-md-12">
 									<th>PAYCO 결제</th>
-									<td><div class="payPayco">
-											<input type="radio" value="신용카드" name="generalPay"> <img
-												src="images/logo_payco.png">
-										</div>
+									<td><label><input type="radio" value="payco" name="generalPay"> <img src="images/logo_payco.png"></label></td>
 								</tr>
 								<tr class="col-md-12">
 									<th>에스크로 결제</th>
-									<td><div class="payEscro">
-											<input type="radio" value="신용카드" name="generalPay"><span>계좌이체</span>
-										</div>
+									<td><label>
+											<input type="radio" value="escro" name="generalPay"><span>계좌이체</span></label></td>
 								</tr>
 							</thead>
 						</table>
+                          </div>
 						<div class="title">
 							<h2>개인정보 수집/제공</h2>
 						</div>
@@ -253,7 +249,7 @@
 									<th>일반결제</th>
 									<td>
 										<div class="checkInfo">
-											<input type="checkbox" value="신용카드" name="generalPay">
+											<input type="checkbox" value="info" name="info">
 											<span>[필수] 개인정보 수집 및 이용 동의</span>
 										</div>
 									</td>
@@ -279,7 +275,7 @@
 									<tr>
 									<tr>
 										<td>(-) Coupon</td>
-										<td><span class="applyCoupon">2500</span>원</td>
+										<td><span class="applyCoupon">0</span>원</td>
 									</tr>
 									<tr>
 										<td>(-) Point</td>
@@ -348,7 +344,7 @@
 					- Number(applyCoupon) - Number(applyPoint);
 			$('.orderTotal').text(orderTotal);
 
-		/* 적립금 사용벝튼 클릭할 때마다 yourOrder 변화 */
+		/* 적립금 사용버튼 클릭할 때마다 yourOrder 변화 */
 		var pointBtn = document.getElementById("pointBtn");
 		pointBtn.addEventListener('click', function() {
 			var availablePoint = Number($('.availablePoint').text());
@@ -360,14 +356,15 @@
 				alert("보유한 적립금보다 적게 입력해주세요");
 			} else {
 				applyPoint = availablePoint - toUsePoint;
+				applyCoupon = $('.applyCoupon').text();
 				$('.applyPoint').text(toUsePoint);
 				var orderTotal = Number(productPrice)  + Number(shippingFee) 
 						- Number(applyCoupon) - Number(toUsePoint);
 				$('.orderTotal').text(orderTotal);
 			}
 		});
-		/* 라디오 버튼 */
-		$('.address').click(function(){
+		/* 주소 라디오 버튼 */
+		$('.address').change(function(){
 			var check = document.getElementsByName('address');
 			for (var i = 0; i < check.length; i++) {
 				if(check[i].checked){
@@ -377,7 +374,7 @@
 						document.getElementById('receiver').value= '${user.userId}';
 						document.getElementById('receiverPhone').value= '${user.userTel}';
 						break;
-					case "RecentAdr":
+					case "tele":
 						break;
 					case "newAdr":
 						document.getElementById('receiverAddress').value= '';
@@ -387,15 +384,36 @@
 					}
 				}
 			}
-// 			for(key in checked){
-// 				console.log(checked[key].value);
-// 			}
-// 			alert(checked);
 		});	
+		/* 결제 라디오 버튼 */
+		$('.generalPay').change(function(){
+			var check = document.getElementsByName('generalPay');
+			for (var i = 0; i < check.length; i++) {
+				if(check[i].checked){
+					$('#pay').val(check[i].value);
+				}
+			}
+		});	
+		
+		/* 쿠폰 적용 취소 눌렀을 때 */
+		$('#cancleCoupon').click(function(){
+			$('.applyCoupon').text(0);
+			var applyPoint2 = $('.applyPoint').text();
+			var orderTotal = Number(productPrice)  + Number(shippingFee)  - Number(applyPoint2);
+			$('.selectedCoupon').text('');
+			$('.orderTotal').text(orderTotal);
 		});
-		/* 주문자 정보와 동일 */
-
-	</script>
+		/* 적립금 적용 취소 눌렀을 때 */
+		$('#canclePointBtn').click(function(){
+			$('.applyPoint').text(0);
+			var applyCoupon2 = $('.applyCoupon').text();
+			var orderTotal = Number(productPrice)  + Number(shippingFee)  - Number(applyCoupon2);
+			$('#toUsePoint').val('');
+			$('.orderTotal').text(orderTotal);
+		});
+		});
+		</script>
+	
 	</body>
 </html>
 <%@ include file="coupon.jsp"%>

@@ -9,7 +9,7 @@
 					<form role="form" class="text-left">
 						<div class="form-group">
 							<h2>${user.userId }님이보유한쿠폰목록입니다</h2>
-							<table>
+ 							<table>
 								<thead>
 									<tr>
 										<th>번호</th>
@@ -28,12 +28,12 @@
 													<td>${status.count}</td>
 													<td class="content">${coupon.couponName}</td>
 													<td>~${coupon.couponEndDate } 까지</td>
-													<td class="discountAmount"></td>
+													<td class="discountAmount">${coupon.couponRate}</td>
 													<td><input type="button"
 														class="btn btn-success selectedCoupon"
 														data-dismiss="modal" value="선택"> <input
-														type="text" value="${coupon.couponId }" class="couponId">
-														<input type="text" value="${coupon.couponRate }"
+														type="hidden" value="${coupon.couponId }" class="couponId">
+														<input type="hidden" value="${coupon.couponRate }"
 														class="couponRate"></td>
 												</tr>
 											</c:forEach>
@@ -55,23 +55,33 @@
 </div>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
+	/* pruductPrice값 받아오기 */
+	var productPrice2 = 0;
+	setTimeout(function() {
+		 productPrice2 = $(".productPrice").text();
+		 var couponRateList = document.querySelectorAll(".discountAmount");
+		 for (var i = 0; i < couponRateList.length; i++) {
+			 couponRateList[i].innerText=Math.floor((Number(productPrice2)*(Number(couponRateList[i].innerText))));
+		}
+	}, 300);
+	/* 쿠폰 선택  */
 	var couponList = document.querySelectorAll(".selectedCoupon");
 	couponList.forEach(function(v, i) {
 		v.addEventListener('click', function() {
 			var context = $(this).closest("tr").find(".content").text();
 			var couponId = $(this).closest("tr").find(".couponId").val();
 			var couponRate = $(this).closest("tr").find(".couponRate").val();
-			console.log(couponId);
-			console.log(couponRate);
-// 			$(".selectedCoupon").text(context);
+			var discountAmount = Number($(this).closest("tr").find(".discountAmount").text());
+			
+			var shippingFee = $('.shippingFee').text();
+			var applyPoint = $('.applyPoint').text();
+			var orderTotal = Number($(".productPrice").text()) + Number(shippingFee)
+					- Number(discountAmount) - Number(applyPoint);
+			$(".selectedCoupon").text(context);
+			$(".applyCoupon").text(discountAmount);
+			$('.orderTotal').text(orderTotal);
 // 			$(".couponId").val(couponId);
 // 			$(".couponRate").val(couponRate);
-// 			var productPrice = $(".productPrice").text();
 		});
 	});
-	var productPrice2 = 0;
-	setTimeout(function() {
-		 productPrice2 = $(".productPrice").text();
-	console.log(productPrice2);
-	}, 300);
 </script>
