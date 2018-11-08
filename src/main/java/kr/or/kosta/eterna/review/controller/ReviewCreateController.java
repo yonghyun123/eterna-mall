@@ -51,7 +51,7 @@ public class ReviewCreateController implements Controller{
 			throw new ServletException("reviewService.list() 예외 발생", e);
 		}
 		
-		mav.setView("/shop_single.jsp");
+		mav.setView("redirect:/detail.mall?productId="+productId);
 		return mav;
 	}
 }
