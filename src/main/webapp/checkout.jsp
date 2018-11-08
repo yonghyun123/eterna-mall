@@ -139,11 +139,14 @@
 													id="equealAdr"> 주문자 주소와 동일
 												</label><label><input type="radio" value="RecentAdr" name="address" id="ChoiceRecentAdr">
 												최근주소
-												</label><label><input type="radio" value="newAdr" name="address" id="newAdr"> 새주소</label>
+												</label><label><input type="radio" value="newAdr" name="address" id="newAdr"> 새주소
+                                                         </label><input type="button" class="btn btn-success" onclick="daumPostcode()" value="search">
 											</div>
 										</div>
 										<div>
-											<input type="text" class="form-control" id="receiverAddress">
+											<input type="text" class="form-control" id="new-zipcod-address">
+											<input type="text" class="form-control" id="new-street-address">
+											<input type="text" class="form-control" id="new-detail-address">
 										</div>
 									</td>
 								</tr>
@@ -189,7 +192,7 @@
 												class="btn btn-primary btn-sm">쿠폰 선택</a> <input
 												type="hidden"  class="couponId">
 											<input type="hidden" class="couponRate">
-                      <a id="cancleCoupon" class="btn btn-primary btn-sm">적용 취소</a>
+                      <a id="cancleCoupon" >적용 취소</a>
 										</div>
 									</td>
 								</tr>
@@ -198,7 +201,7 @@
 									<td><div>
 											사용가능 적립금 : <span class="availablePoint">${user.userPoint }</span>
 											(원) <a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
-                                                  <a id="canclePointBtn" class="btn btn-primary btn-sm">적용 취소</a>
+                                                  <a id="canclePointBtn" >적용 취소</a>
 										</div>
 										<div class="toUsePoint">
 											<span>사용할 적립금 : </span><input type="text"
@@ -292,7 +295,6 @@
 							<div class="form-group">
 								<button class="btn btn-primary btn-lg py-3 btn-block"
 									id="loading-btn">Place Order</button>
-								<%-- 									    <%@ include file="/loading.jsp"%> --%>
 							</div>
 						</div>
 					</div>
@@ -302,6 +304,7 @@
 		</div>
 		
 		<%@ include file="recentAddress.jsp"%>
+		<%@ include file="/loading.jsp"%>
 		<jsp:include page="/includes/footer.jsp"></jsp:include>
 	</div>
 	<script src="js/jquery-3.3.1.min.js"></script>
@@ -366,18 +369,25 @@
 		/* 주소 라디오 버튼 */
 		$('.address').change(function(){
 			var check = document.getElementsByName('address');
+			var userAddress= '${user.userAddress}' ;
+		     var addressArray = userAddress.split('/');
+		     
 			for (var i = 0; i < check.length; i++) {
 				if(check[i].checked){
 					switch(check[i].value){
 					case "equealAdr": 
-						document.getElementById('receiverAddress').value= '${user.userAddress}';
+						$("#new-zipcod-address").val(addressArray[0]);
+					     $("#new-detail-address").val(addressArray[2]);
+					     $("#new-street-address").val(addressArray[1]);
 						document.getElementById('receiver').value= '${user.userId}';
 						document.getElementById('receiverPhone').value= '${user.userTel}';
 						break;
 					case "tele":
 						break;
 					case "newAdr":
-						document.getElementById('receiverAddress').value= '';
+						document.getElementById('new-zipcod-address').value= '';
+						document.getElementById('new-street-address').value= '';
+						document.getElementById('new-detail-address').value= '';
 						document.getElementById('receiver').value= '';
 						document.getElementById('receiverPhone').value= '';
 						break;
@@ -412,6 +422,47 @@
 			$('.orderTotal').text(orderTotal);
 		});
 		});
+		// 우편번호 찾기 화면을 넣을 element
+	    function daumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var fullAddr = ''; // 최종 주소 변수
+	                var extraAddr = ''; // 조합형 주소 변수
+
+	                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    fullAddr = data.roadAddress;
+
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    fullAddr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    //법정동명이 있을 경우 추가한다.
+	                    if(data.bname !== ''){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있을 경우 추가한다.
+	                    if(data.buildingName !== ''){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('new-street-address').value = fullAddr;
+	                document.getElementById('new-zipcod-address').value = data.zonecode; //5자리 새우편번호 사용
+
+	                // 커서를 상세주소 필드로 이동한다.
+	                document.getElementById('new-detail-address').focus();
+	            }
+	        }).open();
+	    }
 		</script>
 	
 	</body>
