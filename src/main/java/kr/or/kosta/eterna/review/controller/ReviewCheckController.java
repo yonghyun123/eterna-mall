@@ -30,9 +30,7 @@ public class ReviewCheckController implements Controller{
 		reviewService = (ReviewService)factory.getBean(ReviewServiceImpl.class);
 		String productId = request.getParameter("productId");
 		String userId = request.getParameter("userId");
-		System.out.println("---------productId: "+productId);
-		System.out.println("---------UserId: "+userId);
-		
+
 		boolean resultFlag = false;
 		try {
 			if(reviewService.checkReview(userId, productId)){
