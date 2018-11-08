@@ -55,7 +55,7 @@
 		}
 		
 		$.ajax({
-			url: "/eternamall/login.mall",
+			url: "/login.mall",
 			data: params,
 			success: function (data) {
 				setTimeout(() => {
