@@ -20,6 +20,9 @@ public interface ReviewService {
 	/* 회원별 리뷰 전체 조회 */
 	public List<Review> myReviewList(String userId) throws Exception;
 
+	/*상품 구입한 회원리뷰체크 */
+	boolean checkReview(String userId, String productId) throws Exception;
+	
 	/* 리뷰 전체 조회(관리자용) */
 	public List<Review> listAll() throws Exception;
 	

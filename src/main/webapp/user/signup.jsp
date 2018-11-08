@@ -9,7 +9,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
-          <form role="form" class="text-left" id="join-form" action="/eternamall/join.mall">
+          <form role="form" class="text-left" id="join-form" action="/join.mall">
             <div class="form-group">
               <label for="usrid"><span class="glyphicon glyphicon-user"></span> ID</label>
               <input type="text" class="form-control" name="user-id" id="user-id" placeholder="Enter ID" required>

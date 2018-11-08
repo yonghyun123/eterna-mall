@@ -10,22 +10,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
-    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+    <link rel="stylesheet" href="/fonts/icomoon/style.css">
 
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/magnific-popup.css">
-    <link rel="stylesheet" href="../css/jquery-ui.css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/aos.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/aos.css">
+    <link rel="stylesheet" href="/css/style.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/shop.css">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/shop.css">
+    <link rel="stylesheet" href="/css/header.css">
     <jsp:include page="/includes/header.jsp"></jsp:include>
   </head>
   <body>
@@ -70,8 +70,8 @@
 				<li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
               	  <div class="block-4 text-center border">
                    <figure class="block-4-image">
-                   	<form id="form${status.index}" action="/eternamall/main/detail.mall" method="post">
-                   		<a class="images-btn"><img src="../images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
+                   	<form id="form${status.index}" action="/detail.mall" method="post">
+                   		<a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
                  	  	<input type="hidden" name="productId" value="${product.productId }">
                    	</form>
                    </figure>
@@ -93,16 +93,16 @@
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
 
-  <script src="../js/jquery-3.3.1.min.js"></script>
-  <script src="../js/jquery-ui.js"></script>
-  <script src="../js/popper.min.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
-  <script src="../js/owl.carousel.min.js"></script>
-  <script src="../js/jquery.magnific-popup.min.js"></script>
-  <script src="../js/aos.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/paginathing.js"></script>
-  <script src="../js/ajax.js"></script>
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/jquery-ui.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/aos.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/paginathing.js"></script>
+  <script src="/js/ajax.js"></script>
   <script type="text/javascript">
   
  
