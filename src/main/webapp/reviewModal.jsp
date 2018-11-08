@@ -30,7 +30,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body"">
-          <form role="form" class="text-left" method="post" action="/eternamall/product/reviewCreate.mall">
+          <form role="form" class="text-left" method="post" action="/reviewCreate.mall">
             <div class="form-group">
               <label for="id"><span class="glyphicon glyphicon-user"></span>글제목</label>
               <input type="text" class="form-control" id="review-subject" name="subject" placeholder="글 제목">
