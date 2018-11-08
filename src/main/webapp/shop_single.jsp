@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="/css/aos.css">
 <link rel="stylesheet" href="/css/style.css">
 
+
 <jsp:include page="/includes/header.jsp"></jsp:include>
 </head>
 <body>
@@ -144,8 +145,7 @@
                 </div>
               </div>
             </div>
-            <div id="상품 문의" class="tabcontent"
-              style="display: none;">
+            <div id="상품 문의" class="tabcontent" style="display: none;">
               <div class="container">
                 <div class="row justify-content-center">
                   <div
@@ -155,11 +155,11 @@
                       신속히 답변을 드립니다.</p>
                   </div>
                 </div>
+				
                 <div class="row">
                   <div class="container">
                     <div class="field">
-                      <textarea class="review" name="contents" id="message" rows="6" placeholder="로그인한 경우에만 문의 작성이 가능합니다" maxlength="200"></textarea>
-                      <input type="button" value="등록" class="btn btn-outline-primary js-btn-plus create" id="qna-create">
+                    <input type="submit" value="등록" class="btn btn-outline-primary js-btn-plus create" id="qna-create">					
                     </div>
                     <table class="table table-hover col-md-12" id="table-qNa">
                       <thead>
@@ -194,6 +194,28 @@
   <script src="/js/aos.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/paginathing.js"></script>
+  <script type="my-template" id="qna-detail-body">
+<tr>
+	<td class="title">
+		{number}
+	</td>
+	<td class="title">
+		{subject}
+		<span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+		<span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+	</td>
+	<td class="title">
+		{userId}
+	</td>
+	<td class="title">
+		{regdate}
+	</td>
+</tr>
+<tr style='display:none;'>
+	<td colspan="4">{content}</td>
+</tr>
+  </script>
+  
   <script type="my-template" id="review-body">
 <tr>
 	<td class="title">
@@ -210,6 +232,18 @@
 	<td class="title">
 		{regdate}
 	</td>
+	<td>
+		<div class="section_review_list">
+			<div class="review_box">
+				<div class="short_review_area">
+					<div class="grade_area">
+					<!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
+					<span class="graph_mask"> <em class="graph_value" style="width: {score}%;"></em> </span>
+				</div>
+				</div>
+			</div>
+		</div>
+	<td>
 </tr>
 <tr style='display:none;'>
 	<td colspan="4">{content}</td>
@@ -244,47 +278,6 @@
 	  insertText();
   });
   
-
-  reviewCreateBtn();
-  function reviewCreateBtn(){
-	  var reviewBtn = document.querySelector('#review-create');
-	  reviewBtn.addEventListener('click', function(){
-		  checkBuyerInfoAjax();
-	  });
-  }
-  
-  function checkBuyerInfoAjax(){
-	  $.ajax({
-			 url: "/reviewCheck.mall",
-			 type:"get",
-			 data: {
-				 userId: loginId,
-				 productId: productId
-			 },
-			 dataType:"text",
-			 success: function(data){
-				 if(data == 1){
-					 //modal
-					 console.log(data);
-					 console.log('적합한 회원입니다.');
-				     $("#review-modal").modal();						 
-					 
-					 
-				 } else {
-					 alert('상품을 구매하지 않았습니다');
-				 }
-			 }
-	  })
-  }
-
-  function insertText(){
-	  var count = document.querySelector('#product-count').value;
-	  var productPrice = document.querySelector('#product-price').innerText;
-	  const totalPrice = Number(productPrice) * Number(count);
-	  console.log(totalPrice);
-	  $('#total-price').text(totalPrice);
-  }
-
   var productId = ${selectProduct.productId};
   document.getElementById("defaultOpen").click();
   
@@ -299,22 +292,89 @@
 		 var jsonReviewData = JSON.parse(data);
 		 reviewTemplate(jsonReviewData);
 	 }
-	 
   });
+  
+  reviewCreateBtn();
+  settingHiddenValue();
+  
+  function reviewCreateBtn(){
+	  var reviewBtn = document.querySelector('#review-create');
+	  var qnaBtn = document.querySelector('#qna-create');
+	  
+	  reviewBtn.addEventListener('click', function(){
+		  checkBuyerInfoAjax();
+	  });
+	  qnaBtn.addEventListener('click', function(){
+		  
+		  sendQnACreate();
+	  })
+	  
+
+  }
+  
+  /* q&a 등록 버튼을 눌렀을때 hidden으로 유저 id와 productId를 넘김  */
+  function settingHiddenValue(){
+	  $('#qna-userId').val(loginId);
+	  $('#qna-productId').val(productId);
+	  if(!loginId){
+		  $('#qna-create').attr('disabled', true);
+	  } else {
+		  $('#qna-create').attr('disabled', false);
+	  }
+  }
+  
+  function sendQnACreate(){
+	  $("#qna-modal").modal();
+  }
+  
+  function checkBuyerInfoAjax(){
+	  $.ajax({
+			 url: "/reviewCheck.mall",
+			 type:"get",
+			 data: {
+				 userId: loginId,
+				 productId: productId
+			 },
+			 dataType:"text",
+			 success: function(data){
+				 if(data == 1){
+					 //modal
+					 console.log('적합한 회원입니다.');
+				     $("#review-modal").modal();						 
+				 } else {
+					 alert('상품을 구매하지 않았습니다');
+				 }
+			 }
+	  })
+  }
+  
+
+  function insertText(){
+	  var count = document.querySelector('#product-count').value;
+	  var productPrice = document.querySelector('#product-price').innerText;
+	  const totalPrice = Number(productPrice) * Number(count);
+	  $('#total-price').text(totalPrice);
+  }
+
 
   function reviewTemplate(reviewData){
 	  var templateHtml = document.querySelector('#review-body').innerHTML;
 	  var originHtml = document.querySelector('#in-tbody');
 	  var newHtml = '';
 	  reviewData.forEach(function(v,i){
+		  var scoreFormat = Number(v.score) * 20;
+		  scoreFormat+'%';
 		  newHtml += templateHtml.replace('{number}', i+1)
 		  						 .replace('{subject}', v.subject)
 		  						 .replace('{userId}', v.userId)
-		  						 .replace('{regdate}', v.regdate)
+		  						 .replace('{regdate}', v.regdate)  
+		  						 .replace('{score}', scoreFormat )
 		  						 .replace('{content}', v.content);
+
 	  });
-	  
 	  originHtml.innerHTML = newHtml;
+	  
+
 	  $(".plusIcon").on("click",function(){
 		  var obj = $(this);
 		  if( obj.hasClass("glyphicon-plus") ){
@@ -326,9 +386,9 @@
 		     obj.prev().show();
 		     obj.parent().parent().next().hide();
 		  }
-		});
-	 }
-  
+	  });
+	}
+
      function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -342,7 +402,7 @@
         }
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
-        console.log(evt.currentTarget.id);
+        
         if(evt.currentTarget.id == 'product-qNa'){
         	$.ajax({
         		 url: "/qnalist.mall",
@@ -353,52 +413,62 @@
         		 dataType:"text",
         		 success: function(data){
         			 var jsonQnAData = JSON.parse(data);
-        			 console.log(jsonQnAData);
         			 qnaTemplate(jsonQnAData);
         		 }
         		 
-        	  });
+        	 });
         }
      }
        
      function qnaTemplate(jsonQnAData){
-   	  var secretHtml = document.querySelector('#qna-body').innerHTML;
-  	  var generalHtml = document.querySelector('#review-body').innerHTML;
-	  var originHtml = document.querySelector('#qNa-body');
-	  var newHtml = '';
-	  jsonQnAData.forEach(function(v,i){
+   	  	var secretHtml = document.querySelector('#qna-body').innerHTML;
+  		  var generalHtml = document.querySelector('#qna-detail-body').innerHTML;
+		  var originHtml = document.querySelector('#qNa-body');
+		  
+		  var newHtml = '';
+		  jsonQnAData.forEach(function(v,i){
 		  /* 일반글일때 */
-		  if(v.secretFlag == '0'){
-			  newHtml += generalHtml.replace('{number}', i+1)
-				 .replace('{subject}', v.subject)
-				 .replace('{userId}', v.userId)
-				 .replace('{regdate}', v.regdate)
-				 .replace('{content}', v.content);
-		  } else if(v.secretFlag == '1'){
-			  /* 비밀글일때 조건이 userId와 쿠키와 가으면 generalHtml로 만들어줌 */
-			  newHtml += secretHtml.replace('{number}', i+1)
-				 .replace('{subject}', '비밀글입니다')
-				 .replace('{userId}', v.userId)
-				 .replace('{regdate}', v.regdate)
-				 .replace('{content}', v.content);
-		  }
-	  });
-	  
-	  originHtml.innerHTML = newHtml;
-	  $(".plusIcon").on("click",function(){
-		  var obj = $(this);
-		  if( obj.hasClass("glyphicon-plus") ){
-		  	  obj.hide();
-		  	  obj.next().show();            
-		  	  obj.parent().parent().next().show();
-		  }else{
-		     obj.hide();
-		     obj.prev().show();
-		     obj.parent().parent().next().hide();
-		  }
-		});
-     }
+		 	 if(v.secretFlag == '0'){
+				  newHtml += generalHtml.replace('{number}', i+1)
+					 .replace('{subject}', v.subject)
+					 .replace('{userId}', v.userId)
+					 .replace('{regdate}', v.regdate)
+					 .replace('{content}', v.content);
+			  } else if(v.secretFlag == '1'){
+				  /* 비밀글일때 조건이 userId와 쿠키와 가으면 generalHtml로 만들어줌 */
+				  if(v.userId == loginId){
+					  newHtml += generalHtml.replace('{number}', i+1)
+						 .replace('{subject}', v.subject+'[비밀글]')
+						 .replace('{userId}', v.userId)
+						 .replace('{regdate}', v.regdate)
+						 .replace('{content}', v.content);
+				  }else {
+					  newHtml += secretHtml.replace('{number}', i+1)
+						 .replace('{subject}', v.subject+'[비밀글]')
+						 .replace('{userId}', v.userId)
+						 .replace('{regdate}', v.regdate)
+						 .replace('{content}', v.content);
+				  }
+	
+			  }
+		  });
+
+		  originHtml.innerHTML = newHtml;
+		  $(".plusIcon").on("click",function(){
+			  var obj = $(this);
+			  if( obj.hasClass("glyphicon-plus") ){
+			  	  obj.hide();
+			  	  obj.next().show();            
+			  	  obj.parent().parent().next().show();
+			  }else{
+			     obj.hide();
+			     obj.prev().show();
+			     obj.parent().parent().next().hide();
+			  }
+			});
+	     }
      </script>
 </body>
 </html>
 <%@ include file="reviewModal.jsp" %>
+<%@ include file="qnaModal.jsp" %>

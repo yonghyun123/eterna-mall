@@ -14,15 +14,17 @@
              board_id, 
              subject, 
              content, 
+             secret_flag,
              group_no, 
              level_no) 
-		VALUES     (7,
+		VALUES     (qna_id_seq.nextval,
             #{userId}, 
             #{productId}, 
             2, 
             #{subject}, 
-            #{content}, 
-            7, 
+            #{content},
+            #{secretFlag}, 
+            qna_id_seq.currval, 
             0)
 	</insert>
 
