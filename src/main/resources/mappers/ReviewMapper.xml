@@ -15,7 +15,7 @@
              content,
              subject, 
              score) 
-		VALUES     (20, 
+		VALUES     (review_id_seq.nextval, 
             #{userId}, 
             #{productId}, 
             1, 
@@ -71,7 +71,7 @@
 	 SELECT distinct(bm.product_id)     AS "productId"
 	 FROM   SM_buy_manage bm
 	 WHERE  bm.product_id = #{productId}
-     AND    bm.buy_id =  (SELECT id 
+     AND    bm.buy_id in (SELECT id 
      					 FROM   SM_buy_info
      					 WHERE  user_id = #{userId})
 	</select>
