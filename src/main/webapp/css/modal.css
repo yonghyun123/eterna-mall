@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/* personalInfo modal */
+#okInfoBtn, #cancleCouponBtn {
+	font-size: 12px;
+	float: right;
+	padding: 3%;
+	margin-top: 1%;
+}
+
+#cancleCouponBtn {
+	float: none;
+}
+
+#info-table * {
+	border: solid;
+	thin;
+	black;
+}
+
+#info-table th, #coupon-table th {
+	background: #7971ea;
+	color: white;
+	text-align: center;
+}
+
+#info-table, #coupon-table {
+	font-size: 12px;
+}
+
+#coupon-dialog {
+	max-width: 60%;
+}
+
+#coupon-table * {
+	text-align: center;
+}
