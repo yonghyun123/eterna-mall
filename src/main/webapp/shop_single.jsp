@@ -68,10 +68,8 @@
                  <strong class="text-primary h4" id="total-price">${selectProduct.price}</strong>
               </p>
               <p>
-                <a href="cart.html"
-                  class="buy-now btn btn-sm btn-primary">&nbsp;&nbsp;Add Cart&nbsp;&nbsp;</a> <a
-                  href="cart.html"
-                  class="buy-now btn btn-sm btn-primary">Order Now </a>
+                <input type="button" class="buy-now btn btn-sm btn-primary" value="Add Cart" id="add-cart-btn">
+                <input type="button" class="buy-now btn btn-sm btn-primary" value="Order Now" id="order-now-btn">
               </p>
             </div>
           </div>
@@ -272,6 +270,7 @@
   var loginId = "${cookie.loginId.value}";
   var productId = ${selectProduct.productId};
   
+  
   var lickBtn =  document.querySelectorAll('.modify-count');
  
   $(document).on('click','.modify-count',function(){
@@ -296,6 +295,7 @@
   
   reviewCreateBtn();
   settingHiddenValue();
+  addCartAjax();
   
   function reviewCreateBtn(){
 	  var reviewBtn = document.querySelector('#review-create');
@@ -308,7 +308,28 @@
 		  
 		  sendQnACreate();
 	  })
+  }
+  
+  function addCartAjax(){
+
 	  
+	  $('#add-cart-btn').on('click',function(){
+		  var productCount = $('#product-count').val();
+		  $.ajax({
+			 url: "/reviewlist.mall",
+			 type:"post",
+			 data: {
+				 productId: productId,
+				 userId: loginId,
+				 productCount: productCount
+			 },
+			 dataType:"text",
+			 success: function(data){
+				 var jsonReviewData = JSON.parse(data);
+				 reviewTemplate(jsonReviewData);
+			 }
+		  }); 
+	  })
 
   }
   
