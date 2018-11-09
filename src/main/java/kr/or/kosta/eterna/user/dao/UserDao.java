@@ -33,6 +33,15 @@ public interface UserDao {
 	/* id를 이용한 쿠폰 조회 */
 	public List<User> listCoupon(String userId) throws Exception;
 
+	/* id를 이용한 쿠폰 개수 조회*/
+	public int couponLength(String userId) throws Exception;
+	
+	/* id를 이용한 누적 구매액 조회 */
+	public int priceAmount(String userId) throws Exception;
+	
+	/* id를 이용한 상위 등급 금액 조회 */
+	public int searchUpTier(String userId) throws Exception;
+	
 	/* 오늘 가입한 회원 수 */
 	public int newUser() throws Exception;
 }

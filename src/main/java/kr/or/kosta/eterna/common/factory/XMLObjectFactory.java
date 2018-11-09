@@ -38,7 +38,6 @@ public class XMLObjectFactory{
 		
 		try {
 			NodeList beanList = document.getElementsByTagName("bean");
-			
 			System.out.println("--- Object 생성 목록("+beanList.getLength()+") ---");
 			for (int i = 0; i < beanList.getLength(); i++) {
 				Element bean = (Element)beanList.item(i);
@@ -174,6 +173,7 @@ public class XMLObjectFactory{
 	}
 
 	public Object getBean(String serviceName) {
+		System.out.println(objectList.get(serviceName));
 		return objectList.get(serviceName);
 	}
 	

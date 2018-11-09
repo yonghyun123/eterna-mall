@@ -89,10 +89,10 @@ public class BuyDaoTest {
 	}
 	*/
 
-		@Test
+	@Test
 	public void testListAll() {
 		try {
-			List<Buy> list = buyDao.listAll("hee");
+			List<Buy> list = buyDao.listAllByUser("hee");
 			for (Buy buy : list) {
 				logger.debug(buy);
 				//System.out.println(user);

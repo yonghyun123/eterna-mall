@@ -43,14 +43,13 @@ public class ProductDaoTest {
    //@Test
    public void testRegist() {
       Product product = new Product();
-      product.setProductId(102);
-      product.setCategoryId(0);
+      product.setProductId("102");
       product.setProductBrand("피부피부");
       product.setProductSex("남성");
       product.setProductDescription("좋은화장품ㅇ입니다.");
-      product.setProductStock(100);
-      product.setMinAge(20);
-      product.setMaxAge(40);
+      product.setProductStock("100");
+      product.setMinAge("20");
+      product.setMaxAge("40");
       try {
     	  
          productDao.regist(product);
@@ -87,10 +86,10 @@ public class ProductDaoTest {
 	   	Product product = new Product();
 	      product.setProductBrand("랑콤");
 	      product.setProductDescription("차암 좋은화장품입니다.");
-	      product.setProductStock(1000);
-	      product.setMinAge(30);
-	      product.setMaxAge(50);
-	      product.setProductId(50);
+	      product.setProductStock("1000");
+	      product.setMinAge("30");
+	      product.setMaxAge("50");
+	      product.setProductId("50");
       try {
          productDao.update(product);
       } catch (Exception e) {

@@ -1,14 +1,9 @@
 package kr.or.kosta.eterna.user.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
@@ -53,7 +48,7 @@ public class UserJoinController implements Controller {
 		} catch (Exception e) {
 			throw new ServletException("join 실패", e);
 		}
-		
+		// 토스트 띄우기
 		if(user == null) {
 			session.setAttribute("flag", "popup-message-join-fail");
 		} else {

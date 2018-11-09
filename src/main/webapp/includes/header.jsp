@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="loginId" value="${loginId }" />
 
 <header class="site-navbar" role="banner">
   <div class="site-navbar-top">
@@ -18,7 +17,7 @@
         <div class="col-6 col-md-4 order-3 order-md-3 text-right">
           <div class="site-top-icons">
             <ul>
-              <li><a href="my-page.jsp"><span class="icon icon-person"></span></a></li>
+              <li><a href="/user/myPage.mall"><span class="icon icon-person"></span></a></li>
               <li>
                 <a href="/cart.jsp" class="site-cart">
                   <span class="icon icon-shopping_cart"></span>

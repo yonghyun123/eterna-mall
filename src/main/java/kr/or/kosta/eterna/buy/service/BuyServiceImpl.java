@@ -41,6 +41,11 @@ public class BuyServiceImpl implements BuyService {
    public List<Buy> recentAddress(String userId) throws Exception {
       return buyDao.recentAddress(userId);
    }
+   
+   @Override
+   public List<Buy> numPurchase(String userId) throws Exception {
+      return buyDao.numPurchase(userId);
+   }
 
    @Override
    public List<Buy> listPerMonth(String categoryId) throws Exception {

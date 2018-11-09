@@ -55,12 +55,12 @@ public class UserLoginController implements Controller {
 		if(user == null) {
 			out.println("userNone");
 		} else {
-			out.println(user);
 			session.setAttribute("flag", "popup-message-login-success");
 			Cookie cookie = new Cookie("loginId", loginId);
 			response.addCookie(cookie);
 		}
 		
+		// 아이디 저장
 		if(rememberId != null) {
 			Cookie reCookie = new Cookie("rememberId", loginId);
 			response.addCookie(reCookie);

@@ -9,27 +9,53 @@ package kr.or.kosta.eterna.buy.domain;
 public class Buy {
 	private String id;
 	private String manageId;
+	private String orderDate;
+	private String orderNumber;
+	private String orderNumPrice;
 	private String userId;
 	private String buyerName;
 	private String buyerTel;
 	private String buyerAddress;
+	private String recentAddressName;
+	private String receiveDate;
 	private String receiverName;
 	private String receiverTel;
 	private String receiverAddress;
 	private String count;
 	private String productBrand;
 	private String productDescription;
+	private String productPrice;
 	private String createDate;
 	private String categoryId;
 	private String fileName;
 	private String passwd; // 비회원 주문시 필요
 	private String orderFlag;
+	private String paymentKind;
+	private String numPurchase;
 	private int amount;
 
 	public Buy() {
 		super();
 	}
-
+	
+	public Buy(String orderDate, String orderNumber, String productBrand, String productDescription, String productPrice, String count,
+			   String orderFlag, String receiveDate, String receiverName, String receiverAddress, String receiverTel, String orderNumPrice, String paymentKind) {
+		super();
+		this.orderDate = orderDate;
+		this.orderNumber = orderNumber;
+		this.productBrand = productBrand;
+		this.productDescription = productDescription;
+		this.productPrice = productPrice;
+		this.count = count;
+		this.orderFlag = orderFlag;
+		this.receiveDate = receiveDate;
+		this.receiverName = receiverName;
+		this.receiverAddress = receiverAddress;
+		this.receiverTel = receiverTel;
+		this.orderNumPrice = orderNumPrice;
+		this.paymentKind = null;
+	}
+			
 	public Buy(String id, String userId, String buyerName, String buyerTel, String buyerAddress, String receiverName,
 			String receiverTel, String receiverAddress, String count, String productBrand, String productDescription,
 			String fileName, String passwd, String orderFlag, String categoryId, String createDate, int amount) {
@@ -71,6 +97,62 @@ public class Buy {
 		this.passwd = passwd;
 	}
 
+	public String getNumPurchase() {
+		return numPurchase;
+	}
+
+	public void setNumPurchase(String numPurchase) {
+		this.numPurchase = numPurchase;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+	public String getOrderNumPrice() {
+		return orderNumPrice;
+	}
+
+	public void setOrderNumPrice(String orderNumPrice) {
+		this.orderNumPrice = orderNumPrice;
+	}
+
+	public String getReceiveDate() {
+		return receiveDate;
+	}
+
+	public void setReceiveDate(String receiveDate) {
+		this.receiveDate = receiveDate;
+	}
+
+	public String getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(String productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	public String getPaymentKind() {
+		return paymentKind;
+	}
+
+	public void setPaymentKind(String paymentKind) {
+		this.paymentKind = paymentKind;
+	}
+	
 	public String getManageId() {
 		return manageId;
 	}
@@ -221,12 +303,14 @@ public class Buy {
 
 	@Override
 	public String toString() {
-		return "Buy [id=" + id + ", manageId=" + manageId + ", userId=" + userId + ", buyerName=" + buyerName
-				+ ", buyerTel=" + buyerTel + ", buyerAddress=" + buyerAddress + ", receiverName=" + receiverName
-				+ ", receiverTel=" + receiverTel + ", receiverAddress=" + receiverAddress + ", count=" + count
-				+ ", productBrand=" + productBrand + ", productDescription=" + productDescription + ", createDate="
-				+ createDate + ", categoryId=" + categoryId + ", fileName=" + fileName + ", passwd=" + passwd
-				+ ", orderFlag=" + orderFlag + ", amount=" + amount + "]";
+		return "Buy [orderDate=" + orderDate + ", orderNumber=" + orderNumber + ", orderNumPrice=" + orderNumPrice
+				+ ", orderFlag=" + orderFlag + ", userId=" + userId + ", buyerName=" + buyerName + ", buyerTel="
+				+ buyerTel + ", buyerAddress=" + buyerAddress + ", receiverName=" + receiverName + ", receiverTel="
+				+ receiverTel + ", receiverAddress=" + receiverAddress + ", receiveDate=" + receiveDate
+				+ ", recentAddressName=" + recentAddressName + ", count=" + count + ", productBrand=" + productBrand
+				+ ", productDescription=" + productDescription + ", productPrice=" + productPrice + ", fileName="
+				+ fileName + ", passwd=" + passwd + ", paymentKind=" + paymentKind + ", numPurchase=" + numPurchase
+				+ "]";
 	}
 
 }

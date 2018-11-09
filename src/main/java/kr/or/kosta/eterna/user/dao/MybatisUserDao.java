@@ -94,6 +94,30 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
+	public int priceAmount(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int amount = sqlSession.selectOne(NAMESPACE+"priceAmount", userId);
+		sqlSession.close();
+		return amount;
+	}
+
+	@Override
+	public int searchUpTier(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int grade = sqlSession.selectOne(NAMESPACE+"searchUpTier", userId);
+		sqlSession.close();
+		return grade;
+	}
+
+	@Override
+	public int couponLength(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int length = sqlSession.selectOne(NAMESPACE+"couponLength", userId);
+		sqlSession.close();
+		return length;
+	}
+	
+	@Override
 	public int newUser() throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		int count = sqlSession.selectOne(NAMESPACE + "newUser");

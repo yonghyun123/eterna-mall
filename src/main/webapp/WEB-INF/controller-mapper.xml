@@ -23,14 +23,16 @@
 	<bean type="controller" name="/logout" class="kr.or.kosta.eterna.user.controller.UserLogoutController" />
 	<!-- 회원가입 -->
 	<bean type="controller" name="/join" class="kr.or.kosta.eterna.user.controller.UserJoinController" />
-	
-	<bean type="controller" name="/product" class="kr.or.kosta.eterna.product.controller.ProductController"></bean>
-	
-	<bean type="controller" name="/detail" class="kr.or.kosta.eterna.product.controller.ProductDetailController"></bean>
+	<!-- 상품 리스트 페이지 -->
+	<bean type="controller" name="/product" class="kr.or.kosta.eterna.product.controller.ProductController" />
+	<!-- 마이페이지 -->
+	<bean type="controller" name="/user/myPage" class="kr.or.kosta.eterna.user.controller.UserPageController" />
+	<!-- 주문 상세 페이지 -->
+	<bean type="controller" name="/detail" class="kr.or.kosta.eterna.product.controller.ProductDetailController" />
 	<!-- 장바구니관리 -->
     <bean type="controller" name="/cart" class="kr.or.kosta.eterna.cart.controller.CartListController" />
     <!-- 조건 컨트롤러 -->
-    <bean type="controller" name="/conditions" class="kr.or.kosta.eterna.product.controller.ProductListByConditionsController"/>
+    <bean type="controller" name="/conditions" class="kr.or.kosta.eterna.product.controller.ProductListByConditionsController" />
     
 	<!-- 관리자 컨트롤러 -->
 	<!--  관리자페이지 -->

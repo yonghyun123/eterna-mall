@@ -45,10 +45,10 @@ public class ProductImageDaoTest {
    //@Test
    public void testRegist() {
       ProductImage productImage = new ProductImage();
-      productImage.setImageId(101);
+      productImage.setImageId("101");
       productImage.setImageType("ettt");
-      productImage.setProductId(101);
-      productImage.setFileId(100);
+      productImage.setProductId("101");
+      productImage.setFileId("100");
       try {
     	  
          productImageDao.regist(productImage);
@@ -75,8 +75,8 @@ public class ProductImageDaoTest {
    //@Test
    public void testUpdate() {
 	   	ProductImage productImage = new ProductImage();
-	   	productImage.setFileId(150);
-	   	productImage.setProductId(101);
+	   	productImage.setFileId("150");
+	   	productImage.setProductId("101");
 	   	productImage.setImageType("ettt");
 
       try {

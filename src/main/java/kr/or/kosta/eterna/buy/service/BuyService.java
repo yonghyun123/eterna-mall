@@ -28,4 +28,7 @@ public interface BuyService {
    
    /* 월별 제품 판매액*/
    public List<Buy> listAmount() throws Exception;
+   
+   /* 회원별 구매횟수 조회 */
+	public List<Buy> numPurchase(String userId) throws Exception;
 }

@@ -69,12 +69,8 @@ public class FrontControllerServlet extends HttpServlet {
 		View view = null;
 
 		// ControllerFactory에서 요청 uri에 대한 컨트롤러 검색
-//		controller = controllerFactory.getController(uri);
 		controller = (Controller)controllerFactory.getBean(uri);
-		
 		if(controller == null){
-//			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-//			return;
 			// 등록된 세부 컨트롤러가 없을 경우 uri에 해당하는 jsp로 단순 포워드
 			view = viewResolver.resolve(uri+".jsp");
 			view.execute(request, response);
