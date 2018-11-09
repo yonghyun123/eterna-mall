@@ -6,42 +6,51 @@ import kr.or.kosta.eterna.buy.dao.BuyDao;
 import kr.or.kosta.eterna.buy.domain.Buy;
 
 public class BuyServiceImpl implements BuyService {
-	
-	private BuyDao buyDao;
-	
-	public BuyDao getBuyDao() {
-		return buyDao;
-	}
+   
+   private BuyDao buyDao;
+   
+   public BuyDao getBuyDao() {
+      return buyDao;
+   }
 
-	public void setBuyDao(BuyDao buyDao) {
-		this.buyDao = buyDao;
-	}
+   public void setBuyDao(BuyDao buyDao) {
+      this.buyDao = buyDao;
+   }
 
-	@Override
-	public void create(Buy buy) throws Exception {
-		buyDao.createInfo(buy);
-		
-		// count 받아서 for 문 돌려야 함!!!!!
-		
-		
-		buyDao.createManage(buy);
-		
-	}
+   @Override
+   public void create(Buy buy) throws Exception {
+      buyDao.createInfo(buy);
+      
+      // count 받아서 for 문 돌려야 함!!!!!
+      
+      buyDao.createManage(buy);
+      
+   }
 
-	@Override
-	public List<Buy> listAll(String userId) throws Exception {
-		return buyDao.listAll(userId);
-	}
-	
-	@Override
-	public List<Buy> listAll() throws Exception {
-		return buyDao.listAll();
-	}
-	
-	@Override
-	public List<Buy> recentAddress(String userId) throws Exception {
-		return buyDao.recentAddress(userId);
-	}
+   @Override
+   public List<Buy> listAllByUser(String userId) throws Exception {
+      return buyDao.listAllByUser(userId);
+   }
+   
+   @Override
+   public List<Buy> listAll() throws Exception {
+      return buyDao.listAll();
+   }
+   
+   @Override
+   public List<Buy> recentAddress(String userId) throws Exception {
+      return buyDao.recentAddress(userId);
+   }
+
+   @Override
+   public List<Buy> listPerMonth(String categoryId) throws Exception {
+      return buyDao.listPerMonth(categoryId);
+   }
+
+   @Override
+   public List<Buy> listAmount() throws Exception {
+      return buyDao.listAmount();
+   }
 
 
 }

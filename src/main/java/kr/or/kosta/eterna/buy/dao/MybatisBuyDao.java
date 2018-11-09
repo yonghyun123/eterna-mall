@@ -1,6 +1,8 @@
 package kr.or.kosta.eterna.buy.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,72 +11,104 @@ import kr.or.kosta.eterna.buy.domain.Buy;
 
 /**
  * BuyDao 인터페이스에 선언된 기능 구현
+ * 
  * @author 조희진
  *
  */
 public class MybatisBuyDao implements BuyDao {
 	private static final String NAMESPACE = "kr.or.kosta.eterna.buy.";
 	SqlSessionFactory sqlSessionFactory;
-	  
+
 	public SqlSessionFactory getSqlSessionFactory() {
 		return sqlSessionFactory;
 	}
 
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
 		this.sqlSessionFactory = sqlSessionFactory;
-		
+
 	}
-	
 
 	@Override
 	public void createInfo(Buy buy) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		sqlSession.insert(NAMESPACE+"createInfo", buy);
+		sqlSession.insert(NAMESPACE + "createInfo", buy);
 		sqlSession.commit();
-		sqlSession.close();		
+		sqlSession.close();
 	}
 
 	@Override
 	public void createManage(Buy buy) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		sqlSession.insert(NAMESPACE+"createManage", buy);
+		sqlSession.insert(NAMESPACE + "createManage", buy);
 		sqlSession.commit();
-		sqlSession.close();		
+		sqlSession.close();
 	}
 
-
 	@Override
-	public List<Buy> listAll(String userId) throws Exception {
-		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
-		List<Buy> buyList = sqlSession.selectList(NAMESPACE+"listClient",userId);
+	public List<Buy> listAllByUser(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Buy> buyList = sqlSession.selectList(NAMESPACE + "listClient", userId);
 		sqlSession.close();
 		return buyList;
-		}
+	}
 
 	@Override
 	public List<Buy> listAll() throws Exception {
-		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
-		List<Buy> buyList = sqlSession.selectList(NAMESPACE+"listAll");
-		sqlSession.close();
-		return buyList;
-		}
-	
-	@Override
-	public List<Buy> recentAddress(String userId) throws Exception {
-		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
-		List<Buy> buyList = sqlSession.selectList(NAMESPACE+"recentAddress",userId);
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Buy> buyList = sqlSession.selectList(NAMESPACE + "listAll");
 		sqlSession.close();
 		return buyList;
 	}
 
+	@Override
+	public List<Buy> recentAddress(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Buy> buyList = sqlSession.selectList(NAMESPACE + "recentAddress", userId);
+		sqlSession.close();
+		return buyList;
+	}
+
+	@Override
+	public List<Buy> listPerMonth(String categoryId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Buy> buyList = sqlSession.selectList(NAMESPACE + "salesperMonth", categoryId);
+		sqlSession.close();
+		return buyList;
+	}
+
+	@Override
+	public List<Buy> listAmount() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Buy> buyList = sqlSession.selectList(NAMESPACE + "totalAmount");
+		sqlSession.close();
+		return buyList;
+	}
+
+	@Override
+	public List<Buy> showOrderDetail(String id) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Buy> buyList = sqlSession.selectList(NAMESPACE + "showOrderDetail", id);
+		sqlSession.close();
+		return buyList;
+	}
+
+	@Override
+	public void updateStatus(String id, String orderFlag) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("orderFlag", orderFlag);
+		sqlSession.insert(NAMESPACE + "updateStatus", map);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+
+	@Override
+	public int newOrder() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int count = sqlSession.selectOne(NAMESPACE + "newOrder");
+		sqlSession.close();
+		return count;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-

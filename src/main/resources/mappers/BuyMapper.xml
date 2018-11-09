@@ -4,10 +4,10 @@
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="kr.or.kosta.eterna.buy">
 
-	<!-- 주문리스트 추가 -->
-	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
-	<insert id="createInfo" parameterType="Buy">
-		INSERT INTO sm_buy_info 
+   <!-- 주문리스트 추가 -->
+   <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+   <insert id="createInfo" parameterType="Buy">
+      INSERT INTO sm_buy_info 
             (id, 
              buyer_name,
              buyer_tel, 
@@ -17,7 +17,7 @@
              receiver_address,
             <if test="passwd!=null">passwd,</if>
              user_id) 
-		VALUES     (9, 
+      VALUES     (9, 
             #{buyerName}, 
             #{buyerTel}, 
             #{buyerAddress}, 
@@ -26,25 +26,25 @@
             #{receiverAddress}, 
             <if test="passwd!=null">#{passwd},</if>
             #{userId})
-	</insert>
-	
-	<!-- 주문번호별 구매 목록 추가 -->
-	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
-	<insert id="createManage" parameterType="Buy">
-	INSERT INTO sm_buy_manage 
+   </insert>
+   
+   <!-- 주문번호별 구매 목록 추가 -->
+   <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+   <insert id="createManage" parameterType="Buy">
+   INSERT INTO sm_buy_manage 
             (id, 
              count, 
              buy_id, 
              product_id) 
-	VALUES  (8, 
+   VALUES  (8, 
              #{count}, 
              (select MAX(id) from SM_buy_info), 
              (select product_id from SM_product where product_description = #{productDescription})) 
-	</insert>
+   </insert>
 
-	<!-- 유저별 구매 리스트 -->
-	<select id="listClient" resultType="Buy">
-	 SELECT i.buyer_name as buyerName, 
+<!-- 유저별 구매 리스트 -->
+   <select id="listClient" resultType="Buy">
+    SELECT i.buyer_name as buyerName, 
        i.buyer_tel as buyerTel,
        i.buyer_address as buyerAddress,
        i.receiver_name as receiverName,
@@ -56,7 +56,7 @@
        p.product_brand as productBrand,
        p.product_description as productDescription,
        f.file_name as fileName
-	 FROM   SM_buy_info i 
+    FROM   SM_buy_info i 
        join SM_buy_manage m 
          ON i.id=m.buy_id 
        join SM_product p 
@@ -65,12 +65,13 @@
          ON p.product_id=e.product_id
        join SM_file_info f
           ON e.file_id = f.file_id
-	 WHERE user_id=#{userId} and image_type='th'
-	</select>
-	
-	<!-- 유저별 구매 리스트 -->
-	<select id="listAll" resultType="Buy">
-	 SELECT i.buyer_name as buyerName, 
+    WHERE user_id=#{userId} and image_type='th'
+   </select>
+   
+   <!-- 전체 리스트 -->
+   <select id="listAll" resultType="Buy">
+    SELECT i.id as id,
+      i.buyer_name as buyerName, 
        i.buyer_tel as buyerTel,
        i.buyer_address as buyerAddress,
        i.receiver_name as receiverName,
@@ -78,11 +79,17 @@
        i.receiver_address as receiverAddress,       
        i.user_id as userId,
        i.order_flag as orderFlag,
+       i.create_date as createDate
+    FROM   SM_buy_info i
+   </select>
+   
+   <!-- 주문 상세보기 -->
+   <select id="showOrderDetail" resultType="Buy">
+    SELECT i.id as id,
        m.count as count,
-       p.product_brand as productBrand,
        p.product_description as productDescription,
        f.file_name as fileName
-	 FROM   SM_buy_info i 
+    FROM   SM_buy_info i 
        join SM_buy_manage m 
          ON i.id=m.buy_id 
        join SM_product p 
@@ -91,19 +98,63 @@
          ON p.product_id=e.product_id
        join SM_file_info f
           ON e.file_id = f.file_id
-	 WHERE image_type='th'
-	</select>
-	
-	<!-- 최근 3개의 배송지 조회 -->
-	<select id="recentAddress" resultType="Buy">
-		SELECT receiver_address AS "receiverAddress",
-		receiver_name AS "receiverName",
-		receiver_tel AS "receiverTel"
-		FROM (SELECT *
-		FROM sm_buy_info
-		ORDER BY create_date DESC)
-		WHERE ROWNUM between 1 and 3
-		AND user_id = #{userId}
-	</select>
-	
+    WHERE i.id=#{id} and image_type='th'
+   </select>
+   
+   <!-- 최근 3개의 배송지 조회 -->
+   <select id="recentAddress" resultType="Buy">
+   SELECT receiver_address as receiverAddress,
+         receiver_name as receiverName 
+   FROM (SELECT * 
+       FROM   sm_buy_info 
+       ORDER  BY create_date DESC) 
+   WHERE ROWNUM between 1 and 3 
+       AND user_id = #{userId} 
+   </select>
+   
+     <!-- 희진 추가!!!! -->
+   <!-- 월별 제품의(제품별) 판매량 -->
+   <select id="salesperMonth" parameterType="String" resultType="Buy">
+   SELECT SUM(m.count) AS count, 
+       P.product_description AS productDescription
+FROM   sm_buy_manage m 
+       join sm_buy_info i 
+         ON m.buy_id = i.id 
+       join sm_product p 
+         ON m.product_id = p.product_id 
+       join sm_category c 
+         ON p.category_id = c.category_id 
+WHERE  To_char(To_date(p.create_date), 'MM') = To_char(SYSDATE, 'MM') 
+       AND c.category_type = #{categoryId}
+GROUP  BY P.product_description
+   </select>
+   
+   <!-- 월별 판매액 -->
+   <select id="totalAmount" resultType="Buy">
+   SELECT SUM(p.price * m.count) as amount, 
+       To_char(To_date(i.create_date, 'YYYY/MM/DD HH24:MI:SS'), 'yyyy/mm') as createDate 
+   FROM   sm_buy_manage m 
+       join sm_product_price p 
+         ON m.product_id = p.product_id 
+       join sm_product r 
+         ON p.product_id = r.product_id 
+       join sm_buy_info i 
+         ON m.buy_id = i.id 
+   GROUP  BY To_char(To_date(i.create_date, 'YYYY/MM/DD HH24:MI:SS'), 'yyyy/mm') 
+   </select>
+   
+   <!-- 희진추가!! -->
+   <!-- 배송 상태 변경 -->
+   <update id="updateStatus">
+   Update SM_buy_info
+   set order_flag=#{orderFlag}
+   where id = #{id}
+   </update>
+   
+   <!-- 배송상태가 배송전 인 상품들의 개수 -->
+   <select id="newOrder" resultType="int">
+   SELECT Count(order_flag) 
+   FROM   sm_buy_info 
+   WHERE  order_flag = 0 
+   </select>
 </mapper>

@@ -39,6 +39,27 @@
 		FROM sm_user
 		WHERE user_id=#{userId}
 	</select>
+	
+
+	<!--관리자 id를 이용한 회원 검색 (현우) -->    
+		<!--                     
+   <select id="read" resultType="User" parameterType="String">
+      SELECT user_id                      AS "userId", 
+             user_name                       AS "userName",
+             user_email               AS "userEmail",
+             user_passwd               AS "userPasswd",
+             user_address               AS "userAddress",
+             user_tel                  AS "userTel",
+             t.tier_type                AS "tierId",
+             user_grade               AS "userGrade",
+             user_point               AS "userPoint",
+             TO_CHAR(user_regdate, 'YYYY-MM-DD') AS "userRegdate" 
+      FROM   SM_user u
+      join SM_user_tier t
+         ON u.tier_id = t.tier_id 
+      WHERE user_id=#{userId}
+   </select>
+   -->
 
 	<!-- id를 이용한 쿠폰 검색 -->
 	<select id="coupon" resultType="User" parameterType="String">
@@ -66,18 +87,21 @@
 		WHERE user_id=#{userId}
 	</update>
 
-	<!-- 전체 회원 리스트 -->
-	<select id="listAll" resultType="User">
-		SELECT user_id AS "userId",
-		user_name AS "userName",
-		user_passwd AS "userPasswd",
-		user_email AS
-		"userEmail",
-		user_address AS "userAddress",
-		user_tel AS "userTel",
-		TO_CHAR(user_regdate, 'YYYY-MM-DD') AS "userRegdate"
-		FROM SM_user
-	</select>
+   <!-- 전체 회원 리스트 -->
+   <select id="listAll" resultType="User">
+         SELECT user_id       AS "userId", 
+             user_name       AS "userName", 
+             user_passwd       AS "userPasswd", 
+             user_email      AS "userEmail",
+             user_address      AS "userAddress", 
+             user_tel          AS "userTel",
+             t.tier_type      AS "tierId",
+            TO_CHAR(user_regdate, 'YYYY-MM-DD') AS "userRegdate"
+         FROM   SM_user u
+         join SM_user_tier t
+         ON u.tier_id = t.tier_id
+   </select>
+   
 
 	<!-- 로그인시 id와 passwd를 통한 회원 조회 -->
 	<select id="certify" resultType="User" parameterType="map">
@@ -104,8 +128,7 @@
 	<!-- 회원 삭제(id를 제외한 나머지 정보들 삭제) -->
 	<update id="delete" parameterType="map">
 		UPDATE SM_user
-		SET user_name =
-		NULL,
+		SET user_name = NULL,
 		user_email = NULL,
 		user_passwd = NULL,
 		user_address = NULL,
@@ -118,5 +141,13 @@
 		AND user_passwd =
 		#{userPasswd}
 	</update>
+	
+	<!-- 오늘 등록한 회원 수 -->
+   <select id="newUser" resultType="int">
+   SELECT Count(user_regdate) 
+   FROM   sm_user 
+   WHERE  To_char(To_date(user_regdate, 'YYYY/MM/DD HH24:MI:SS'), 'yyyymmdd') = 
+       To_char(SYSDATE, 'yyyymmdd') 
+   </select>
 
 </mapper>

@@ -13,14 +13,22 @@ public class Review {
 	private String boardId;
 	private String regdate;
 	private String subject;
-	
-
-
+	private String groupNo;
 	private String content;
 	private String score;
 	private String answerFlag;
 	
 	
+
+	public String getGroupNo() {
+		return groupNo;
+	}
+
+
+	public void setGroupNo(String groupNo) {
+		this.groupNo = groupNo;
+	}
+
 
 	public Review() {
 		super();
@@ -135,13 +143,11 @@ public class Review {
 		this.subject = subject;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Review [id=" + id + ", userId=" + userId + ", productId=" + productId + ", boardId=" + boardId
-				+ ", regdate=" + regdate + ", subject=" + subject + ", content=" + content + ", score=" + score
-				+ ", answerFlag=" + answerFlag + "]";
+				+ ", regdate=" + regdate + ", subject=" + subject + ", groupNo=" + groupNo + ", content=" + content
+				+ ", score=" + score + ", answerFlag=" + answerFlag + "]";
 	}
-
 
 }

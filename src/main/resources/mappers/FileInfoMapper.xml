@@ -38,4 +38,13 @@
           DELETE SM_file_info
           WHERE file_id = #{fileId}
    </delete>
+   
+   <!-- 현우추가 -->
+   <select id="read" resultType="FileInfo">
+        SELECT file_id       AS fileId, 
+             file_name    AS fileName, 
+             content_type AS contentType 
+      FROM   SM_file_info  
+      WHERE file_id = #{value}
+   </select>
 </mapper> 

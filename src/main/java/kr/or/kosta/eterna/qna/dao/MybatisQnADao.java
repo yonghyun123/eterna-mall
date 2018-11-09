@@ -15,71 +15,89 @@ import kr.or.kosta.eterna.qna.domain.QnA;
  *
  */
 public class MybatisQnADao implements QnADao {
-	private static final String NAMESPACE = "kr.or.kosta.eterna.qna.";
-	SqlSessionFactory sqlSessionFactory;
-	  
-	public SqlSessionFactory getSqlSessionFactory() {
-		return sqlSessionFactory;
-	}
+   private static final String NAMESPACE = "kr.or.kosta.eterna.qna.";
+   SqlSessionFactory sqlSessionFactory;
+     
+   public SqlSessionFactory getSqlSessionFactory() {
+      return sqlSessionFactory;
+   }
 
-	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-		this.sqlSessionFactory = sqlSessionFactory;
-		
-	}
-	
-	@Override
-	public void create(QnA qna) throws Exception {
-		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		sqlSession.insert(NAMESPACE+"create", qna);
-		sqlSession.commit();
-		sqlSession.close();
-	}
+   public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+      this.sqlSessionFactory = sqlSessionFactory;
+      
+   }
+   
+   @Override
+   public void create(QnA qna) throws Exception {
+      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+      sqlSession.insert(NAMESPACE+"create", qna);
+      sqlSession.commit();
+      sqlSession.close();
+   }
 
-	@Override
-	public List<QnA> listItem(String productId) throws Exception {
-		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
-		List<QnA> qnaList = sqlSession.selectList(NAMESPACE+"listItem", productId);
-		sqlSession.close();
-		return qnaList;
-	}
-	
-	@Override
-	public List<QnA> myList(String userId) throws Exception {
-		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
-		List<QnA> qnaList = sqlSession.selectList(NAMESPACE+"myList", userId);
-		sqlSession.close();
-		return qnaList;
-	}
-	
-	@Override
-	public List<QnA> listAll() throws Exception {
-		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
-		List<QnA> qnaList = sqlSession.selectList(NAMESPACE+"listAll");
-		sqlSession.close();
-		return qnaList;
-	}
+   @Override
+   public List<QnA> listItem(String productId) throws Exception {
+      SqlSession  sqlSession = sqlSessionFactory.openSession(true);
+      List<QnA> qnaList = sqlSession.selectList(NAMESPACE+"listItem", productId);
+      sqlSession.close();
+      return qnaList;
+   }
+   
+   @Override
+   public List<QnA> myList(String userId) throws Exception {
+      SqlSession  sqlSession = sqlSessionFactory.openSession(true);
+      List<QnA> qnaList = sqlSession.selectList(NAMESPACE+"myList", userId);
+      sqlSession.close();
+      return qnaList;
+   }
+   
+   @Override
+   public List<QnA> listAll() throws Exception {
+      SqlSession  sqlSession = sqlSessionFactory.openSession(true);
+      List<QnA> qnaList = sqlSession.selectList(NAMESPACE+"listAll");
+      sqlSession.close();
+      return qnaList;
+   }
 
-	@Override
-	public void createComment(QnA qna) throws Exception {
-		
-	}
+   @Override
+   public void createComment(QnA qna) throws Exception {
+      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+      sqlSession.insert(NAMESPACE+"createComment", qna);
+      sqlSession.commit();
+      sqlSession.close();
+   }
 
-	@Override
-	public void update(QnA qna, String id) throws Exception {
-		Map<String, Object> map = new HashMap<>();
-		String subject = qna.getSubject();
-		String content = qna.getContent();
-		map.put("subject", subject);
-		map.put("content", content);
-		map.put("id", id);
-		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		sqlSession.update(NAMESPACE+"update", map);
-		sqlSession.commit();
-		sqlSession.close();
-	}
+   @Override
+   public void update(QnA qna, String id) throws Exception {
+      Map<String, Object> map = new HashMap<>();
+      String subject = qna.getSubject();
+      String content = qna.getContent();
+      map.put("subject", subject);
+      map.put("content", content);
+      map.put("id", id);
+      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+      sqlSession.update(NAMESPACE+"update", map);
+      sqlSession.commit();
+      sqlSession.close();
+   }
+
+   @Override
+   public void updateFlag(String id) throws Exception {
+      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+      sqlSession.update(NAMESPACE+"updateFlag", id);
+      sqlSession.commit();
+      sqlSession.close();
+   }
+
+   @Override
+   public int newQnA() throws Exception {
+      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+      int count = sqlSession.selectOne(NAMESPACE+"newQnA");
+      sqlSession.close();
+      return count;
+   }
 
 }
-
 
 
 

@@ -34,6 +34,34 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 	
+	<bean type="dao" name="productDao" class="kr.or.kosta.eterna.product.dao.MybatisProductDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<bean type="dao" name="productImageDao" class="kr.or.kosta.eterna.productImage.dao.MybatisProductImageDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<bean type="dao" name="qnaDao" class="kr.or.kosta.eterna.qna.dao.MybatisQnADao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- 추가 -->
+   <bean type="dao" name="userRcmdDao" class="kr.or.kosta.eterna.user.dao.MybatisUserRcmdDao">
+      <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+   </bean>
+   
+   <bean type="dao" name="productImageDao" class="kr.or.kosta.eterna.productImage.dao.MybatisProductImageDao">
+      <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+   </bean>
+   
+   <bean type="dao" name="fileInfoDao" class="kr.or.kosta.eterna.fileInfo.dao.MybatisFileInfoDao">
+      <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+   </bean>
+      <bean type="dao" name="priceDao" class="kr.or.kosta.eterna.price.dao.MybatisPriceDao">
+      <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+   </bean>
+	
 	<!-- service 등록 -->
 	<bean type="service" name="userService" class="kr.or.kosta.eterna.user.service.UserServiceImpl">
 		<property name="userDao" ref="userDao"/>
@@ -50,6 +78,32 @@
 	<bean type="service" name="reviewService" class="kr.or.kosta.eterna.review.service.ReviewServiceImpl">
 		<property name="reviewDao" ref="reviewDao"/>
 	</bean>
+
 	
+	<bean type="service" name="productService" class="kr.or.kosta.eterna.product.service.ProductServiceImpl">
+		<property name="productDao" ref="productDao"/>
+	</bean>
+	
+	<bean type="service" name="productImageService" class="kr.or.kosta.eterna.productImage.service.ProductImageServiceImpl">
+		<property name="productImageDao" ref="productImageDao"/>
+	</bean>
+	
+		
+	<bean type="service" name="qnaService" class="kr.or.kosta.eterna.qna.service.QnAServiceImpl">
+		<property name="qnaDao" ref="qnaDao"/>
+	</bean>
+	
+	<bean type="service" name="adminService" class="kr.or.kosta.eterna.admin.service.AdminServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <property name="buyDao" ref="buyDao"/>
+        <property name="productDao" ref="productDao"/>
+       
+        <property name="userRcmdDao" ref="userRcmdDao"/>
+        <property name="productImageDao" ref="productImageDao"/>
+        <property name="fileInfoDao" ref="fileInfoDao"/>
+        <property name="priceDao" ref="priceDao"/>
+        <property name="qnaDao" ref="qnaDao"/>
+        <property name="reviewDao" ref="reviewDao"/>
+    </bean>
 	
 </beans>

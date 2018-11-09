@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.userRcmd">
+
+   <!-- 추천테이블 생성 -->                        
+   <insert id="create" parameterType="UserRcmd">
+      INSERT INTO SM_category_recommend 
+            (id,
+             user_id,
+             cleansing_count, 
+             lib_count, 
+             skin_count, 
+             lotion_count, 
+             sun_count 
+             ) 
+      VALUES(
+          #{id}, 
+             #{userId}, 
+             #{cleansingCount}, 
+             #{libCount}, 
+             #{skinCount}, 
+             #{lotionCount},
+             #{sunCount}
+             )
+   </insert>
+
+   <!-- 회원id를 이용한 추천테이블 검색 -->                        
+   <select id="read" resultType="UserRcmd" parameterType="String">
+      SELECT cleansing_count                      AS "cleansingCount", 
+             lib_count                       AS "libCount",
+             skin_count               AS "skinCount",
+             lotion_count               AS "lotionCount",
+             sun_count               AS "sunCount"
+      FROM   SM_category_recommend
+      WHERE user_id=#{value}
+   </select>
+   
+   <!-- 추천 테이블 count 추가 -->
+   <update id="update" parameterType="UserRcmd">
+      UPDATE SM_category_recommend
+      <set>   
+         <if test="cleansingCount != null">cleansing_count = cleansing_count + #{cleansingCount},</if>   
+         <if test="libCount != null">lib_count = lib_count + #{libCount},</if>      
+         <if test="skinCount != null">skin_count = skin_count + #{skinCount}</if>
+         <if test="lotionCount != null">lotion_count = lotion_count + #{lotionCount}</if>
+         <if test="sunCount != null">sun_count = sun_count + #{sunCount}</if>
+      </set>
+      WHERE user_id=#{userId}   
+   </update>
+
+   <!-- 추천 테이블 삭제(회원 탈퇴시 함께 삭제) -->
+   <delete id="delete" parameterType="String">
+      DELETE 
+      FROM SM_category_recommend
+      WHERE  user_id = #{value} 
+   </delete>
+</mapper>

@@ -18,6 +18,16 @@ public class QnA {
 	private String secretFlag;
 	private String groupNo;
 	private String levelNo;
+	private String productDescription;
+	
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
 
 	public QnA() {
 		super();
@@ -157,6 +167,8 @@ public class QnA {
 	public String toString() {
 		return "QnA [id=" + id + ", userId=" + userId + ", productId=" + productId + ", boardId=" + boardId
 				+ ", subject=" + subject + ", content=" + content + ", regdate=" + regdate + ", answerFlag="
-				+ answerFlag + ", secretFlag=" + secretFlag + ", groupNo=" + groupNo + ", levelNo=" + levelNo + "]";
+				+ answerFlag + ", secretFlag=" + secretFlag + ", groupNo=" + groupNo + ", levelNo=" + levelNo
+				+ ", productDescription=" + productDescription + "]";
 	}
+
 }

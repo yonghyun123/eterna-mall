@@ -43,7 +43,33 @@
        level_no as levelNo 
 	FROM   SM_product_answer 
 	WHERE  product_id = #{productId}
+	
 	</select>
+	<!-- Q&A 답글 -->
+   <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+   <insert id="createComment" parameterType="QnA">
+      INSERT INTO sm_product_answer 
+            (id, 
+             user_id, 
+             product_id, 
+             board_id, 
+             subject, 
+             content, 
+             group_no, 
+             level_no) 
+      VALUES     (8,
+            'manager', 
+            (select product_id
+            from SM_product_answer
+            where id=#{id}), 
+            2, 
+            '답변글 입니다.', 
+            #{content}, 
+            (select group_no
+            from SM_product_answer
+            where id=#{id}), 
+            1)
+   </insert>
 	
 	<!-- 회원별 Q&A 리스트 -->
 	<select id="myList" resultType="QnA">
@@ -61,11 +87,12 @@
 	WHERE  user_id = #{userId}
 	</select>
 	
-	<!-- 전체 리뷰 리스트 -->
-	<select id="listAll" resultType="QnA">
-	 SELECT user_id     AS userId,
-		 id, 
-       product_id  AS productId, 
+	<!-- 전체 Q&A 리스트 -->
+   <select id="listAll" resultType="QnA">
+    SELECT user_id     AS userId,
+       id, 
+       p.product_id AS productId,
+       p.product_description AS productDescription,
        regdate,
        subject, 
        content, 
@@ -73,7 +100,24 @@
        answer_flag AS answerFlag,
        group_no as groupNo,
        level_no as levelNo 
-	FROM   SM_product_answer
-  	order by regdate desc
-	</select>
+   FROM   SM_product_answer a
+   join SM_product p 
+         ON a.product_id = p.product_id
+     where level_no = 0
+     order by regdate desc
+   </select>
+   
+   <!-- 답변 등록시 flag 업데이트 -->
+   <update id="updateFlag">
+   update SM_product_answer
+   set answer_flag = 1
+   where id = #{id}
+   </update>
+   
+   <!-- 답변 대기중인 Q&A글 갯수 -->
+   <select id="newQnA" resultType="int">
+   SELECT Count(answer_flag)
+   FROM   sm_product_answer 
+   WHERE  answer_flag = 0 
+   </select>
 </mapper>
