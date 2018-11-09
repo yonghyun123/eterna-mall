@@ -4,6 +4,7 @@
   
 <!-- 에러에 맞는 메세지를 hidden으로 저장하고 있다가 띄운다. -->
   <div id="popup-message-login-success">로그인 성공!</div>
+  <div id="popup-message-logout-success">로그아웃 성공!</div>
   <div id="popup-message-join-success">회원가입 성공!</div>
   <div id="popup-message-join-fail">회원가입에 실패하셨습니다.</div>
   
@@ -58,8 +59,8 @@
 <script>
   function popup(flag) {
       var x = document.getElementById("${flag}");
-
-      //setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	  x.className= "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
       
   }
     if("${flag}" != null) {
