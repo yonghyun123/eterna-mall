@@ -14,16 +14,45 @@
              board_id, 
              content,
              subject, 
-             score) 
+             score,
+             group_no,
+             level_no) 
 		VALUES     (review_id_seq.nextval, 
             #{userId}, 
             #{productId}, 
             1, 
             #{content},
             #{subject},
-            #{score})
+            #{score},
+            review_id_seq.currval,
+            0)
 	</insert>
 
+
+<!-- Review 답글 -->
+   <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+   <insert id="createComment" parameterType="Review">
+      INSERT INTO sm_product_review 
+            (id, 
+             user_id, 
+             product_id, 
+             board_id, 
+             content, 
+             group_no, 
+             level_no) 
+      VALUES     (8,
+            'manager', 
+            (select product_id
+            from SM_product_answer
+            where id=#{id}), 
+            2, 
+            #{content}, 
+            (select group_no
+            from SM_product_answer
+            where id=#{id}), 
+            1)
+   </insert>
+   
 	<!-- 상품별 리뷰 리스트 -->
 	<select id="listItem" resultType="Review">
 	 SELECT user_id     AS userId, 
@@ -66,7 +95,6 @@
 	</select>
 	
 	<!-- 상품 구매한 회원 체크 -->
-	
 	<select id="checkUser" resultType="map" parameterType="map">
 	 SELECT distinct(bm.product_id)     AS "productId"
 	 FROM   SM_buy_manage bm
@@ -75,4 +103,18 @@
      					 FROM   SM_buy_info
      					 WHERE  user_id = #{userId})
 	</select>
+	
+	<!-- 답글 등록 시 flag update -->
+   <update id="updateFlag">
+   update sm_product_review
+   set answer_flag = 1
+   where id = #{id}
+   </update>
+   
+   <!-- 답변 대기중인 review -->
+   <select id="newReview" resultType="int">
+   SELECT Count(answer_flag) 
+   FROM   sm_product_review 
+   WHERE  answer_flag = 0 
+   </select>
 </mapper>

@@ -1,73 +1,81 @@
 package kr.or.kosta.eterna.productImage.domain;
 
 public class ProductImage {
-	/**이미지 식별자*/
-	private int imageId;
-	/**이미지 카테고리 식별자*/
-	private String imageType;
-	/**제품 식별자*/
-	private int productId;
-	/** 파일 식별자*/
-	private int fileId;
-	private String fileName;
-	
-	public ProductImage() {
-		super();
-	}
-	
-	public ProductImage(int imageId, String imageType, int productId, int fileId, String fileName) {
-		super();
-		this.imageId = imageId;
-		this.imageType = imageType;
-		this.productId = productId;
-		this.fileId = fileId;
-		this.fileName = fileName;
-	}
+   /**이미지 식별자*/
+   private String imageId;
+   /**이미지 카테고리 식별자*/
+   private String imageType;
+   /**제품 식별자*/
+   private String productId;
+   /** 파일 식별자*/
+   private String fileName;
+   
+   private String fileId;
+   
+   public ProductImage() {
+      super();
+   }
+   
 
-	public int getImageId() {
-		return imageId;
-	}
+   public ProductImage(String imageId, String imageType, String productId, String fileName, String fileId) {
+      super();
+      this.imageId = imageId;
+      this.imageType = imageType;
+      this.productId = productId;
+      this.fileName = fileName;
+      this.fileId = fileId;
+   }
 
-	public void setImageId(int imageId) {
-		this.imageId = imageId;
-	}
+   public String getImageId() {
+      return imageId;
+   }
 
-	public String getImageType() {
-		return imageType;
-	}
+   public void setImageId(String imageId) {
+      this.imageId = imageId;
+   }
 
-	public void setImageType(String imageType) {
-		this.imageType = imageType;
-	}
+   public String getImageType() {
+      return imageType;
+   }
 
-	public int getProductId() {
-		return productId;
-	}
+   public void setImageType(String imageType) {
+      this.imageType = imageType;
+   }
 
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
+   public String getProductId() {
+      return productId;
+   }
 
-	public int getFileId() {
-		return fileId;
-	}
+   public void setProductId(String productId) {
+      this.productId = productId;
+   }
 
-	public void setFileId(int fileId) {
-		this.fileId = fileId;
-	}
 
-	public String getFileName() {
-		return fileName;
-	}
+   public String getFileName() {
+      return fileName;
+   }
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+   public void setFileName(String fileName) {
+      this.fileName = fileName;
+   }
 
-	@Override
-	public String toString() {
-		return "ProductImage [imageId=" + imageId + ", imageType=" + imageType + ", productId=" + productId
-				+ ", fileId=" + fileId + ", fileName=" + fileName + "]";
-	}
+   
+   public String getFileId() {
+      return fileId;
+   }
+
+
+   public void setFileId(String fileId) {
+      this.fileId = fileId;
+   }
+
+
+   @Override
+   public String toString() {
+      return "ProductImage [imageId=" + imageId + ", imageType=" + imageType + ", productId=" + productId
+            + ", fileName=" + fileName + ", fileId=" + fileId + "]";
+   }
+
+
 
 }

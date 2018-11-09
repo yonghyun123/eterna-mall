@@ -59,6 +59,7 @@ public class UserJoinController implements Controller {
 		} else {
 			session.setAttribute("flag", "popup-message-join-success");
 		}
+		
 		mav.setView("redirect:index.jsp");
 		return mav;
 	}

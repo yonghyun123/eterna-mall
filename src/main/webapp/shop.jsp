@@ -49,7 +49,42 @@
 
             <div class="row">
               <div class="col-md-12 mb-0">
-                <div class="float-md-left mb-4"><h2 class="text-black h5">제품</h2></div>
+                <div class="float-md-left mb-4"><h2 class="text-black h5">제품<span class="text-black ml-auto">
+                
+                <c:choose>
+                  <c:when test="${not empty count }">
+                  (${count })
+                  </c:when>
+                  </c:choose>
+                </span></h2></div>
+                <c:choose>
+                   <c:when test="${not empty productSex }">
+                      &nbsp;${productSex } >
+                   </c:when>
+                </c:choose>
+                <c:choose>
+                  <c:when test="${not empty array }">
+                  <c:forEach items="${array }" var="item">
+                     &nbsp;${item }대 
+                  </c:forEach>
+                  >
+                  </c:when>
+                  </c:choose>
+                  <c:choose>
+                     <c:when test="${not empty  minAmount}">
+                        &nbsp;${minAmount }원 ~ ${maxAmount }원 > 
+                     </c:when>
+                  </c:choose>
+                  <c:choose>
+                     <c:when test="${not empty  productType}">
+                        &nbsp;${productType } > 
+                     </c:when>
+                  </c:choose>
+                  
+                  <c:choose>
+                     <c:when test="${empty minAmount }">
+                     <c:choose>
+                     <c:when test="${empty productSex}">
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,18 +97,23 @@
                     </div>
                   </div>
                 </div>
+                   </c:when>
+                   </c:choose>
+                     </c:when>
+                  </c:choose>
+                
               </div>
             </div>
             
             <ul class="row mb-5 product_info">
               <c:forEach var="product" items="${productList}" varStatus="status">
-				<li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-              	  <div class="block-4 text-center border">
+            <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                   <div class="block-4 text-center border">
                    <figure class="block-4-image">
-                   	<form id="form${status.index}" action="/detail.mall" method="post">
-                   		<a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
-                 	  	<input type="hidden" name="productId" value="${product.productId }">
-                   	</form>
+                      <form id="form${status.index}" action="/detail.mall" method="post">
+                         <a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
+                         <input type="hidden" name="productId" value="${product.productId }">
+                      </form>
                    </figure>
                    <div class="block-4-text p-4">
                     <h3><a href="shop-single.html">${product.productBrand}</a></h3>
@@ -82,9 +122,9 @@
                    </div>
                  </div>
                </li>
-           	</c:forEach>
+              </c:forEach>
             </ul>
-			
+         
           </div>
         <jsp:include page="/includes/side.jsp"></jsp:include>  
         </div>
@@ -128,14 +168,11 @@
   var imagesBtn = document.querySelectorAll('.images-btn');
   
   imagesBtn.forEach(function(v){
-	  v.addEventListener('click',function(e){
-		 console.log(e.target.parentNode.parentNode.id);
-		 $("#"+e.target.parentNode.parentNode.id).submit();
-	  })
+     v.addEventListener('click',function(e){
+       console.log(e.target.parentNode.parentNode.id);
+       $("#"+e.target.parentNode.parentNode.id).submit();
+     })
   })
-  
   </script>
-
-
   </body>
 </html>

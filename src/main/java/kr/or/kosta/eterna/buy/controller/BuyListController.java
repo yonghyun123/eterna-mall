@@ -31,7 +31,7 @@ public class BuyListController implements Controller {
 		buyService = (BuyService)factory.getBean(BuyServiceImpl.class);
 		List<Buy> list = null;
 		try {
-			list = buyService.listAll("hee");
+			list = buyService.listAllByUser("hee");
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}

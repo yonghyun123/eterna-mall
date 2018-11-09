@@ -7,9 +7,9 @@ import kr.or.kosta.eterna.review.dao.ReviewDao;
 import kr.or.kosta.eterna.review.domain.Review;
 
 public class ReviewServiceImpl implements ReviewService {
-	
+
 	private ReviewDao reviewDao;
-	
+
 	public ReviewDao getReviewDao() {
 		return reviewDao;
 	}
@@ -40,13 +40,17 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public boolean checkReview(String userId, String productId) throws Exception {
-		Map<String,String> checkReview = reviewDao.reviewCheck(userId, productId);
-		if(checkReview == null){
+		Map<String, String> checkReview = reviewDao.reviewCheck(userId, productId);
+		if (checkReview == null) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-
+	@Override
+	public void createComment(Review review) throws Exception {
+		reviewDao.createComment(review);
+		reviewDao.updateFlag(review.getId());
+	}
 }

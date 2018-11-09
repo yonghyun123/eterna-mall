@@ -24,26 +24,27 @@
 				#{maxAge})
 	</insert>
 	
-	<!-- 제품조회  이미지 조회는 별도로 해줘야함-->
-	<select id="read" resultType="Product" parameterType="Integer">
-		
-			SELECT product.product_id 			AS "productId", 
-			       product.category_id			AS "categoryId", 
-			       product.product_brand		AS "productBrand", 
-			       product.product_sex   		AS "productSex", 
-			       product.product_description  AS "productDescription", 
-			       product.product_stock        AS "productStock",
-			       TO_CHAR(product.create_date, 'YYYY-MM-DD') AS "createDate",
-		       	   TO_CHAR(product.modify_date, 'YYYY-MM-DD') AS "modifyDate", 
-			       product.min_age 				AS "minAge", 
-			       product.max_age 				AS "maxAge",	
-			       price.price 					AS price
-			FROM   sm_product product, 
-			       sm_product_price price 
-			WHERE  product.product_id = price.product_id 
-			AND    product.product_id=#{productId}
-			ORDER  BY product.product_id		
-	</select>
+<!-- 제품조회  이미지 조회는 별도로 해줘야함-->
+   <select id="read" resultType="Product" parameterType="Integer">
+         SELECT product.product_id          AS "productId", 
+                category.category_type      AS "categoryType", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock",
+                TO_CHAR(product.create_date, 'YYYY-MM-DD') AS "createDate",
+                   TO_CHAR(product.modify_date, 'YYYY-MM-DD') AS "modifyDate", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                price.price                AS price
+         FROM   sm_product product, 
+                sm_product_price price,
+                sm_category category 
+         WHERE  product.product_id = price.product_id
+         AND    product.category_id = category.category_id 
+         AND    product.product_id=#{productId}
+         ORDER  BY product.product_id      
+   </select>
 	
 		<!-- 제품조회  이미지 조회는 별도로 해줘야함-->
 	<select id="readImage" resultType="Product" parameterType="Integer">
@@ -71,28 +72,31 @@
 		WHERE product_id=#{productId}	
 	</update>
 	
-	<!-- 전체물품 조회 -->
-	<select id="listAll" resultType="Product">			   
-			SELECT product.product_id 			AS "productId", 
-			       product.category_id			AS "categoryId", 
-			       product.product_brand		AS "productBrand", 
-			       product.product_sex   		AS "productSex", 
-			       product.product_description  AS "productDescription", 
-			       product.product_stock        AS "productStock", 
-			       product.min_age 				AS "minAge", 
-			       product.max_age 				AS "maxAge",	
-			       fileinfo.file_name 			AS thumnail, 
-			       price.price 					AS price
-			FROM   sm_product product, 
-			       sm_product_image image, 
-			       sm_file_info fileinfo, 
-			       sm_product_price price 
-			WHERE  product.product_id = image.product_id 
-			AND    image.file_id = fileinfo.file_id 
-			AND    product.product_id = price.product_id 
-			AND    image.image_type = 'th'
-			ORDER  BY product.product_id			   
-	</select>
+   <!-- 전체물품 조회 -->
+   <select id="listAll" resultType="Product">            
+         SELECT product.product_id          AS "productId", 
+                category.category_type      AS "categoryType", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                fileinfo.file_name          AS "thumnail", 
+                price.price                AS "price"
+         FROM   sm_product product,
+               sm_category category,  
+                sm_product_image image, 
+                sm_file_info fileinfo, 
+                sm_product_price price 
+         WHERE  product.product_id = image.product_id 
+         AND    image.file_id = fileinfo.file_id
+         AND    product.category_id = category.category_id  
+         AND    product.product_id = price.product_id 
+         AND    image.image_type = 'th'
+         ORDER  BY product.product_id            
+   </select>
+   
 	<!-- 물품삭제 -->
 	<delete id="delete" parameterType="Integer">
 		    delete SM_product
@@ -105,4 +109,201 @@
 			FROM SM_product
 			WHERE product_id=#{value}
 	</select>
+	
+	<!-- 성별 별 제품 갯수 조회 -->
+   <select id="countPerSex" resultType="int">
+   SELECT Count(product_id) 
+   FROM   sm_product 
+   WHERE  product_sex = #{productSex}
+   </select>
+   
+   <!-- 재고부족인 상품 개수 -->
+   <select id="outOfStock" resultType="int">
+   SELECT Count(product_stock) 
+   FROM   sm_product 
+   WHERE  product_stock = 0 
+   </select>
+   
+   <!-- 연령대 별 제품 갯수 조회 -->
+   <select id="countPerAge" resultType="int">
+   SELECT Count(product_id) 
+   FROM   sm_product 
+   WHERE  ( min_age BETWEEN 0 AND #{age} ) 
+          AND ( max_age BETWEEN #{age} AND 40 ) 
+   </select>
+   
+   <!-- 성별 별 제품 전체 조회 -->
+   <select id="listBySex" resultType="Product">
+   SELECT product.product_id          AS "productId", 
+                product.category_id         AS "categoryId", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                fileinfo.file_name          AS thumnail, 
+                price.price                AS price
+         FROM   sm_product product, 
+                sm_product_image image, 
+                sm_file_info fileinfo, 
+                sm_product_price price 
+         WHERE  product.product_id = image.product_id  
+         AND    image.file_id = fileinfo.file_id 
+         AND    product.product_id = price.product_id 
+         AND    image.image_type = 'th'
+           AND    product.product_sex = #{productSex}
+         ORDER  BY product.product_id
+   </select>
+   
+   <!-- 전체 물품 개수 -->
+   <select id="countAll" resultType="int">
+   SELECT Count(product_id) 
+   FROM   sm_product
+   </select>
+   
+   <!-- 검색 조건을 적용한 상품 리스트 -->
+   <select id="listByConditions" resultType="Product" parameterType="map">
+   SELECT product.product_id          AS "productId", 
+                product.category_id         AS "categoryId", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                fileinfo.file_name          AS thumnail, 
+                price.price                AS price ,
+             product.product_type AS productType          
+         FROM   sm_product product, 
+                sm_product_image image, 
+                sm_file_info fileinfo, 
+                sm_product_price price 
+         WHERE  product.product_id = image.product_id  
+         AND    image.file_id = fileinfo.file_id 
+         AND    product.product_id = price.product_id 
+         AND    image.image_type = 'th'
+      AND     price.price between #{minAmount} and #{maxAmount}
+      <if test="productType != null">
+      INTERSECT
+SELECT product.product_id          AS "productId", 
+                product.category_id         AS "categoryId", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                fileinfo.file_name          AS thumnail, 
+                price.price                AS price,
+             product.product_type AS productType
+         FROM   sm_product product, 
+                sm_product_image image, 
+                sm_file_info fileinfo, 
+                sm_product_price price 
+         WHERE  product.product_id = image.product_id  
+         AND    image.file_id = fileinfo.file_id 
+         AND    product.product_id = price.product_id 
+         AND    image.image_type = 'th'
+      AND    product.product_type=#{productType}</if>
+      <if test="array != null">
+intersect
+<foreach item="a" index="index" collection="array" open="(" separator="UNION" close=")">
+SELECT product.product_id          AS "productId", 
+                product.category_id         AS "categoryId", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                fileinfo.file_name          AS thumnail, 
+                price.price                AS price  ,
+             product.product_type AS productType         
+         FROM   sm_product product, 
+                sm_product_image image, 
+                sm_file_info fileinfo, 
+                sm_product_price price 
+         WHERE  product.product_id = image.product_id  
+         AND    image.file_id = fileinfo.file_id 
+         AND    product.product_id = price.product_id 
+         AND    image.image_type = 'th'
+      AND    (product.min_age between 0 and #{a}) and (product.max_age between #{a} and 40)
+      </foreach>
+</if>
+   </select>
+   
+   <!-- 검색 조건을 적용한 상품 리스트 개수 -->
+   <select id="countByConditions" resultType="int" parameterType="map">
+   select count(*)
+   from(
+   SELECT product.product_id          AS "productId", 
+                product.category_id         AS "categoryId", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                fileinfo.file_name          AS thumnail, 
+                price.price                AS price ,
+             product.product_type AS productType          
+         FROM   sm_product product, 
+                sm_product_image image, 
+                sm_file_info fileinfo, 
+                sm_product_price price 
+         WHERE  product.product_id = image.product_id  
+         AND    image.file_id = fileinfo.file_id 
+         AND    product.product_id = price.product_id 
+         AND    image.image_type = 'th'
+      AND     price.price between #{minAmount} and #{maxAmount}
+      <if test="productType != null">
+      INTERSECT
+SELECT product.product_id          AS "productId", 
+                product.category_id         AS "categoryId", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                fileinfo.file_name          AS thumnail, 
+                price.price                AS price,
+             product.product_type AS productType
+         FROM   sm_product product, 
+                sm_product_image image, 
+                sm_file_info fileinfo, 
+                sm_product_price price 
+         WHERE  product.product_id = image.product_id  
+         AND    image.file_id = fileinfo.file_id 
+         AND    product.product_id = price.product_id 
+         AND    image.image_type = 'th'
+      AND    product.product_type=#{productType}</if>
+      <if test="array != null">
+intersect
+<foreach item="a" index="index" collection="array" open="(" separator="UNION" close=")">
+SELECT product.product_id          AS "productId", 
+                product.category_id         AS "categoryId", 
+                product.product_brand      AS "productBrand", 
+                product.product_sex         AS "productSex", 
+                product.product_description  AS "productDescription", 
+                product.product_stock        AS "productStock", 
+                product.min_age             AS "minAge", 
+                product.max_age             AS "maxAge",   
+                fileinfo.file_name          AS thumnail, 
+                price.price                AS price  ,
+             product.product_type AS productType         
+         FROM   sm_product product, 
+                sm_product_image image, 
+                sm_file_info fileinfo, 
+                sm_product_price price 
+         WHERE  product.product_id = image.product_id  
+         AND    image.file_id = fileinfo.file_id 
+         AND    product.product_id = price.product_id 
+         AND    image.image_type = 'th'
+      AND    (product.min_age between 0 and #{a}) and (product.max_age between #{a} and 40)
+      </foreach>
+</if>
+)
+   </select>   
 </mapper>
