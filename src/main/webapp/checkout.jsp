@@ -189,9 +189,8 @@
                   <th>쿠폰 적용 </th>
                   <td>
                     <div class="find">
-                      선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon"
-                        class="btn btn-primary btn-sm">쿠폰 선택</a> <input
-                        type="hidden"  class="couponId">
+                      선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon" class="btn btn-primary btn-sm">쿠폰 선택</a> 
+                      <input type="hidden"  class="couponId">
                       <input type="hidden" class="couponRate">
                       <a id="cancleCoupon" >적용 취소</a>
                     </div>
@@ -199,22 +198,25 @@
                 </tr>
                 <tr class="col-md-12">
                   <th>적립금 적용</th>
-                  <td><div>
+                  <td>
+                  <div>
                       사용가능 적립금 : <span class="availablePoint">${user.userPoint }</span>
                       (원) <a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
                                                   <a id="canclePointBtn" >적용 취소</a>
                     </div>
                     <div class="toUsePoint">
-                      <span>사용할 적립금 : </span><input type="text"
-                        class="form-control" id="toUsePoint" name="name"><span>(원)</span>
-                    </div></td>
+                      <span>사용할 적립금 : </span>
+                      <input type="text" class="form-control" id="toUsePoint" name="name">
+                      <span>(원)</span>
+                    </div>
+                    </td>
                 </tr>
               </thead>
             </table>
             <div class="title">
               <h2>Payment<input type="hidden" id="pay"></h2>
             </div>
-                          <div class="generalPay">
+            <div class="generalPay">
             <table class="cart-table">
               <thead>
                 <tr class="col-md-12">
@@ -293,8 +295,7 @@
                 </tbody>
               </table>
               <div class="form-group">
-                <button class="btn btn-primary btn-lg py-3 btn-block"
-                  id="loading-btn">Place Order</button>
+                <button class="btn btn-primary btn-lg py-3 btn-block" id="loading-btn">Place Order</button>
               </div>
             </div>
           </div>
@@ -462,6 +463,84 @@
               }
           }).open();
       }
+    
+    /* 결제 버튼 눌렀을때 데이터 넘기기 */
+    function buyBtnClicked(){
+	  var orderBtn = document.querySelector('#loading-btn');
+	  orderBtn.addEventListener('click', function(){
+		  var couponPrice = $('.applyCoupon').text();
+		  var couponPoint = $('.applyPoint').text();
+		  
+		  
+		  var productId = "${cartList[0].productId}"; 
+		  var productCount ="${cartList[0].count}";
+		  var reducePrice = Number(couponPrice) + Number(couponPoint);
+		  var totalPrice = $('.productPrice').text();
+		  var zipcode = $('#new-zipcod-address').val();
+		  var street = $('#new-street-address').val();
+		  var detailAddr = $('#new-detail-address').val();
+		  var fullAddress = zipcode + '/' + street + '/' + detailAddr;
+		  
+		  console.log(reducePrice);
+		  console.log(productId);
+		  console.log(productCount);
+		  console.log(totalPrice);
+		  console.log(selectedCouponId);
+		  console.log(fullAddress);
+
+          var form = document.createElement("form");
+          form.setAttribute("charset", "UTF-8");
+          form.setAttribute("method", "Post");
+         // form.setAttribute("action", "/order.mall");
+
+          //productId
+          var hiddenProductId = document.createElement("input");
+ 		  hiddenProductId.setAttribute("type", "hidden");
+          hiddenProductId.setAttribute("name", "productId");
+          hiddenProductId.setAttribute("value", productId);
+ 
+          //productCount
+          var hiddenProductCount = document.createElement("input");
+          hiddenProductCount.setAttribute("type", "hidden");
+          hiddenProductCount.setAttribute("name", "productCount");
+          hiddenProductCount.setAttribute("value", productCount);
+ 
+          //totalPrice
+          var hiddenTotalPrice = document.createElement("input");
+          hiddenTotalPrice.setAttribute("type", "hidden");
+          hiddenTotalPrice.setAttribute("name", "totalPrice");
+          hiddenTotalPrice.setAttribute("value", totalPrice);
+
+          //reducePrice
+          var hiddenReducePrice = document.createElement("input");
+          hiddenReducePrice.setAttribute("type", "hidden");
+          hiddenReducePrice.setAttribute("name", "reducePrice");
+          hiddenReducePrice.setAttribute("value", reducePrice);
+          
+          //selectedCoupon
+          var hiddenSelectedCoupon = document.createElement("input");
+          hiddenSelectedCoupon.setAttribute("type", "hidden");
+          hiddenSelectedCoupon.setAttribute("name", "selectedCouponId");
+          hiddenSelectedCoupon.setAttribute("value", selectedCouponId);
+          //fullAddress(/구분자 사용)
+          var hiddenFullAddr = document.createElement("input");
+          hiddenFullAddr.setAttribute("type", "hidden");
+          hiddenFullAddr.setAttribute("name", "fullAddress");
+          hiddenFullAddr.setAttribute("value", fullAddress);
+          
+          form.appendChild(hiddenProductId);
+          form.appendChild(hiddenProductCount);
+          form.appendChild(hiddenTotalPrice);
+          form.appendChild(hiddenSelectedCoupon);
+          form.appendChild(hiddenReducePrice);
+          form.appendChild(hiddenFullAddr);
+          
+          document.body.appendChild(form);
+          form.submit(); 
+	  });
+    }
+    
+    buyBtnClicked()
     </script>
   
   </body>
