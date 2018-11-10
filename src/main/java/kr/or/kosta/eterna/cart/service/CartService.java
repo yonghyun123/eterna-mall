@@ -1,6 +1,7 @@
 package kr.or.kosta.eterna.cart.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.eterna.cart.domain.Cart;
 
@@ -26,5 +27,7 @@ public interface CartService {
 	/* 회원별 장바구니 리스트 조회 */
 	public List<Cart> listAll(String userId) throws Exception;
 	
+	/* 상세페이지 즉시 구매시 cart 형식의 데이터 (yonghyun)*/
+	public Map<String, String> order(String productId) throws Exception;
 	
 }

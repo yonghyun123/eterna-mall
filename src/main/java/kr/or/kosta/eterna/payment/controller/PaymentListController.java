@@ -1,10 +1,16 @@
 package kr.or.kosta.eterna.payment.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import kr.or.kosta.eterna.buy.domain.Buy;
 import kr.or.kosta.eterna.buy.service.BuyService;
@@ -30,6 +36,7 @@ public class PaymentListController implements Controller {
 	private BuyService buyService;
 	private CartService cartService;
 	private UserService userService;
+	Logger logger = Logger.getLogger(PaymentListController.class);
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -43,23 +50,39 @@ public class PaymentListController implements Controller {
 		List<Buy> recentAddressList = null;
 		List<Cart> cartList = null;
 		List<User> couponList = null;
+		Map<String, String> orderCart = null;
+		List<Map<String,String>> orderList = new ArrayList<>();
 		User user = null;
+
+		String userId = (String) request.getAttribute("loginId");
+		String productId = request.getParameter("productId");
+		String productCount = request.getParameter("productCount");
+
 		try {
-			recentAddressList = buyService.recentAddress("hee");
-			cartList = cartService.listAll("hee");
-			couponList= userService.listCoupon("hee");
-			user = userService.read("hee");
+			recentAddressList = buyService.recentAddress(userId);
+			cartList = cartService.listAll(userId);
+			couponList = userService.listCoupon(userId);
+			user = userService.read(userId);
+			orderCart = cartService.order(productId);
 			
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}
+
+
+		if (productId == null) {
+			mav.addObject("cartList", cartList);
+		} else {
+			orderCart.put("count", productCount);
+			orderList.add(orderCart);
+			mav.addObject("cartList", orderList);
+		}
+
 		mav.addObject("recentAddressList", recentAddressList);
-		mav.addObject("cartList", cartList);
 		mav.addObject("couponList", couponList);
 		mav.addObject("user", user);
 		mav.setView("/checkout.jsp");
 		return mav;
 
 	}
-
 }
