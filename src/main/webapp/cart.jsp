@@ -165,7 +165,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <button
-                      class="btn btn-primary btn-lg py-3 btn-block">주문하기</button>
+                      class="btn btn-primary btn-lg py-3 btn-block" id="order">주문하기</button>
                   </div>
                 </div>
               </div>
@@ -218,10 +218,7 @@
 				$('.totalPrice').text(totalPrice);
 			};
 
-			$(document).on(
-					"click",
-					".fa-trash",
-					function(event) {
+			$(document).on("click", ".fa-trash", function(event) {
 						var productId = $(this).closest("tr").find(
 								".hiddenDelete").val();
 						var form = document.createElement("form");
@@ -240,6 +237,8 @@
 
 			$(document).on("click", ".btn-outline-primary", function(event) {
 				calculator();
+			});
+			$(document).on("click", "#order", function(event) {
 				var countArr = [];
 				var productIdArr = [];
 				var count = document.querySelectorAll('.cartCount');
@@ -265,7 +264,6 @@
 					}
 				})
 			});
-
 			$(function() {
 				calculator();
 			});
