@@ -75,7 +75,15 @@ public class MybatisCartDao implements CartDao {
 		sqlSession.commit();
 		sqlSession.close();		
 	}
-
+	
+	/*즉시 구매할시 cart 데이터 형식으로 데이터를 보내줌 (yonghyun) */
+	@Override
+	public Map<String, String> order(String productId) throws Exception{
+		Map<String, String> orderProduct = new HashMap<>();
+		SqlSession	sqlSession = sqlSessionFactory.openSession(true);
+		orderProduct = sqlSession.selectOne(NAMESPACE+"order",Integer.parseInt(productId));
+		return orderProduct;
+	}
 }
 
 

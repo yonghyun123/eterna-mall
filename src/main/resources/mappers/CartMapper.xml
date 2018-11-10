@@ -75,4 +75,10 @@
        		AND product_id = #{productId}
 	</delete>
 	
+	<!-- 상세페이지 -> 주문페이지 주문시 cart가 보내주는 데이터 (yonghyun)-->
+	<select id="order"  resultType="java.util.HashMap" parameterType="Integer">
+		SELECT fn.file_name "fileName", p.product_description "productDescription", pp.price "price"
+		FROM SM_product_image pi, SM_file_info fn, SM_product_price pp, SM_product p
+		WHERE pi.product_id =#{productId} AND pp.product_id =#{productId} AND p.product_id=#{productId} AND pi.image_type='th' and pi.file_id = fn.file_id
+	</select>
 </mapper>
