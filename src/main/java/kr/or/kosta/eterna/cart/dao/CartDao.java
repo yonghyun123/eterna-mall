@@ -1,6 +1,7 @@
 package kr.or.kosta.eterna.cart.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.eterna.cart.domain.Cart;
 
@@ -26,4 +27,6 @@ public interface CartDao {
 	/* 회원별 장바구니 리스트 조회 */
 	public List<Cart> listAll(String userId) throws Exception;
 	
+	/* 즉시 구매시 카트 형식으로 데이터를 보냄(yonghyun) */
+	public Map<String, String> order(String productId) throws Exception;
 }
