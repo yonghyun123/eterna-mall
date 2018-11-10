@@ -101,6 +101,7 @@
             <div class="tab" id="tab">
               <button class="tablinks active" onclick="openCity(event, '제품 리뷰')" id="defaultOpen">제품리뷰</button>
               <button class="tablinks" onclick="openCity(event, '상품 문의')" id="product-qNa">상품 문의</button>
+              
             </div>
             <div id="제품 리뷰" class="tabcontent" style="display: block;">
               <div class="container">
@@ -270,15 +271,12 @@
   <script>
   var loginId = "${cookie.loginId.value}";
   var productId = ${selectProduct.productId};
-  
-  
   var lickBtn =  document.querySelectorAll('.modify-count');
  
   $(document).on('click','.modify-count',function(){
 	  insertText();
   });
   
-  var productId = ${selectProduct.productId};
   document.getElementById("defaultOpen").click();
   
   $.ajax({
@@ -297,7 +295,38 @@
   reviewCreateBtn();
   settingHiddenValue();
   addCartAjax();
+  orderBtnClicked();
+  /* order 버튼 클릭 이벤트 form동적 생성후 데이터 post */
+ 	
+  function orderBtnClicked(){
+	  var orderBtn = document.querySelector('#order-now-btn');
+	  orderBtn.addEventListener('click', function(){
+		  var productCount = $('#product-count').val();
+          var form = document.createElement("form");
+          form.setAttribute("charset", "UTF-8");
+          form.setAttribute("method", "Post");
+          form.setAttribute("action", "/order.mall");
+
+          //productId
+          var hiddenProductId = document.createElement("input");
+          hiddenProductId.setAttribute("type", "hidden");
+          hiddenProductId.setAttribute("name", "productId");
+          hiddenProductId.setAttribute("value", productId);
+          
+          //productCount
+          var hiddenProductCount = document.createElement("input");
+          hiddenProductCount.setAttribute("type", "hidden");
+          hiddenProductCount.setAttribute("name", "productCount");
+          hiddenProductCount.setAttribute("value", productCount);
+          
+          form.appendChild(hiddenProductId);
+          form.appendChild(hiddenProductCount);
+          document.body.appendChild(form);
+          form.submit(); 
+	  });
+  }
   
+  /* 리뷰등록 및 QnA등록 버튼 이벤트*/
   function reviewCreateBtn(){
 	  var reviewBtn = document.querySelector('#review-create');
 	  var qnaBtn = document.querySelector('#qna-create');
