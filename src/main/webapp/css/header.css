@@ -66,12 +66,13 @@
 
 /* popup을 위한 css */
 #popup-message-login-success,
+#popup-message-logout-success,
 #popup-message-join-success, 
 #popup-message-join-fail {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
-    background-color: #333;
+    background-color: #7971ea;
     color: #fff;
     text-align: center;
     border-radius: 2px;
@@ -79,11 +80,12 @@
     position: fixed;
     z-index: 1;
     left: 50%;
-    bottom: 30px;
+    bottom: 50%;
     font-size: 17px;
 }
 
 #popup-message-login-success.show,
+#popup-message-logout-success.show,
 #popup-message-join-success.show, 
 #popup-message-join-fail.show {
     visibility: visible;
@@ -93,20 +95,20 @@
 
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
+    to {bottom: 50%; opacity: 1;}
 }
 
 @keyframes fadein {
     from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    to {bottom: 50%; opacity: 1;}
 }
 
 @-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
+    from {bottom: 50%; opacity: 1;} 
     to {bottom: 0; opacity: 0;}
 }
 
 @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
+    from {bottom: 50%; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
