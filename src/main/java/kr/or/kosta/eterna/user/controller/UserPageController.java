@@ -34,35 +34,28 @@ public class UserPageController implements Controller {
 		buyService = (BuyService)factory.getBean(BuyServiceImpl.class);
 		ModelAndView mav = new ModelAndView();
 		
-		int amount = 0, grade, orderAmount;
-		int couponLength;
-		List<Buy> buyAllList;
-		List<Buy> numPurchase;
+		List<Buy> orderProductsLength, orderAllList;
+		int amount = 0, grade = 0;
+		int couponLength, orderCountLength;
 		User user = null;
-		String userId;
-		userId = (String)request.getAttribute("loginId");
+		String userId = (String)request.getAttribute("loginId");
 		
 		try {
 //			유저 정보
 			user = userService.read(userId);
-			System.out.println(user);
-//			amount = userService.priceAmount(userId);
-
-//			유저의 총 구매 목록 
-			buyAllList = buyService.listAllByUser(userId);
+//			유저 총 구매액
+			amount = userService.userPriceAmount(userId);
 //			유저의 다음 등급 도달에 필요한 금액 조회
 			grade = userService.searchUpTier(userId);
 //			유저의 쿠폰 보유량
 			couponLength = userService.couponLength(userId);
-//			유저의 주문번호별 품목 개수 List 
-			numPurchase = buyService.numPurchase(userId);
-//			유저의 주문 개수
-			orderAmount = numPurchase.size();
+//			유저의 전체구매 목록(orderNumber별 복수의 상품 구매도 count)
+			orderAllList = buyService.listAllByUser(userId);
+//			유저의 주문 번호별 품목 개수 (각 주문 번호별로 row로 쌓임)
+			orderProductsLength = buyService.numPurchase(userId);
+//			유저의 주문 횟수
+			orderCountLength = orderProductsLength.size();
 			
-//			유저의 총 구매액
-			for (Buy buy : buyAllList) {
-				amount += Integer.parseInt(buy.getProductPrice()) * Integer.parseInt(buy.getCount());
-			}
 		} catch (Exception e) {
 			throw new ServletException("UserService.list() 예외 발생", e);
 		}
@@ -71,9 +64,9 @@ public class UserPageController implements Controller {
 		mav.addObject("amount", amount);
 		mav.addObject("grade", grade);
 		mav.addObject("couponLength", couponLength);
-		mav.addObject("numPurchase", numPurchase);
-		mav.addObject("buyAllList", buyAllList);
-		mav.addObject("orderAmount", orderAmount);
+		mav.addObject("orderAllList", orderAllList);
+		mav.addObject("orderProductsLength", orderProductsLength);
+		mav.addObject("orderCountLength", orderCountLength);
 		mav.setView("/my-page.jsp");
 		return mav;
 	}

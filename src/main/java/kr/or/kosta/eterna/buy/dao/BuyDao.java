@@ -27,7 +27,7 @@ public interface BuyDao {
 	/* 회원별 최근 3개의 배송지 조회 */
 	public List<Buy> recentAddress(String userId) throws Exception;
 
-	/* 회원별 구매횟수 조회 */
+	/* 회원별 구매횟수(orderNumber) 조회 */
 	public List<Buy> numPurchase(String userId) throws Exception;
 	
 	/* 월별 제품의 판매량 */

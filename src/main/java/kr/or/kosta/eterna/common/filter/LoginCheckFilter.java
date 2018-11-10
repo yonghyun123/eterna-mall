@@ -17,9 +17,6 @@ import org.apache.log4j.Logger;
  */
 public class LoginCheckFilter implements Filter {
 	
-	private Logger logger = Logger.getLogger(LoginCheckFilter.class);
-	
-	private String loginPage;
 	private String cookieName;
 
     @Override
