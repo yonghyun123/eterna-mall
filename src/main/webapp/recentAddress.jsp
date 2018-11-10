@@ -53,9 +53,12 @@ receiverList.forEach(function(v,i){
 	     var receiverName = $(this).closest("tr").find(".receiverName").text();
 	     var receiverTel = $(this).closest("tr").find(".receiverTel").text();
 	     var receiverAddress = $(this).closest("tr").find(".receiverAddress").text();
+	     var receiverAddressArray = receiverAddress.split('/');
+         $("#new-zipcod-address").val(receiverAddressArray[0]);
+         $("#new-detail-address").val(receiverAddressArray[2]);
+         $("#new-street-address").val(receiverAddressArray[1]);
 	     $("#receiver").val(receiverName);
 	     $("#receiverPhone").val(receiverTel);
-	     $("#receiverAddress").val(receiverAddress);
 	});
 }); 
 

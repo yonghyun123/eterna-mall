@@ -112,7 +112,8 @@
     <!-- 최근 3개의 배송지 조회 -->
     <select id="recentAddress" resultType="Buy">
 		SELECT receiver_address as receiverAddress,
-		      receiver_name as receiverName 
+		      receiver_name as receiverName ,
+		      receiver_tel as receiverTel
 		FROM (SELECT * 
 		    FROM   sm_buy_info 
 		    ORDER  BY create_date DESC) 
