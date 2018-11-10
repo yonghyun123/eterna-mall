@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/jquery-ui.css">
 <link rel="stylesheet" href="css/owl.carousel.min.css">
 <link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/modal.css">
 <link rel="stylesheet"
   href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
   integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
@@ -252,8 +253,7 @@
                   <th>일반결제</th>
                   <td>
                     <div class="checkInfo">
-                      <input type="checkbox" value="info" name="info">
-                      <span>[필수] 개인정보 수집 및 이용 동의</span>
+                      <label><input type="checkbox" name="info"> <span>[필수] 개인정보 수집 및 이용 동의</span></label>
                     </div>
                   </td>
                 </tr>
@@ -304,7 +304,8 @@
     </div>
     
     <%@ include file="recentAddress.jsp"%>
-    <%@ include file="/loading.jsp"%>
+    <%@ include file="psersonalInfo.jsp"%>
+<%--     <%@ include file="/loading.jsp"%> --%>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="js/jquery-3.3.1.min.js"></script>
@@ -464,7 +465,7 @@
           }).open();
       }
     </script>
-   
+  
   </body>
 </html>
 <%@ include file="coupon.jsp"%>

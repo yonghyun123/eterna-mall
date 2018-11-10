@@ -32,7 +32,8 @@ public class CartDeleteController implements Controller {
 		for (String string : list) {
 			productId = string;
 			try {
-			cartService.delete(loginId, productId);
+				System.out.println("deleteProductId : " + productId);
+							cartService.delete(loginId, productId);
 			} catch (Exception e) {
 				throw new ServletException("CartService.delete() 예외 발생", e);
 			}

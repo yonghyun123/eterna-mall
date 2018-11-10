@@ -29,9 +29,11 @@ public class CartListController implements Controller {
 		
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		cartService = (CartService)factory.getBean(CartServiceImpl.class);
+		String loginId;
 		List<Cart> list = null;
+		loginId = (String) request.getAttribute("loginId");
 		try {
-			list = cartService.listAll("hee");
+			list = cartService.listAll(loginId);
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}
