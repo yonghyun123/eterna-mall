@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,13 +46,11 @@
         <div class="row mb-4 my-page-top">
           <div class="user-grade">
             <div class="user text-black text-left">
-              <span class="grade">브론즈</span>
-              <span class="name">이철우</span>님
+              <span class="grade">${user.tierType }</span>
+              <span class="name">${user.userName }님</span>
             </div>
             <div class="grade-inform text-black">
-              다음 등급까지
-              <span class="grade-score">5000</span>
-              점 남았습니다.
+              <span class="grade-score">다음 등급까지 ${grade - amount }점 남았습니다.</span>
             </div>
           </div>
           <ul class="user-saving">
@@ -59,7 +59,7 @@
                 <div class="inner-class">
                   <div class="info-text text-black">적립금</div>
                   <div class="info">
-                    <span class="saving-score">3000</span> 원
+                    <span class="saving-score">${user.userPoint }원</span>
                     <i class="fas fa-angle-right fa-xs"></i>
                   </div>
                 </div>
@@ -70,7 +70,7 @@
                 <div class="inner-class">
                   <div class="info-text text-black">쿠폰</div>
                   <div class="info">
-                    <span class="coupon-quantity">1</span> 장
+                    <span class="coupon-quantity">${couponLength } 장</span>
                     <i class="fas fa-angle-right"></i>
                   </div>
                 </div>
@@ -81,7 +81,7 @@
                 <div>
                   <div class="info-text text-black">총 구매금액</div>
                   <div class="info">
-                    <span  class="all-buy-price">3000</span> 원
+                    <span  class="all-buy-price">${amount } 원</span>
                   </div>
                 </div>
               </a>
@@ -96,13 +96,15 @@
           <div class="col-md-12">
             <div class="tab" id="tab">
               <button class="tablinks active"
-                onclick="openLink(event, '주문 내역')" id="defaultOpen">주문 내역</button>
+                onclick="openCity(event, '주문 내역')" id="defaultOpen">주문 내역</button>
               <button class="tablinks"
-                onclick="openLink(event, '상품 후기')">상품 후기</button>
+                onclick="openCity(event, '상품 후기')">상품 후기</button>
                 <button class="tablinks"
-                onclick="openLink(event, '적립금')">적립금</button>
+                onclick="openCity(event, '적립금')">적립금</button>
                 <button class="tablinks"
-                onclick="openLink(event, '개인정보 수정')">개인정보 수정</button>
+                onclick="openCity(event, '쿠폰')">쿠폰</button>
+                <button class="tablinks"
+                onclick="openCity(event, '개인정보 수정')">개인정보 수정</button>
             </div>
             <div id="제품 리뷰" class="tabcontent" style="display: block;">
               <div class="container">
@@ -114,135 +116,36 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover">
+                    <table class="table table-hover order-list-table">
                       <thead>
                         <tr>
-                          <th>Firstname</th>
-                          <th>Lastname</th>
-                          <th>Email</th>
+                          <th class="order-list-number text-center">주문 번호</th>
+                          <th class="order-list-info text-center" colspan="5">주문 내용</th>
+                          <th class="order-list-status text-center">배송 결과</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
+                        <c:set var="startIndex" value="0"/>
+                        <c:set var="endIndex" value="${orderProductsLength[0].numPurchase - 1}"/>
+                        <c:set var="orderCountLength" value="${orderCountLength }"/>
+                        <c:forEach var="index" begin="0" end="${orderCountLength - 1 }">
+                          <tr>
+                            <td class="order-number text-center" id="${orderAllList[startIndex].orderNumber }">${orderAllList[startIndex].orderNumber }</td>
+                            <td colspan="5" class="order-inform text-left">
+                            <!-- 상품 이름 및 이미지에 해당 상품 페이지 이동 a태그 걸기 -->
+                            <c:forEach var="buy" items="${orderAllList }" begin="${startIndex }" end="${endIndex }" varStatus="x">
+                                <img alt="" class="product-thumbnail" src="../images/${buy.fileName }.png">
+                                <div class="product-text"> 
+                                  <div class="product-name">${buy.productDescription }</div>
+                                  <div class="product-price-count">${buy.productPrice }원 / ${buy.count }개</div>
+                                </div><br>
+                            </c:forEach>
+                            </td>
+                            <td class="order-date-flag text-center">${orderAllList[startIndex].orderDate } <br> ${orderAllList[startIndex].orderFlag }</td>
+                          </tr>
+                          <c:set var="startIndex" value="${startIndex += orderProductsLength[index].numPurchase }"/>
+                          <c:set var="endIndex" value="${endIndex += orderProductsLength[index].numPurchase - 1}"/>
+                        </c:forEach>  
                       </tbody>
                     </table>
                     <div class="row aos-init aos-animate"
@@ -319,7 +222,6 @@
     </div>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
-
   <script src="/js/jquery-3.3.1.min.js"></script>
   <script src="/js/jquery-ui.js"></script>
   <script src="/js/popper.min.js"></script>
@@ -328,6 +230,34 @@
   <script src="/js/jquery.magnific-popup.min.js"></script>
   <script src="/js/aos.js"></script>
   <script src="/js/main.js"></script>
+  <script src="/js/ajax.js"></script>
+
+  <script>
+  
+  	// 탭 기능
+  	document.getElementById("defaultOpen").click();
+  
+  	/* $.ajax({
+  		url:  "/user/orderList.mall",
+  		type: "get",
+  		success: function(data) {
+  			alert(data);
+  		}
+  	}) */
+  
+  	/* // 주문번호 상세보기
+  	var orderNumbers = document.querySelectorAll(".order-number");
+  	
+  	for ( var i = 0; i < orderNumbers.length; i++) {
+		orderNumbers[i].addEventListener('click', function(event) {
+			alert(this.id);
+				$.ajax({
+					url: orderDetail.mall
+				})
+		})
+	} */
+  	
+  </script>
 
 </body>
 </html>
