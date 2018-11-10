@@ -153,19 +153,15 @@
                 </tr>
                 <tr class="col-md-12">
                   <th>수령인 이름</th>
-                  <td><input type="text" class="form-control col-md-3"
-                    id="receiver" name="name"></td>
+                  <td><input type="text" class="form-control col-md-3" id="receiver" name="name"></td>
                 </tr>
                 <tr class="col-md-12">
                   <th>휴대폰</th>
-                  <td class=" phone"><input type="text"
-                    class="form-control col-md-3" id="receiverPhone" name="phone"
-                    maxlength="11"></td>
+                  <td class="phone"><input type="text" class="form-control col-md-3" id="receiverPhone" name="phone" maxlength="11"></td>
                 </tr>
                 <tr class="col-md-12">
                   <th>배송요청사항</th>
-                  <td><textarea name="request" cols="30" rows="5"
-                      class="form-control" maxlength="50"></textarea>
+                  <td><textarea name="request" cols="30" rows="5" class="form-control" maxlength="50"></textarea>
                     <div class="chk_bytes">
                       <span>0</span>자 / 50자
                     </div></td>
@@ -480,6 +476,8 @@
 		  var street = $('#new-street-address').val();
 		  var detailAddr = $('#new-detail-address').val();
 		  var fullAddress = zipcode + '/' + street + '/' + detailAddr;
+		  var receiver = $('#receiver').val();
+		  var receiverPhone = $('#receiverPhone').val();
 		  
 		  console.log(reducePrice);
 		  console.log(productId);
@@ -491,7 +489,7 @@
           var form = document.createElement("form");
           form.setAttribute("charset", "UTF-8");
           form.setAttribute("method", "Post");
-         // form.setAttribute("action", "/order.mall");
+          form.setAttribute("action", "/payment.mall");
 
           //productId
           var hiddenProductId = document.createElement("input");
@@ -522,11 +520,25 @@
           hiddenSelectedCoupon.setAttribute("type", "hidden");
           hiddenSelectedCoupon.setAttribute("name", "selectedCouponId");
           hiddenSelectedCoupon.setAttribute("value", selectedCouponId);
+          
           //fullAddress(/구분자 사용)
           var hiddenFullAddr = document.createElement("input");
           hiddenFullAddr.setAttribute("type", "hidden");
           hiddenFullAddr.setAttribute("name", "fullAddress");
           hiddenFullAddr.setAttribute("value", fullAddress);
+          
+          //receiver
+          var hiddenReceiver = document.createElement("input");
+          hiddenReceiver.setAttribute("type", "hidden");
+          hiddenReceiver.setAttribute("name", "receiver");
+          hiddenReceiver.setAttribute("value", receiver);
+          
+          //receiverPhone
+          var hiddenReceiverPhone = document.createElement("input");
+          hiddenReceiverPhone.setAttribute("type", "hidden");
+          hiddenReceiverPhone.setAttribute("name", "receiverPhone");
+          hiddenReceiverPhone.setAttribute("value", receiverPhone);
+          
           
           form.appendChild(hiddenProductId);
           form.appendChild(hiddenProductCount);
@@ -534,6 +546,8 @@
           form.appendChild(hiddenSelectedCoupon);
           form.appendChild(hiddenReducePrice);
           form.appendChild(hiddenFullAddr);
+          form.appendChild(hiddenReceiver);
+          form.appendChild(hiddenReceiverPhone);
           
           document.body.appendChild(form);
           form.submit(); 

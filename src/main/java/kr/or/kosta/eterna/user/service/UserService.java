@@ -29,6 +29,9 @@ public interface UserService {
 	/* 로그인 시 id와 비밀번호를 통한 회원 조회 */
 	public User certify(String userId, String userPasswd) throws Exception;
 	
+	/* 적립금과 회원등급(grade), 사용한 쿠폰 삭제 업데이트 (용현수정) */
+	public void pointUpdate(User user) throws Exception;
+	
 	/* id를 이용한 쿠폰 조회*/
 	public List<User> listCoupon(String userId) throws Exception;
 	
