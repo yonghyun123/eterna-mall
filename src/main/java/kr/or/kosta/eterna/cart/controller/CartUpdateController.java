@@ -32,26 +32,30 @@ public class CartUpdateController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		cartService = (CartService)factory.getBean(CartServiceImpl.class);
 		
-//		String loginId , productId, count;
-		String updateObj = request.getParameter("data");
-		System.out.println("update : " + updateObj);
-		JSONParser parser = new JSONParser();
-//		JSONObject student = (JSONObject) parser.parse(updateObj);
+		String loginId , productId, count;
+
+		String countArr = request.getParameter("countArr");
+		String productIdArr = request.getParameter("productIdArr");
+		System.out.println("countArr : " + countArr);
+		System.out.println("productIdArr : " + productIdArr);
+		
+		JSONParser countArrParser = new JSONParser();
+		JSONParser productIdArrParser = new JSONParser();
 		try {
-			JSONArray obj = (JSONArray) parser.parse(updateObj);
+			JSONArray countArray = (JSONArray) countArrParser.parse(countArr);
+			JSONArray productIdArray = (JSONArray) productIdArrParser.parse(countArr);
 			
-			System.out.println("obj : "+obj);
-			
+//			System.out.println("obj : "+obj);
 			
 //			JSONObject obj = (JSONObject) parser.parse(array.toJSONString());
 //			System.out.println("obj"+obj);
 //			JSONArray arr = (JSONArray)array;
 //			System.out.println("obj"+arr);
-//			for (Object object : arr) {
-//				System.out.println("object"+object);
-//			}
+			for (Object object : obj) {
+				System.out.println("object"+object);
+			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			 //TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

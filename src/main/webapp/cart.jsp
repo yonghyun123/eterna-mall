@@ -251,14 +251,17 @@
 					}
 				}
 				console.log('countArr : ' + countArr);
+				console.log(typeof countArr);
 				console.log('productIdArr : ' + productIdArr);
+				countArr = JSON.stringify(countArr);
+				productIdArr = JSON.stringify(productIdArr);
 				$.ajax({
 					type : "post",
 					url : "/cartUpdate.mall",
-					dataType : "JSON",
+					dataType : "text",
 					data : {
-						"countArr" : countArr,
-						"productIdArr" : productIdArr
+						'countArr' : countArr,
+						'productIdArr' : productIdArr
 					}
 				})
 			});
