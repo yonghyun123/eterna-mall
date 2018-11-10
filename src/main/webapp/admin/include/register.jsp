@@ -175,6 +175,7 @@
           <button type="button" class="btn btn-default"
             data-dismiss="modal">Close</button>
         </div>
+        <div id="snackbar">상품 등록 완료</div>
     </div>
   </div>
 </div>
