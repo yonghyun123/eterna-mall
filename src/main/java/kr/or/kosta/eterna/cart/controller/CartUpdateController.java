@@ -15,12 +15,7 @@ import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 
-/**
- * /cart.mall에 대한 요청 처리 컨트롤러
- * 
- * @author 조희진
- *
- */
+
 public class CartUpdateController implements Controller {
 
 	private CartService cartService;
@@ -51,13 +46,11 @@ public class CartUpdateController implements Controller {
 				}
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mav.setView("/checkout.mall");
+		mav.setView("/cart.mall");
 		return mav;
 
 	}

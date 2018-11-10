@@ -10,22 +10,22 @@
   content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/jquery-ui.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/fonts/icomoon/style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/magnific-popup.css">
+<link rel="stylesheet" href="/css/jquery-ui.css">
+<link rel="stylesheet" href="/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/css/owl.theme.default.min.css">
 <link rel="stylesheet"
   href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
   integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
   crossorigin="anonymous">
-<link rel="stylesheet" href="css/aos.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="css/cart.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="/css/cart.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
 <jsp:include page="/includes/header.jsp" />
 </head>
 <body>
@@ -35,7 +35,7 @@
         <div class="row">
           <div class="col-md-12 mb-0">
             <!-- QueryString 파싱해서 동적으로 span태그 생성 -->
-            <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
+            <a href="/index.html">Home</a> <span class="mx-2 mb-0">/</span>
             <strong class="text-black">Cart</strong>
           </div>
         </div>
@@ -74,7 +74,7 @@
                           <td class="cart-button text-center"><input
                             type="checkbox" value="${cart.productId }"
                             name="deleteCheck"> <input
-                            type="text" value="${cart.productId }"
+                            type="hidden" value="${cart.productId }"
                             class="hiddenDelete"></td>
                           <!-- 상품 정보 -->
                           <td class="product-inform" colspan="6"><img
@@ -176,14 +176,14 @@
     </div>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/main.js"></script>
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/jquery-ui.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/aos.js"></script>
+  <script src="/js/main.js"></script>
   <script type="text/javascript">
 			function calculator() {
 				var cartCount = document.querySelectorAll('.cartCount');
@@ -261,7 +261,10 @@
 					data : {
 						'countArr' : countArr,
 						'productIdArr' : productIdArr
-					}
+					},
+					 success: function(){
+						 window.location.href="/checkout.mall";
+					 }
 				})
 			});
 			$(function() {

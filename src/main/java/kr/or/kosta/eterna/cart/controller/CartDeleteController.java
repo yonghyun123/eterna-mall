@@ -12,36 +12,34 @@ import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 
 /**
  * /cart.mall에 대한 요청 처리 컨트롤러
+ * 
  * @author 서지원
  *
  */
 public class CartDeleteController implements Controller {
-	
+
 	private CartService cartService;
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		ModelAndView mav = new ModelAndView();
-		
-		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
-		cartService = (CartService)factory.getBean(CartServiceImpl.class);
-		String loginId , productId;
+
+		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
+		cartService = (CartService) factory.getBean(CartServiceImpl.class);
+		String loginId, productId;
 		String[] list = request.getParameterValues("deleteCheck");
 		loginId = (String) request.getAttribute("loginId");
 		for (String string : list) {
 			productId = string;
 			try {
-				System.out.println("deleteProductId : " + productId);
-							cartService.delete(loginId, productId);
+				cartService.delete(loginId, productId);
 			} catch (Exception e) {
 				throw new ServletException("CartService.delete() 예외 발생", e);
 			}
 		}
-
 		mav.setView("redirect:/cart.mall");
 		return mav;
-
 	}
 
 }
