@@ -69,9 +69,10 @@
 	
 	<!-- 회원별 리뷰 리스트 -->
 	<select id="myReviewList" resultType="Review">
-	 SELECT user_id     AS userId, 
+	SELECT user_id     AS userId, 
        product_id  AS productId, 
        regdate, 
+       subject,
        content, 
        score,
        board_id as boardId, 

@@ -23,6 +23,7 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/my-page.css">
+    <link rel="stylesheet" href="/css/shop_single.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <jsp:include page="/includes/header.jsp"></jsp:include>
@@ -95,18 +96,13 @@
         <div class="row">
           <div class="col-md-12">
             <div class="tab" id="tab">
-              <button class="tablinks active"
-                onclick="openCity(event, '주문 내역')" id="defaultOpen">주문 내역</button>
-              <button class="tablinks"
-                onclick="openCity(event, '상품 후기')">상품 후기</button>
-                <button class="tablinks"
-                onclick="openCity(event, '적립금')">적립금</button>
-                <button class="tablinks"
-                onclick="openCity(event, '쿠폰')">쿠폰</button>
-                <button class="tablinks"
-                onclick="openCity(event, '개인정보 수정')">개인정보 수정</button>
+              <button class="tablinks active" onclick="openCity(event, '주문 내역')" id="defaultOpen">주문 내역</button>
+              <button class="tablinks" onclick="openCity(event, '상품 후기')" id="product-review">상품 후기</button>
+              <button class="tablinks" onclick="openCity(event, '적립금')" id="user-point">적립금</button>
+              <button class="tablinks" onclick="openCity(event, '쿠폰')" id="user-coupon">쿠폰</button>
+              <button class="tablinks" onclick="openCity(event, '개인정보 수정')" id="user-edit">개인정보 수정</button>
             </div>
-            <div id="제품 리뷰" class="tabcontent" style="display: block;">
+            <div id="주문 내역" class="tabcontent" style="display: block;">
               <div class="container">
                 <div class="row justify-content-center">
                   <div
@@ -129,7 +125,7 @@
                         <c:set var="endIndex" value="${orderProductsLength[0].numPurchase - 1}"/>
                         <c:set var="orderCountLength" value="${orderCountLength }"/>
                         <c:forEach var="index" begin="0" end="${orderCountLength - 1 }">
-                          <tr>
+                          <tr class="order-list-row">
                             <td class="order-number text-center" id="${orderAllList[startIndex].orderNumber }">${orderAllList[startIndex].orderNumber }</td>
                             <td colspan="5" class="order-inform text-left">
                             <!-- 상품 이름 및 이미지에 해당 상품 페이지 이동 a태그 걸기 -->
@@ -148,6 +144,35 @@
                         </c:forEach>  
                       </tbody>
                     </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="상품 후기" class="tabcontent" style="display: none;">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-md-7 site-section-heading text-center pt-4">
+                    <h2>상품 후기</h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="container">
+                    <input type="button" value="리뷰등록" class="btn btn-outline-primary js-btn-plus create" id="review-create">
+                    <table class="table table-hover " id="table-review">
+                      <thead>
+                        <tr>
+                          <th>번호</th>
+                          <th>제목</th>
+                          <th>작성자</th>
+                          <th>등록일자</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-tbody">
+                      </tbody>
+                    </table>
+                    <div class="in-page">
+                    
+                    </div>
                     <div class="row aos-init aos-animate"
                       data-aos="fade-up">
                       <div class="col-md-12 text-center">
@@ -157,61 +182,8 @@
                         </div>
                       </div>
                     </div>
-                    <p class="h6">고객님이 작성해 주시는 상품평은 다른 분들께 소중한 정보가
-                      됩니다.</p>
-                    <p class="h6">상품평 작성시 200원, 포토 상품평 작성시 300원을
-                      적립해 드립니다.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div id="상품 문의" class="tabcontent" style="display: none;">
-              <div class="container">
-                <div class="row justify-content-center">
-                  <div
-                    class="col-md-7 site-section-heading text-center pt-4">
-                    <h2>상품 문의</h2>
-                    <p class="h6">본 상품에 대해서 궁금한 사항을 올려주세요. 상품 담당자가
-                      신속히 답변을 드립니다.</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="container">
-                    <div class="field">
-                      <textarea class="review" name="contents"
-                        id="message" rows="6"
-                        placeholder="로그인한 경우에만 문의 작성이 가능합니다"
-                        maxlength="200"></textarea>
-                      <input type="button" value="등록"
-                        class="btn btn-outline-primary js-btn-plus"
-                        id="create">
-                    </div>
-                    <table class="table table-hover col-md-12">
-                      <thead>
-                        <tr>
-                          <th>Firstname</th>
-                          <th>Lastname</th>
-                          <th>Email</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>Mary</td>
-                          <td>Moe</td>
-                          <td>mary@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>July</td>
-                          <td>Dooley</td>
-                          <td>july@example.com</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <p class="h6">고객님이 작성해 주시는 상품평은 다른 분들께 소중한 정보가 됩니다.</p>
+                    <p class="h6">상품평 작성시 200원, 포토 상품평 작성시 300원을 적립해 드립니다.</p>
                   </div>
                 </div>
               </div>
@@ -232,31 +204,101 @@
   <script src="/js/main.js"></script>
   <script src="/js/ajax.js"></script>
 
-  <script>
+  <script type="my-template" id="review-body">
+  <tr>
+  	<td class="title">
+  		{number}
+  	</td>
+  	<td class="title">
+  		{subject}
+  		<span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+  		<span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+  	</td>
+  	<td class="title">
+  		{userId}
+  	</td>
+  	<td class="title">
+  		{regdate}
+  	</td>
+  	<td>
+  		<div class="section_review_list">
+  			<div class="review_box">
+  				<div class="short_review_area">
+  					<div class="grade_area">
+  					<!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
+  					<span class="graph_mask"> <em class="graph_value" style="width: {score}%;"></em> </span>
+  				</div>
+  				</div>
+  			</div>
+  		</div>
+  	<td>
+  </tr>
+  <tr style='display:none;'>
+  	<td colspan="4">{content}</td>
+  </tr>
+  </script>
   
-  	// 탭 기능
-  	document.getElementById("defaultOpen").click();
   
-  	/* $.ajax({
-  		url:  "/user/orderList.mall",
-  		type: "get",
-  		success: function(data) {
-  			alert(data);
-  		}
-  	}) */
   
-  	/* // 주문번호 상세보기
-  	var orderNumbers = document.querySelectorAll(".order-number");
-  	
-  	for ( var i = 0; i < orderNumbers.length; i++) {
-		orderNumbers[i].addEventListener('click', function(event) {
-			alert(this.id);
-				$.ajax({
-					url: orderDetail.mall
-				})
-		})
-	} */
-  	
+    <script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+           tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+           
+           tablinks[i].className = tablinks[i].className.replace("active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+        
+        if(evt.currentTarget.id == 'product-review'){
+        	$.ajax({
+        		 url: "/reviewlist.mall",
+        		 type:"get",
+        		 dataType:"text",
+        		 success: function(data){
+        			 var jsonReviewData = JSON.parse(data);
+        			 reviewTemplate(jsonReviewData);
+        		 }
+        	  });
+        }
+     } 	
+    
+    function reviewTemplate(reviewData){
+  	  var templateHtml = document.querySelector('#review-body').innerHTML;
+  	  var originHtml = document.querySelector('#in-tbody');
+  	  var newHtml = '';
+  	  reviewData.forEach(function(v,i){
+  		  var scoreFormat = Number(v.score) * 20;
+  		  scoreFormat+'%';
+  		  newHtml += templateHtml.replace('{number}', i+1)
+  		  						 .replace('{subject}', v.subject)
+  		  						 .replace('{userId}', v.userId)
+  		  						 .replace('{regdate}', v.regdate)  
+  		  						 .replace('{score}', scoreFormat )
+  		  						 .replace('{content}', v.content);
+
+  	  });
+  	  originHtml.innerHTML = newHtml;
+  	  
+
+  	  $(".plusIcon").on("click",function(){
+  		  var obj = $(this);
+  		  if( obj.hasClass("glyphicon-plus") ){
+  		    obj.hide();
+  		    obj.next().show();            
+  		    obj.parent().parent().next().show();
+  		  }else{
+  		     obj.hide();
+  		     obj.prev().show();
+  		     obj.parent().parent().next().hide();
+  		  }
+  	  });
+  	}
   </script>
 
 </body>
