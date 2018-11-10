@@ -81,6 +81,33 @@
 	padding-bottom: 11%;
 }
 
+.order-list-number, .order-list-status {
+	width: 15%;
+	margin: 0;
+}
+
+tr > .order-number, tr > .order-date-flag {
+	vertical-align: middle;
+}
+
+.order-list-info {
+	width: 70%;
+	margin: 0;
+}
+
+.product-thumbnail {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	margin: 2%;
+}
+
+.product-text {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 3% 0;
+}
+
 /* Style the tab */
 .tab {
    overflow: hidden;
@@ -96,7 +123,7 @@
    outline: none;
    cursor: pointer;
    padding: 14px;
-   width: 25%;
+   width: 20%;
    transition: 0.3s;
    font-size: 17px;
    transition: 0.3s;

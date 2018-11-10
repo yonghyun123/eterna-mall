@@ -15,6 +15,7 @@ public class User {
 	private String userAddress;
 	private String userTel;
 	private String tierId;
+	private String tierType;
 	private String userGrade;
 	private String userPoint;
 	private String userRegdate;
@@ -180,13 +181,21 @@ public class User {
 		this.couponRate = couponRate;
 	}
 
+	public String getTierType() {
+		return tierType;
+	}
+
+	public void setTierType(String tierType) {
+		this.tierType = tierType;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPasswd="
 				+ userPasswd + ", userAddress=" + userAddress + ", userTel=" + userTel + ", tierId=" + tierId
-				+ ", userGrade=" + userGrade + ", userPoint=" + userPoint + ", userRegdate=" + userRegdate
-				+ ", couponName=" + couponName + ", couponStartDate=" + couponStartDate + ", couponEndDate="
-				+ couponEndDate + ", couponId=" + couponId + ",couponRate=" + "]";
+				+ ", tierType=" + tierType + ", userGrade=" + userGrade + ", userPoint=" + userPoint + ", userRegdate="
+				+ userRegdate + ", couponName=" + couponName + ", couponStartDate=" + couponStartDate
+				+ ", couponEndDate=" + couponEndDate + ", couponId=" + couponId + ", couponRate=" + couponRate + "]";
 	}
 
 }

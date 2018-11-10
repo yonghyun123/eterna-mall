@@ -94,9 +94,9 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
-	public int priceAmount(String userId) throws Exception {
+	public int userPriceAmount(String userId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		int amount = sqlSession.selectOne(NAMESPACE+"priceAmount", userId);
+		int amount = sqlSession.selectOne(NAMESPACE+"userPriceAmount", userId);
 		sqlSession.close();
 		return amount;
 	}
