@@ -28,11 +28,15 @@ public class CartDeleteController implements Controller {
 		cartService = (CartService)factory.getBean(CartServiceImpl.class);
 		String loginId , productId;
 		String[] list = request.getParameterValues("deleteCheck");
+		System.out.println(list);
 		loginId = (String) request.getAttribute("loginId");
+		System.out.println(loginId);
 		for (String string : list) {
 			productId = string;
+			System.out.println(productId);
 			try {
-			cartService.delete(loginId, productId);
+				System.out.println(productId);
+				//			cartService.delete(loginId, productId);
 			} catch (Exception e) {
 				throw new ServletException("CartService.delete() 예외 발생", e);
 			}
