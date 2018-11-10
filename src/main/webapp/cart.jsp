@@ -263,7 +263,7 @@
 						'productIdArr' : productIdArr
 					},
 					 success: function(){
-						 window.location.href="/checkout.mall";
+						 window.location.href="/order.mall";
 					 }
 				})
 			});

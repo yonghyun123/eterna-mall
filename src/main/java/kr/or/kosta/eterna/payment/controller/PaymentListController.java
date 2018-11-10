@@ -63,7 +63,10 @@ public class PaymentListController implements Controller {
 			cartList = cartService.listAll(userId);
 			couponList = userService.listCoupon(userId);
 			user = userService.read(userId);
-			orderCart = cartService.order(productId);
+			if(productId != null) {
+				orderCart = cartService.order(productId);
+			}
+		
 			
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);

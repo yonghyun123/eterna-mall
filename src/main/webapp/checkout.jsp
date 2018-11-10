@@ -371,19 +371,17 @@
     $('.address').change(function(){
       var check = document.getElementsByName('address');
       var userAddress= '${user.userAddress}' ;
-         var addressArray = userAddress.split('/');
+      var addressArray = userAddress.split('/');
          
       for (var i = 0; i < check.length; i++) {
         if(check[i].checked){
           switch(check[i].value){
           case "equealAdr": 
             $("#new-zipcod-address").val(addressArray[0]);
-               $("#new-detail-address").val(addressArray[2]);
-               $("#new-street-address").val(addressArray[1]);
+            $("#new-detail-address").val(addressArray[2]);
+            $("#new-street-address").val(addressArray[1]);
             document.getElementById('receiver').value= '${user.userId}';
             document.getElementById('receiverPhone').value= '${user.userTel}';
-            break;
-          case "tele":
             break;
           case "newAdr":
             document.getElementById('new-zipcod-address').value= '';
