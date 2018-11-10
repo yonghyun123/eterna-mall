@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -31,13 +32,15 @@ public class CartUpdateController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		cartService = (CartService)factory.getBean(CartServiceImpl.class);
 		
-		String loginId , productId, count;
-		String item = request.getParameter("item");
-		
+//		String loginId , productId, count;
+		String updateObj = request.getParameter("data");
+		System.out.println("update : " + updateObj);
 		JSONParser parser = new JSONParser();
+//		JSONObject student = (JSONObject) parser.parse(updateObj);
 		try {
-			JSONArray array = (JSONArray) parser.parse(item);
-			System.out.println("array : "+array);
+			JSONArray obj = (JSONArray) parser.parse(updateObj);
+			
+			System.out.println("obj : "+obj);
 			
 			
 //			JSONObject obj = (JSONObject) parser.parse(array.toJSONString());
