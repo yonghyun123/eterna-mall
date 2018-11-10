@@ -17,6 +17,7 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/shop_single.css">
+<link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/aos.css">
 <link rel="stylesheet" href="/css/style.css">
 
@@ -309,14 +310,12 @@
 		  sendQnACreate();
 	  })
   }
-  
+  /*장바구니에 담을 때 ajax 요청으로 이미 담겨있는지 파악 후 add */
   function addCartAjax(){
-
-	  
 	  $('#add-cart-btn').on('click',function(){
 		  var productCount = $('#product-count').val();
 		  $.ajax({
-			 url: "/reviewlist.mall",
+			 url: "/addcart.mall",
 			 type:"post",
 			 data: {
 				 productId: productId,
@@ -325,11 +324,26 @@
 			 },
 			 dataType:"text",
 			 success: function(data){
-				 var jsonReviewData = JSON.parse(data);
-				 reviewTemplate(jsonReviewData);
+				showCartAddModal(data);
+				console.log(data);
 			 }
 		  }); 
 	  })
+  }
+  
+  /* 장바구니 버튼처리하는 기능메서드 (이미 담겨있다면 다이얼로그, 담겨있지 않다면 토스트) */
+  function showCartAddModal(data){
+	  if(loginId){
+		  // 카트에 담는걸 성공했을때
+		  if(data == 1){
+			  $('#cart-succ-modal').modal();
+		  } else {
+			  //이미 담겨있을때
+			  $('#cart-dup-modal').modal();
+		  }
+	  } else {
+		  //비회원이 장바구니에 담을때 로직처리해야해---------
+	  }
 
   }
   
@@ -493,3 +507,5 @@
 </html>
 <%@ include file="reviewModal.jsp" %>
 <%@ include file="qnaModal.jsp" %>
+<%@ include file="cart/cartDupModal.jsp" %>
+<%@ include file="cart/cartSuccessModal.jsp" %>
