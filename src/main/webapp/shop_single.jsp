@@ -17,6 +17,7 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/shop_single.css">
+<link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/aos.css">
 <link rel="stylesheet" href="/css/style.css">
 
@@ -68,10 +69,8 @@
                  <strong class="text-primary h4" id="total-price">${selectProduct.price}</strong>
               </p>
               <p>
-                <a href="cart.html"
-                  class="buy-now btn btn-sm btn-primary">&nbsp;&nbsp;Add Cart&nbsp;&nbsp;</a> <a
-                  href="cart.html"
-                  class="buy-now btn btn-sm btn-primary">Order Now </a>
+                <input type="button" class="buy-now btn btn-sm btn-primary" value="Add Cart" id="add-cart-btn">
+                <input type="button" class="buy-now btn btn-sm btn-primary" value="Order Now" id="order-now-btn">
               </p>
             </div>
           </div>
@@ -102,6 +101,7 @@
             <div class="tab" id="tab">
               <button class="tablinks active" onclick="openCity(event, '제품 리뷰')" id="defaultOpen">제품리뷰</button>
               <button class="tablinks" onclick="openCity(event, '상품 문의')" id="product-qNa">상품 문의</button>
+              
             </div>
             <div id="제품 리뷰" class="tabcontent" style="display: block;">
               <div class="container">
@@ -271,14 +271,12 @@
   <script>
   var loginId = "${cookie.loginId.value}";
   var productId = ${selectProduct.productId};
-  
   var lickBtn =  document.querySelectorAll('.modify-count');
  
   $(document).on('click','.modify-count',function(){
 	  insertText();
   });
   
-  var productId = ${selectProduct.productId};
   document.getElementById("defaultOpen").click();
   
   $.ajax({
@@ -296,7 +294,39 @@
   
   reviewCreateBtn();
   settingHiddenValue();
+  addCartAjax();
+  orderBtnClicked();
+  /* order 버튼 클릭 이벤트 form동적 생성후 데이터 post */
+ 	
+  function orderBtnClicked(){
+	  var orderBtn = document.querySelector('#order-now-btn');
+	  orderBtn.addEventListener('click', function(){
+		  var productCount = $('#product-count').val();
+          var form = document.createElement("form");
+          form.setAttribute("charset", "UTF-8");
+          form.setAttribute("method", "Post");
+          form.setAttribute("action", "/order.mall");
+
+          //productId
+          var hiddenProductId = document.createElement("input");
+          hiddenProductId.setAttribute("type", "hidden");
+          hiddenProductId.setAttribute("name", "productId");
+          hiddenProductId.setAttribute("value", productId);
+          
+          //productCount
+          var hiddenProductCount = document.createElement("input");
+          hiddenProductCount.setAttribute("type", "hidden");
+          hiddenProductCount.setAttribute("name", "productCount");
+          hiddenProductCount.setAttribute("value", productCount);
+          
+          form.appendChild(hiddenProductId);
+          form.appendChild(hiddenProductCount);
+          document.body.appendChild(form);
+          form.submit(); 
+	  });
+  }
   
+  /* 리뷰등록 및 QnA등록 버튼 이벤트*/
   function reviewCreateBtn(){
 	  var reviewBtn = document.querySelector('#review-create');
 	  var qnaBtn = document.querySelector('#qna-create');
@@ -308,7 +338,41 @@
 		  
 		  sendQnACreate();
 	  })
-	  
+  }
+  /*장바구니에 담을 때 ajax 요청으로 이미 담겨있는지 파악 후 add */
+  function addCartAjax(){
+	  $('#add-cart-btn').on('click',function(){
+		  var productCount = $('#product-count').val();
+		  $.ajax({
+			 url: "/addcart.mall",
+			 type:"post",
+			 data: {
+				 productId: productId,
+				 userId: loginId,
+				 productCount: productCount
+			 },
+			 dataType:"text",
+			 success: function(data){
+				showCartAddModal(data);
+				console.log(data);
+			 }
+		  }); 
+	  })
+  }
+  
+  /* 장바구니 버튼처리하는 기능메서드 (이미 담겨있다면 다이얼로그, 담겨있지 않다면 토스트) */
+  function showCartAddModal(data){
+	  if(loginId){
+		  // 카트에 담는걸 성공했을때
+		  if(data == 1){
+			  $('#cart-succ-modal').modal();
+		  } else {
+			  //이미 담겨있을때
+			  $('#cart-dup-modal').modal();
+		  }
+	  } else {
+		  //비회원이 장바구니에 담을때 로직처리해야해---------
+	  }
 
   }
   
@@ -472,3 +536,5 @@
 </html>
 <%@ include file="reviewModal.jsp" %>
 <%@ include file="qnaModal.jsp" %>
+<%@ include file="cart/cartDupModal.jsp" %>
+<%@ include file="cart/cartSuccessModal.jsp" %>
