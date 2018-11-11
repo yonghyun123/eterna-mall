@@ -362,6 +362,7 @@
   
   /* 장바구니 버튼처리하는 기능메서드 (이미 담겨있다면 다이얼로그, 담겨있지 않다면 토스트) */
   function showCartAddModal(data){
+	  var productCount = $('#product-count').val();
 	  if(loginId){
 		  // 카트에 담는걸 성공했을때
 		  if(data == 1){
@@ -372,6 +373,23 @@
 		  }
 	  } else {
 		  //비회원이 장바구니에 담을때 로직처리해야해---------
+		  console.log("비회원");
+		  $.ajax({
+				 url: "/nonUserAddcart.mall",
+				 type:"post",
+				 data: {
+					 productId: productId,
+					 productCount: productCount
+				 },
+				 dataType:"text",
+				 success: function(data){
+					if(data == 1){
+						$('#cart-succ-modal').modal();
+					} else {
+						$('#cart-dup-modal').modal();
+					}
+				 }
+			  }); 
 	  }
 
   }

@@ -30,10 +30,6 @@ public class CartCreateController implements Controller {
 		String userId = request.getParameter("userId");
 		String productCount = request.getParameter("productCount");
 
-		
-		System.out.println("cart---productID:"+productId);
-		System.out.println("cart---userId:"+userId);
-		System.out.println("cart---productCount:"+productCount);
 		Cart cart = null;
 		Cart createCart = new Cart();
 		try {
