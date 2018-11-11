@@ -117,6 +117,9 @@
   <script src="/js/paginathing.js"></script>
   <script src="/js/ajax.js"></script>
   <script src="/js/shop.js"></script>
+  <script>
+		$("#productsL").addClass("active");
+	</script>
   <script id="templateList" type="text/template">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                    <div class="block-4 text-center border" style="width:220px; height:380px;">

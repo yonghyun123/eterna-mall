@@ -116,6 +116,14 @@ public class MybatisCartDao implements CartDao {
 		return cartList;
 	}
 
+	@Override
+	public int countOfCart(String userId) throws Exception {
+		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
+		int count = sqlSession.selectOne(NAMESPACE+"countOfCart",userId);
+		sqlSession.close();
+		return count;
+	}
+
 }
 
 

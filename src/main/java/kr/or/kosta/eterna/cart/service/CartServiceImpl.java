@@ -80,4 +80,9 @@ public class CartServiceImpl implements CartService {
 	public List<Cart> readOrderCart(String userId) throws Exception{
 		return cartDao.readOrderCart(userId);
 	}
+
+	@Override
+	public int countOfCart(String userId) throws Exception {
+		return cartDao.countOfCart(userId);
+	}
 }
