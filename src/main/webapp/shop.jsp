@@ -57,34 +57,8 @@
                   </c:when>
                   </c:choose>
                 </span></h2></div>
-                <c:choose>
-                   <c:when test="${not empty productSex }">
-                      &nbsp;${productSex } >
-                   </c:when>
-                </c:choose>
-                <c:choose>
-                  <c:when test="${not empty array }">
-                  <c:forEach items="${array }" var="item">
-                     &nbsp;${item }대 
-                  </c:forEach>
-                  >
-                  </c:when>
-                  </c:choose>
-                  <c:choose>
-                     <c:when test="${not empty  minAmount}">
-                        &nbsp;${minAmount }원 ~ ${maxAmount }원 > 
-                     </c:when>
-                  </c:choose>
-                  <c:choose>
-                     <c:when test="${not empty  productType}">
-                        &nbsp;${productType } > 
-                     </c:when>
-                  </c:choose>
-                  
-                  <c:choose>
-                     <c:when test="${empty minAmount }">
-                     <c:choose>
-                     <c:when test="${empty productSex}">
+                <div id="insertCondition">
+                </div>
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto" id="dropDown">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,10 +71,7 @@
                     </div>
                   </div>
                 </div>
-                   </c:when>
-                   </c:choose>
-                     </c:when>
-                  </c:choose>
+                 
                 
               </div>
             </div>
@@ -109,10 +80,10 @@
             
               <c:forEach var="product" items="${productList}" varStatus="status">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                   <div class="block-4 text-center border">
+                   <div class="block-4 text-center border" style="width:220px; height:380px;">
                    <figure class="block-4-image">
                       <form id="form${status.index}" action="/detail.mall" method="post">
-                         <a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
+                         <a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid" style="width: 80px; height:200px;"></a>
                          <input type="hidden" name="productId" value="${product.productId }">
                       </form>
                    </figure>
@@ -148,10 +119,10 @@
   <script src="/js/shop.js"></script>
   <script id="templateList" type="text/template">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                   <div class="block-4 text-center border">
+                   <div class="block-4 text-center border" style="width:220px; height:380px;">
                    <figure class="block-4-image">
                       <form id="form{number}" action="/detail.mall" method="post">
-                         <a class="images-btn"><img src="/images/{thumnail}" alt="Image placeholder" class="img-fluid"></a>
+                         <a class="images-btn"><img src="/images/{thumnail}" alt="Image placeholder" class="img-fluid" style="width: 80px; height:200px;"></a>
                          <input type="hidden" name="productId" value="{productId}">
                       </form>
                    </figure>

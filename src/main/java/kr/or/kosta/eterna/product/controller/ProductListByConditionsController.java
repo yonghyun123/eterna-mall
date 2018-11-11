@@ -39,6 +39,7 @@ public class ProductListByConditionsController implements Controller {
 		productService = (ProductService) factory.getBean(ProductServiceImpl.class);
 
 		String ageArray = request.getParameter("ages");
+		
 		String productArray = request.getParameter("productKind");
 		JSONParser productArrParser = new JSONParser();
 		JSONParser ageArrParser = new JSONParser();
@@ -50,14 +51,15 @@ public class ProductListByConditionsController implements Controller {
 		JSONArray ages = null;
 		JSONArray kindes =null;
 		try {
+			if(ageArray.length() != 2){
 			ages = (JSONArray) ageArrParser.parse(ageArray);
+			}
+			if(productArray.length() != 2){
 			kindes = (JSONArray) productArrParser.parse(productArray);
-			
+			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("ages", ages);
