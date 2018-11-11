@@ -27,7 +27,8 @@ public class AdminSaleListController implements Controller {
    
    private BuyService buyService;
 
-   @Override
+   @SuppressWarnings("unchecked")
+@Override
    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
          throws ServletException {
       String categoryId = request.getParameter("category");

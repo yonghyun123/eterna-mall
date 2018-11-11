@@ -43,8 +43,6 @@ window.onload = function(){
       dataType:"text",
       success: function(data){
          var jsonSalesData = JSON.parse(data);
-          //google.charts.load('current',{'packages':['corechart']});
-          //google.charts.setOnLoadCallback(drawVisualization);
           drawVisualization(jsonSalesData);
       }
    });
