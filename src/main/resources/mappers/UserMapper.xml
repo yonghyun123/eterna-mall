@@ -24,20 +24,24 @@
 	</insert>
 
 	<!-- id를 이용한 회원 검색 -->
+	<!-- 구매 등급 property 추가(tierId) by 이철우 -->
 	<select id="read" resultType="User" parameterType="String">
-		SELECT
-		user_id	AS "userId",
-		user_name AS "userName",
-		user_email AS "userEmail",
-		user_passwd AS "userPasswd",
-		user_address AS "userAddress",
-		user_tel AS "userTel",
-		user_point AS "userPoint",
-		TO_CHAR(user_regdate, 'YYYY-MM-DD') AS "userRegdate",
-		tier_id AS "tierId",
-		user_grade AS "userGrade"
-		FROM sm_user
-		WHERE user_id=#{userId}
+        SELECT
+		u.user_id	AS "userId",
+		u.user_name AS "userName",
+		u.user_email AS "userEmail",
+		u.user_passwd AS "userPasswd",
+		u.user_address AS "userAddress",
+		u.user_tel AS "userTel",
+		u.user_point AS "userPoint",
+		TO_CHAR(u.user_regdate, 'YYYY-MM-DD') AS "userRegdate",
+		u.tier_id AS "tierId",
+        ut.tier_type AS "tierType",
+		u.user_grade AS "userGrade"
+		FROM sm_user u
+        JOIN sm_user_tier ut
+        ON u.tier_id = ut.tier_id
+		WHERE u.user_id= #{userId}
 	</select>
 	
 
@@ -129,18 +133,21 @@
 		WHERE user_id=#{userId} AND user_passwd=#{userPasswd}
 	</select>
 
-	<!-- 유저별 구매 총액 조회 -->
-	<select id="priceAmount" resultType="int" parameterType="String">
-		SELECT SUM(pp.price * bm.count) 
-		FROM   sm_product_price pp, 
-       	sm_buy_manage bm 
-		WHERE  pp.product_id = bm.product_id 
-       	AND bm.buy_id IN (SELECT id 
-        FROM   sm_buy_info 
-        WHERE  user_id = #{userId})
+	<!-- 유저별 구매 총액 조회 by 이철우 -->
+	<select id="userPriceAmount" resultType="int" parameterType="String">
+		SELECT SUM(total_price)
+		FROM sm_buy_info
+		WHERE user_id = #{userId}
+	</select>
+	
+	<!-- 주문번호별 구매 총액 조회 by 이철우 -->
+	<select id="orderPriceAmount" resultType="int" parameterType="String">
+		SELECT SUM(total_price)
+		FROM sm_buy_info
+		WHERE id = #{id}
 	</select>
 
-	<!-- 유저의 다음 등급 도달에 필요한 금액 조회 -->
+	<!-- 유저의 다음 등급 도달에 필요한 금액 조회 by 이철우 -->
 	<select id="searchUpTier" resultType="int" parameterType="String">
 		SELECT sut.grade 
 		FROM   sm_user su, 

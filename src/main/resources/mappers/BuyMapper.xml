@@ -42,7 +42,7 @@
 		          (select product_id from SM_product where product_description = #{productDescription})) 
     </insert>
 
-	<!-- 유저별 구매 리스트(MyPage에서 사용) -->
+	<!-- 유저별 구매 리스트 by 이철우 -->
 	<select id="listClient" parameterType="String" resultType="Buy">
 		SELECT bi.create_date          AS orderDate, 
 		       bm.buy_id               AS orderNumber, 
@@ -71,6 +71,7 @@
 		       AND pi.image_type = 'th' 
 		ORDER  BY ordernumber 
     </select>
+    
     <!-- 전체 리스트 -->
     <select id="listAll" resultType="Buy">
 		SELECT i.id as id,
@@ -86,19 +87,23 @@
 		FROM   SM_buy_info i
     </select>
    
-    <!-- 주문 상세보기 -->
+    <!-- 제품 가격 추가 -->
+    <!-- 주문 상세보기 by 이철우 -->
     <select id="showOrderDetail" resultType="Buy">
 		SELECT i.id as id,
 		   m.count as count,
 		   p.product_description as productDescription,
-		   f.file_name as fileName
+		   f.file_name as fileName,
+           pp.price as productPrice
 		FROM   SM_buy_info i 
 		   join SM_buy_manage m 
 		     ON i.id=m.buy_id 
 		   join SM_product p 
 		     ON m.product_id=p.product_id 
+           join SM_product_Price pp
+             ON p.product_id = pp.product_id
 		   join SM_product_image e 
-		     ON p.product_id=e.product_id
+		     ON pp.product_id=e.product_id
 		   join SM_file_info f
 		      ON e.file_id = f.file_id
 		WHERE i.id=#{id} and image_type='th'
@@ -107,7 +112,8 @@
     <!-- 최근 3개의 배송지 조회 -->
     <select id="recentAddress" resultType="Buy">
 		SELECT receiver_address as receiverAddress,
-		      receiver_name as receiverName 
+		      receiver_name as receiverName ,
+		      receiver_tel as receiverTel
 		FROM (SELECT * 
 		    FROM   sm_buy_info 
 		    ORDER  BY create_date DESC) 
@@ -161,8 +167,8 @@
     	WHERE  order_flag = 0 
     </select>
     
-   	<!-- 유저의 주문번호별 품목개수 조회 -->
-	<select id="numPurchase" resultType="Buy">
+   	<!-- 유저의 주문번호별 품목개수 조회 by 이철우 -->
+	<select id="orderProductsLength" resultType="Buy">
 		SELECT Count(bm.buy_id) AS numPurchase 
 		FROM   sm_buy_info bi 
 		       JOIN sm_buy_manage bm 

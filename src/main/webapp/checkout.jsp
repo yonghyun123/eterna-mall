@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/jquery-ui.css">
 <link rel="stylesheet" href="css/owl.carousel.min.css">
 <link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/modal.css">
 <link rel="stylesheet"
   href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
   integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
@@ -252,8 +253,7 @@
                   <th>일반결제</th>
                   <td>
                     <div class="checkInfo">
-                      <input type="checkbox" value="info" name="info">
-                      <span>[필수] 개인정보 수집 및 이용 동의</span>
+                      <label><input type="checkbox" name="info"> <span>[필수] 개인정보 수집 및 이용 동의</span></label>
                     </div>
                   </td>
                 </tr>
@@ -304,7 +304,8 @@
     </div>
     
     <%@ include file="recentAddress.jsp"%>
-    <%@ include file="/loading.jsp"%>
+    <%@ include file="psersonalInfo.jsp"%>
+<%--     <%@ include file="/loading.jsp"%> --%>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="js/jquery-3.3.1.min.js"></script>
@@ -370,19 +371,17 @@
     $('.address').change(function(){
       var check = document.getElementsByName('address');
       var userAddress= '${user.userAddress}' ;
-         var addressArray = userAddress.split('/');
+      var addressArray = userAddress.split('/');
          
       for (var i = 0; i < check.length; i++) {
         if(check[i].checked){
           switch(check[i].value){
           case "equealAdr": 
             $("#new-zipcod-address").val(addressArray[0]);
-               $("#new-detail-address").val(addressArray[2]);
-               $("#new-street-address").val(addressArray[1]);
+            $("#new-detail-address").val(addressArray[2]);
+            $("#new-street-address").val(addressArray[1]);
             document.getElementById('receiver').value= '${user.userId}';
             document.getElementById('receiverPhone').value= '${user.userTel}';
-            break;
-          case "tele":
             break;
           case "newAdr":
             document.getElementById('new-zipcod-address').value= '';
@@ -464,7 +463,7 @@
           }).open();
       }
     </script>
-   
+  
   </body>
 </html>
 <%@ include file="coupon.jsp"%>

@@ -19,7 +19,7 @@
             <ul>
               <li><a href="/user/myPage.mall"><span class="icon icon-person"></span></a></li>
               <li>
-                <a href="/cart.jsp" class="site-cart">
+                <a href="/cart.mall" class="site-cart">
                   <span class="icon icon-shopping_cart"></span>
                   <span class="count">2</span>
                 </a>

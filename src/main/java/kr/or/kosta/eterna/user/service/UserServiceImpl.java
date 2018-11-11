@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int priceAmount(String userId) throws Exception {
-		return userDao.priceAmount(userId);
+	public int userPriceAmount(String userId) throws Exception {
+		return userDao.userPriceAmount(userId);
 	}
 
 	@Override

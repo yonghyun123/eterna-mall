@@ -128,4 +128,16 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return count;
 	}
+	@Override
+	public List<Product> brandNewList(String categoryId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Product> productList = sqlSession.selectList(NAMESPACE+"brandNewList", categoryId);
+		return productList;
+	}
+	@Override
+	public List<Product> popularProductList() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Product> productList = sqlSession.selectList(NAMESPACE+"hotItemList");
+		return productList;
+	}
 }

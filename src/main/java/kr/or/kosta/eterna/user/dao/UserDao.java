@@ -37,7 +37,7 @@ public interface UserDao {
 	public int couponLength(String userId) throws Exception;
 	
 	/* id를 이용한 누적 구매액 조회 */
-	public int priceAmount(String userId) throws Exception;
+	public int userPriceAmount(String userId) throws Exception;
 	
 	/* id를 이용한 상위 등급 금액 조회 */
 	public int searchUpTier(String userId) throws Exception;
