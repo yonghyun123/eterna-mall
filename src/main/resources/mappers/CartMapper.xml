@@ -30,6 +30,33 @@
             #{productId}, 
             #{userId})
 	</insert>
+	<!-- 지원 추가  -->
+	<!-- 전체 장바구니 리스트 -->
+	<select id="toBuylistAll" resultType="Cart">
+	 SELECT c.count as count,
+	 		c.user_id as userId,
+	 		c.product_id as productId, 
+       		p.product_brand as productBrand, 
+       		p.product_description as productDescription, 
+      		m.price as price,
+       		f.file_name as fileName
+	 FROM   SM_cart_order c 
+       	join SM_product p 
+         ON c.product_id = p.product_id 
+       	join SM_product_price m 
+         ON p.product_id=m.product_id 
+      	join SM_product_image i 
+         ON p.product_id=i.product_id
+       	join SM_file_info f
+         ON i.file_id=f.file_id
+	 Where c.user_id = #{userId} and i.image_type = 'th'
+	</select>
+	<!-- 지원 추가  -->
+	<!-- 장바구니 제품 삭제 -->
+	<delete id="toBuydelete" parameterType="String">
+		DELETE FROM SM_cart_order
+		WHERE  user_id = #{userId} 
+	</delete>
 	<!-- userId와 productId를 통한 장바구니 검색(동일상품 체크시) -->                        
 	<select id="read" resultType="Cart" parameterType="map">
 		SELECT c.count as count,
