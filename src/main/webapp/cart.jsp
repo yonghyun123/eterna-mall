@@ -56,7 +56,7 @@
                 <thead>
                   <tr>
                     <th class="cart-button"><input type="checkbox"
-                      name="allCheck"></th>
+                      id="allCheck" onclick="allChecked()"></th>
                     <th class="all-select">전체선택</th>
                     <th class="product-inform" colspan="5">상품정보</th>
                     <th class="product-quantity">수량</th>
@@ -73,8 +73,9 @@
                           <!-- 체크버튼 -->
                           <td class="cart-button text-center"><input
                             type="checkbox" value="${cart.productId }"
-                            name="deleteCheck"> <input
-                            type="hidden" value="${cart.productId }"
+                            name="deleteCheck" class="selectedItems">
+                            <input type="hidden"
+                            value="${cart.productId }"
                             class="hiddenDelete"></td>
                           <!-- 상품 정보 -->
                           <td class="product-inform" colspan="6"><img
@@ -117,7 +118,7 @@
                     </c:when>
                     <c:otherwise>
                       <tr>
-                        <td colspan="11">장바구니에 담긴 상품이 존재하지 않습니다.</td>
+                        <td colspan="11" id="cartEmpty">장바구니에 담긴 상품이 존재하지 않습니다.</td>
                       </tr>
                     </c:otherwise>
                   </c:choose>
@@ -165,7 +166,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <button
-                      class="btn btn-primary btn-lg py-3 btn-block" id="order">주문하기</button>
+                      class="btn btn-primary btn-lg py-3 btn-block"
+                      id="order">주문하기</button>
                   </div>
                 </div>
               </div>
@@ -185,6 +187,27 @@
   <script src="/js/aos.js"></script>
   <script src="/js/main.js"></script>
   <script type="text/javascript">
+			/* 화면 로딩 */
+			$(function() {
+				document.getElementById("allCheck").checked = true;
+				allChecked();
+			});
+
+			/* 전체 선택과 해제 함수 */
+			function allChecked() {
+				if (document.getElementById("allCheck").checked) {
+					$("input[name=deleteCheck]").prop("checked", true);
+					calculator();
+				} else {
+					$("input[name=deleteCheck]").prop("checked", false);
+					calculator();
+				}
+			}
+			/* 체크된 상품 subTotal */
+			$(document).on("click", "input[name=deleteCheck]", function(event) {
+						calculator();
+					});
+			/* 상품 가격 계산 */
 			function calculator() {
 				var cartCount = document.querySelectorAll('.cartCount');
 				var cartPrice = document.querySelectorAll('.cartPrice');
@@ -195,30 +218,41 @@
 								* Number(cartPrice[key].innerText);
 					}
 				}
-
-				var subTotal = document.querySelectorAll('.totalCost');
-				var sumPrice = 0;
-				for (key in subTotal) {
-					if (subTotal[key].innerText) {
-						sumPrice += Number(subTotal[key].innerText);
+				var items = $("input[name=deleteCheck]");
+				var toBuy = document.querySelectorAll(".totalCost");
+				var subTotal = 0;
+				for (var i = 0; i < items.length; i++) {
+					if (items[i].checked) {
+						subTotal += Number(toBuy[i].innerText);
 					}
 				}
-				$('.sumPrice').text(sumPrice);
+				console.log('subtotal : ' + subTotal)
+				$('.sumPrice').text(subTotal);
 
 				var shippingPrice = 0;
-				if (sumPrice >= 30000) {
+				if (subTotal >= 30000) {
 					$('.shippingPrice').text(0);
 					shippingPrice = 0;
+					$('#DeleteCheckBtn').prop("disabled", false);
+					$('#order').prop("disabled", false) ;
+				}else if (subTotal == 0) {
+					$('.shippingPrice').text(0);
+					shippingPrice = 0;
+					$('#DeleteCheckBtn').prop("disabled", true);
+					$('#order').prop("disabled", true);
 				} else {
 					$('.shippingPrice').text(3000);
 					shippingPrice = 3000;
+					$('#DeleteCheckBtn').prop("disabled", false);
+					$('#order').prop("disabled", false);
 				}
 
-				var totalPrice = Number(shippingPrice) + sumPrice;
+				var totalPrice = Number(shippingPrice) + subTotal;
 				$('.totalPrice').text(totalPrice);
 			};
 
-			$(document).on("click", ".fa-trash", function(event) {
+			/* 장바구니 하나씩 삭제할 때  - cartDeleteController*/
+			$(document).on("click",".fa-trash",function(event) {
 						var productId = $(this).closest("tr").find(
 								".hiddenDelete").val();
 						var form = document.createElement("form");
@@ -234,17 +268,19 @@
 						document.body.appendChild(form);
 						form.submit();
 					});
-
+			/* 수량 수정 */
 			$(document).on("click", ".btn-outline-primary", function(event) {
 				calculator();
 			});
+			/* 주문버튼  */
 			$(document).on("click", "#order", function(event) {
 				var countArr = [];
 				var productIdArr = [];
 				var count = document.querySelectorAll('.cartCount');
 				var productId = document.querySelectorAll('.hiddenDelete');
-				for (var i = 0; i < count.length; i++) {
-					if (count[i].value) {
+				var items = $("input[name=deleteCheck]");
+				for (var i = 0; i < items.length; i++) {
+					if (items[i].checked) {
 						countArr.push(count[i].value);
 						productIdArr.push(productId[i].value);
 					}
@@ -262,13 +298,10 @@
 						'countArr' : countArr,
 						'productIdArr' : productIdArr
 					},
-					 success: function(){
-						 window.location.href="/order.mall";
-					 }
+					success : function() {
+						window.location.href = "/order.mall";
+					}
 				})
-			});
-			$(function() {
-				calculator();
 			});
 		</script>
 </body>

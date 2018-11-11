@@ -17,7 +17,19 @@
             #{productId}, 
             #{userId})
 	</insert>
-
+	<!-- 지원 추가  -->
+	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->                        
+	<insert id="toBuycreate" parameterType="Cart">
+		INSERT INTO SM_cart_order
+            (id, 
+             count, 
+             product_id, 
+             user_id) 
+		VALUES     (7, 
+            #{count}, 
+            #{productId}, 
+            #{userId})
+	</insert>
 	<!-- userId와 productId를 통한 장바구니 검색(동일상품 체크시) -->                        
 	<select id="read" resultType="Cart" parameterType="map">
 		SELECT c.count as count,
