@@ -54,7 +54,9 @@ public class UserServiceImpl implements UserService {
 	/* 적립금과 회원등급(grade), 사용한 쿠폰 삭제 업데이트 (용현수정) */
 	public void pointUpdate(User user) throws Exception{
 		userDao.pointUpdate(user);
-		userDao.deleteCoupon(user);
+		if(!user.getCouponId().equals("undefined")){
+			userDao.deleteCoupon(user);	
+		}
 	}
 	
 	@Override
