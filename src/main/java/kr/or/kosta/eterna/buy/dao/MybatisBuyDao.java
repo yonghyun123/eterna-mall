@@ -119,4 +119,12 @@ public class MybatisBuyDao implements BuyDao {
 		return count;
 	}
 
+	@Override
+	public List<Buy> showOrderDetailUser(String id) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Buy> list = sqlSession.selectList(NAMESPACE + "showOrderDetailUser", id);
+		sqlSession.close();
+		return list;
+	}
+
 }
