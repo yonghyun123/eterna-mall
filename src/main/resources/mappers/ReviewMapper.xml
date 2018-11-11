@@ -29,9 +29,9 @@
 	</insert>
 
 
-<!-- Review 답글 -->
-   <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
-   <insert id="createComment" parameterType="Review">
+	<!-- Review 답글 -->
+    <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+    <insert id="createComment" parameterType="Review">
       INSERT INTO sm_product_review 
             (id, 
              user_id, 
@@ -51,34 +51,37 @@
             from SM_product_answer
             where id=#{id}), 
             1)
-   </insert>
+    </insert>
    
 	<!-- 상품별 리뷰 리스트 -->
 	<select id="listItem" resultType="Review">
-	 SELECT user_id     AS userId, 
-       product_id  AS productId, 
-       regdate,
-       subject, 
-       content, 
-       score,
-       board_id as boardId, 
-       answer_flag AS answerFlag 
-	FROM   sm_product_review 
-	WHERE  product_id = #{productId}
+		SELECT user_id     AS userId, 
+		       product_id  AS productId, 
+		       regdate,
+		       subject, 
+		       content, 
+		       score,
+		       board_id as boardId, 
+		       answer_flag AS answerFlag 
+		FROM   sm_product_review 
+		WHERE  product_id = #{productId}
 	</select>
 	
 	<!-- 회원별 리뷰 리스트 -->
 	<select id="myReviewList" resultType="Review">
-	SELECT user_id     AS userId, 
-       product_id  AS productId, 
-       regdate, 
-       subject,
-       content, 
-       score,
-       board_id as boardId, 
-       answer_flag AS answerFlag 
-	FROM   sm_product_review 
-	WHERE  user_id = #{userId}
+		SELECT  pr.user_id     AS userId, 
+        		pr.product_id  AS productId, 
+        		pr.regdate, 
+        		subject,
+        		pr.content, 
+        		pr.score,
+        		pr.board_id AS boardId, 
+        		pr.answer_flag AS answerFlag,
+        		p.product_description AS description
+		FROM    sm_product_review pr
+		JOIN    sm_product p
+		ON      pr.product_id = p.product_id
+		WHERE   user_id = #{userId}
 	</select>
 	
 	<!-- 전체 리뷰 리스트 -->
@@ -106,16 +109,16 @@
 	</select>
 	
 	<!-- 답글 등록 시 flag update -->
-   <update id="updateFlag">
-   update sm_product_review
-   set answer_flag = 1
-   where id = #{id}
-   </update>
+    <update id="updateFlag">
+    UPDATE sm_product_review
+    SET    answer_flag = 1
+    WHERE  id = #{id}
+    </update>
    
-   <!-- 답변 대기중인 review -->
-   <select id="newReview" resultType="int">
-   SELECT Count(answer_flag) 
-   FROM   sm_product_review 
-   WHERE  answer_flag = 0 
-   </select>
+    <!-- 답변 대기중인 review -->
+    <select id="newReview" resultType="int">
+    SELECT Count(answer_flag) 
+    FROM   sm_product_review 
+    WHERE  answer_flag = 0 
+    </select>
 </mapper>
