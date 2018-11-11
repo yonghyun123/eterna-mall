@@ -8,7 +8,7 @@
 	<select id="userCouponList" resultType="Coupon">
 		SELECT  c.coupon_id as couponId,
 		        c.coupon_name as couponName,
-		        c.coupon_rate * 100 as couponRate,
+		        c.coupon_rate as couponRate,
 		        cu.flag as useFlag,
 		        TO_CHAR(cu.start_date, 'YYYY-MM-DD') AS startDate,
 		        TO_CHAR(cu.end_date, 'YYYY-MM-DD') AS endDate,
