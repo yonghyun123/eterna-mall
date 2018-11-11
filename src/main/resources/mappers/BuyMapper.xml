@@ -57,7 +57,7 @@
 		       bi.receiver_tel         AS receiverTel, 
 		       ( bm.count * pp.price ) AS orderNumPrice, 
 		       bm.id                   AS paymentKind, 
-		       pi.file_id              AS fileName 
+		       fi.file_name            AS fileName 
 		FROM   sm_buy_manage bm 
 		       JOIN sm_buy_info bi 
 		         ON bm.buy_id = bi.id 
@@ -67,7 +67,9 @@
 		         ON p.product_id = pp.product_id 
 		       JOIN sm_product_image pi 
 		         ON pp.product_id = pi.product_id 
-		WHERE  bi.user_id = #{userId} 
+               JOIN sm_file_info fi
+                 ON pi.file_id = fi.file_id
+		WHERE  bi.user_id = #{userId}
 		       AND pi.image_type = 'th' 
 		ORDER  BY ordernumber 
     </select>
@@ -87,8 +89,7 @@
 		FROM   SM_buy_info i
     </select>
    
-    <!-- 제품 가격 추가 -->
-    <!-- 주문 상세보기 by 이철우 -->
+    <!-- 주문 상세보기(관리자) by 이철우 -->
     <select id="showOrderDetail" resultType="Buy">
 		SELECT i.id as id,
 		   m.count as count,
