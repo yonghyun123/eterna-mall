@@ -20,6 +20,8 @@
       	<typeAlias type="kr.or.kosta.eterna.fileInfo.domain.FileInfo" alias="FileInfo"/>
       	<typeAlias type="kr.or.kosta.eterna.review.domain.Review" alias="Review"/>
       	<typeAlias type="kr.or.kosta.eterna.qna.domain.QnA" alias="QnA"/>
+      	<!-- by 이철우 --> 
+      	<typeAlias type="kr.or.kosta.eterna.coupon.domain.Coupon" alias="Coupon"/>
       	
       	<!-- 현우추가 -->
       	<typeAlias type="kr.or.kosta.eterna.user.domain.UserRcmd" alias="UserRcmd"/>
@@ -58,6 +60,8 @@
       	<mapper resource="mappers/ReviewMapper.xml"  />
       	<mapper resource="mappers/FileInfoMapper.xml"  /> 
       	<mapper resource="mappers/QnAMapper.xml"  />
+      	<!-- by 이철우 -->
+      	<mapper resource="mappers/CouponMapper.xml"  />
       	<!-- 현우추가 -->
       	<mapper resource="mappers/UserRcmdMapper.xml"  />
 		<mapper resource="mappers/PriceMapper.xml"  />
