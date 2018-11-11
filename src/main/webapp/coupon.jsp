@@ -29,7 +29,7 @@
                                     <tr>
                                        <td>${status.count}</td>
                                        <td class="content">${coupon.couponName}</td>
-                                       <td>~${coupon.couponEndDate } 까지</td>
+                                       <td>~${coupon.endDate } 까지</td>
                                        <td class="discountAmount">${coupon.couponRate}</td>
                                        <td><input type="button"
                                           class="btn btn-success selectedCoupon"
@@ -57,7 +57,7 @@
       </div>
    </div>
 </div>
-<script src="js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
    /* pruductPrice값 받아오기 */
    var productPrice2 = 0;

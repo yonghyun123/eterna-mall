@@ -21,6 +21,7 @@ import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 import kr.or.kosta.eterna.coupon.domain.Coupon;
 import kr.or.kosta.eterna.coupon.service.CouponService;
+import kr.or.kosta.eterna.coupon.service.CouponServiceImpl;
 import kr.or.kosta.eterna.user.domain.User;
 import kr.or.kosta.eterna.user.service.UserService;
 import kr.or.kosta.eterna.user.service.UserServiceImpl;
@@ -48,6 +49,7 @@ public class PaymentListController implements Controller {
 		buyService = (BuyService) factory.getBean(BuyServiceImpl.class);
 		cartService = (CartService) factory.getBean(CartServiceImpl.class);
 		userService = (UserService) factory.getBean(UserServiceImpl.class);
+		couponService = (CouponService) factory.getBean(CouponServiceImpl.class);
 		List<Buy> recentAddressList = null;
 		List<Cart> cartList = null;
 		List<Coupon> couponList = null;
@@ -63,6 +65,7 @@ public class PaymentListController implements Controller {
 			recentAddressList = buyService.recentAddress(userId);
 			cartList = cartService.listAll(userId);
 			couponList = couponService.userCouponList(userId);
+			System.out.println(couponList);
 			user = userService.read(userId);
 			if(productId != null) {
 				orderCart = cartService.order(productId);

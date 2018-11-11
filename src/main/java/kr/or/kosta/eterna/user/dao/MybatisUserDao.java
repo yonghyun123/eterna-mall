@@ -103,6 +103,14 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
+	public List<User> listCoupon(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<User> listCoupon = sqlSession.selectList(NAMESPACE + "coupon", userId);
+		sqlSession.close();
+		return listCoupon;
+	}
+
+	@Override
 	public int userPriceAmount(String userId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		int amount = sqlSession.selectOne(NAMESPACE+"userPriceAmount", userId);
@@ -118,6 +126,14 @@ public class MybatisUserDao implements UserDao {
 		return grade;
 	}
 
+	@Override
+	public int couponLength(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int length = sqlSession.selectOne(NAMESPACE+"couponLength", userId);
+		sqlSession.close();
+		return length;
+	}
+	
 	@Override
 	public int newUser() throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
