@@ -44,4 +44,7 @@ public interface CartService {
 	
 	/* 카트에 담긴 데이터 조회 (yonghyun) */
 	public List<Cart> readOrderCart(String userId) throws Exception;
+	
+	/* 유저별 가지고 있는 장바구니 물품 갯수 */
+	public int countOfCart(String userId) throws Exception;
 }

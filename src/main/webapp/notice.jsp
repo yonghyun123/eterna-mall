@@ -250,6 +250,7 @@
   <script src="js/main.js"></script>
   <script src="js/paginathing.js"></script>
   <script>
+	$("#faqL").addClass("active");
            $('#table-notice tbody').paginathing({
            // Limites your pagination number
            // false or number

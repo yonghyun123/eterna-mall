@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<% int countOfCart = 0;
+if(request.getAttribute("cartCount") != null){
+	countOfCart = (int)request.getAttribute("cartCount");
+} %>
 <header class="site-navbar" role="banner">
   <div class="site-navbar-top">
     <div class="container">
@@ -10,7 +13,7 @@
         </div>
         <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
           <div class="site-logo">
-            <a href="/eterna.mall" class="js-logo-clone">Shoppers</a>
+            <a href="/eterna.mall" class="js-logo-clone">ETERNA</a>
           </div>
         </div>
 
@@ -21,7 +24,7 @@
               <li>
                 <a href="/cart.mall" class="site-cart">
                   <span class="icon icon-shopping_cart"></span>
-                  <span class="count">2</span>
+                  <span class="count"><%=countOfCart %></span>
                 </a>
               </li> 
               <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
@@ -34,19 +37,17 @@
   </div> 
   <nav class="site-navigation text-right text-md-center" role="navigation">
     <div class="container">
-      <ul class="site-menu js-clone-nav d-none d-md-block">
-        <li class="has-children active">
-          <a href="/eterna.mall">Home</a>
-        </li>
-        <li><a href="/product.mall">Products</a></li>
-        <li><a href="/notice.jsp">FAQ</a></li>
+      <ul class="site-menu js-clone-nav d-none d-md-block" id="topList">
+        <li id="homeL"><a href="/eterna.mall">Home</a></li>
+        <li id="productsL"><a href="/product.mall">Products</a></li>
+        <li id="faqL"><a href="/notice.jsp">FAQ</a></li>
         <c:choose>
           <c:when test="${!empty cookie.loginId.value}">
               <li><a id="logout-btn">Logout</a></li>
           </c:when>
           <c:otherwise>
-            <li><a id="signup-btn">Join</a></li>
-            <li><a id="login-btn">Login</a></li>
+            <li id="signupL"><a id="signup-btn">Join</a></li>
+            <li id="loginL"><a id="login-btn">Login</a></li>
           </c:otherwise>
         </c:choose>
         <li>
@@ -67,7 +68,8 @@
         	logout.onclick = function() {
           		window.location.href="/logout.mall"; 
         	} 
-      	}      	
+      	}     	
+
     </script>
     <%@ include file="/user/login.jsp"%>
     <%@ include file="/user/signup.jsp"%>

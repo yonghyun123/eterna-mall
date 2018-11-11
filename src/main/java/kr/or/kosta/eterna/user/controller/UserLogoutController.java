@@ -10,7 +10,7 @@ import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 
 /**
- * /user/cartlist.mall에 대한 요청 처리 컨트롤러
+ * 로그아웃 요청 처리 컨트롤러
  * @author 조희진
  *
  */
@@ -29,7 +29,7 @@ public class UserLogoutController implements Controller {
 		  	    cookie.setMaxAge(0);
 		        response.addCookie(cookie);
 		    }
-		} 
+		}
 		mav.setView("redirect:index.jsp");
 		return mav;
 	}
