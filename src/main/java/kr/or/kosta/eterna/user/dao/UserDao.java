@@ -30,6 +30,21 @@ public interface UserDao {
 	/* 로그인 시 id와 비밀번호를 통한 회원 조회 */
 	public User certify(String userId, String userPasswd) throws Exception;
 
+<<<<<<< HEAD
+=======
+	/* 적립금과 회원등급(grade) 업데이트 (용현수정)  */
+	public void pointUpdate(User user) throws Exception;
+	
+	/* 사용한 쿠폰 삭제 (용현수정)  */
+	public void deleteCoupon(User user) throws Exception;
+	
+	/* id를 이용한 쿠폰 조회 */
+	public List<User> listCoupon(String userId) throws Exception;
+
+	/* id를 이용한 쿠폰 개수 조회*/
+	public int couponLength(String userId) throws Exception;
+	
+>>>>>>> fefd7a847d37ebd7e50df16427246672b69f3c5b
 	/* id를 이용한 누적 구매액 조회 */
 	public int userPriceAmount(String userId) throws Exception;
 	

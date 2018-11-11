@@ -49,7 +49,14 @@ public class UserServiceImpl implements UserService {
 	public User certify(String userId, String userPasswd) throws Exception {
 		return userDao.certify(userId, userPasswd);
 	}
-
+	
+	@Override
+	/* 적립금과 회원등급(grade), 사용한 쿠폰 삭제 업데이트 (용현수정) */
+	public void pointUpdate(User user) throws Exception{
+		userDao.pointUpdate(user);
+		userDao.deleteCoupon(user);
+	}
+	
 	@Override
 	public int userPriceAmount(String userId) throws Exception {
 		return userDao.userPriceAmount(userId);
