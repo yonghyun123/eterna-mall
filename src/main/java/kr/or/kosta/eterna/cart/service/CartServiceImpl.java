@@ -52,5 +52,11 @@ public class CartServiceImpl implements CartService {
 		return cartDao.order(productId);
 	}
 
+	@Override
+	public void toBuycreate(Cart cart) throws Exception {
+		cartDao.toBuycreate(cart);
+		
+	}
+
 
 }

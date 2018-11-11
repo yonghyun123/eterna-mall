@@ -42,7 +42,7 @@ public class CartUpdateController implements Controller {
 			if (countArray != null && productIdArray != null) {
 				for (int i = 0; i < countArray.size(); i++) {
 					Cart cart = new Cart(loginId, countArray.get(i).toString(), productIdArray.get(i).toString());
-					cartService.update(cart);
+					cartService.toBuycreate(cart);
 				}
 			}
 		} catch (ParseException e) {
