@@ -52,6 +52,7 @@ public class PaymentListController implements Controller {
 		couponService = (CouponService) factory.getBean(CouponServiceImpl.class);
 		List<Buy> recentAddressList = null;
 		List<Cart> cartList = null;
+		List<Cart> toBuyCartList = null;
 		List<Coupon> couponList = null;
 		Map<String, String> orderCart = null;
 		List<Map<String,String>> orderList = new ArrayList<>();
@@ -63,7 +64,8 @@ public class PaymentListController implements Controller {
 
 		try {
 			recentAddressList = buyService.recentAddress(userId);
-			cartList = cartService.listAll(userId);
+//			cartList = cartService.listAll(userId);
+			cartList = cartService.toBuylistAll(userId);
 			couponList = couponService.userCouponList(userId);
 			System.out.println(couponList);
 			user = userService.read(userId);

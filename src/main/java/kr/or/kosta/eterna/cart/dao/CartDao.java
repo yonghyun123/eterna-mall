@@ -18,6 +18,12 @@ public interface CartDao {
 	/* 장바구니에 담긴 물건 중 살 물건 */
 	public void toBuycreate(Cart cart) throws Exception;
 	
+	/* 장바구니에 담긴 물건 중 살 물건 리스트 조회 */
+	public List<Cart> toBuylistAll(String userId) throws Exception;
+	
+	/* 장바구니에 담긴 물건 중 물건 삭제 */
+	public void toBuyDelete(String userId) throws Exception;
+	
 	/* 장바구니에 동일한 상품이 담겼는지 체크할 때 productId를 통한 검색 */
 	public Cart read(String userId, String productId) throws Exception;
 	

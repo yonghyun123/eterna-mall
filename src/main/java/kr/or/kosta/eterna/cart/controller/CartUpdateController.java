@@ -37,6 +37,7 @@ public class CartUpdateController implements Controller {
 		JSONParser countArrParser = new JSONParser();
 		JSONParser productIdArrParser = new JSONParser();
 		try {
+			cartService.toBuyDelete(loginId);
 			JSONArray countArray = (JSONArray) countArrParser.parse(countArr);
 			JSONArray productIdArray = (JSONArray) productIdArrParser.parse(productIdArr);
 			if (countArray != null && productIdArray != null) {
