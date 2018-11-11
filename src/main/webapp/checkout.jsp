@@ -110,7 +110,7 @@
             </div>
             <table class="cart-table">
             <c:choose>
-                    <c:when test="${not empty list }">
+                    <c:when test="${not empty user }">
               <thead>
                 <tr class="col-md-12">
                   <th>Name</th>
