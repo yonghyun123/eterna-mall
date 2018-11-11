@@ -77,15 +77,16 @@ public class PaymentListController implements Controller {
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}
-
-
+		
 		if (productId == null) {
 			mav.addObject("cartList", cartList);
+			mav.addObject("uriCheck", "cartpayment");
 		} else {
 			orderCart.put("count", productCount);
 			orderCart.put("productId", productId);
 			orderList.add(orderCart);
 			mav.addObject("cartList", orderList);
+			mav.addObject("uriCheck", "payment");
 		}
 
 		mav.addObject("recentAddressList", recentAddressList);

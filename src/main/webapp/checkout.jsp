@@ -67,6 +67,9 @@
               <c:choose>
                 <c:when test="${not empty cartList }">
                   <c:forEach var="cart" items="${cartList }" varStatus="status">
+                  <c:if test="${status.last eq true}">
+                  	<input type="hidden" value="${status.count}" id="product-total-count">
+                  </c:if>
                     <tr>
                       <!-- 상품 정보 -->
                       <td class="product-inform" colspan="5"><img
@@ -81,16 +84,13 @@
                       <!-- 수량 -->
                       <td class="product-quantity">
                         <div class="cart-button-group input-group">
-                          <input type="text"
-                            class="form-control text-center cartCount"
-                            value="${cart.count }"
-                            aria-label="Example text with button addon"
-                            aria-describedby="button-addon1" disabled="disabled">
+                          <input type="text" class="form-control text-center cartCount" value="${cart.count }" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled="disabled">
                         </div>
                       </td>
                       <!-- 금액 -->
-                      <td class="product-price text-right"><span
-                        class="totalCost"></span>원</td>
+                      
+                      <td class="product-price text-right">
+                      <span class="totalCost"></span>원</td>
                       <td></td>
                     </tr>
                   </c:forEach>
@@ -299,6 +299,7 @@
         <!-- </form> -->
       </div>
     </div>
+
     
     <%@ include file="recentAddress.jsp"%>
     <%@ include file="psersonalInfo.jsp"%>
@@ -319,6 +320,8 @@
       var cartCount = document.querySelectorAll('.cartCount');
       var cartPrice = document.querySelectorAll('.cartPrice');
       var totalCost = document.querySelectorAll('.totalCost');
+	  var uriCheck = "${uriCheck}"; 
+
       for (key in cartCount) {
         if (cartCount[key].value) {
           totalCost[key].innerText = Number(cartCount[key].value)
@@ -464,7 +467,6 @@
     function buyBtnClicked(){
 	  var orderBtn = document.querySelector('#loading-btn');
 	  orderBtn.addEventListener('click', function(){
-		  //$('#loading-modal').modal();
 			setTimeout(function() {
 				  var couponPrice = $('.applyCoupon').text();
 				  var couponPoint = $('.applyPoint').text();
@@ -479,7 +481,8 @@
 				  var fullAddress = zipcode + '/' + street + '/' + detailAddr;
 				  var receiver = $('#receiver').val();
 				  var receiverPhone = $('#receiverPhone').val();
-				  
+				  var productTotalCount = $('#product-total-count').val();
+
 				  console.log(reducePrice);
 				  console.log(productId);
 				  console.log(productCount);
@@ -487,10 +490,14 @@
 				  console.log(selectedCouponId);
 				  console.log(fullAddress);
 
+				  var uriCheck = "${uriCheck}"; 
+				  var postUri = '/'+uriCheck+'.mall';
+				  console.log(postUri);
+
 		          var form = document.createElement("form");
 		          form.setAttribute("charset", "UTF-8");
 		          form.setAttribute("method", "Post");
-		          form.setAttribute("action", "/payment.mall");
+		          form.setAttribute("action", postUri);
 
 		          //productId
 		          var hiddenProductId = document.createElement("input");
@@ -540,6 +547,11 @@
 		          hiddenReceiverPhone.setAttribute("name", "receiverPhone");
 		          hiddenReceiverPhone.setAttribute("value", receiverPhone);
 		          
+		          //hiddenProductTotalCount
+		          var hiddenProductTotalCount = document.createElement("input");
+		          hiddenProductTotalCount.setAttribute("type", "hidden");
+		          hiddenProductTotalCount.setAttribute("name", "productTotalCount");
+		          hiddenProductTotalCount.setAttribute("value", productTotalCount);
 		          
 		          form.appendChild(hiddenProductId);
 		          form.appendChild(hiddenProductCount);
@@ -549,13 +561,13 @@
 		          form.appendChild(hiddenFullAddr);
 		          form.appendChild(hiddenReceiver);
 		          form.appendChild(hiddenReceiverPhone);
+		          form.appendChild(hiddenProductTotalCount);
 		          
 		          document.body.appendChild(form);
 		          
 		          form.submit(); 
 			}, 3000)
 			$('#loading-modal').modal('hide');
-		 
 	  });
     }
     
@@ -565,4 +577,4 @@
   </body>
 </html>
 <%@ include file="coupon.jsp"%>
-<%@ include file="loading.jsp"%>
+<%--<%@ include file="loading.jsp"--%>
