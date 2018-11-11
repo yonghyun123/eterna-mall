@@ -78,6 +78,7 @@ public class PaymentListController implements Controller {
 			mav.addObject("cartList", cartList);
 		} else {
 			orderCart.put("count", productCount);
+			orderCart.put("productId", productId);
 			orderList.add(orderCart);
 			mav.addObject("cartList", orderList);
 		}

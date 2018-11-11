@@ -29,6 +29,7 @@ public interface UserService {
 	/* 로그인 시 id와 비밀번호를 통한 회원 조회 */
 	public User certify(String userId, String userPasswd) throws Exception;
 	
+
 	/* id를 이용한 누적 구매액 조회 */
 	public int userPriceAmount(String userId) throws Exception;
 	

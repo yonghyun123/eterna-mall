@@ -74,6 +74,23 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
+	/* 적립금과 회원등급(grade) 업데이트 (용현수정)  */
+	public void pointUpdate(User user) throws Exception{
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.update(NAMESPACE + "pointUpdate", user);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	@Override
+	/* 사용한 쿠폰 삭제 (용현수정)  */
+	public void deleteCoupon(User user) throws Exception{
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.delete(NAMESPACE + "deleteCoupon", user);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	@Override
 	public void delete(String userId, String userPasswd) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		Map<String, String> map = new HashMap<String, String>();

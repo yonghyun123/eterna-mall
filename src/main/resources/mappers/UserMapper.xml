@@ -44,6 +44,23 @@
 		WHERE u.user_id= #{userId}
 	</select>
 	
+	<!-- 유저 포인트 적립금 업데이트(yonghyun) -->
+	<update id="pointUpdate" parameterType="User">
+		UPDATE SM_user
+		<set>
+			<if test="userPoint != null">user_point = #{userGrade},</if>
+			<if test="userGrade != null">user_grade = #{userPoint}</if>
+		</set>
+		WHERE user_id=#{userId}
+	</update>
+	
+	<!-- 유저가 사용한 쿠폰 지우기(yonghyun) -->
+	<delete id="deleteCoupon" parameterType="User">
+		DELETE 
+		FROM SM_coupon_user
+		WHERE id = #{couponId}
+	</delete>
+	
 
 	<!--관리자 id를 이용한 회원 검색 (현우) -->    
 		<!--                     
