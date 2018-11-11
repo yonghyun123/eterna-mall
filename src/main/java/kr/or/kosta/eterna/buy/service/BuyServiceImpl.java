@@ -57,5 +57,10 @@ public class BuyServiceImpl implements BuyService {
       return buyDao.listAmount();
    }
 
+@Override
+public List<Buy> showOrderDetailUser(String id) throws Exception {
+	return buyDao.showOrderDetailUser(id);
+}
+
 
 }

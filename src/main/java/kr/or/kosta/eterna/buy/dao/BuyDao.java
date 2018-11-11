@@ -44,5 +44,8 @@ public interface BuyDao {
 
 	/* 오늘의 새로운 주문 */
 	public int newOrder() throws Exception;
+	
+	/* 주문번호별 상세보기 */
+	public List<Buy> showOrderDetailUser(String id) throws Exception;
 
 }
