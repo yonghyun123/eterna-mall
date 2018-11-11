@@ -9,37 +9,37 @@
     <insert id="createInfo" parameterType="Buy">
 		INSERT INTO sm_buy_info 
 		      (id, 
-		       buyer_name,
-		       buyer_tel, 
-		       buyer_address, 
 		       receiver_name, 
 		       receiver_tel, 
 		       receiver_address,
+		       order_flag,
+		       total_price,
+		       reduce_price,
 		      <if test="passwd!=null">passwd,</if>
 		       user_id) 
-		VALUES     (9, 
-		      #{buyerName}, 
-		      #{buyerTel}, 
-		      #{buyerAddress}, 
+		VALUES     (buy_info_id_seq.nextval, 
 		      #{receiverName}, 
 		      #{receiverTel}, 
 		      #{receiverAddress}, 
+		      0,
+		      #{totalPrice},
+		      #{reducePrice},
 		      <if test="passwd!=null">#{passwd},</if>
 		      #{userId})
     </insert>
    
     <!-- 주문번호별 구매 목록 추가 -->
-    <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+    <!-- id 값 next.val 로 수정해야함!!!!!!!!!! (쿼리수정 yonghyun)-->
     <insert id="createManage" parameterType="Buy">
 		INSERT INTO sm_buy_manage 
 		         (id, 
 		          count, 
 		          buy_id, 
 		          product_id) 
-		VALUES  (8, 
+		VALUES  (buy_manage_id_seq.nextval, 
 		          #{count}, 
 		          (select MAX(id) from SM_buy_info), 
-		          (select product_id from SM_product where product_description = #{productDescription})) 
+		          #{productId}) 
     </insert>
 
 	<!-- 유저별 구매 리스트 by 이철우 -->

@@ -10,22 +10,22 @@
   content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/jquery-ui.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="/fonts/icomoon/style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/magnific-popup.css">
+<link rel="stylesheet" href="/css/jquery-ui.css">
+<link rel="stylesheet" href="/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/css/modal.css">
 <link rel="stylesheet"
   href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
   integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
   crossorigin="anonymous">
-<link rel="stylesheet" href="css/aos.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="css/checkout.css">
-<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="/css/checkout.css">
+<link rel="stylesheet" href="/css/header.css">
 <jsp:include page="/includes/header.jsp"></jsp:include>
 </head>
 <body>
@@ -153,19 +153,15 @@
                 </tr>
                 <tr class="col-md-12">
                   <th>수령인 이름</th>
-                  <td><input type="text" class="form-control col-md-3"
-                    id="receiver" name="name"></td>
+                  <td><input type="text" class="form-control col-md-3" id="receiver" name="name"></td>
                 </tr>
                 <tr class="col-md-12">
                   <th>휴대폰</th>
-                  <td class=" phone"><input type="text"
-                    class="form-control col-md-3" id="receiverPhone" name="phone"
-                    maxlength="11"></td>
+                  <td class="phone"><input type="text" class="form-control col-md-3" id="receiverPhone" name="phone" maxlength="11"></td>
                 </tr>
                 <tr class="col-md-12">
                   <th>배송요청사항</th>
-                  <td><textarea name="request" cols="30" rows="5"
-                      class="form-control" maxlength="50"></textarea>
+                  <td><textarea name="request" cols="30" rows="5" class="form-control" maxlength="50"></textarea>
                     <div class="chk_bytes">
                       <span>0</span>자 / 50자
                     </div></td>
@@ -189,9 +185,8 @@
                   <th>쿠폰 적용 </th>
                   <td>
                     <div class="find">
-                      선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon"
-                        class="btn btn-primary btn-sm">쿠폰 선택</a> <input
-                        type="hidden"  class="couponId">
+                      선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon" class="btn btn-primary btn-sm">쿠폰 선택</a> 
+                      <input type="hidden"  class="couponId">
                       <input type="hidden" class="couponRate">
                       <a id="cancleCoupon" >적용 취소</a>
                     </div>
@@ -199,22 +194,25 @@
                 </tr>
                 <tr class="col-md-12">
                   <th>적립금 적용</th>
-                  <td><div>
+                  <td>
+                  <div>
                       사용가능 적립금 : <span class="availablePoint">${user.userPoint }</span>
                       (원) <a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
                                                   <a id="canclePointBtn" >적용 취소</a>
                     </div>
                     <div class="toUsePoint">
-                      <span>사용할 적립금 : </span><input type="text"
-                        class="form-control" id="toUsePoint" name="name"><span>(원)</span>
-                    </div></td>
+                      <span>사용할 적립금 : </span>
+                      <input type="text" class="form-control" id="toUsePoint" name="name">
+                      <span>(원)</span>
+                    </div>
+                    </td>
                 </tr>
               </thead>
             </table>
             <div class="title">
               <h2>Payment<input type="hidden" id="pay"></h2>
             </div>
-                          <div class="generalPay">
+            <div class="generalPay">
             <table class="cart-table">
               <thead>
                 <tr class="col-md-12">
@@ -293,8 +291,7 @@
                 </tbody>
               </table>
               <div class="form-group">
-                <button class="btn btn-primary btn-lg py-3 btn-block"
-                  id="loading-btn">Place Order</button>
+                <button class="btn btn-primary btn-lg py-3 btn-block" id="loading-btn">Place Order</button>
               </div>
             </div>
           </div>
@@ -308,14 +305,14 @@
 <%--     <%@ include file="/loading.jsp"%> --%>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/main.js"></script>
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/jquery-ui.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/aos.js"></script>
+  <script src="/js/main.js"></script>
   <script type="text/javascript">
     $(function() {
       /* totalPrice뿌려주기 */
@@ -462,6 +459,102 @@
               }
           }).open();
       }
+    
+    /* 결제 버튼 눌렀을때 데이터 넘기기 */
+    function buyBtnClicked(){
+	  var orderBtn = document.querySelector('#loading-btn');
+	  orderBtn.addEventListener('click', function(){
+		  var couponPrice = $('.applyCoupon').text();
+		  var couponPoint = $('.applyPoint').text();
+		  
+		  
+		  var productId = "${cartList[0].productId}"; 
+		  var productCount ="${cartList[0].count}";
+		  var reducePrice = Number(couponPrice) + Number(couponPoint);
+		  var totalPrice = $('.productPrice').text();
+		  var zipcode = $('#new-zipcod-address').val();
+		  var street = $('#new-street-address').val();
+		  var detailAddr = $('#new-detail-address').val();
+		  var fullAddress = zipcode + '/' + street + '/' + detailAddr;
+		  var receiver = $('#receiver').val();
+		  var receiverPhone = $('#receiverPhone').val();
+		  
+		  console.log(reducePrice);
+		  console.log(productId);
+		  console.log(productCount);
+		  console.log(totalPrice);
+		  console.log(selectedCouponId);
+		  console.log(fullAddress);
+
+          var form = document.createElement("form");
+          form.setAttribute("charset", "UTF-8");
+          form.setAttribute("method", "Post");
+          form.setAttribute("action", "/payment.mall");
+
+          //productId
+          var hiddenProductId = document.createElement("input");
+ 		  hiddenProductId.setAttribute("type", "hidden");
+          hiddenProductId.setAttribute("name", "productId");
+          hiddenProductId.setAttribute("value", productId);
+ 
+          //productCount
+          var hiddenProductCount = document.createElement("input");
+          hiddenProductCount.setAttribute("type", "hidden");
+          hiddenProductCount.setAttribute("name", "productCount");
+          hiddenProductCount.setAttribute("value", productCount);
+ 
+          //totalPrice
+          var hiddenTotalPrice = document.createElement("input");
+          hiddenTotalPrice.setAttribute("type", "hidden");
+          hiddenTotalPrice.setAttribute("name", "totalPrice");
+          hiddenTotalPrice.setAttribute("value", totalPrice);
+
+          //reducePrice
+          var hiddenReducePrice = document.createElement("input");
+          hiddenReducePrice.setAttribute("type", "hidden");
+          hiddenReducePrice.setAttribute("name", "reducePrice");
+          hiddenReducePrice.setAttribute("value", reducePrice);
+          
+          //selectedCoupon
+          var hiddenSelectedCoupon = document.createElement("input");
+          hiddenSelectedCoupon.setAttribute("type", "hidden");
+          hiddenSelectedCoupon.setAttribute("name", "selectedCouponId");
+          hiddenSelectedCoupon.setAttribute("value", selectedCouponId);
+          
+          //fullAddress(/구분자 사용)
+          var hiddenFullAddr = document.createElement("input");
+          hiddenFullAddr.setAttribute("type", "hidden");
+          hiddenFullAddr.setAttribute("name", "fullAddress");
+          hiddenFullAddr.setAttribute("value", fullAddress);
+          
+          //receiver
+          var hiddenReceiver = document.createElement("input");
+          hiddenReceiver.setAttribute("type", "hidden");
+          hiddenReceiver.setAttribute("name", "receiver");
+          hiddenReceiver.setAttribute("value", receiver);
+          
+          //receiverPhone
+          var hiddenReceiverPhone = document.createElement("input");
+          hiddenReceiverPhone.setAttribute("type", "hidden");
+          hiddenReceiverPhone.setAttribute("name", "receiverPhone");
+          hiddenReceiverPhone.setAttribute("value", receiverPhone);
+          
+          
+          form.appendChild(hiddenProductId);
+          form.appendChild(hiddenProductCount);
+          form.appendChild(hiddenTotalPrice);
+          form.appendChild(hiddenSelectedCoupon);
+          form.appendChild(hiddenReducePrice);
+          form.appendChild(hiddenFullAddr);
+          form.appendChild(hiddenReceiver);
+          form.appendChild(hiddenReceiverPhone);
+          
+          document.body.appendChild(form);
+          form.submit(); 
+	  });
+    }
+    
+    buyBtnClicked()
     </script>
   
   </body>

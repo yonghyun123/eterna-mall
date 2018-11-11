@@ -23,7 +23,7 @@ import kr.or.kosta.eterna.user.service.UserServiceImpl;
  * @author 조희진
  *
  */
-public class UserPageController implements Controller {
+public class UserOrderDetailController implements Controller {
 	
 	private UserService userService;
 	private BuyService buyService;

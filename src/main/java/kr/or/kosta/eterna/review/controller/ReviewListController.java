@@ -35,10 +35,17 @@ public class ReviewListController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		reviewService = (ReviewService)factory.getBean(ReviewServiceImpl.class);
 		List<Review> list = null;
-		String productId = request.getParameter("productId");
+		String productId = null, userId = null;
+		productId = request.getParameter("productId");
 		
 		try {
-			list = reviewService.listItem(productId);
+			if(productId != null) {
+				list = reviewService.listItem(productId);
+			} else {
+				userId = (String)request.getAttribute("loginId");
+				list = reviewService.myReviewList(userId);
+			}
+			System.out.println(list);
 		} catch (Exception e) {
 			throw new ServletException("reviewService.list() 예외 발생", e);
 		}
@@ -54,7 +61,12 @@ public class ReviewListController implements Controller {
 			jsonObject.put("regdate", review.getRegdate());
 			jsonObject.put("score", review.getScore());
 			jsonObject.put("content", review.getContent());
-			jsonObject.put("subject", review.getSubject());
+			
+			if(userId != null) {
+				jsonObject.put("subject", "[" + review.getDescription() + "]  " + review.getSubject());
+			} else {
+				jsonObject.put("subject", review.getSubject());
+			}
 			jsonArray.add(jsonObject);
 		}
 		

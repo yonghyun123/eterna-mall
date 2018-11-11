@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.coupon">
+
+	<!-- userId를 이용한 쿠폰 리스트 조회 -->                         
+	<select id="userCouponList" resultType="Coupon">
+		SELECT  c.coupon_id as couponId,
+		        c.coupon_name as couponName,
+		        c.coupon_rate as couponRate,
+		        cu.flag as useFlag,
+		        TO_CHAR(cu.start_date, 'YYYY-MM-DD') AS startDate,
+		        TO_CHAR(cu.end_date, 'YYYY-MM-DD') AS endDate,
+		        cu.user_id as userId
+		FROM sm_coupon_user cu
+		JOIN sm_coupon c
+		ON cu.coupon_id = c.coupon_id
+		where cu.user_id = #{userId}
+	</select>
+
+	<!-- id를 이용한 쿠폰 개수만 가져오기-->
+	<select id="couponLength" resultType="int" parameterType="String">
+		SELECT Count(user_id) 
+		FROM   sm_coupon_user 
+		WHERE  user_id = #{userId} 
+	</select>
+</mapper>

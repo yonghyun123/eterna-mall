@@ -17,26 +17,15 @@ public class Review {
 	private String content;
 	private String score;
 	private String answerFlag;
+	private String description;
 	
-	
-
-	public String getGroupNo() {
-		return groupNo;
-	}
-
-
-	public void setGroupNo(String groupNo) {
-		this.groupNo = groupNo;
-	}
-
 
 	public Review() {
 		super();
 	}
 
-
 	public Review(String userId, String productId, String boardId, String regdate, String subject, String content, String score,
-			String answerFlag, String id) {
+			String answerFlag, String id, String description) {
 		super();
 		this.userId = userId;
 		this.productId = productId;
@@ -47,6 +36,7 @@ public class Review {
 		this.score = score;
 		this.answerFlag = answerFlag;
 		this.id = id;
+		this.description = description;
 	}
 
 	public Review(String userId, String productId,String content, String score) {
@@ -57,11 +47,25 @@ public class Review {
 		this.score = score;
 	}
 
+	public String getDescription() {
+		return description;
+	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getGroupNo() {
+		return groupNo;
+	}
+
+	public void setGroupNo(String groupNo) {
+		this.groupNo = groupNo;
+	}
+	
 	public String getId() {
 		return id;
 	}
-
 
 	public void setId(String id) {
 		this.id = id;
@@ -71,66 +75,53 @@ public class Review {
 		return userId;
 	}
 
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 
 	public String getProductId() {
 		return productId;
 	}
 
-
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
-
 
 	public String getBoardId() {
 		return boardId;
 	}
 
-
 	public void setBoardId(String boardId) {
 		this.boardId = boardId;
 	}
-
 
 	public String getRegdate() {
 		return regdate;
 	}
 
-
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-
 
 	public String getContent() {
 		return content;
 	}
 
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 
 	public String getScore() {
 		return score;
 	}
 
-
 	public void setScore(String score) {
 		this.score = score;
 	}
 
-
 	public String getAnswerFlag() {
 		return answerFlag;
 	}
-
 
 	public void setAnswerFlag(String answerFlag) {
 		this.answerFlag = answerFlag;
@@ -139,6 +130,7 @@ public class Review {
 	public String getSubject() {
 		return subject;
 	}
+	
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
@@ -147,7 +139,7 @@ public class Review {
 	public String toString() {
 		return "Review [id=" + id + ", userId=" + userId + ", productId=" + productId + ", boardId=" + boardId
 				+ ", regdate=" + regdate + ", subject=" + subject + ", groupNo=" + groupNo + ", content=" + content
-				+ ", score=" + score + ", answerFlag=" + answerFlag + "]";
+				+ ", score=" + score + ", answerFlag=" + answerFlag + ", description=" + description + "]";
 	}
 
 }
