@@ -37,10 +37,16 @@ public interface ProductDao {
     public int countByConditions(Map<String, Object> map) throws Exception;
     /* 재고 부족한 상품 개수 */
     public int outOfStock() throws Exception;
-    /**신상품 리스트*/
+    /**신상품 리스트(5개)*/
     public List<Product> brandNewList(String categoryId) throws Exception;
-    /**인기상품 리스트*/
+    /**인기상품 리스트 3개*/
     public List<Product> popularProductList() throws Exception;
-    
+    /* 인기상품 전체 리스트(판매량순/select선택시 필요)*/
+	public List<Product> listBySales() throws Exception;
+	/* 신상품 전체 리스트(select선택시 필요)*/
+	public List<Product> listByRegdate() throws Exception;
+	/* 평점별 전체 리스트(select선택시 필요)*/
+	public List<Product> listByScore() throws Exception;
+	
     
 }

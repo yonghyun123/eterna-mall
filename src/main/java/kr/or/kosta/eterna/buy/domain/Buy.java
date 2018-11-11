@@ -41,8 +41,25 @@ public class Buy {
 		super();
 	}
 	
+	public Buy(String id, String productDescription, String productPrice, String count, String orderDate, String receiveDate, String orderFlag,
+			   String receiverName, String receiverTel, String receiverAddress, String totalPrice, String reducePrice) {
+		super();
+		this.id = id;
+		this.productDescription = productDescription;
+		this.productPrice = productPrice;
+		this.count = count;
+		this.orderDate = orderDate;
+		this.receiveDate = receiveDate;
+		this.orderFlag = orderFlag;
+		this.receiverName = receiverName;
+		this.receiverTel = receiverTel;
+		this.receiverAddress = receiverAddress;
+		this.totalPrice = totalPrice;
+		this.reducePrice = reducePrice;
+	}
+	
 	public Buy(String orderDate, String orderNumber, String productBrand, String productDescription, String productPrice, String count,
-			   String orderFlag, String receiveDate, String receiverName, String receiverAddress, String receiverTel, String orderNumPrice, String paymentKind) {
+			   String orderFlag, String receiveDate, String receiverName, String receiverAddress, String receiverTel, String reducePrice, String orderNumPrice, String paymentKind) {
 		super();
 		this.orderDate = orderDate;
 		this.orderNumber = orderNumber;
@@ -55,13 +72,14 @@ public class Buy {
 		this.receiverName = receiverName;
 		this.receiverAddress = receiverAddress;
 		this.receiverTel = receiverTel;
+		this.reducePrice = reducePrice;
 		this.orderNumPrice = orderNumPrice;
 		this.paymentKind = null;
 	}
 			
 	public Buy(String id, String userId, String buyerName, String buyerTel, String buyerAddress, String receiverName,
 			String receiverTel, String receiverAddress, String count, String productBrand, String productDescription,
-			String fileName, String passwd, String orderFlag, String categoryId, String createDate, int amount) {
+			String fileName, String passwd, String orderFlag, String categoryId, String createDate, int amount, String reducePrice) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -80,11 +98,12 @@ public class Buy {
 		this.createDate = createDate;
 		this.categoryId = categoryId;
 		this.amount = amount;
+		this.reducePrice = reducePrice;
 	}
 
 	public Buy(String userId, String buyerName, String buyerTel, String buyerAddress, String receiverName,
 			String receiverTel, String receiverAddress, String count, String productBrand, String productDescription,
-			String fileName, String passwd) {
+			String fileName, String passwd, String reducePrice) {
 		super();
 		this.userId = userId;
 		this.buyerName = buyerName;
@@ -98,6 +117,7 @@ public class Buy {
 		this.productDescription = productDescription;
 		this.fileName = fileName;
 		this.passwd = passwd;
+		this.reducePrice = reducePrice;
 	}
 
 	public String getNumPurchase() {
@@ -329,16 +349,26 @@ public class Buy {
 		this.productId = productId;
 	}
 
+	public String getRecentAddressName() {
+		return recentAddressName;
+	}
+
+	public void setRecentAddressName(String recentAddressName) {
+		this.recentAddressName = recentAddressName;
+	}
+	
 	@Override
 	public String toString() {
-		return "Buy [orderDate=" + orderDate + ", orderNumber=" + orderNumber + ", orderNumPrice=" + orderNumPrice
-				+ ", orderFlag=" + orderFlag + ", userId=" + userId + ", buyerName=" + buyerName + ", buyerTel="
-				+ buyerTel + ", buyerAddress=" + buyerAddress + ", receiverName=" + receiverName + ", receiverTel="
-				+ receiverTel + ", receiverAddress=" + receiverAddress + ", receiveDate=" + receiveDate
-				+ ", recentAddressName=" + recentAddressName + ", count=" + count + ", productBrand=" + productBrand
-				+ ", productDescription=" + productDescription + ", productPrice=" + productPrice + ", fileName="
-				+ fileName + ", passwd=" + passwd + ", paymentKind=" + paymentKind + ", numPurchase=" + numPurchase
-				+ "]";
+		return "Buy [id=" + id + ", manageId=" + manageId + ", orderDate=" + orderDate + ", orderNumber=" + orderNumber
+				+ ", orderNumPrice=" + orderNumPrice + ", userId=" + userId + ", buyerName=" + buyerName + ", buyerTel="
+				+ buyerTel + ", buyerAddress=" + buyerAddress + ", recentAddressName=" + recentAddressName
+				+ ", receiveDate=" + receiveDate + ", receiverName=" + receiverName + ", receiverTel=" + receiverTel
+				+ ", receiverAddress=" + receiverAddress + ", count=" + count + ", productBrand=" + productBrand
+				+ ", productDescription=" + productDescription + ", productPrice=" + productPrice + ", createDate="
+				+ createDate + ", categoryId=" + categoryId + ", fileName=" + fileName + ", passwd=" + passwd
+				+ ", orderFlag=" + orderFlag + ", paymentKind=" + paymentKind + ", numPurchase=" + numPurchase
+				+ ", amount=" + amount + ", reducePrice=" + reducePrice + ", totalPrice=" + totalPrice + ", productId="
+				+ productId + "]";
 	}
 
 }

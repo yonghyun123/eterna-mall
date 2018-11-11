@@ -52,32 +52,29 @@ public class PaymentListController implements Controller {
 		couponService = (CouponService) factory.getBean(CouponServiceImpl.class);
 		List<Buy> recentAddressList = null;
 		List<Cart> cartList = null;
-		List<Cart> toBuyCartList = null;
 		List<Coupon> couponList = null;
 		Map<String, String> orderCart = null;
-		List<Map<String,String>> orderList = new ArrayList<>();
+		List<Map<String, String>> orderList = new ArrayList<>();
 		User user = null;
-
-		String userId = (String) request.getAttribute("loginId");
+		String userId = null;
+		userId = (String) request.getAttribute("loginId");
 		String productId = request.getParameter("productId");
 		String productCount = request.getParameter("productCount");
 
-		try {
-			recentAddressList = buyService.recentAddress(userId);
-//			cartList = cartService.listAll(userId);
-			cartList = cartService.toBuylistAll(userId);
-			couponList = couponService.userCouponList(userId);
-			System.out.println(couponList);
-			user = userService.read(userId);
-			if(productId != null) {
-				orderCart = cartService.order(productId);
+		try {	
+				if(userId!=null) {
+				recentAddressList = buyService.recentAddress(userId);
+				cartList = cartService.toBuylistAll(userId);
+				couponList = couponService.userCouponList(userId);
+				user = userService.read(userId);
+				}
+				if (productId != null) {
+					orderCart = cartService.order(productId);
 			}
-		
-			
+
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}
-
 
 		if (productId == null) {
 			mav.addObject("cartList", cartList);
