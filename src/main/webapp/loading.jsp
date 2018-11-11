@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script>
-	function go_board() {
-		location.href = 'thankyou.jsp';
-	}
-	setTimeout('go_board()', 3000);
-</script>
+
 <div class="container">
 	<div class="modal fade" id="loading-modal" role="dialog">
 		<div class="modal-content">
