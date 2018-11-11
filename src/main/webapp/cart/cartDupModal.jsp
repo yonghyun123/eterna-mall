@@ -8,7 +8,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body"">
-          <form role="form" class="text-left" method="post" action="/reviewCreate.mall">
+          <form role="form" class="text-left" method="post" action="/cart.mall">
             <div class="form-group">
             	<p>이미 담겨있는 상품이 있습니다. 장바구니로 이동하시겠습니까?</p>
             </div>
