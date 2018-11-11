@@ -70,13 +70,14 @@
    }, 300);
    /* 쿠폰 선택  */
    var couponList = document.querySelectorAll(".selectedCoupon");
+   var selectedCouponId;
    couponList.forEach(function(v, i) {
       v.addEventListener('click', function() {
          var context = $(this).closest("tr").find(".content").text();
          var couponId = $(this).closest("tr").find(".couponId").val();
          var couponRate = $(this).closest("tr").find(".couponRate").val();
          var discountAmount = Number($(this).closest("tr").find(".discountAmount").text());
-         
+         selectedCouponId = couponId;
          var shippingFee = $('.shippingFee').text();
          var applyPoint = $('.applyPoint').text();
          var orderTotal = Number($(".productPrice").text()) + Number(shippingFee)

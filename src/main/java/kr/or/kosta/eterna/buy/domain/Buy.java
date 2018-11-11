@@ -33,6 +33,9 @@ public class Buy {
 	private String paymentKind;
 	private String numPurchase;
 	private int amount;
+	private String reducePrice;
+	private String totalPrice;
+	private String productId;
 
 	public Buy() {
 		super();
@@ -299,6 +302,31 @@ public class Buy {
 
 	public void setOrderFlag(String orderFlag) {
 		this.orderFlag = orderFlag;
+	}
+
+	
+	public String getReducePrice() {
+		return reducePrice;
+	}
+
+	public void setReducePrice(String reducePrice) {
+		this.reducePrice = reducePrice;
+	}
+
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 	@Override
