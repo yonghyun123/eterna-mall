@@ -174,8 +174,7 @@
 		product.min_age AS "minAge",
 		product.max_age AS "maxAge",
 		fileinfo.file_name AS thumnail,
-		price.price AS price ,
-		product.product_type AS productType
+		price.price AS price 
 		FROM sm_product product,
 		sm_product_image image,
 		sm_file_info fileinfo,
@@ -198,8 +197,7 @@
 			product.min_age AS "minAge",
 			product.max_age AS "maxAge",
 			fileinfo.file_name AS thumnail,
-			price.price AS price,
-			product.product_type AS productType
+			price.price AS price
 			FROM sm_product product,
 			sm_product_image image,
 			sm_file_info fileinfo,
@@ -210,7 +208,8 @@
 				AND product.product_id = price.product_id
                 AND product.category_id = category.category_id
 				AND image.image_type = 'th'
-			AND product.product_type=#{productType}</if>
+			AND product.product_type=#{productType}
+			</if>
 		<if test="ages != null">
 			intersect
 			<foreach item="age" index="index" collection="ages" open="("
@@ -224,8 +223,7 @@
 				product.min_age AS "minAge",
 				product.max_age AS "maxAge",
 				fileinfo.file_name AS thumnail,
-				price.price AS price ,
-				product.product_type AS productType
+				price.price AS price
 				FROM sm_product product,
 				sm_product_image image,
 				sm_file_info fileinfo,
@@ -244,7 +242,7 @@
 			intersect
 			<foreach item="kind" index="index" collection="kindes" open="("
 				separator="UNION" close=")">
-					SELECT product.product_id AS "productId",
+				SELECT product.product_id AS "productId",
 				category.category_type AS "categoryType",
 				product.product_brand AS "productBrand",
 				product.product_sex AS "productSex",
@@ -253,8 +251,7 @@
 				product.min_age AS "minAge",
 				product.max_age AS "maxAge",
 				fileinfo.file_name AS thumnail,
-				price.price AS price ,
-				product.product_type AS productType
+				price.price AS price
 				FROM sm_product product,
 				sm_product_image image,
 				sm_file_info fileinfo,
@@ -283,8 +280,7 @@
 		product.min_age AS "minAge",
 		product.max_age AS "maxAge",
 		fileinfo.file_name AS thumnail,
-		price.price AS price ,
-		product.product_type AS productType
+		price.price AS price 
 		FROM sm_product product,
 		sm_product_image image,
 		sm_file_info fileinfo,
@@ -307,8 +303,7 @@
 			product.min_age AS "minAge",
 			product.max_age AS "maxAge",
 			fileinfo.file_name AS thumnail,
-			price.price AS price,
-			product.product_type AS productType
+			price.price AS price
 			FROM sm_product product,
 			sm_product_image image,
 			sm_file_info fileinfo,
@@ -333,8 +328,7 @@
 				product.min_age AS "minAge",
 				product.max_age AS "maxAge",
 				fileinfo.file_name AS thumnail,
-				price.price AS price ,
-				product.product_type AS productType
+				price.price AS price
 				FROM sm_product product,
 				sm_product_image image,
 				sm_file_info fileinfo,
@@ -362,8 +356,7 @@
 				product.min_age AS "minAge",
 				product.max_age AS "maxAge",
 				fileinfo.file_name AS thumnail,
-				price.price AS price ,
-				product.product_type AS productType
+				price.price AS price 
 				FROM sm_product product,
 				sm_product_image image,
 				sm_file_info fileinfo,
