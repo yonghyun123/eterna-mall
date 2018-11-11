@@ -109,6 +109,8 @@
               <h2>Buyer Information</h2>
             </div>
             <table class="cart-table">
+            <c:choose>
+                    <c:when test="${not empty list }">
               <thead>
                 <tr class="col-md-12">
                   <th>Name</th>
@@ -123,6 +125,28 @@
                   <td>${user.userEmail }</td>
                 </tr>
               </thead>
+              </c:when>
+              <c:otherwise>
+               <thead>
+                <tr class="col-md-12">
+                  <th>Name</th>
+                  <td><input type="text" class="form-control col-md-3" id="sendName" name="sendName"></td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>Phone</th>
+                  <td><input type="text" class="form-control col-md-3" id="sendTel" name="sendTel"></td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>E-mail</th>
+                  <td><input type="text" class="form-control col-md-3" id="sendEmail" name="sendEmail"></td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>Password</th>
+                  <td><input type="text" class="form-control col-md-3" id="sendPassword" name="sendPassword"></td>
+                </tr>
+              </thead>
+              </c:otherwise>
+              </c:choose>
             </table>
           </div>
           <div class="col-md-12">
