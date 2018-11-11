@@ -39,6 +39,8 @@ function searchByCondition(){
 		dataType : "text",
 		success : function(data){
 			var jsonListData = JSON.parse(data);
+			
+			$('#dropDown').empty();
 			listTemplate(jsonListData);
 			toDetail();
 		}
@@ -47,7 +49,6 @@ function searchByCondition(){
 
 function listTemplate(listData){
 	$('#insertUl').empty();
-	$('#dropDown').empty();
 	var templateHtml = document.querySelector('#templateList').innerHTML;
 	var originHtml = document.querySelector('#insertUl');
 	var newHtml = '';
@@ -106,3 +107,24 @@ function toDetail(){
 
 toDetail();
 
+var selector = document.querySelectorAll('.dropdown-item');
+
+selector.forEach(function(v){
+   v.addEventListener('click',function(e){
+   	var select = $(this).text();
+   	$('#dropdownMenuOffset').html(select);
+   	$.ajax({
+   		url:"/selector.mall",
+   		type:"post",
+   		data:{
+   			select : select
+   		},
+   		dataType : "text",
+   		success : function(data){
+   			var jsonListData = JSON.parse(data);
+   			listTemplate(jsonListData);
+   		}
+   	})
+     
+   })
+})

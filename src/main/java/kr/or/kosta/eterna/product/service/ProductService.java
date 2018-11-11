@@ -32,4 +32,12 @@ public interface ProductService {
 
 	/** 제품등록 중복체크 */
 	public boolean duplicateCheck(String product) throws Exception;
+	
+    /* 인기상품 전체 리스트(판매량순/select선택시 필요)*/
+	public List<Product> listBySales() throws Exception;
+	/* 신상품 전체 리스트(select선택시 필요)*/
+	public List<Product> listByRegdate() throws Exception;
+	/* 평점별 전체 리스트(select선택시 필요)*/
+	public List<Product> listByScore() throws Exception;
+
 }
