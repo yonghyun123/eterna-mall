@@ -157,9 +157,8 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <input type="button" value="리뷰등록" class="btn btn-outline-primary js-btn-plus create" id="review-create">
-                    <table class="table table-hover " id="table-review">
-                      <thead>
+                    <table class="table table-hover" id="table-review">
+                      <thead class="text-center">
                         <tr>
                           <th>번호</th>
                           <th>제목</th>
@@ -167,7 +166,8 @@
                           <th>등록일자</th>
                         </tr>
                       </thead>
-                      <tbody id="in-tbody">
+                      <tbody id="in-rbody">
+                      
                       </tbody>
                     </table>
                     <div class="in-page">
@@ -184,6 +184,57 @@
                     </div>
                     <p class="h6">고객님이 작성해 주시는 상품평은 다른 분들께 소중한 정보가 됩니다.</p>
                     <p class="h6">상품평 작성시 200원, 포토 상품평 작성시 300원을 적립해 드립니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="적립금" class="tabcontent" style="display: none;">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-md-7 site-section-heading text-center pt-4">
+                    <h2>적립금</h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="container">
+                    <table class="table table-hover" id="table-point">
+                      <thead>
+                        <tr>
+                          <th>번호</th>
+                          <th>제목</th>
+                          <th>작성자</th>
+                          <th>등록일자</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-tbody">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="쿠폰" class="tabcontent" style="display: none;">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-md-7 site-section-heading text-center pt-4">
+                    <h2>쿠폰</h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="container">
+                    <table class="table table-hover text-center" id="table-coupon">
+                      <thead>
+                        <tr>
+                          <th>쿠폰번호</th>
+                          <th colspan="5">쿠폰명</th>
+                          <th>할인금액</th>
+                          <th>사용여부</th>
+                          <th>유효기간</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-cbody">
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -206,7 +257,7 @@
 
   <script type="my-template" id="review-body">
   <tr>
-  	<td class="title">
+  	<td class="text-center">
   		{number}
   	</td>
   	<td class="title">
@@ -214,10 +265,10 @@
   		<span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
   		<span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
   	</td>
-  	<td class="title">
+  	<td class="text-center">
   		{userId}
   	</td>
-  	<td class="title">
+  	<td class="text-center">
   		{regdate}
   	</td>
   	<td>
@@ -238,67 +289,122 @@
   </tr>
   </script>
   
+  <script type="my-template" id="coupon-body">
+  <tr>
+    <td class="title">
+      {couponId}
+    </td>
+    <td class="title">
+      {couponName}
+    </td>
+    <td class="title" colspan="5">
+      {couponRate}%
+    </td>
+    <td class="title">
+      {useFlag}
+    </td>
+    <td class="title">
+	  {couponDate}
+    </td>
+  </tr>
+  </script>
   
   
-    <script>
-    function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-           tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-           
-           tablinks[i].className = tablinks[i].className.replace("active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-        
-        if(evt.currentTarget.id == 'product-review'){
+  <script>
+  function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+         tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+         
+         tablinks[i].className = tablinks[i].className.replace("active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+      
+      if(evt.currentTarget.id == 'product-review'){
+      	$.ajax({
+      		 url: "/reviewlist.mall",
+      		 type:"get",
+      		 dataType:"text",
+      		 success: function(data){
+      			 var jsonReviewData = JSON.parse(data);
+      			 reviewTemplate(jsonReviewData);
+      		 }
+      	  });
+      }
+      
+      if(evt.currentTarget.id == 'user-coupon'){
         	$.ajax({
-        		 url: "/reviewlist.mall",
+        		 url: "/user/coupon.mall",
         		 type:"get",
         		 dataType:"text",
         		 success: function(data){
-        			 var jsonReviewData = JSON.parse(data);
-        			 reviewTemplate(jsonReviewData);
+        			 var jsonCouponData = JSON.parse(data);
+        			 couponTemplate(jsonCouponData);
         		 }
         	  });
         }
-     } 	
-    
-    function reviewTemplate(reviewData){
-  	  var templateHtml = document.querySelector('#review-body').innerHTML;
-  	  var originHtml = document.querySelector('#in-tbody');
-  	  var newHtml = '';
-  	  reviewData.forEach(function(v,i){
-  		  var scoreFormat = Number(v.score) * 20;
-  		  scoreFormat+'%';
-  		  newHtml += templateHtml.replace('{number}', i+1)
-  		  						 .replace('{subject}', v.subject)
-  		  						 .replace('{userId}', v.userId)
-  		  						 .replace('{regdate}', v.regdate)  
-  		  						 .replace('{score}', scoreFormat )
-  		  						 .replace('{content}', v.content);
+   } 	
+  
+  function reviewTemplate(reviewData){
+	  var templateHtml = document.querySelector('#review-body').innerHTML;
+	  var originHtml = document.querySelector('#in-rbody');
+	  var newHtml = '';
+	  reviewData.forEach(function(v,i){
+		  var scoreFormat = Number(v.score) * 20;
+		  scoreFormat+'%';
+		  newHtml += templateHtml.replace('{number}', i+1)
+		  						 .replace('{subject}', v.subject)
+		  						 .replace('{userId}', v.userId)
+		  						 .replace('{regdate}', v.regdate)  
+		  						 .replace('{score}', scoreFormat )
+		  						 .replace('{content}', v.content);
 
-  	  });
-  	  originHtml.innerHTML = newHtml;
-  	  
+	  });
+	  originHtml.innerHTML = newHtml;
+	  
+	  $(".plusIcon").on("click",function(){
+		  var obj = $(this);
+		  if( obj.hasClass("glyphicon-plus") ){
+		   	 obj.hide();
+		   	 obj.next().show();            
+		   	 obj.parent().parent().next().show();
+		  }else{
+		     obj.hide();
+		     obj.prev().show();
+		     obj.parent().parent().next().hide();
+		  }
+	  });
+  }
+  
+  function couponTemplate(couponData){
+	  var templateHtml = document.querySelector('#coupon-body').innerHTML;
+	  var originHtml = document.querySelector('#in-cbody');
+	  var newHtml = '';
+	  couponData.forEach(function(v,i){
+		  newHtml += templateHtml.replace('{couponId}', v.couponId)
+		  						 .replace('{couponName}', v.couponName)
+		  						 .replace('{couponRate}', v.couponRate)
+		  						 .replace('{useFlag}', v.useFlag)  
+		  						 .replace('{couponDate}', v.couponDate );
 
-  	  $(".plusIcon").on("click",function(){
-  		  var obj = $(this);
-  		  if( obj.hasClass("glyphicon-plus") ){
-  		    obj.hide();
-  		    obj.next().show();            
-  		    obj.parent().parent().next().show();
-  		  }else{
-  		     obj.hide();
-  		     obj.prev().show();
-  		     obj.parent().parent().next().hide();
-  		  }
-  	  });
-  	}
+	  });
+	  originHtml.innerHTML = newHtml;
+  }
+  
+  var orderList = document.querySelectorAll(".order-number");
+  for (var i = 0; i < orderList.length; i++) {
+        orderList[i].addEventListener('click', function(event) {
+           alert(this.id);
+           /* $.ajax({
+           		url:   
+           }) */
+        });
+  }
   </script>
 
 </body>

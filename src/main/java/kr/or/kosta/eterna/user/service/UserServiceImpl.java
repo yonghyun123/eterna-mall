@@ -51,11 +51,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> listCoupon(String userId) throws Exception {
-		return userDao.listCoupon(userId);
-	}
-
-	@Override
 	public int userPriceAmount(String userId) throws Exception {
 		return userDao.userPriceAmount(userId);
 	}
@@ -65,8 +60,4 @@ public class UserServiceImpl implements UserService {
 		return userDao.searchUpTier(userId);
 	}
 
-	@Override
-	public int couponLength(String userId) throws Exception {
-		return userDao.couponLength(userId);
-	}
 }
