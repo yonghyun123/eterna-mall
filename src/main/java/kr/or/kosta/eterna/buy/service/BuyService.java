@@ -3,6 +3,7 @@ package kr.or.kosta.eterna.buy.service;
 import java.util.List;
 
 import kr.or.kosta.eterna.buy.domain.Buy;
+import kr.or.kosta.eterna.cart.domain.Cart;
 
 /** Buy의 비즈니스 메소드 선언
  * 복잡한 트랜잭션 처리나 예외처리 등 
@@ -13,6 +14,9 @@ public interface BuyService {
    
    /* 구매시 구매내역에 추가 */
    public void create(Buy buy) throws Exception;
+   
+   /* 카트로 구매시 구매내역에 추가*/
+   public void create(Buy buy, List<Cart> productList) throws Exception;
    
    /* 회원별 구매내역 조회 */
    public List<Buy> listAllByUser(String userId) throws Exception;

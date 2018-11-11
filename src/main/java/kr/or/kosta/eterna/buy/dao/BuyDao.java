@@ -3,6 +3,7 @@ package kr.or.kosta.eterna.buy.dao;
 import java.util.List;
 
 import kr.or.kosta.eterna.buy.domain.Buy;
+import kr.or.kosta.eterna.cart.domain.Cart;
 
 /**
  * Dao 패턴 적용을 위한 인터페이스 선언
@@ -17,7 +18,10 @@ public interface BuyDao {
 
 	/* 주문번호별 물품, 수량 추가 */
 	public void createManage(Buy buy) throws Exception;
-
+	
+	/* cart담긴 물품, 수량 추가(yonghyun) */
+	public void createManage(Cart cart) throws Exception;
+	
 	/* 회원별 구매내역 조회 */
 	public List<Buy> listAllByUser(String userId) throws Exception;
 

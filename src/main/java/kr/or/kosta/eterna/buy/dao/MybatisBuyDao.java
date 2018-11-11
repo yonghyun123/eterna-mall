@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import kr.or.kosta.eterna.buy.domain.Buy;
+import kr.or.kosta.eterna.cart.domain.Cart;
 
 /**
  * BuyDao 인터페이스에 선언된 기능 구현
@@ -43,6 +44,15 @@ public class MybatisBuyDao implements BuyDao {
 		sqlSession.commit();
 		sqlSession.close();
 	}
+	
+	@Override
+	public void createManage(Cart cart) throws Exception{
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.insert(NAMESPACE + "createManage", cart);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
 
 	@Override
 	public List<Buy> listAllByUser(String userId) throws Exception {
