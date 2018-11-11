@@ -15,25 +15,28 @@ import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 
 /**
  * /user/cartlist.mall에 대한 요청 처리 컨트롤러
+ * 
  * @author 조희진
  *
  */
 public class CartListController implements Controller {
-	
+
 	private CartService cartService;
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		ModelAndView mav = new ModelAndView();
-		
-		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
-		cartService = (CartService)factory.getBean(CartServiceImpl.class);
-		String loginId;
+
+		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
+		cartService = (CartService) factory.getBean(CartServiceImpl.class);
+		String loginId = null;
 		List<Cart> list = null;
 		loginId = (String) request.getAttribute("loginId");
 		try {
-			list = cartService.listAll(loginId);
+			if (loginId != null) {
+				list = cartService.listAll(loginId);
+			}
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}
