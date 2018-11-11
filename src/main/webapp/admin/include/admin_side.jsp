@@ -1,8 +1,8 @@
 <%@ page  contentType="text/html; charset=utf-8"%>
  <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.mall">
+        <li class="nav-item" id="taskList">
+          <a class="nav-link" href="/admin/index.mall">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>업무 목록</span>
           </a>
