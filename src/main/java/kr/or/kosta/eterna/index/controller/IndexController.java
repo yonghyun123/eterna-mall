@@ -40,46 +40,17 @@ public class IndexController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
 		indexService = (IndexService) factory.getBean(IndexServiceImpl.class);
 		List<Product> BrandNewZeroList=null;
-		List<Product> BrandNewFirstList=null;
-		List<Product> BrandNewSecondList=null;
-		List<Product> BrandNewThridList=null;
-		List<Product> BrandNewForthList=null;
 		List<Product> HotItemList=null;
 		try {
 		BrandNewZeroList = indexService.brandNewList("0");
-		BrandNewFirstList = indexService.brandNewList("1");
-		BrandNewSecondList = indexService.brandNewList("2");
-		BrandNewThridList = indexService.brandNewList("3");
-		BrandNewForthList = indexService.brandNewList("4");
 		HotItemList = indexService.popularProductList();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (Product product : BrandNewZeroList) {
-			System.out.println(product);
-		}
-for (Product product : BrandNewFirstList) {
-			System.out.println(product);
-		}
-for (Product product : BrandNewSecondList) {
-	System.out.println(product);
-}
-for (Product product : BrandNewThridList) {
-	System.out.println(product);
-}
-for (Product product : BrandNewForthList) {
-	System.out.println(product);
-}
-for (Product product : HotItemList) {
-	System.out.println(product);
-}
+
 
 		mav.addObject("BrandNewZeroList", BrandNewZeroList);
-		mav.addObject("BrandNewFirstList", BrandNewFirstList);
-		mav.addObject("BrandNewSecondList", BrandNewSecondList);
-		mav.addObject("BrandNewThridList", BrandNewThridList);
-		mav.addObject("BrandNewForthList", BrandNewForthList);
 		mav.addObject("HotItemList", HotItemList);
 		
 		mav.setView("/");

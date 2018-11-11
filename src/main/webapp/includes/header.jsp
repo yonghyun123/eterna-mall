@@ -35,7 +35,7 @@
   <nav class="site-navigation text-right text-md-center" role="navigation">
     <div class="container">
       <ul class="site-menu js-clone-nav d-none d-md-block">
-        <li class="has-children active">
+        <li>
           <a href="/eterna.mall">Home</a>
         </li>
         <li><a href="/product.mall">Products</a></li>
