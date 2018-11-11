@@ -12,7 +12,7 @@
              count, 
              product_id, 
              user_id) 
-		VALUES     (7, 
+		VALUES     (cart_id_seq.nextval, 
             #{count}, 
             #{productId}, 
             #{userId})
@@ -25,7 +25,7 @@
              count, 
              product_id, 
              user_id) 
-		VALUES     (7, 
+		VALUES     (cart_order_id_seq.nextval, 
             #{count}, 
             #{productId}, 
             #{userId})
