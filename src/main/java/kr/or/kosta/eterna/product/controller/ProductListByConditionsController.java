@@ -29,7 +29,6 @@ public class ProductListByConditionsController implements Controller {
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
-//      ModelAndView mav = new ModelAndView();
 		response.setContentType("application/json; charset=utf-8");
 
 		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
@@ -41,21 +40,14 @@ public class ProductListByConditionsController implements Controller {
 		JSONParser ageArrParser = new JSONParser();
 
 		String minAmount = request.getParameter("minAmount");
-		System.out.println("minAmount : "+ minAmount);
-
 		String maxAmount = request.getParameter("maxAmount");
-		System.out.println("maxAmount : "+ maxAmount);
-
 		String productType = request.getParameter("type");
-		System.out.println("productType : "+ productType);
 
-		
+		JSONArray ages = null;
+		JSONArray kindes =null;
 		try {
-			JSONArray ages = (JSONArray) ageArrParser.parse(ageArray);
-			JSONArray kindes = (JSONArray) productArrParser.parse(productArray);
-			System.out.println("ages : "+ ages);
-			System.out.println("kindes : "+ kindes);
-
+			ages = (JSONArray) ageArrParser.parse(ageArray);
+			kindes = (JSONArray) productArrParser.parse(productArray);
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -63,8 +55,9 @@ public class ProductListByConditionsController implements Controller {
 		}
 		
 
-		/*Map<String, Object> map = new HashMap<>();
-		map.put("array", array);
+		Map<String, Object> map = new HashMap<>();
+		map.put("ages", ages);
+		map.put("kindes", kindes);
 		map.put("minAmount", minAmount);
 		map.put("maxAmount", maxAmount);
 		map.put("productType", productType);
@@ -89,7 +82,6 @@ public class ProductListByConditionsController implements Controller {
 			throw new ServletException("ProductService.list() 예외 발생", e);
 		}
 		
-		
 		 PrintWriter out = null;
          try {
            out = response.getWriter();
@@ -97,17 +89,7 @@ public class ProductListByConditionsController implements Controller {
            e.printStackTrace();
         }
          out.println(jsonArray.toJSONString());
-         /*
-		mav.addObject("productList", productList);
-		mav.addObject("count", count);
-
-		// 보낼지 말지~
-		mav.addObject("array", array);
-		mav.addObject("minAmount", minAmount);
-		mav.addObject("maxAmount", maxAmount);
-		mav.addObject("productType", productType);
-		mav.setView("/shop.jsp");
-		return mav;*/
+      
          return null;
 
 	}
