@@ -1,9 +1,11 @@
 package kr.or.kosta.eterna.buy.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.eterna.buy.dao.BuyDao;
 import kr.or.kosta.eterna.buy.domain.Buy;
+import kr.or.kosta.eterna.cart.domain.Cart;
 
 public class BuyServiceImpl implements BuyService {
    
@@ -20,11 +22,15 @@ public class BuyServiceImpl implements BuyService {
    @Override
    public void create(Buy buy) throws Exception {
       buyDao.createInfo(buy);
-      
-      // count 받아서 for 문 돌려야 함!!!!!
-      
       buyDao.createManage(buy);
-      
+   }
+   
+   @Override
+   public void create(Buy buy, List<Cart> productList) throws Exception{
+	   buyDao.createInfo(buy);
+	   for (Cart cart : productList) {
+		   buyDao.createManage(cart);
+	   }
    }
 
    @Override
