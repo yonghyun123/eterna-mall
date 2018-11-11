@@ -27,6 +27,76 @@
     <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="/css/header.css">
     <jsp:include page="/includes/header.jsp"></jsp:include>
+    
+    <script id="template" type="text/template">
+            <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                   <div class="block-4 text-center border">
+                   <figure class="block-4-image">
+                      <form id="form{number}" action="/detail.mall" method="post">
+                         <a class="images-btn"><img src="/images/{thumnail}" alt="Image placeholder" class="img-fluid"></a>
+                         <input type="hidden" name="productId" value="{productId }">
+                      </form>
+                   </figure>
+                   <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">{productBrand}</a></h3>
+                    <p class="mb-0">{productDescription }</p>
+                    <p class="text-primary font-weight-bold">W{price}</p>
+                   </div>
+                 </div>
+               </li>
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    eventRegist();
+ })
+ 
+ function eventRegist(){
+	$("#searchC").on("click", function() {
+		searchByCondition();
+	    })
+}
+ 
+function searchByCondition(){
+	
+	// 체크박스에 선택된 값들 배열에 담기
+	var ageValues = [];
+	$("input[name='ages']:checked").each(function(i){
+		ageValues.push($(this).val());
+	});
+	console.log(ageValues);
+	ageValues = JSON.stringify(ageValues);
+	
+	var productValues = [];
+	$("input[name='productKind']:checked").each(function(i){
+		productValues.push($(this).val());
+	});
+	productValues = JSON.stringify(productValues);
+	
+	var minAmount = document.getElementById("minAmount").value;
+	var maxAmount = document.getElementById("maxAmount").value;
+	var type = $('input[name="type"]').val();	
+	$.ajax({
+		url:"/conditions.mall",
+		type:"post",
+		data:{
+			ages : ageValues,
+			productKind : productValues,
+			minAmount : minAmount,
+			maxAmount : maxAmount,
+			type : type
+		},
+		dataType : "text",
+		success : function(data){
+			var jsonListData = JSON.parse(data);
+			console.log(jsonListData);
+		}
+	})
+}
+
+
+</script>
   </head>
   <body>
   
@@ -49,7 +119,7 @@
 
             <div class="row">
               <div class="col-md-12 mb-0">
-                <div class="float-md-left mb-4"><h2 class="text-black h5">제품<span class="text-black ml-auto">
+                <div class="float-md-left mb-4"><h2 class="text-black h5">Product<span class="text-black ml-auto">
                 
                 <c:choose>
                   <c:when test="${not empty count }">
@@ -106,6 +176,7 @@
             </div>
             
             <ul class="row mb-5 product_info">
+            
               <c:forEach var="product" items="${productList}" varStatus="status">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                    <div class="block-4 text-center border">
@@ -123,6 +194,7 @@
                  </div>
                </li>
               </c:forEach>
+              
             </ul>
          
           </div>

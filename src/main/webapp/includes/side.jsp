@@ -13,7 +13,6 @@
               </ul>
             </div>
 
-      <form action="/conditions.mall" method="post">
             <div class="border p-4 rounded mb-4">
               <div class="mb-4">
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">가격</h3>
@@ -27,34 +26,54 @@
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">나이</h3>
                 <label for="s_sm" class="d-flex">
                 <!-- 동적으로 체크박스 뿌리기 -->
-                  <input type="checkbox" id="s_sm" class="mr-2 mt-1" value="10" name="ages"> <span class="text-black">10대</span>
+                  <input type="checkbox" class="mr-2 mt-1" value="10" name="ages"> <span class="text-black">10대</span>
                 </label>
                 <label for="s_sm" class="d-flex">
-                  <input type="checkbox" id="s_sm" class="mr-2 mt-1" value="20" name="ages"> <span class="text-black">20대</span>
+                  <input type="checkbox" class="mr-2 mt-1" value="20" name="ages"> <span class="text-black">20대</span>
                 </label>
                 <label for="s_sm" class="d-flex">
-                  <input type="checkbox" id="s_sm" class="mr-2 mt-1" value="30" name="ages"> <span class="text-black">30대</span>
+                  <input type="checkbox" class="mr-2 mt-1" value="30" name="ages"> <span class="text-black">30대</span>
                 </label>
                 <label for="s_sm" class="d-flex">
-                  <input type="checkbox" id="s_sm" class="mr-2 mt-1" value="40" name="ages"> <span class="text-black">40대</span>
+                  <input type="checkbox" class="mr-2 mt-1" value="40" name="ages"> <span class="text-black">40대</span>
                 </label>
+              </div>
+              
+              <div class="mb-4">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">제품 종류</h3>
+                <label for="s_sm" class="d-flex">
+                <!-- 동적으로 체크박스 뿌리기 -->
+                  <input type="checkbox" class="mr-2 mt-1" value="클렌징" name="productKind"> <span class="text-black">클렌징</span>
+                </label>
+                <label for="s_sm" class="d-flex">
+                  <input type="checkbox" class="mr-2 mt-1" value="립제품" name="productKind"> <span class="text-black">립제품</span>
+                </label>
+                <label for="s_sm" class="d-flex">
+                  <input type="checkbox" class="mr-2 mt-1" value="스킨" name="productKind"> <span class="text-black">스킨</span>
+                </label>
+                <label for="s_sm" class="d-flex">
+                  <input type="checkbox" class="mr-2 mt-1" value="로션" name="productKind"> <span class="text-black">로션</span>
+                </label>
+                <label for="s_sm" class="d-flex">
+                  <input type="checkbox" class="mr-2 mt-1" value="선케어" name="productKind"> <span class="text-black">선케어</span>
+                </label>
+                
               </div>
 
               <div class="mb-4">
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">피부 타입</h3>
                            
                 <label for="s_lg" class="d-flex">
-                  <input type="radio" id="s_lg" class="mr-2 mt-1" value="건성" name="type"> <span class="text-black">건성</span>
+                  <input type="radio" class="mr-2 mt-1" value="건성" name="type"> <span class="text-black">건성</span>
                 </label>
                 <label for="s_lg" class="d-flex">
-                  <input type="radio" id="s_lg" class="mr-2 mt-1" value="지성" name="type"> <span class="text-black">지성</span>
+                  <input type="radio" class="mr-2 mt-1" value="지성" name="type"> <span class="text-black">지성</span>
                 </label>
                 <label for="s_lg" class="d-flex">
-                  <input type="radio" id="s_lg" class="mr-2 mt-1" value="복합성" name="type"> <span class="text-black">복합성</span>
+                  <input type="radio" class="mr-2 mt-1" value="복합성" name="type"> <span class="text-black">복합성</span>
                 </label>
               </div>
-              <input type="submit" class="buy-now btn btn-sm btn-primary" value="SEARCH">
+              <input id="searchC" type="button" class="buy-now btn btn-sm btn-primary" value="SEARCH">
             </div>
-            </form>
           </div>
           
