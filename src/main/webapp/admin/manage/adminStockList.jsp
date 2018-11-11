@@ -353,7 +353,9 @@ div{
 	<script src="../js/demo/datatables-demo.js"></script>
 	<script src="../js/demo/chart-area-demo.js"></script>
 	<script src ="../js/adminController.js"></script>
-
+<script type="text/javascript">
+   document.getElementById("stockMngBtn").classList.add('active');
+   </script>
 
 </body>
 
