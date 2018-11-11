@@ -166,7 +166,7 @@
 	<select id="listByConditions" resultType="Product"
 		parameterType="map">
 		SELECT product.product_id AS "productId",
-		product.category_id AS "categoryId",
+		category.category_type AS "categoryType",
 		product.product_brand AS "productBrand",
 		product.product_sex AS "productSex",
 		product.product_description AS "productDescription",
@@ -179,16 +179,18 @@
 		FROM sm_product product,
 		sm_product_image image,
 		sm_file_info fileinfo,
-		sm_product_price price
-		WHERE product.product_id = image.product_id
-		AND image.file_id = fileinfo.file_id
-		AND product.product_id = price.product_id
-		AND image.image_type = 'th'
+		sm_product_price price,
+		sm_category category
+				WHERE product.product_id = image.product_id
+				AND image.file_id = fileinfo.file_id
+				AND product.product_id = price.product_id
+                AND product.category_id = category.category_id
+				AND image.image_type = 'th'
 		AND price.price between #{minAmount} and #{maxAmount}
 		<if test="productType != null">
 			INTERSECT
 			SELECT product.product_id AS "productId",
-			product.category_id AS "categoryId",
+			category.category_type AS "categoryType",
 			product.product_brand AS "productBrand",
 			product.product_sex AS "productSex",
 			product.product_description AS "productDescription",
@@ -201,18 +203,20 @@
 			FROM sm_product product,
 			sm_product_image image,
 			sm_file_info fileinfo,
-			sm_product_price price
-			WHERE product.product_id = image.product_id
-			AND image.file_id = fileinfo.file_id
-			AND product.product_id = price.product_id
-			AND image.image_type = 'th'
+			sm_product_price price,
+			sm_category category
+				WHERE product.product_id = image.product_id
+				AND image.file_id = fileinfo.file_id
+				AND product.product_id = price.product_id
+                AND product.category_id = category.category_id
+				AND image.image_type = 'th'
 			AND product.product_type=#{productType}</if>
-		<if test="array != null">
+		<if test="ages != null">
 			intersect
-			<foreach item="a" index="index" collection="array" open="("
+			<foreach item="age" index="index" collection="ages" open="("
 				separator="UNION" close=")">
 				SELECT product.product_id AS "productId",
-				product.category_id AS "categoryId",
+				category.category_type AS "categoryType",
 				product.product_brand AS "productBrand",
 				product.product_sex AS "productSex",
 				product.product_description AS "productDescription",
@@ -225,13 +229,43 @@
 				FROM sm_product product,
 				sm_product_image image,
 				sm_file_info fileinfo,
-				sm_product_price price
+				sm_product_price price,
+				sm_category category
 				WHERE product.product_id = image.product_id
 				AND image.file_id = fileinfo.file_id
 				AND product.product_id = price.product_id
+                AND product.category_id = category.category_id
 				AND image.image_type = 'th'
-				AND (product.min_age between 0 and #{a}) and (product.max_age between
-				#{a} and 40)
+				AND (product.min_age between 0 and #{age}) and (product.max_age between
+				#{age} and 40)
+			</foreach>
+		</if>
+		<if test="kindes != null">
+			intersect
+			<foreach item="kind" index="index" collection="kindes" open="("
+				separator="UNION" close=")">
+					SELECT product.product_id AS "productId",
+				category.category_type AS "categoryType",
+				product.product_brand AS "productBrand",
+				product.product_sex AS "productSex",
+				product.product_description AS "productDescription",
+				product.product_stock AS "productStock",
+				product.min_age AS "minAge",
+				product.max_age AS "maxAge",
+				fileinfo.file_name AS thumnail,
+				price.price AS price ,
+				product.product_type AS productType
+				FROM sm_product product,
+				sm_product_image image,
+				sm_file_info fileinfo,
+				sm_product_price price,
+                sm_category category
+				WHERE product.product_id = image.product_id
+				AND image.file_id = fileinfo.file_id
+				AND product.product_id = price.product_id
+                AND product.category_id = category.category_id
+				AND image.image_type = 'th'
+				AND category.category_type=#{kind}
 			</foreach>
 		</if>
 	</select>
@@ -241,7 +275,7 @@
 		select count(*)
 		from(
 		SELECT product.product_id AS "productId",
-		product.category_id AS "categoryId",
+		category.category_type AS "categoryType",
 		product.product_brand AS "productBrand",
 		product.product_sex AS "productSex",
 		product.product_description AS "productDescription",
@@ -254,16 +288,18 @@
 		FROM sm_product product,
 		sm_product_image image,
 		sm_file_info fileinfo,
-		sm_product_price price
-		WHERE product.product_id = image.product_id
-		AND image.file_id = fileinfo.file_id
-		AND product.product_id = price.product_id
-		AND image.image_type = 'th'
+		sm_product_price price,
+		sm_category category
+				WHERE product.product_id = image.product_id
+				AND image.file_id = fileinfo.file_id
+				AND product.product_id = price.product_id
+                AND product.category_id = category.category_id
+				AND image.image_type = 'th'
 		AND price.price between #{minAmount} and #{maxAmount}
 		<if test="productType != null">
 			INTERSECT
 			SELECT product.product_id AS "productId",
-			product.category_id AS "categoryId",
+			category.category_type AS "categoryType",
 			product.product_brand AS "productBrand",
 			product.product_sex AS "productSex",
 			product.product_description AS "productDescription",
@@ -276,18 +312,20 @@
 			FROM sm_product product,
 			sm_product_image image,
 			sm_file_info fileinfo,
-			sm_product_price price
-			WHERE product.product_id = image.product_id
-			AND image.file_id = fileinfo.file_id
-			AND product.product_id = price.product_id
-			AND image.image_type = 'th'
+			sm_product_price price,
+			sm_category category
+				WHERE product.product_id = image.product_id
+				AND image.file_id = fileinfo.file_id
+				AND product.product_id = price.product_id
+                AND product.category_id = category.category_id
+				AND image.image_type = 'th'
 			AND product.product_type=#{productType}</if>
-		<if test="array != null">
+		<if test="ages != null">
 			intersect
-			<foreach item="a" index="index" collection="array" open="("
+			<foreach item="age" index="index" collection="ages" open="("
 				separator="UNION" close=")">
 				SELECT product.product_id AS "productId",
-				product.category_id AS "categoryId",
+				category.category_type AS "categoryType",
 				product.product_brand AS "productBrand",
 				product.product_sex AS "productSex",
 				product.product_description AS "productDescription",
@@ -300,13 +338,43 @@
 				FROM sm_product product,
 				sm_product_image image,
 				sm_file_info fileinfo,
-				sm_product_price price
+				sm_product_price price,
+				sm_category category
 				WHERE product.product_id = image.product_id
 				AND image.file_id = fileinfo.file_id
 				AND product.product_id = price.product_id
+                AND product.category_id = category.category_id
 				AND image.image_type = 'th'
-				AND (product.min_age between 0 and #{a}) and (product.max_age between
-				#{a} and 40)
+				AND (product.min_age between 0 and #{age}) and (product.max_age between
+				#{age} and 40)
+			</foreach>
+		</if>
+		<if test="kindes != null">
+			intersect
+			<foreach item="kind" index="index" collection="kindes" open="("
+				separator="UNION" close=")">
+					SELECT product.product_id AS "productId",
+				category.category_type AS "categoryType",
+				product.product_brand AS "productBrand",
+				product.product_sex AS "productSex",
+				product.product_description AS "productDescription",
+				product.product_stock AS "productStock",
+				product.min_age AS "minAge",
+				product.max_age AS "maxAge",
+				fileinfo.file_name AS thumnail,
+				price.price AS price ,
+				product.product_type AS productType
+				FROM sm_product product,
+				sm_product_image image,
+				sm_file_info fileinfo,
+				sm_product_price price,
+                sm_category category
+				WHERE product.product_id = image.product_id
+				AND image.file_id = fileinfo.file_id
+				AND product.product_id = price.product_id
+                AND product.category_id = category.category_id
+				AND image.image_type = 'th'
+				AND category.category_type=#{kind}
 			</foreach>
 		</if>
 		)

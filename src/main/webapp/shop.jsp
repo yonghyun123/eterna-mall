@@ -27,76 +27,7 @@
     <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="/css/header.css">
     <jsp:include page="/includes/header.jsp"></jsp:include>
-    
-    <script id="template" type="text/template">
-            <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                   <div class="block-4 text-center border">
-                   <figure class="block-4-image">
-                      <form id="form{number}" action="/detail.mall" method="post">
-                         <a class="images-btn"><img src="/images/{thumnail}" alt="Image placeholder" class="img-fluid"></a>
-                         <input type="hidden" name="productId" value="{productId }">
-                      </form>
-                   </figure>
-                   <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">{productBrand}</a></h3>
-                    <p class="mb-0">{productDescription }</p>
-                    <p class="text-primary font-weight-bold">W{price}</p>
-                   </div>
-                 </div>
-               </li>
-</script>
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-    eventRegist();
- })
- 
- function eventRegist(){
-	$("#searchC").on("click", function() {
-		searchByCondition();
-	    })
-}
- 
-function searchByCondition(){
-	
-	// 체크박스에 선택된 값들 배열에 담기
-	var ageValues = [];
-	$("input[name='ages']:checked").each(function(i){
-		ageValues.push($(this).val());
-	});
-	console.log(ageValues);
-	ageValues = JSON.stringify(ageValues);
-	
-	var productValues = [];
-	$("input[name='productKind']:checked").each(function(i){
-		productValues.push($(this).val());
-	});
-	productValues = JSON.stringify(productValues);
-	
-	var minAmount = document.getElementById("minAmount").value;
-	var maxAmount = document.getElementById("maxAmount").value;
-	var type = $('input[name="type"]').val();	
-	$.ajax({
-		url:"/conditions.mall",
-		type:"post",
-		data:{
-			ages : ageValues,
-			productKind : productValues,
-			minAmount : minAmount,
-			maxAmount : maxAmount,
-			type : type
-		},
-		dataType : "text",
-		success : function(data){
-			var jsonListData = JSON.parse(data);
-			console.log(jsonListData);
-		}
-	})
-}
-
-
-</script>
+  
   </head>
   <body>
   
@@ -119,8 +50,7 @@ function searchByCondition(){
 
             <div class="row">
               <div class="col-md-12 mb-0">
-                <div class="float-md-left mb-4"><h2 class="text-black h5">Product<span class="text-black ml-auto">
-                
+                <div class="float-md-left mb-4"><h2 class="text-black h5">Product<span class="text-black ml-auto" id="countS">
                 <c:choose>
                   <c:when test="${not empty count }">
                   (${count })
@@ -156,9 +86,9 @@ function searchByCondition(){
                      <c:choose>
                      <c:when test="${empty productSex}">
                 <div class="d-flex">
-                  <div class="dropdown mr-1 ml-md-auto">
+                  <div class="dropdown mr-1 ml-md-auto" id="dropDown">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      정렬
+                     	 정렬
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                       <a class="dropdown-item" href="#">평점</a>
@@ -175,7 +105,7 @@ function searchByCondition(){
               </div>
             </div>
             
-            <ul class="row mb-5 product_info">
+            <ul class="row mb-5 product_info" id="insertUl">
             
               <c:forEach var="product" items="${productList}" varStatus="status">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
@@ -215,36 +145,31 @@ function searchByCondition(){
   <script src="/js/main.js"></script>
   <script src="/js/paginathing.js"></script>
   <script src="/js/ajax.js"></script>
-  <script type="text/javascript">
-  
+  <script src="/js/shop.js"></script>
+  <script id="templateList" type="text/template">
+            <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                   <div class="block-4 text-center border">
+                   <figure class="block-4-image">
+                      <form id="form{number}" action="/detail.mall" method="post">
+                         <a class="images-btn"><img src="/images/{thumnail}" alt="Image placeholder" class="img-fluid"></a>
+                         <input type="hidden" name="productId" value="{productId}">
+                      </form>
+                   </figure>
+                   <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">{productBrand}</a></h3>
+                    <p class="mb-0">{productDescription}</p>
+                    <p class="text-primary font-weight-bold">W{price}</p>
+                   </div>
+                 </div>
+               </li>
+</script>
+
+ <script id="templateCount" type="text/template">
+        <span class="text-black ml-auto" id="countS">
+                  ({count})
+                </span>
+</script>
  
-  $('.product_info').paginathing({
-      // Limites your pagination number
-      // false or number
-      limitPagination: 5,
-      perPage: 9,
-      // Pagination controls
-      prevNext: true,
-      firstLast: true,
-      prevText: '&laquo;',
-      nextText: '&raquo;',
-      firstText: 'First',
-      lastText: 'Last',
-      firstClass: 'test_page',
-      ulClass: 'pagination custom_pagination',
-      liClass: 'test_page page',
-      activeClass: 'active',
-      disabledClass: 'disabled',
-      insertAfter: '.product_info'
-    });  
-  var imagesBtn = document.querySelectorAll('.images-btn');
-  
-  imagesBtn.forEach(function(v){
-     v.addEventListener('click',function(e){
-       console.log(e.target.parentNode.parentNode.id);
-       $("#"+e.target.parentNode.parentNode.id).submit();
-     })
-  })
-  </script>
+
   </body>
 </html>
