@@ -41,7 +41,19 @@
 		          (select MAX(id) from SM_buy_info), 
 		          #{productId}) 
     </insert>
-
+    <!-- 주문번호별 구매 목록 추가 -->
+    <!-- id 값 next.val 로 수정해야함!!!!!!!!!! (쿼리수정 yonghyun)-->
+    <insert id="createManageByCart" parameterType="Cart">
+		INSERT INTO sm_buy_manage 
+		         (id, 
+		          count, 
+		          buy_id, 
+		          product_id) 
+		VALUES  (buy_manage_id_seq.nextval, 
+		          #{count}, 
+		          (select MAX(id) from SM_buy_info), 
+		          #{productId}) 
+    </insert>
 	<!-- 유저별 구매 리스트 by 이철우 -->
 	<select id="listClient" parameterType="String" resultType="Buy">
 		SELECT bi.create_date          AS orderDate, 
