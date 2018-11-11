@@ -80,9 +80,9 @@ public class BuyCreateController implements Controller{
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}
 		mav.addObject("list", list);
-		mav.setView("/user/buylist.jsp");
-		//return mav;
-		return null;
+		mav.setView("redirect:/thankyou.jsp");
+
+		return mav;
 	}
 
 }

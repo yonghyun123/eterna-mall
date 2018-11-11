@@ -464,93 +464,98 @@
     function buyBtnClicked(){
 	  var orderBtn = document.querySelector('#loading-btn');
 	  orderBtn.addEventListener('click', function(){
-		  var couponPrice = $('.applyCoupon').text();
-		  var couponPoint = $('.applyPoint').text();
-		  
-		  
-		  var productId = "${cartList[0].productId}"; 
-		  var productCount ="${cartList[0].count}";
-		  var reducePrice = Number(couponPrice) + Number(couponPoint);
-		  var totalPrice = $('.productPrice').text();
-		  var zipcode = $('#new-zipcod-address').val();
-		  var street = $('#new-street-address').val();
-		  var detailAddr = $('#new-detail-address').val();
-		  var fullAddress = zipcode + '/' + street + '/' + detailAddr;
-		  var receiver = $('#receiver').val();
-		  var receiverPhone = $('#receiverPhone').val();
-		  
-		  console.log(reducePrice);
-		  console.log(productId);
-		  console.log(productCount);
-		  console.log(totalPrice);
-		  console.log(selectedCouponId);
-		  console.log(fullAddress);
+		  //$('#loading-modal').modal();
+			setTimeout(function() {
+				  var couponPrice = $('.applyCoupon').text();
+				  var couponPoint = $('.applyPoint').text();
+				  
+				  var productId = "${cartList[0].productId}"; 
+				  var productCount ="${cartList[0].count}";
+				  var reducePrice = Number(couponPrice) + Number(couponPoint);
+				  var totalPrice = $('.productPrice').text();
+				  var zipcode = $('#new-zipcod-address').val();
+				  var street = $('#new-street-address').val();
+				  var detailAddr = $('#new-detail-address').val();
+				  var fullAddress = zipcode + '/' + street + '/' + detailAddr;
+				  var receiver = $('#receiver').val();
+				  var receiverPhone = $('#receiverPhone').val();
+				  
+				  console.log(reducePrice);
+				  console.log(productId);
+				  console.log(productCount);
+				  console.log(totalPrice);
+				  console.log(selectedCouponId);
+				  console.log(fullAddress);
 
-          var form = document.createElement("form");
-          form.setAttribute("charset", "UTF-8");
-          form.setAttribute("method", "Post");
-          form.setAttribute("action", "/payment.mall");
+		          var form = document.createElement("form");
+		          form.setAttribute("charset", "UTF-8");
+		          form.setAttribute("method", "Post");
+		          form.setAttribute("action", "/payment.mall");
 
-          //productId
-          var hiddenProductId = document.createElement("input");
- 		  hiddenProductId.setAttribute("type", "hidden");
-          hiddenProductId.setAttribute("name", "productId");
-          hiddenProductId.setAttribute("value", productId);
- 
-          //productCount
-          var hiddenProductCount = document.createElement("input");
-          hiddenProductCount.setAttribute("type", "hidden");
-          hiddenProductCount.setAttribute("name", "productCount");
-          hiddenProductCount.setAttribute("value", productCount);
- 
-          //totalPrice
-          var hiddenTotalPrice = document.createElement("input");
-          hiddenTotalPrice.setAttribute("type", "hidden");
-          hiddenTotalPrice.setAttribute("name", "totalPrice");
-          hiddenTotalPrice.setAttribute("value", totalPrice);
+		          //productId
+		          var hiddenProductId = document.createElement("input");
+		 		  hiddenProductId.setAttribute("type", "hidden");
+		          hiddenProductId.setAttribute("name", "productId");
+		          hiddenProductId.setAttribute("value", productId);
+		 
+		          //productCount
+		          var hiddenProductCount = document.createElement("input");
+		          hiddenProductCount.setAttribute("type", "hidden");
+		          hiddenProductCount.setAttribute("name", "productCount");
+		          hiddenProductCount.setAttribute("value", productCount);
+		 
+		          //totalPrice
+		          var hiddenTotalPrice = document.createElement("input");
+		          hiddenTotalPrice.setAttribute("type", "hidden");
+		          hiddenTotalPrice.setAttribute("name", "totalPrice");
+		          hiddenTotalPrice.setAttribute("value", totalPrice);
 
-          //reducePrice
-          var hiddenReducePrice = document.createElement("input");
-          hiddenReducePrice.setAttribute("type", "hidden");
-          hiddenReducePrice.setAttribute("name", "reducePrice");
-          hiddenReducePrice.setAttribute("value", reducePrice);
-          
-          //selectedCoupon
-          var hiddenSelectedCoupon = document.createElement("input");
-          hiddenSelectedCoupon.setAttribute("type", "hidden");
-          hiddenSelectedCoupon.setAttribute("name", "selectedCouponId");
-          hiddenSelectedCoupon.setAttribute("value", selectedCouponId);
-          
-          //fullAddress(/구분자 사용)
-          var hiddenFullAddr = document.createElement("input");
-          hiddenFullAddr.setAttribute("type", "hidden");
-          hiddenFullAddr.setAttribute("name", "fullAddress");
-          hiddenFullAddr.setAttribute("value", fullAddress);
-          
-          //receiver
-          var hiddenReceiver = document.createElement("input");
-          hiddenReceiver.setAttribute("type", "hidden");
-          hiddenReceiver.setAttribute("name", "receiver");
-          hiddenReceiver.setAttribute("value", receiver);
-          
-          //receiverPhone
-          var hiddenReceiverPhone = document.createElement("input");
-          hiddenReceiverPhone.setAttribute("type", "hidden");
-          hiddenReceiverPhone.setAttribute("name", "receiverPhone");
-          hiddenReceiverPhone.setAttribute("value", receiverPhone);
-          
-          
-          form.appendChild(hiddenProductId);
-          form.appendChild(hiddenProductCount);
-          form.appendChild(hiddenTotalPrice);
-          form.appendChild(hiddenSelectedCoupon);
-          form.appendChild(hiddenReducePrice);
-          form.appendChild(hiddenFullAddr);
-          form.appendChild(hiddenReceiver);
-          form.appendChild(hiddenReceiverPhone);
-          
-          document.body.appendChild(form);
-          form.submit(); 
+		          //reducePrice
+		          var hiddenReducePrice = document.createElement("input");
+		          hiddenReducePrice.setAttribute("type", "hidden");
+		          hiddenReducePrice.setAttribute("name", "reducePrice");
+		          hiddenReducePrice.setAttribute("value", reducePrice);
+		          
+		          //selectedCoupon
+		          var hiddenSelectedCoupon = document.createElement("input");
+		          hiddenSelectedCoupon.setAttribute("type", "hidden");
+		          hiddenSelectedCoupon.setAttribute("name", "selectedCouponId");
+		          hiddenSelectedCoupon.setAttribute("value", selectedCouponId);
+		          
+		          //fullAddress(/구분자 사용)
+		          var hiddenFullAddr = document.createElement("input");
+		          hiddenFullAddr.setAttribute("type", "hidden");
+		          hiddenFullAddr.setAttribute("name", "fullAddress");
+		          hiddenFullAddr.setAttribute("value", fullAddress);
+		          
+		          //receiver
+		          var hiddenReceiver = document.createElement("input");
+		          hiddenReceiver.setAttribute("type", "hidden");
+		          hiddenReceiver.setAttribute("name", "receiver");
+		          hiddenReceiver.setAttribute("value", receiver);
+		          
+		          //receiverPhone
+		          var hiddenReceiverPhone = document.createElement("input");
+		          hiddenReceiverPhone.setAttribute("type", "hidden");
+		          hiddenReceiverPhone.setAttribute("name", "receiverPhone");
+		          hiddenReceiverPhone.setAttribute("value", receiverPhone);
+		          
+		          
+		          form.appendChild(hiddenProductId);
+		          form.appendChild(hiddenProductCount);
+		          form.appendChild(hiddenTotalPrice);
+		          form.appendChild(hiddenSelectedCoupon);
+		          form.appendChild(hiddenReducePrice);
+		          form.appendChild(hiddenFullAddr);
+		          form.appendChild(hiddenReceiver);
+		          form.appendChild(hiddenReceiverPhone);
+		          
+		          document.body.appendChild(form);
+		          
+		          form.submit(); 
+			}, 3000)
+			$('#loading-modal').modal('hide');
+		 
 	  });
     }
     
@@ -560,3 +565,4 @@
   </body>
 </html>
 <%@ include file="coupon.jsp"%>
+<%@ include file="loading.jsp"%>
