@@ -57,7 +57,7 @@
              content, 
              group_no, 
              level_no) 
-      VALUES     (8,
+      VALUES     (qna_id_seq.nextval,
             'manager', 
             (select product_id
             from SM_product_answer
