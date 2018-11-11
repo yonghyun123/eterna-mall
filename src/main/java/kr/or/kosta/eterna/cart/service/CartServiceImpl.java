@@ -64,10 +64,20 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void toBuyDelete(String userId ) throws Exception {
+	public void toBuyDelete(String userId, List<Cart> productList) throws Exception {
 		cartDao.toBuyDelete(userId);
-		
+		for (Cart cart : productList) {
+			delete(userId, cart.getProductId());
+		}
 	}
+	
+	@Override
+	public void toBuyDelete(String userId) throws Exception {
+		cartDao.toBuyDelete(userId);
 
-
+	}
+	@Override
+	public List<Cart> readOrderCart(String userId) throws Exception{
+		return cartDao.readOrderCart(userId);
+	}
 }

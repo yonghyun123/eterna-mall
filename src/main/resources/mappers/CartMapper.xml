@@ -30,6 +30,14 @@
             #{productId}, 
             #{userId})
 	</insert>
+	<!-- 용현추가 장바구니 -> 결제 데이터 -->
+	<select id="readCartOrder" resultType="Cart">
+		SELECT product_id as "productId",
+			   count      as "count"
+		FROM   SM_cart_order
+		WHERE  user_id = #{value}
+	</select>
+	
 	<!-- 지원 추가  -->
 	<!-- 전체 장바구니 리스트 -->
 	<select id="toBuylistAll" resultType="Cart">

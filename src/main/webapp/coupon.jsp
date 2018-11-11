@@ -40,6 +40,10 @@
                                     </tr>
                                  </c:forEach>
                               </c:when>
+                              <c:otherwise>
+                              <tr>
+                              <td colspan="5"> 보유한 쿠폰이 없습니다</td></tr>
+                              </c:otherwise>
                            </c:choose>
                         </tbody>
                 <tfoot><tr><td colspan="5"><button type="submit"

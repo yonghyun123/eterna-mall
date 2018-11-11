@@ -410,6 +410,7 @@
 		WHERE ROWNUM between 1 and 3
 		AND category_id = #{value}
 	</select>
+	
 	<!-- 인기상품 리스트 -->
 	<select id="hotItemList" resultType="Product">
     SELECT
@@ -445,5 +446,102 @@
 		order by SUM(buymanager.count)
     )
 		WHERE ROWNUM between 1 and 5
+	</select>
+	
+	<!-- 판매수별 제품 리스트 -->
+	<select id="listBySales" resultType="Product">
+	    SELECT
+		product.product_id AS "productId",
+		product.category_id AS "categoryId",
+		product.product_brand AS "productBrand",
+		product.product_description AS "productDescription",
+		fileinfo.file_name AS "thumnail",
+		price.price AS "price"
+		FROM
+		sm_product product
+        join
+		sm_product_image image
+        on product.product_id = image.product_id
+        join 
+		sm_file_info fileinfo
+        on fileinfo.file_id = image.file_id
+        join
+		sm_product_price price
+        on product.product_id = price.product_id
+        left join
+		sm_buy_manage buymanager
+        on buymanager.product_id = product.product_id
+        where image.image_type = 'th'
+    	GROUP BY product.product_id, product.category_id, product.product_brand,
+    	product.product_description, price.price,fileinfo.file_name
+		order by NVL(SUM(buymanager.count),0) desc	
+	</select>
+	
+	
+	<!-- 전체 최신상품 리스트 -->
+	<select id="listByRegdate" resultType="Product">
+	SELECT product_id AS "productId",
+		category_id AS "categoryId",
+		product_brand AS "productBrand",
+		product_description AS "productDescription",
+		file_name AS "thumnail",
+		price AS "price"
+		FROM (
+		SELECT 
+		product.product_id ,
+		product.category_id ,
+		product.product_brand ,
+		product.product_description ,
+		fileinfo.file_name ,
+		price.price
+		FROM sm_product product,
+		sm_product_image image,
+		sm_file_info fileinfo,
+		sm_product_price price
+		WHERE 
+		product.product_id = image.product_id
+		AND image.file_id = fileinfo.file_id
+		AND product.product_id = price.product_id
+		AND image.image_type = 'th'
+		ORDER BY product.create_date DESC
+		)
+	</select>
+	
+	<!-- 평점 순 제품 전체 리스트 -->
+	<select id="listByScore" resultType="Product">
+	SELECT
+    product_id AS "productId",
+		category_id AS "categoryId",
+		product_brand AS "productBrand",
+		product_description AS "productDescription",
+		file_name AS "thumnail",
+		price AS "price"
+		FROM (
+		SELECT
+		product.product_id ,
+		product.category_id ,
+		product.product_brand ,
+		product.product_description ,
+    	fileinfo.file_name,
+    	price.price
+		FROM
+		sm_product product
+        join
+		sm_product_image image
+        on product.product_id = image.product_id
+        join 
+		sm_file_info fileinfo
+        on fileinfo.file_id = image.file_id
+        join
+		sm_product_price price
+        on product.product_id = price.product_id
+        left join
+		sm_product_review review
+        on review.product_id = product.product_id
+        where image.image_type = 'th'
+    	GROUP BY product.product_id, product.category_id, product.product_brand,
+    	product.product_description, price.price,fileinfo.file_name
+		order by NVL(AVG(review.score),0) desc
+    )
 	</select>
 </mapper>

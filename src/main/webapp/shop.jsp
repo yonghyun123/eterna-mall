@@ -91,9 +91,9 @@
                      	 정렬
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                      <a class="dropdown-item" href="#">평점</a>
-                      <a class="dropdown-item" href="#">최신등록</a>
-                      <a class="dropdown-item" href="#">판매수량</a>
+                      <a class="dropdown-item">평점</a>
+                      <a class="dropdown-item">최신등록</a>
+                      <a class="dropdown-item">판매수량</a>
                     </div>
                   </div>
                 </div>
@@ -169,7 +169,6 @@
                   ({count})
                 </span>
 </script>
- 
 
   </body>
 </html>

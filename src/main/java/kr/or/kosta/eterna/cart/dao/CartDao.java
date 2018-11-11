@@ -38,4 +38,6 @@ public interface CartDao {
 	
 	/* 즉시 구매시 카트 형식으로 데이터를 보냄(yonghyun) */
 	public Map<String, String> order(String productId) throws Exception;
+	
+	public List<Cart> readOrderCart(String userId) throws Exception;
 }

@@ -109,6 +109,8 @@
               <h2>Buyer Information</h2>
             </div>
             <table class="cart-table">
+            <c:choose>
+                    <c:when test="${not empty user }">
               <thead>
                 <tr class="col-md-12">
                   <th>Name</th>
@@ -123,6 +125,28 @@
                   <td>${user.userEmail }</td>
                 </tr>
               </thead>
+              </c:when>
+              <c:otherwise>
+               <thead>
+                <tr class="col-md-12">
+                  <th>Name</th>
+                  <td><input type="text" class="form-control col-md-3" id="sendName" name="sendName"></td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>Phone</th>
+                  <td><input type="text" class="form-control col-md-3" id="sendTel" name="sendTel"></td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>E-mail</th>
+                  <td><input type="text" class="form-control col-md-3" id="sendEmail" name="sendEmail"></td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>Password</th>
+                  <td><input type="text" class="form-control col-md-3" id="sendPassword" name="sendPassword"></td>
+                </tr>
+              </thead>
+              </c:otherwise>
+              </c:choose>
             </table>
           </div>
           <div class="col-md-12">
@@ -134,6 +158,8 @@
                 <tr class="col-md-12">
                   <th>주소</th>
                   <td>
+                   <c:choose>
+                    <c:when test="${not empty user }">
                     <div>
                       <div class="address">
                         <label><input type="radio" value="equealAdr" name="address"
@@ -144,6 +170,15 @@
                                                          </label><input type="button" class="btn btn-success" onclick="daumPostcode()" value="search">
                       </div>
                     </div>
+                    </c:when>
+                    <c:otherwise>
+                    <div>
+                      <div class="address">
+                       <input type="button" class="btn btn-success" onclick="daumPostcode()" value="search">
+                      </div>
+                    </div>
+                    </c:otherwise>
+                    </c:choose>
                     <div>
                       <input type="text" class="form-control" id="new-zipcod-address">
                       <input type="text" class="form-control" id="new-street-address">
@@ -181,6 +216,8 @@
             </div>
             <table class="cart-table">
               <thead>
+              <c:choose>
+                    <c:when test="${not empty user }">
                 <tr class="col-md-12">
                   <th>쿠폰 적용 </th>
                   <td>
@@ -207,6 +244,18 @@
                     </div>
                     </td>
                 </tr>
+                </c:when>
+                <c:otherwise>
+                <tr class="col-md-12">
+                  <th>쿠폰 적용 </th>
+                  <td>보유한 쿠폰이 존재하지 않습니다</td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>적립금 적용</th>
+                  <td>보유한 적립금이 존재하지 않습니다</td>
+                </tr> 
+                </c:otherwise>
+                </c:choose>
               </thead>
             </table>
             <div class="title">
@@ -411,6 +460,7 @@
       var orderTotal = Number(productPrice)  + Number(shippingFee)  - Number(applyPoint2);
       $('.selectedCoupon').text('');
       $('.orderTotal').text(orderTotal);
+      selectedCouponId = '';
     });
     /* 적립금 적용 취소 눌렀을 때 */
     $('#canclePointBtn').click(function(){
@@ -565,9 +615,9 @@
 		          
 		          document.body.appendChild(form);
 		          
-		          form.submit(); 
+// 		          form.submit(); 
 			}, 3000)
-			$('#loading-modal').modal('hide');
+
 	  });
     }
     
@@ -577,4 +627,4 @@
   </body>
 </html>
 <%@ include file="coupon.jsp"%>
-<%--<%@ include file="loading.jsp"--%>
+

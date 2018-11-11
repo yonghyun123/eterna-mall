@@ -65,4 +65,19 @@ public class ProductServiceImpl implements ProductService {
 	public boolean duplicateCheck(String product) throws Exception {
 		return productDao.duplicateCheck(product);
 	}
+
+	@Override
+	public List<Product> listBySales() throws Exception {
+		return productDao.listBySales();
+	}
+
+	@Override
+	public List<Product> listByRegdate() throws Exception {
+		return productDao.listByRegdate();
+	}
+
+	@Override
+	public List<Product> listByScore() throws Exception {
+		return productDao.listByScore();
+	}
 }
