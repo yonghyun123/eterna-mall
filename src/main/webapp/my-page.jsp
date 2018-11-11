@@ -123,14 +123,14 @@
                       <tbody>
                         <c:set var="startIndex" value="0"/>
                         <c:set var="endIndex" value="${orderProductsLength[0].numPurchase - 1}"/>
-                        <c:set var="orderCountLength" value="${orderCountLength }"/>
-                        <c:forEach var="index" begin="0" end="${orderCountLength - 1 }">
+                        <c:set var="orderCountLength" value="${orderCountLength - 1}"/>
+                        <c:forEach var="index" begin="0" end="${orderCountLength }">
                           <tr class="order-list-row">
                             <td class="order-number text-center" id="${orderAllList[startIndex].orderNumber }">${orderAllList[startIndex].orderNumber }</td>
                             <td colspan="5" class="order-inform text-left">
                             <!-- 상품 이름 및 이미지에 해당 상품 페이지 이동 a태그 걸기 -->
                             <c:forEach var="buy" items="${orderAllList }" begin="${startIndex }" end="${endIndex }" varStatus="x">
-                                <img alt="" class="product-thumbnail" src="../images/${buy.fileName }.png">
+                                <img alt="" class="product-thumbnail" src="/images/${buy.fileName }">
                                 <div class="product-text"> 
                                   <div class="product-name">${buy.productDescription }</div>
                                   <div class="product-price-count">${buy.productPrice }원 / ${buy.count }개</div>
@@ -139,8 +139,9 @@
                             </td>
                             <td class="order-date-flag text-center">${orderAllList[startIndex].orderDate } <br> ${orderAllList[startIndex].orderFlag }</td>
                           </tr>
-                          <c:set var="startIndex" value="${startIndex += orderProductsLength[index].numPurchase }"/>
-                          <c:set var="endIndex" value="${endIndex += orderProductsLength[index].numPurchase - 1}"/>
+                          <c:set var="endIndex" value="${startIndex + orderProductsLength[index].numPurchase }"/>
+                          <c:set var="startIndex" value="${startIndex + orderProductsLength[index].numPurchase }"/>
+                          
                         </c:forEach>  
                       </tbody>
                     </table>
