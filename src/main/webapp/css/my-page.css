@@ -31,6 +31,10 @@
 	margin: 0;
 }
 
+.my-page-bottom-section {
+	margin-bottom: 4%;
+}
+
 .user-grade {
 	width: 40%;
 	float: left;
@@ -81,13 +85,21 @@
 	padding-bottom: 11%;
 }
 
+.order-list-row {
+	border-top: 1px solid #dddfe1;
+}
+
 .order-list-number, .order-list-status {
 	width: 15%;
 	margin: 0;
+	border-right: 1px solid #dddfe1;
+	border-left: 1px solid #dddfe1;
 }
 
 tr > .order-number, tr > .order-date-flag {
 	vertical-align: middle;
+	border-right: 1px solid #dddfe1;
+	border-left: 1px solid #dddfe1;
 }
 
 .order-list-info {
@@ -116,7 +128,7 @@ tr > .order-number, tr > .order-date-flag {
 }
 
 /* Style the buttons inside the tab */
-.tab button {
+.container .tab button {
    background-color: inherit;
    float: left;
    border: none;

@@ -1,10 +1,8 @@
 package kr.or.kosta.eterna.payment.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +19,8 @@ import kr.or.kosta.eterna.cart.service.CartServiceImpl;
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
+import kr.or.kosta.eterna.coupon.domain.Coupon;
+import kr.or.kosta.eterna.coupon.service.CouponService;
 import kr.or.kosta.eterna.user.domain.User;
 import kr.or.kosta.eterna.user.service.UserService;
 import kr.or.kosta.eterna.user.service.UserServiceImpl;
@@ -36,6 +36,7 @@ public class PaymentListController implements Controller {
 	private BuyService buyService;
 	private CartService cartService;
 	private UserService userService;
+	private CouponService couponService;
 	Logger logger = Logger.getLogger(PaymentListController.class);
 
 	@Override
@@ -49,7 +50,7 @@ public class PaymentListController implements Controller {
 		userService = (UserService) factory.getBean(UserServiceImpl.class);
 		List<Buy> recentAddressList = null;
 		List<Cart> cartList = null;
-		List<User> couponList = null;
+		List<Coupon> couponList = null;
 		Map<String, String> orderCart = null;
 		List<Map<String,String>> orderList = new ArrayList<>();
 		User user = null;
@@ -61,7 +62,7 @@ public class PaymentListController implements Controller {
 		try {
 			recentAddressList = buyService.recentAddress(userId);
 			cartList = cartService.listAll(userId);
-			couponList = userService.listCoupon(userId);
+			couponList = couponService.userCouponList(userId);
 			user = userService.read(userId);
 			if(productId != null) {
 				orderCart = cartService.order(productId);
