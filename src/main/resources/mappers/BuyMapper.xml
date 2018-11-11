@@ -110,6 +110,37 @@
 		WHERE i.id=#{id} and image_type='th'
     </select>
    
+    <!-- 주문번호별 상세보기(유저) by 이철우 --> 
+    <select id="showOrderDetailUser" resultType="Buy">
+		SELECT bi.id                 AS id, 
+		       p.product_description AS productDescription, 
+		       pp.price              AS productPrice, 
+		       bm.count              AS count, 
+		       bi.create_date        AS orderDate, 
+		       bi.modify_date        AS receiveDate, 
+		       bi.order_flag         AS orderFlag, 
+		       bi.receiver_name      AS receiverName, 
+		       bi.receiver_tel       AS receiverTel, 
+		       bi.receiver_address   AS receiverAddress, 
+        <!-- 여기에 결제수단 추가 -->
+		       bi.total_price        AS totalPrice, 
+		       bi.reduce_price       AS reducePrice 
+		<!-- 배송비 및 결제금액은 직접 -->
+		FROM   sm_buy_info bi 
+		       join sm_buy_manage bm 
+		         ON bi.id = bm.buy_id 
+		       join sm_product p 
+		         ON bm.product_id = p.product_id 
+		       join sm_product_price pp 
+		         ON p.product_id = pp.product_id 
+		       join sm_product_image pe 
+		         ON pp.product_id = pe.product_id 
+		       join sm_file_info fi 
+		         ON pe.file_id = fi.file_id 
+		WHERE  bi.id = #{id} 
+		       AND pe.image_type = 'th' 
+    </select>
+   
     <!-- 최근 3개의 배송지 조회 -->
     <select id="recentAddress" resultType="Buy">
 		SELECT receiver_address as receiverAddress,
