@@ -10,7 +10,7 @@
         </div>
         <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
           <div class="site-logo">
-            <a href="/index.jsp" class="js-logo-clone">Shoppers</a>
+            <a href="/eterna.mall" class="js-logo-clone">Shoppers</a>
           </div>
         </div>
 
@@ -36,14 +36,7 @@
     <div class="container">
       <ul class="site-menu js-clone-nav d-none d-md-block">
         <li class="has-children active">
-          <a href="index.jsp">Category</a>
-          <ul class="dropdown top-dropdown">
-            <li><a href="#">클렌징</a></li>
-            <li><a href="#">립제품</a></li>
-            <li><a href="#">스킨</a></li>
-            <li><a href="#">로션</a></li>
-            <li><a href="#">선케어</a></li>
-          </ul>
+          <a href="/eterna.mall">Home</a>
         </li>
         <li><a href="/product.mall">Products</a></li>
         <li><a href="/notice.jsp">FAQ</a></li>

@@ -1,7 +1,9 @@
 package kr.or.kosta.eterna.admin.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.simple.JSONObject;
 
 import kr.or.kosta.eterna.admin.service.AdminService;
@@ -22,7 +28,7 @@ import kr.or.kosta.eterna.price.domain.Price;
 import kr.or.kosta.eterna.product.domain.Product;
 import kr.or.kosta.eterna.productImage.domain.ProductImage;
 
-/**	제품목록 출력 서블릿
+/**	제품 등록 서블릿
  * @author 권현우
  *
  */
@@ -30,23 +36,62 @@ public class AdminProductRegistController implements Controller {
 	private AdminService adminService;
 	@SuppressWarnings("unchecked")
 	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		
+				final String fileRepository = "C:/Users/USER/Desktop/Project_workSpace/Project_eterna/src/main/webapp/images/";
 				ModelAndView mav = new ModelAndView();
 				XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 				response.setContentType("application/json; charset=utf-8");
+				
+				Map<String, String> fieldMap = new HashMap<String,String>();
+				try {
+					request.setCharacterEncoding("utf-8");
+					DiskFileItemFactory itemFactory = new DiskFileItemFactory();
+					ServletFileUpload fileUpload = new ServletFileUpload(itemFactory);
+					fileUpload.setSizeMax(5 * 1024 * 1024); // 업로드 파일 용량 제한
+					List<FileItem> fileList = null;
+					fileList = fileUpload.parseRequest(request);
+					
+					for (FileItem item : fileList) {
+						if (item.isFormField()) {
+							/*String writer = item.getString("utf-8");
+							System.out.println(item.getFieldName() +":" + writer);
+							*/
+							fieldMap.put(item.getFieldName(), item.getString("utf-8"));
+						}else {
+							fieldMap.put(item.getFieldName(), item.getName());
+							System.out.println(item.getFieldName());
+							String fileName = item.getName();
+							String[] tokens = fileName.split("\\\\");
+							fileName = tokens[tokens.length-1];//파일명만 추출
+							File saveFile = new File(fileRepository + fileName);
+							item.write(saveFile);
+						}
+					}
+					
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				adminService = (AdminService)factory.getBean(AdminServiceImpl.class);
-				String categorySelector = request.getParameter("categorySelector");
-				String inputBrand = request.getParameter("inputBrand");
-				String sexSelector = request.getParameter("sexSelector");
-				String inputProduct = request.getParameter("inputProduct");
-				String productStock = request.getParameter("productStock");
-				String InputPrice = request.getParameter("InputPrice");
-				String minAgeSelector = request.getParameter("minAgeSelector");
-				String maxAgeSelector = request.getParameter("maxAgeSelector");				
-				String inputThumnail = request.getParameter("inputThumnail");
-				String inputMainImg = request.getParameter("inputMainImg");
-				String inputSideImg = request.getParameter("inputSideImg");
+				
+				String categorySelector = fieldMap.get("categorySelector");
+				String inputBrand = fieldMap.get("inputBrand");
+				String sexSelector = fieldMap.get("sexSelector");
+				String inputProduct = fieldMap.get("inputProduct");
+				String productStock = fieldMap.get("productStock");
+				String InputPrice = fieldMap.get("InputPrice");
+				String minAgeSelector = fieldMap.get("minAgeSelector");
+				String maxAgeSelector = fieldMap.get("maxAgeSelector");				
+				String inputThumnail = fieldMap.get("inputThumnail");
+				String inputMainImg = fieldMap.get("inputMainImg");
+				String inputSideImg = fieldMap.get("inputSideImg");
+				
+				
+				
+				
 				/**product 등록*/
 				Product product = new Product();
 				
@@ -117,7 +162,7 @@ public class AdminProductRegistController implements Controller {
 					map.put("fileArray", fileArray);
 					map.put("imageArray", imageArray);
 					map.put("price", price);
-					adminService.registProduct(map);
+					adminService.registProduct(map);	
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -149,14 +194,21 @@ public class AdminProductRegistController implements Controller {
 				} catch ( Exception e1) {
 					throw new ServletException("OrderListService.list() 예외 발생", e1);
 				}
-			    PrintWriter out = null;
+			    
 			    try {
 					out = response.getWriter();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}*/
-			    //out.println(jsonObject.toJSONString());
+				PrintWriter out = null;
+				try {
+					out = response.getWriter();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			    out.println("done");
 		return null;
 	}
 

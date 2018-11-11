@@ -108,7 +108,7 @@ public class ProductDaoTest {
 		e.printStackTrace();
 	}
    }
-   @Test
+   //@Test
    public void testListAll() {
 	   try {
 		List<Product>Plist = productDao.listAll();
@@ -119,5 +119,31 @@ public class ProductDaoTest {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+   }
+   
+   //@Test
+   public void brandNew() {
+	   try {
+		List<Product>Plist = productDao.brandNewList("1");
+		for (Product product : Plist) {
+			logger.debug(product);
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+   }  
+	   @Test
+	   public void hotItem() {
+		   try {
+			List<Product>Plist = productDao.popularProductList();
+			for (Product product : Plist) {
+				logger.debug(product);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	   
    }
 }
