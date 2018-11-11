@@ -28,14 +28,17 @@ public class CartDeleteController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
 		cartService = (CartService) factory.getBean(CartServiceImpl.class);
 		String loginId, productId;
-		String[] list = request.getParameterValues("deleteCheck");
+		String[] list = null;
+		list = request.getParameterValues("deleteCheck");
 		loginId = (String) request.getAttribute("loginId");
-		for (String string : list) {
-			productId = string;
-			try {
-				cartService.delete(loginId, productId);
-			} catch (Exception e) {
-				throw new ServletException("CartService.delete() 예외 발생", e);
+		if (list != null) {
+			for (String string : list) {
+				productId = string;
+				try {
+					cartService.delete(loginId, productId);
+				} catch (Exception e) {
+					throw new ServletException("CartService.delete() 예외 발생", e);
+				}
 			}
 		}
 		mav.setView("redirect:/cart.mall");

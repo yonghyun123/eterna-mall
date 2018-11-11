@@ -52,6 +52,47 @@ div{
     background-color: rgba(0,0,0,.03);
     border-top: 1px solid rgba(0,0,0,.125);
 }
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
 </style>
 <script>
 	
@@ -64,7 +105,6 @@ div{
    });
    
    $('#minAgeSelector').change(function(){
-	   console.log('fuck');
 	   createMaxAge(this);
    });
    
@@ -109,6 +149,8 @@ div{
   }
   /**제품등록*/
   function productRegist(){
+	  var formData = new FormData();
+	 
 	  var categorySelector =  $('#categorySelector').val();
 	  var inputBrand =  $('#inputBrand').val();
 	  var sexSelector =  $('#SexSelector').val();
@@ -116,31 +158,38 @@ div{
 	  var productStock =  $('#productStock').val();
 	  var minAgeSelector =  $('#minAgeSelector').val();
 	  var maxAgeSelector =  $('#maxAgeSelector').val();
-	  var inputThumnail = $('#inputThumnail').get(0).files[0].name;
-	  var inputMainImg = $('#inputMainImg').get(0).files[0].name;
-	  var inputSideImg = $('#inputSideImg').get(0).files[0].name;
-	 
 	  var InputPrice =  $('#InputPrice').val();
+	  var inputThumnail = $('#inputThumnail').get(0).files[0];
+	  var inputMainImg = $('#inputMainImg').get(0).files[0];
+	  var inputSideImg = $('#inputSideImg').get(0).files[0];
+	  
+	  
+	  formData.append("categorySelector",$('#categorySelector').val());
+	  formData.append("inputBrand",inputBrand );
+	  formData.append('sexSelector',sexSelector );
+	  formData.append("inputProduct",inputProduct);
+	  formData.append("productStock", productStock);
+	  formData.append("minAgeSelector",minAgeSelector );
+	  formData.append("maxAgeSelector",maxAgeSelector );
+	  formData.append("InputPrice",InputPrice);
+	  formData.append("inputThumnail",inputThumnail);
+	  formData.append("inputMainImg", inputMainImg);
+	  formData.append("inputSideImg",inputSideImg );
+	  
+	  
 	  $.ajax({
 	         url: "/admin/productregist.mall",
-	         type:"get",
-	         data: {
-	        	 categorySelector: categorySelector,
-	        	 inputBrand: inputBrand,
-	        	 sexSelector: sexSelector,
-	        	 inputProduct: inputProduct,
-	        	 productStock: productStock,
-	        	 InputPrice: InputPrice,
-	        	 minAgeSelector: minAgeSelector,
-	        	 maxAgeSelector: maxAgeSelector,
-	        	 inputThumnail: inputThumnail,
-	        	 inputMainImg: inputMainImg,
-	        	 inputSideImg: inputSideImg
-	         },
+	         type:"post",
+	         processData: false,
+             contentType: false,
+	         data: formData,
 	         dataType:"text",
-	         success: function(data){
-	           var jsonDetailData = JSON.parse(data);
-	           console.log(jsonDetailData);
+	         success: function(data){        	 	 
+	        	 registSuccess();
+	        	 $('#inputBrand').empty();
+	        	 $('#inputProduct').empty();
+	        	 $('#productStock').empty();
+	        	 $('#InputPrice').empty();
 	         }
   });
   }
@@ -165,8 +214,11 @@ div{
        .replace('{side}', detailDate.sideIMG);
       originHtml.innerHTML = newHtml;
   }
-  
-  
+  function registSuccess() {
+	    var x = document.getElementById("snackbar");
+	    x.className = "show";
+	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
 </script>
 
   <script id="modal-table" type="text/template">
@@ -240,12 +292,13 @@ div{
           <button type="button" class="btn btn-default">SAVE</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
      </div>
+
 </script>
 
 
 <!-- 페이지 전체 -->
 <body id="page-top">
-
+	
 	<jsp:include page="../include/admin_nav.jsp" />
 
 	<div id="wrapper">
@@ -289,7 +342,7 @@ div{
                                     <th>Details</th>
 								</tr>
 							</tfoot>
-							<tbody>
+					<tbody>
 					<c:choose>
                   <c:when test="${not empty list}">
                     <c:forEach var="product" items="${list}" varStatus="status">
@@ -316,10 +369,11 @@ div{
                     </tr>
                   </c:otherwise>
                 </c:choose>
-							</tbody>
+			</tbody>
 						</table>
 					</div>
 				</div>
+				
 				<div class="card-footer small text-muted">Updated yesterday at
 					11:59 PM</div>
 			</div>

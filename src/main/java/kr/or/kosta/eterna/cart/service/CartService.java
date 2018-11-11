@@ -15,6 +15,9 @@ public interface CartService {
 	/* 장바구니에 물건 담을 시 장바구니에 추가 */
 	public void create(Cart cart) throws Exception;
 	
+	/* 장바구니에 담긴 물건 중 살 물건 */
+	public void toBuycreate(Cart cart) throws Exception;
+	
 	/* 장바구니에 동일한 상품이 담겼는지 체크할 때 productId를 통한 검색 */
 	public Cart read(String userId, String productId) throws Exception;
 	

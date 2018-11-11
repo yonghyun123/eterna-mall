@@ -84,6 +84,14 @@ public class MybatisCartDao implements CartDao {
 		orderProduct = sqlSession.selectOne(NAMESPACE+"order",Integer.parseInt(productId));
 		return orderProduct;
 	}
+	
+	@Override
+	public void toBuycreate(Cart cart) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.insert(NAMESPACE+"toBuycreate", cart);
+		sqlSession.commit();
+		sqlSession.close();		
+	}
 }
 
 
