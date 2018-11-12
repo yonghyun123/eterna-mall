@@ -41,7 +41,7 @@ public class UserOrderDetailController implements Controller {
 		
 		List<Buy> orderDetailList;
 		int shippingFee = 0;
-		String orderFlag = null;
+		String orderFlag = null, receiveDate = null;
 		String id = request.getParameter("orderNumber");
 		
 		try {
@@ -62,16 +62,17 @@ public class UserOrderDetailController implements Controller {
 			jsonObject.put("productCount", buy.getCount());
 			jsonObject.put("orderDate", buy.getOrderDate());
 			jsonObject.put("fileName", buy.getFileName());
-			jsonObject.put("receiveDate", buy.getReceiveDate());
-			
 			if(buy.getOrderFlag().equals("0")) {
-				orderFlag = "배송완료";
+				orderFlag = "배송전";
+				receiveDate = buy.getOrderDate() + " 도착 예정"; 
 			} else if (buy.getOrderFlag().equals("1")) {
 				orderFlag = "배송중";
+				receiveDate = buy.getOrderDate() + " 도착 예정";
 			} else {
-				orderFlag = "배송준비중";
+				orderFlag = "배송완료";
+				receiveDate = buy.getOrderDate() + " 도착";
 			}
-			
+			jsonObject.put("receiveDate", receiveDate);
 			jsonObject.put("orderFlag", orderFlag);
 			jsonObject.put("receiverName", buy.getReceiverName());
 			jsonObject.put("receiverTel", buy.getReceiverTel());

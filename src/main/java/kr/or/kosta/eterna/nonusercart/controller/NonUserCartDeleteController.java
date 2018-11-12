@@ -37,8 +37,10 @@ public class NonUserCartDeleteController implements Controller {
 		Cookie[] cookies; 
 		nonusercartService = (NonUserCartService) factory.getBean(NonUserCartServiceImpl.class);
 		List<Cart> list = null;
-		List<String> productValue = new ArrayList<String>();		
-		String productId = request.getParameter("productId");
+		List<String> productValue = new ArrayList<String>();
+		String[] productIdList = request.getParameterValues("deleteCheck");
+		//String productId = request.getParameter("productId");
+		
 		if(request.getCookies().length != 1) {
 			cookies = request.getCookies();
 			for(Cookie cookie : cookies) {
@@ -55,7 +57,15 @@ public class NonUserCartDeleteController implements Controller {
 					products = "";
 					System.out.println("size = " + list.size());
 					for (Cart cart : list) {
-						if(cart.getProductId().equals(productId)  ) {
+						boolean deleteFlag = false;
+						for (String productId : productIdList) {
+							if(cart.getProductId().equals(productId)  ) {
+								
+								deleteFlag = true;
+							}	
+						}
+						System.out.println("flag=" + deleteFlag);
+						if(deleteFlag == true ) {
 							System.out.println("remove");
 						}else {
 						products += ("@"+cart.getProductId()+"#"+cart.getCount());
