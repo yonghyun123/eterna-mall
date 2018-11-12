@@ -537,4 +537,11 @@
 		order by NVL(AVG(review.score),0) desc
     )
 	</select>
+	
+	<!-- 배송 중 상태 변경 시 재고 빼기 -->
+	<update id="updateStock">
+	UPDATE sm_product 
+	SET    product_stock = product_stock - #{count} 
+	WHERE  product_description = #{productDescription} 
+	</update>
 </mapper>

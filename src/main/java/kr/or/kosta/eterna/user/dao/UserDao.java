@@ -50,4 +50,10 @@ public interface UserDao {
 	
 	/* 오늘 가입한 회원 수 */
 	public int newUser() throws Exception;
+	
+	/* 다음 등급까지 남은 차액 */
+	public int differenceAmount(String userId) throws Exception;
+	
+	/* 등급 올리기 */
+	public void updateGrade(String userId) throws Exception;
 }

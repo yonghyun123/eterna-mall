@@ -196,25 +196,26 @@
    
   
   <script>
-window.onload = function(){
-  eventRegist();
-}
+
 
 function eventRegist(){
   
   /*모달 창에 product table의 id 값을 전해줌*/
   $("button[data-target='#myModal']").on("click",function(){
     var id = $(this).closest("tr").find(".reviewId").text();
+    console.log('reviewId!!!'+id);
     document.getElementById("reviewIdH").value = id;
   })
   
   /*모달 창에서 submit 버튼을 눌렀을 시 controller로 전달*/
   document.getElementById("submitB").onclick = function(){
     var id = document.getElementById("reviewIdH").value;
+    console.log('reviewId!!!'+id);
     var content =   encodeURIComponent(document.getElementById("content").value);
     location.href = "/admin/reviewcomment.mall?id="+id+"&content="+content;
   }
 }
+eventRegist();
 
 </script>
 

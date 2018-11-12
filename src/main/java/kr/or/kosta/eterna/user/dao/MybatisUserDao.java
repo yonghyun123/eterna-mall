@@ -141,4 +141,20 @@ public class MybatisUserDao implements UserDao {
 		sqlSession.close();
 		return count;
 	}
+
+	@Override
+	public int differenceAmount(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int count = sqlSession.selectOne(NAMESPACE + "difference", userId);
+		sqlSession.close();
+		return count;
+	}
+
+	@Override
+	public void updateGrade(String userId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.update(NAMESPACE + "updateGrade", userId);
+		sqlSession.commit();
+		sqlSession.close();
+	}
 }

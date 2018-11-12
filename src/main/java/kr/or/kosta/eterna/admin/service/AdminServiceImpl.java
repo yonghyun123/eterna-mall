@@ -212,4 +212,16 @@ public class AdminServiceImpl implements AdminService {
 		return reviewDao.newReview();
 	}
 
+	@Override
+	public void updateTier(String userId) throws Exception {
+		int difference = userDao.differenceAmount(userId);
+		if(difference < 0){
+			userDao.updateGrade(userId);
+		}
+	}
+
+	@Override
+	public void updateStock(String productDescription, String count) throws Exception {
+		productDao.updateStock(productDescription, count);
+	}
 }
