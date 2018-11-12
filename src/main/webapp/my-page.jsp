@@ -44,7 +44,7 @@
 
     <div class="my-page-top-section">
       <div class="container">
-        <div class="row mb-4 my-page-top">
+        <div class="row mb-4 my-page-top">  
           <div class="user-grade">
             <div class="user text-black text-left">
               <span class="grade">${user.tierType }</span>
@@ -98,6 +98,7 @@
             <div class="tab" id="tab">
               <button class="tablinks active" onclick="openCity(event, '주문 내역')" id="defaultOpen">주문 내역</button>
               <button class="tablinks" onclick="openCity(event, '상품 후기')" id="product-review">상품 후기</button>
+              <button class="tablinks" onclick="openCity(event, 'Q&A')" id="product-qna">Q&A</button>
               <button class="tablinks" onclick="openCity(event, '적립금')" id="user-point">적립금</button>
               <button class="tablinks" onclick="openCity(event, '쿠폰')" id="user-coupon">쿠폰</button>
               <button class="tablinks" onclick="openCity(event, '개인정보 수정')" id="user-modify">개인정보 수정</button>
@@ -415,7 +416,7 @@
                           </tr>
                           <tr>
                             <th>휴대폰</th>
-                            <td>{userInfo.userTel}</td>
+                            <td>{userTel}</td>
                           </tr>
                           <tr>
                             <th rowspan="3">주소</th>
@@ -445,7 +446,7 @@
                         </tbody>
                       </table>
                       <input type="button"
-                        class="btn btn-success" onclick="modify()" value="수정">
+                        class="btn btn-success modify" value="수정">
                     </div>
 </script>
   <script type="my-template" id="confirm-body">
@@ -481,7 +482,17 @@
                       </div>
                     </div>
 </script>
-  
+<script type="my-template" id="success-body">
+<div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <span class="icon-check_circle display-3 text-success"></span>
+            <h2 class="display-3 text-black">Thank you!</h2>
+            <p class="lead mb-5">회원정보가 성공적으로 수정되었습니다</p>
+          </div>
+        </div>
+      </div>
+</script>
   <script>
   function openCity(evt, cityName) {
       var i, tabcontent, tablinks;
@@ -521,11 +532,11 @@
             });
         }
       if (evt.currentTarget.id == 'user-modify') {
-			var templateHtml = document.querySelector('#confirm-body').innerHTML;
-			var originHtml = document.querySelector('#in-mbody');
-			originHtml.innerHTML = templateHtml;
-		}
-	}
+      var templateHtml = document.querySelector('#confirm-body').innerHTML;
+      var originHtml = document.querySelector('#in-mbody');
+      originHtml.innerHTML = templateHtml;
+    }
+  }
   
   var orderList = document.querySelectorAll(".order-number");
   for (var i = 0; i < orderList.length; i++) {
@@ -650,82 +661,105 @@
     });
     originHtml.innerHTML = newHtml;
   }
+  $(document).on("click",".modify",function(event) {
+    var userEmail = document.getElementById('new-userEmail').value;
+    var confirmNewPW = document.getElementById('confirmNewPW').value;
+    var zipcode = document.getElementById('new-zipcod-address').value;
+    var street = document.getElementById('new-street-address').value;
+    var detail = document.getElementById('new-detail-address').value;
+    var newAddress = zipcode +'/'+ street+'/'+detail;
+    var params = "confirmNewPW=" + confirmNewPW +"&userEmail="+userEmail+ "&newAddress=" + newAddress;
+    console.log(params);
+    $.ajax({
+      url : "/user/updateInfo.mall",
+      type : "get",
+      dataType : "text",
+      data :  params,
+      success : function(data) {
+          var templateHtml = document.querySelector('#success-body').innerHTML;
+          var originHtml = document.querySelector('#in-mbody');
+          originHtml.innerHTML = templateHtml;
+      }
+    });
+  });
+  
   $(document).on("click","#confirmPasswdBtn",function(event) {
-		var inputPW = "inputPW=" + document.getElementById('confirm_password').value;
-		console.log(inputPW);
-		$.ajax({
-			url : "/user/updateInfo.mall",
-			type : "get",
-			dataType : "text",
-			data :  inputPW,
-			success : function(data) {
-				var jsonModifyData = JSON.parse(data);
-				modiftTemplate(jsonModifyData);
-			}
-		});
-	});
+    var inputPW = "inputPW=" + document.getElementById('confirm_password').value;
+    console.log(inputPW);
+    $.ajax({
+      url : "/user/updateInfo.mall",
+      type : "get",
+      dataType : "text",
+      data :  inputPW,
+      success : function(data) {
+        var jsonModifyData = JSON.parse(data);
+        modiftTemplate(jsonModifyData);
+      }
+    });
+  });
 function modiftTemplate(jsonModifyData) {
 var templateHtml = document.querySelector('#modify-body').innerHTML;
 var originHtml = document.querySelector('#in-mbody');
 var newHtml = '';
 jsonModifyData.forEach(function(v, i) {
-	newHtml = templateHtml.replace('{userId}', v.userId)
-			.replace('{userName}', v.userName).replace(
-					'{userEmail}', v.userEmail).replace(
-					'{userZipcode}', v.userZipcode).replace(
-					'{couponDate}', v.couponDate).replace(
-					'{userStreetAddress}', v.userStreetAddress).replace(
-					'{userDetailAddress}', v.userDetailAddress).replace(
-					'{userRegdate}', v.userRegdate).replace(
-					'{userTel}', v.userTel);
+  newHtml = templateHtml.replace('{userId}', v.userId)
+      .replace('{userName}', v.userName).replace(
+          '{userEmail}', v.userEmail).replace(
+          '{userZipcode}', v.userZipcode).replace(
+          '{couponDate}', v.couponDate).replace(
+          '{userStreetAddress}', v.userStreetAddress).replace(
+          '{userDetailAddress}', v.userDetailAddress).replace(
+          '{userRegdate}', v.userRegdate).replace(
+          '{userTel}', v.userTel);
 
 });
 originHtml.innerHTML = newHtml;
 }
 function daumPostcode() {
-	new daum.Postcode(
-			{
-				oncomplete : function(data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					var fullAddr = ''; // 최종 주소 변수
-					var extraAddr = ''; // 조합형 주소 변수
+  new daum.Postcode(
+      {
+        oncomplete : function(data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var fullAddr = ''; // 최종 주소 변수
+          var extraAddr = ''; // 조합형 주소 변수
 
-					// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-						fullAddr = data.roadAddress;
+          // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+          if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+            fullAddr = data.roadAddress;
 
-					} else { // 사용자가 지번 주소를 선택했을 경우(J)
-						fullAddr = data.jibunAddress;
-					}
+          } else { // 사용자가 지번 주소를 선택했을 경우(J)
+            fullAddr = data.jibunAddress;
+          }
 
-					// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-					if (data.userSelectedType === 'R') {
-						//법정동명이 있을 경우 추가한다.
-						if (data.bname !== '') {
-							extraAddr += data.bname;
-						}
-						// 건물명이 있을 경우 추가한다.
-						if (data.buildingName !== '') {
-							extraAddr += (extraAddr !== '' ? ', '
-									+ data.buildingName
-									: data.buildingName);
-						}
-						// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-						fullAddr += (extraAddr !== '' ? ' ('
-								+ extraAddr + ')' : '');
-					}
+          // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+          if (data.userSelectedType === 'R') {
+            //법정동명이 있을 경우 추가한다.
+            if (data.bname !== '') {
+              extraAddr += data.bname;
+            }
+            // 건물명이 있을 경우 추가한다.
+            if (data.buildingName !== '') {
+              extraAddr += (extraAddr !== '' ? ', '
+                  + data.buildingName
+                  : data.buildingName);
+            }
+            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+            fullAddr += (extraAddr !== '' ? ' ('
+                + extraAddr + ')' : '');
+          }
 
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('new-street-address').value = fullAddr;
-	                  document.getElementById('new-zipcod-address').value = data.zonecode; //5자리 새우편번호 사용
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById('new-street-address').value = fullAddr;
+                    document.getElementById('new-zipcod-address').value = data.zonecode; //5자리 새우편번호 사용
 
-	                  // 커서를 상세주소 필드로 이동한다.
-	                  document.getElementById('new-detail-address').focus();
-	              }
-	          }).open();
-	      }
+                    // 커서를 상세주소 필드로 이동한다.
+                    document.getElementById('new-detail-address').focus();
+                }
+            }).open();
+        }
+       
   </script>
 
 </body>
