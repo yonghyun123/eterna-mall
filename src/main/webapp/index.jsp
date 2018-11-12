@@ -30,8 +30,9 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/viewList.css">
 <jsp:include page="/includes/header.jsp"></jsp:include>
-
+<jsp:include page="/includes/viewList.jsp"></jsp:include>
 </head>
 <body>
 	<div class="site-wrap">
