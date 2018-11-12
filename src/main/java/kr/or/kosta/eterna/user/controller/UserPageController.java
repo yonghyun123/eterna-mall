@@ -19,7 +19,7 @@ import kr.or.kosta.eterna.user.service.UserService;
 import kr.or.kosta.eterna.user.service.UserServiceImpl;
 
 /**
- * /user/cartlist.mall에 대한 요청 처리 컨트롤러
+ * myPage에 대한 요청 처리 컨트롤러
  * @author 조희진
  *
  */

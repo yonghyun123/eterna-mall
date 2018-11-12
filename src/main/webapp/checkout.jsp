@@ -616,7 +616,7 @@
 		          
 		          document.body.appendChild(form);
 		          
-// 		          form.submit(); 
+ 		          form.submit(); 
 			}, 3000)
 	  });
     }
@@ -627,4 +627,5 @@
   </body>
 </html>
 <%@ include file="coupon.jsp"%>
+<%@ include file="loading.jsp" %>
 
