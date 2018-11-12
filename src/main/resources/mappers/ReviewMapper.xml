@@ -43,12 +43,12 @@
       VALUES     (review_id_seq.nextval,
             'manager', 
             (select product_id
-            from SM_product_answer
+            from sm_product_review
             where id=#{id}), 
             1, 
             #{content}, 
             (select group_no
-            from SM_product_answer
+            from sm_product_review
             where id=#{id}), 
             1)
     </insert>
@@ -57,14 +57,16 @@
 	<select id="listItem" resultType="Review">
 		SELECT user_id     AS userId, 
 		       product_id  AS productId, 
-		       regdate,
+		       TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') AS regdate,
 		       subject, 
 		       content, 
 		       score,
 		       board_id as boardId, 
-		       answer_flag AS answerFlag 
+		       answer_flag AS answerFlag, 
+		       level_no AS "levelNo"
 		FROM   sm_product_review 
 		WHERE  product_id = #{productId}
+		ORDER BY group_no desc, regdate ASC
 	</select>
 	
 	<!-- 회원별 리뷰 리스트 -->
@@ -95,6 +97,7 @@
        board_id as boardId, 
        answer_flag AS answerFlag 
 	FROM   sm_product_review
+	WHERE level_no = 0
   	order by regdate desc
 	</select>
 	

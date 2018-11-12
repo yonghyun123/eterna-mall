@@ -47,10 +47,26 @@ public class BuyCreateController implements Controller{
 		String receiverPhone = request.getParameter("receiverPhone");
 		Buy buy = new Buy();
 		User user = new User();
+		User originUser = null;
 		String userPoint = null;
 		if(totalPrice != null){
 			int tempPoint = (int) (Integer.parseInt(totalPrice) * 0.01);
 			userPoint = Integer.toString(tempPoint);
+		}
+		try {
+			if(userId != null){
+				
+			}
+			originUser = userService.read(userId);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// 회원이라면 주소지 setting
+		if(originUser!= null){
+			user.setUserAddress(originUser.getUserAddress());
+			user.setUserName(originUser.getUserName());
+			user.setUserTel(originUser.getUserTel());
 		}
 		
 		if(uri.equals("/cartpayment")){
@@ -69,8 +85,8 @@ public class BuyCreateController implements Controller{
 			//order-cart 가져와야 하는부분
 			
 			try {
-				List<Cart> cartList = cartService.readOrderCart(userId);
 				
+				List<Cart> cartList = cartService.readOrderCart(userId);
 				buyService.create(buy, cartList);
 				userService.pointUpdate(user);
 				cartService.toBuyDelete(userId, cartList);

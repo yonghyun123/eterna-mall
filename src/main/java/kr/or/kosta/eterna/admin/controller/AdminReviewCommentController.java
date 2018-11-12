@@ -29,6 +29,7 @@ public class AdminReviewCommentController implements Controller {
       XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
       reviewService = (ReviewService) factory.getBean(ReviewServiceImpl.class);
       Review review = new Review();
+      review.setSubject("관리자의 답변글입니다.");
       review.setContent(content);
       review.setId(id);
       try {

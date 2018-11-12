@@ -453,8 +453,8 @@
     	} else {
     		$('#loading-btn').attr('disabled', true);
     	}
-    		
     })
+    
     /* 결제 라디오 버튼 */
     $('.generalPay').change(function(){
       var check = document.getElementsByName('generalPay');
@@ -615,7 +615,14 @@
 		          hiddenProductTotalCount.setAttribute("type", "hidden");
 		          hiddenProductTotalCount.setAttribute("name", "productTotalCount");
 		          hiddenProductTotalCount.setAttribute("value", productTotalCount);
-		          
+		        
+		          /*비회원 단일 구매 */
+				  var hiddenProductTotalCount = document.createElement("input");
+		          hiddenProductTotalCount.setAttribute("type", "hidden");
+		          hiddenProductTotalCount.setAttribute("name", "productTotalCount");
+		          hiddenProductTotalCount.setAttribute("value", productTotalCount);
+		        
+			          
 		          form.appendChild(hiddenProductId);
 		          form.appendChild(hiddenProductCount);
 		          form.appendChild(hiddenTotalPrice);
