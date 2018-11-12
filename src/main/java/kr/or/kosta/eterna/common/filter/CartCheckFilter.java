@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import kr.or.kosta.eterna.cart.service.CartService;
 import kr.or.kosta.eterna.cart.service.CartServiceImpl;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
+import kr.or.kosta.eterna.qna.service.QnAService;
+import kr.or.kosta.eterna.qna.service.QnAServiceImpl;
 
 /**
  * 장바구니 물품 유무 여부 체크 필터
@@ -24,7 +26,9 @@ public class CartCheckFilter implements Filter {
 
 	private String cookieName;
 	private CartService cartService;
-	private int count = 0;
+	private QnAService qnaService;
+	private int countCart = 0;
+	private int countAnswer = 0;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -35,6 +39,7 @@ public class CartCheckFilter implements Filter {
 			throws IOException, ServletException {
 		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
 		cartService = (CartService) factory.getBean(CartServiceImpl.class);
+		qnaService = (QnAService) factory.getBean(QnAServiceImpl.class);
 		Cookie[] cookies = ((HttpServletRequest) request).getCookies();
 		boolean isLogin = false;
 		if (cookies != null) {
@@ -48,14 +53,17 @@ public class CartCheckFilter implements Filter {
 		}
 		if (isLogin) {
 			try {
-				count = cartService.countOfCart(cookieName);
+				countCart = cartService.countOfCart(cookieName);
+				countAnswer = qnaService.countAnswer(cookieName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}else{
-			count = 0;
+			countCart = 0;
+			countAnswer = 0;
 		}
-		request.setAttribute("cartCount", count);
+		request.setAttribute("cartCount", countCart);
+		request.setAttribute("answerCount", countAnswer);
 		request.setAttribute("uri", ((HttpServletRequest) request).getRequestURI());
 		chain.doFilter(request, response);
 	}
