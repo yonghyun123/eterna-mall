@@ -3,7 +3,7 @@
   <div class="container">
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="max-width: 600px;">
     
       <!-- Modal content-->
       <div class="modal-content" id="modal-content">

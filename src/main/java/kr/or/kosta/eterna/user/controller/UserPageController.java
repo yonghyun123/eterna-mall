@@ -12,8 +12,6 @@ import kr.or.kosta.eterna.buy.domain.Buy;
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
-import kr.or.kosta.eterna.qna.service.QnAService;
-import kr.or.kosta.eterna.qna.service.QnAServiceImpl;
 import kr.or.kosta.eterna.user.domain.User;
 import kr.or.kosta.eterna.user.service.UserService;
 import kr.or.kosta.eterna.user.service.UserServiceImpl;
@@ -42,10 +40,6 @@ public class UserPageController implements Controller {
 		Map<String, Object> map = new HashMap<>();
 		User user = null;
 		String userId = (String)request.getAttribute("loginId");
-//		int countOfAnswer = 0;
-//		if(request.getAttribute("answerCount") != null){
-//			countOfAnswer = (int)request.getAttribute("answerCount");
-//		}
 		try {
 			
 			map = userService.myPage(userId);
@@ -63,10 +57,6 @@ public class UserPageController implements Controller {
 			orderProductsLength = (List<Buy>) map.get("orderProductsLength");
 //			유저의 주문 횟수
 			orderCountLength = orderProductsLength.size();
-			// Q&A에 답글 달린 글 읽으면 flag 업데이트
-			/*if(countOfAnswer != 0){
-				qnaService.readQnA(userId);
-			}*/
 		} catch (Exception e) {
 			throw new ServletException("UserService.list() 예외 발생", e);
 		}

@@ -197,4 +197,20 @@
     WHERE  To_char(To_date(user_regdate, 'YYYY/MM/DD HH24:MI:SS'), 'yyyymmdd') = 
         To_char(SYSDATE, 'yyyymmdd') 
     </select>
+    
+    <!-- 다음 등급까지 남은 차액 -->
+    <select id="difference" resultType="int">
+    SELECT NVL((sut.grade - su.user_grade),0) 
+		FROM   sm_user su, 
+       	sm_user_tier sut 
+		WHERE  su.tier_id + 1 = sut.tier_id 
+       	AND su.user_id = #{userId}
+    </select>
+    
+    <!-- 등급 상승 -->
+    <update id="updateGrade">
+    UPDATE sm_user
+    SET tier_id = tier_id +1 
+    WHERE user_id = #{userId}
+    </update>
 </mapper>
