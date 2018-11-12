@@ -821,9 +821,11 @@ function daumPostcode() {
 
  
  function eventRegist(){
+// 	 $('#newPW').focus(function(){
+// 		 document.getElementById('newPW').text = '';
+// 	 });
   document.getElementById('newPW').onkeyup = function(){
      var val = this.value;
-     passwdCheck(val);
      ableJoin();
   }
   
@@ -931,9 +933,16 @@ function daumPostcode() {
 
   /* 유효성 확인 후 join 버튼 활성화 */
   function ableJoin(){
+	  console.log(checkpw);
+	  console.log(checkconfirm);
+	  console.log(checkAddress);
+	  console.log(checkemail);
+	  console.log("-------------");
 	  if(document.querySelector('.emailCheck').disabled){
      if(checkpw == 1 && checkconfirm == 1 &&  checkAddress == 1 && checkemail==1 ){
        document.querySelector(".modify").disabled = false;
+       checkpw=0;
+       checkconfirm=0;
      }else{
        document.querySelector(".modify").disabled = true;
      }
