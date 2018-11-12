@@ -138,17 +138,19 @@
                             </c:forEach>
                             </td>
                             <td class="order-date-flag text-center">
-                            ${orderAllList[startIndex].orderDate } <br>
                             <c:set var="flag" value="${orderAllList[startIndex].orderFlag }"/> 
                             <c:choose>
                               <c:when test="${flag == 0 }">
-                               배송 완료
+                                ${orderAllList[startIndex].orderDate } 출발 <br>
+                                배송 전
                               </c:when>
                               <c:when test="${flag == 1 }">
-                               배송 중
+                                ${orderAllList[startIndex].orderDate } 출발 <br>
+                                배송 중
                               </c:when>
                               <c:when test="${flag == 2 }">
-                               배송준비중
+                                ${orderAllList[startIndex].receiverDate } 도착 <br>
+                                배송 완료
                               </c:when>
                             </c:choose>
                             </td>
@@ -156,7 +158,7 @@
                           <c:set var="endIndex" value="${endIndex + orderProductsLength[i.index + 1].numPurchase }"/>
                           <c:set var="startIndex" value="${startIndex + orderProductsLength[i.index].numPurchase }"/>
                           
-                        </c:forEach>  
+                        </c:forEach>
                       </tbody>
                     </table>
                   </div>
@@ -348,7 +350,7 @@
   <script type="my-template" id="detail-footer">
   <div class="product-text">
     <div class="product-price-count">{orderFlag}!</div> 
-    <div class="product-name"><h4>{receiveDate} 도착</h4></div>
+    <div class="product-name"><h4>{receiveDate}</h4></div>
   </div><br>
   </script>
   
@@ -400,12 +402,12 @@
                           </tr>
                           <tr>
                             <th>새 비밀번호</th>
-                            <td><input type="text" id="newPW"><span id="modifyPutPw"></span>
+                            <td><input type="password" id="newPW"><span id="modifyPutPw"></span>
                             </td>
                           </tr>
                           <tr>
                             <th>새 비밀번호 확인</th>
-                            <td><input type="text"
+                            <td><input type="password"
                               id="confirmNewPW"><span id="modifyPutCheckPw"></span></td>
                           </tr>
                           <tr>
@@ -501,7 +503,13 @@
       </div>
 </script>
   <script>
-
+  /* 유효성 체크를 위한 flag들 */
+  var checkpw = 0;
+  var checkconfirm = 0;
+  var checkemail = 1;
+  var checkAddress = 1;
+  var emailCheck = 0;
+  /* 탭 클릭 */
   function openCity(evt, cityName) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
@@ -515,7 +523,7 @@
       }
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
-      
+      /* 상품후기 탭 클릭 */
       if(evt.currentTarget.id == 'product-review'){
         $.ajax({
            url: "/reviewlist.mall",
@@ -527,7 +535,7 @@
            }
           });
       }
-      
+      /* 쿠폰 탭 클릭 */
       if(evt.currentTarget.id == 'user-coupon'){
           $.ajax({
              url: "/user/coupon.mall",
@@ -539,13 +547,14 @@
              }
             });
         }
+      /* 개인정보 수정 탭 클릭 */
       if (evt.currentTarget.id == 'user-modify') {
       var templateHtml = document.querySelector('#confirm-body').innerHTML;
       var originHtml = document.querySelector('#in-mbody');
       originHtml.innerHTML = templateHtml;
     }
   }
-  
+  /* 주문번호별 상세정보 */
   var orderList = document.querySelectorAll(".order-number");
   for (var i = 0; i < orderList.length; i++) {
         orderList[i].addEventListener('click', function(event) {
@@ -565,7 +574,7 @@
            })
         });
   }
-  
+  /* 리뷰  */
   function reviewTemplate(reviewData){
     var templateHtml = document.querySelector('#review-body').innerHTML;
     var originHtml = document.querySelector('#in-rbody');
@@ -677,7 +686,6 @@
     var detail = document.getElementById('new-detail-address').value;
     var newAddress = zipcode +'/'+ street+'/'+detail;
     var params = "confirmNewPW=" + confirmNewPW +"&userEmail="+userEmail+ "&newAddress=" + newAddress;
-    console.log(params);
     $.ajax({
       url : "/user/updateInfo.mall",
       type : "get",
@@ -724,14 +732,12 @@
      document.getElementById('confirm_password').value = '';
    } else {
   var inputPW = "inputPW=" + email;
-    console.log(inputPW);
     $.ajax({
       url : "/user/updateInfo.mall",
       type : "get",
       dataType : "text",
       data :  inputPW,
       success : function(data) {
-        console.log(data);
         if(data.trim()=='fail'){
           /* 비밀번호 불일치 */
           popup("popup-message-PWCheck-fail");
@@ -811,12 +817,7 @@ function daumPostcode() {
        
        
 /* 유효성 검사 */
-/* 유효성 체크를 위한 flag들 */
- var checkpw = 0;
- var checkconfirm = 0;
- var checkemail = 1;
- var checkAddress = 1;
- var emailCheck = 0;
+
 
  
  function eventRegist(){
@@ -930,14 +931,14 @@ function daumPostcode() {
 
   /* 유효성 확인 후 join 버튼 활성화 */
   function ableJoin(){
-	  if(document.querySelector(".emailCheck").disabled){
-     if(checkpw == 1 && checkconfirm == 1 &&  checkAddress == 1 &&checkemail==1 &&emailCheck==1){
+	  if(document.querySelector('.emailCheck').disabled){
+     if(checkpw == 1 && checkconfirm == 1 &&  checkAddress == 1 && checkemail==1 ){
        document.querySelector(".modify").disabled = false;
      }else{
        document.querySelector(".modify").disabled = true;
      }
-  }
 	  }
+  }
   </script>
 
 </body>
