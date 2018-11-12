@@ -73,10 +73,10 @@ if(request.getAttribute("answerCount") != null){
           </c:otherwise>
         </c:choose>
         <li>
-          <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left search">
-            <form action="" class="site-block-top-search">
+          <div class="col-6 col-md-4 order-2 order-md-1 text-left search">
+            <form action="/search.mall" class="site-top-search" name="searchForm">
               <span class="icon icon-search2"></span>
-              <input type="text" class="form-control border-0 search-input" placeholder="Search">
+              <input type="text" class="form-control border-0" id="search-input" name="inputText" placeholder="Search" onkeyup="enterSearch(this.form);">
             </form>
           </div>              
         </li>
@@ -91,7 +91,12 @@ if(request.getAttribute("answerCount") != null){
           		window.location.href="/logout.mall"; 
         	} 
       	}     	
-
+      	
+      	function enterSearch(f) {
+      	    if(f.keyCode == 13){
+      	    	searchForm.submit();
+      	    }
+      	}
     </script>
     <%@ include file="/user/login.jsp"%>
     <%@ include file="/user/signup.jsp"%>
