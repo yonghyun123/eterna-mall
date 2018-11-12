@@ -57,14 +57,15 @@
 </footer>
 
 <script>
-  function popup(flag) {
+   function popup(flag) {
       var x = document.getElementById("${flag}");
-	  x.className= "show";
-      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-      
+      if(x){
+    	  x.className= "show";
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      }
   }
     if("${flag}" != null) {
     popup("${flag}");
-  }
+  } 
 </script>
 <% session.invalidate(); %>

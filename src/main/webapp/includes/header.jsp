@@ -37,12 +37,7 @@ if(request.getAttribute("cartCount") != null){
   </div> 
   <nav class="site-navigation text-right text-md-center" role="navigation">
     <div class="container">
-      <ul class="site-menu js-clone-nav d-none d-md-block">
-        <li>
-          <a href="/eterna.mall">Home</a>
-        </li>
-        <li><a href="/product.mall">Products</a></li>
-        <li><a href="/notice.jsp">FAQ</a></li>
+
       <ul class="site-menu js-clone-nav d-none d-md-block" id="topList">
         <li id="homeL"><a href="/eterna.mall">Home</a></li>
         <li id="productsL"><a href="/product.mall">Products</a></li>
@@ -80,6 +75,7 @@ if(request.getAttribute("cartCount") != null){
     <%@ include file="/user/login.jsp"%>
     <%@ include file="/user/signup.jsp"%>
     <%@ include file="/user/modal.jsp"%>
+    <%@ include file="/user/order-detail-modal.jsp"%>
   </nav>
 </header>
 
