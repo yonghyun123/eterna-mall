@@ -43,6 +43,8 @@ public class MybatisNonUserCartDao implements NonUserCartDao {
 		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
 		List<Cart> cartList = new ArrayList<Cart>();
 		for (String product : productValue) {
+			System.out.println("productId = " + product);
+
 			String[] productDetails = product.split("#");
 			Cart cart = sqlSession.selectOne(NAMESPACE+"listAll",productDetails[0]);
 			cart.setCount(productDetails[1]);

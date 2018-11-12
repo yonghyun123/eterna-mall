@@ -384,9 +384,9 @@
 				 dataType:"text",
 				 success: function(data){
 					if(data == 1){
-						$('#cart-succ-modal').modal();
+						$('#noncart-succ-modal').modal();
 					} else {
-						$('#cart-dup-modal').modal();
+						$('#noncart-dup-modal').modal();
 					}
 				 }
 			  }); 
@@ -556,3 +556,7 @@
 <%@ include file="qnaModal.jsp" %>
 <%@ include file="cart/cartDupModal.jsp" %>
 <%@ include file="cart/cartSuccessModal.jsp" %>
+<%@ include file="cart/nonusercartSuccessModal.jsp" %>
+<%@ include file="cart/nonusercartDupModal.jsp" %>
+
+

@@ -1,5 +1,6 @@
 package kr.or.kosta.eterna.nonusercart.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class NonUserCartListController implements Controller {
 		Cookie[] cookies; 
 		nonusercartService = (NonUserCartService) factory.getBean(NonUserCartServiceImpl.class);
 		List<Cart> list = null;
-		List<String> productValue = null;
+		List<String> productValue = new ArrayList<String>();
 		Map<String,String> map = new HashMap<String,String>();
 		if(request.getCookies().length != 1) {
 			cookies = request.getCookies();
@@ -43,8 +44,12 @@ public class NonUserCartListController implements Controller {
 				String products = cookie.getValue();
 				String [] productArray = products.split("@");
 				
-				for(String product : productArray) {
-					productValue.add(product);					
+/*				for(String product : productArray) {
+					//System.out.println("product=" + product);
+					productValue.add(index, product);					
+				}*/
+				for(int i=1; i<productArray.length; i++) {
+					productValue.add(i-1, productArray[i]);
 				}
 				try {
 					list=nonusercartService.listAll(productValue);
