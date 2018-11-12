@@ -38,6 +38,13 @@ public class MybatisBuyDao implements BuyDao {
 	}
 
 	@Override
+	public void nonCreateInfo(Buy buy) throws Exception{
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.insert(NAMESPACE + "noncreateInfo", buy);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	@Override
 	public void createManage(Buy buy) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		sqlSession.insert(NAMESPACE + "createManage", buy);
