@@ -38,7 +38,7 @@
 		<div class="container" data-aos="fade">
 			<div class="col-lg-10 video-cover">
 				<video autoplay muted loop id="myVideo">
-					<source src="videos/background.mp4" type="video/mp4">
+					 <source src="videos/background.mp4" type="video/mp4">
 				</video>
 			</div>
 		</div>
