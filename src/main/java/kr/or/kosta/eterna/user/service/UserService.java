@@ -1,6 +1,7 @@
 package kr.or.kosta.eterna.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.eterna.user.domain.User;
 
@@ -43,4 +44,7 @@ public interface UserService {
 	
 	/* id를 이용한 상위 등급 금액 조회 */
 	public int searchUpTier(String userId) throws Exception;
+	
+	/* my page 에서 이루어지는 userService기능*/
+	public Map<String, Object> myPage(String userId) throws Exception;
 }
