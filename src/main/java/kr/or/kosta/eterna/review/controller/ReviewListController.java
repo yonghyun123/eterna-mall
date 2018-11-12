@@ -60,6 +60,7 @@ public class ReviewListController implements Controller {
 			jsonObject.put("productId", review.getProductId());
 			jsonObject.put("regdate", review.getRegdate());
 			jsonObject.put("score", review.getScore());
+			jsonObject.put("levelNo", review.getLevelNo());
 			jsonObject.put("content", review.getContent());
 			
 			if(userId != null) {
