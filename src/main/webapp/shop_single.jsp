@@ -38,14 +38,10 @@
       </div>
     </div>
     <div class="site-section">
-    <c:forEach var="imageList" items="${imageList}" varStatus="status">
-
-    </c:forEach>
-    
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <img src="/images/${imageList[0].fileName}" alt="Image" class="img-fluid">
+          <div class="col-md-6 text-center">
+            <img src="/images/${imageList[0].fileName}" alt="Image" class="img-fluid shop-single-image" style="width:170px; height:280px">
           </div>
           <div class="col-md-6">
             <h2 class="text-black">${selectProduct.productDescription }</h2>
@@ -441,17 +437,32 @@
 
   function reviewTemplate(reviewData){
 	  var templateHtml = document.querySelector('#review-body').innerHTML;
+	  var generalHtml = document.querySelector('#qna-detail-body').innerHTML;
 	  var originHtml = document.querySelector('#in-tbody');
+	  
 	  var newHtml = '';
 	  reviewData.forEach(function(v,i){
 		  var scoreFormat = Number(v.score) * 20;
 		  scoreFormat+'%';
-		  newHtml += templateHtml.replace('{number}', i+1)
-		  						 .replace('{subject}', v.subject)
-		  						 .replace('{userId}', v.userId)
-		  						 .replace('{regdate}', v.regdate)  
-		  						 .replace('{score}', scoreFormat )
-		  						 .replace('{content}', v.content);
+		  if(v.levelNo == '0'){
+			  //신규글일때
+			  newHtml += templateHtml.replace('{number}', i+1)
+				 .replace('{subject}', v.subject)
+				 .replace('{userId}', v.userId)
+				 .replace('{regdate}', v.regdate)  
+				 .replace('{score}', scoreFormat )
+				 .replace('{content}', v.content);
+
+		  } else{
+			  //답변글일때
+			  newHtml += generalHtml.replace('{number}', i+1)
+				 .replace('{subject}','&emsp;[답변글]'+v.subject)
+				 .replace('{userId}', v.userId)
+				 .replace('{regdate}', v.regdate)  
+				 .replace('{score}', scoreFormat )
+				 .replace('{content}', v.content);
+		  }
+		 
 
 	  });
 	  originHtml.innerHTML = newHtml;
@@ -503,7 +514,7 @@
      }
        
      function qnaTemplate(jsonQnAData){
-   	  	var secretHtml = document.querySelector('#qna-body').innerHTML;
+   	  	  var secretHtml = document.querySelector('#qna-body').innerHTML;
   		  var generalHtml = document.querySelector('#qna-detail-body').innerHTML;
 		  var originHtml = document.querySelector('#qNa-body');
 		  
@@ -511,26 +522,53 @@
 		  jsonQnAData.forEach(function(v,i){
 		  /* 일반글일때 */
 		 	 if(v.secretFlag == '0'){
-				  newHtml += generalHtml.replace('{number}', i+1)
-					 .replace('{subject}', v.subject)
-					 .replace('{userId}', v.userId)
-					 .replace('{regdate}', v.regdate)
-					 .replace('{content}', v.content);
-			  } else if(v.secretFlag == '1'){
-				  /* 비밀글일때 조건이 userId와 쿠키와 가으면 generalHtml로 만들어줌 */
-				  if(v.userId == loginId){
+		 		 //신규글일때
+		 		 if(v.levelNo == '0'){
 					  newHtml += generalHtml.replace('{number}', i+1)
-						 .replace('{subject}', v.subject+'[비밀글]')
+						 .replace('{subject}', v.subject)
 						 .replace('{userId}', v.userId)
 						 .replace('{regdate}', v.regdate)
 						 .replace('{content}', v.content);
-				  }else {
-					  newHtml += secretHtml.replace('{number}', i+1)
-						 .replace('{subject}', v.subject+'[비밀글]')
+		 		 } else {
+		 			 //답변글일때
+					  newHtml += generalHtml.replace('{number}', i+1)
+						 .replace('{subject}', '&emsp;[관리자]'+v.subject)
 						 .replace('{userId}', v.userId)
 						 .replace('{regdate}', v.regdate)
 						 .replace('{content}', v.content);
+		 		 }
+		 		/* 비밀글일때 조건이 userId와 쿠키와 가으면 generalHtml로 만들어줌 */
+			  } else if(v.secretFlag == '1'){
+				  if(v.levelNo == '0'){
+					  if(v.userId == loginId){
+						  newHtml += generalHtml.replace('{number}', i+1)
+							 .replace('{subject}', v.subject+'[비밀글]')
+							 .replace('{userId}', v.userId)
+							 .replace('{regdate}', v.regdate)
+							 .replace('{content}', v.content);
+					  }else {
+						  newHtml += secretHtml.replace('{number}', i+1)
+							 .replace('{subject}', v.subject+'[비밀글]')
+							 .replace('{userId}', v.userId)
+							 .replace('{regdate}', v.regdate)
+							 .replace('{content}', v.content);
+					  }
+				  } else{
+					  if(v.userId == loginId){
+						  newHtml += generalHtml.replace('{number}', i+1)
+							 .replace('{subject}', '&emsp;[관리자]'+v.subject)
+							 .replace('{userId}', v.userId)
+							 .replace('{regdate}', v.regdate)
+							 .replace('{content}', v.content);
+					  }else {
+						  newHtml += secretHtml.replace('{number}', i+1)
+							 .replace('{subject}', '&emsp;[관리자]'+v.subject)
+							 .replace('{userId}', v.userId)
+							 .replace('{regdate}', v.regdate)
+							 .replace('{content}', v.content);
+					  }
 				  }
+				
 	
 			  }
 		  });

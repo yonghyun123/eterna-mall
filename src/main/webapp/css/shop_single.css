@@ -1,8 +1,10 @@
 @charset "utf-8";
+
 .create {
    float: right;
    margin-bottom: 2%;
 }
+
 .detail {
    width: 100%;
    margin-top: 2%;
@@ -40,7 +42,9 @@
 .btn-group-justified>.btn-group .dropdown-menu {
    left: auto;
 }
+
 /* Style the tab */
+
 .tab {
    overflow: hidden;
    border: 1px solid #ccc;
@@ -48,6 +52,7 @@
 }
 
 /* Style the buttons inside the tab */
+
 .tab button {
    background-color: inherit;
    float: left;
@@ -62,16 +67,19 @@
 }
 
 /* Change background color of buttons on hover */
+
 .tab button:hover {
    background-color: #ddd;
 }
 
 /* Create an active/current tablink class */
+
 .tab button.active {
    background-color: #ccc;
 }
 
 /* Style the tab content */
+
 .tabcontent {
    display: none;
    padding: 2% 12px;
@@ -93,8 +101,6 @@
    resize: none;
 }
 
-
-
 .image-row {
    text-align: center;
 }
@@ -109,9 +115,11 @@
     background-color: #fff;
     border: 1px solid #ddd;
 }
+
 .custom_pagination{
 	float: right;
 }
+
 .open-close{
 	font-size: 5px;
     color: green;
@@ -127,6 +135,7 @@
     text-indent: -9999px;
     cursor: pointer;
 }
+
 .starR2{
     background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
     background-size: auto 100%;
@@ -136,6 +145,7 @@
     text-indent: -9999px;
     cursor: pointer;
 }
+
 .starR1.on{background-position:0 0;}
 .starR2.on{background-position:-15px 0;}
 
@@ -145,6 +155,7 @@
     height: 14px;
     background-position: 0 -61px
 }
+
 .section_review_list .short_review_area .grade_area .graph_value {
     display: inline-block;
     width: 78px;
@@ -152,6 +163,7 @@
     background-position: 0 -76px;
     vertical-align: top
 }
+
 .section_review_list .grade_area .graph_mask,.section_review_list .grade_area .graph_value,.section_review_list .short_review_area .review_info .grade:before {
     background-image: url(../images/spr_comment.png);
     background-repeat: no-repeat;

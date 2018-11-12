@@ -25,11 +25,12 @@ import kr.or.kosta.eterna.qna.service.QnAServiceImpl;
 public class CartCheckFilter implements Filter {
 
 	private String cookieName;
+	private String products; 
 	private CartService cartService;
 	private QnAService qnaService;
 	private int countCart = 0;
 	private int countAnswer = 0;
-
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
@@ -42,6 +43,7 @@ public class CartCheckFilter implements Filter {
 		qnaService = (QnAService) factory.getBean(QnAServiceImpl.class);
 		Cookie[] cookies = ((HttpServletRequest) request).getCookies();
 		boolean isLogin = false;
+		boolean hasProduct = false;
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("loginId")) {
@@ -50,7 +52,17 @@ public class CartCheckFilter implements Filter {
 					break;
 				}
 			}
+			
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("products")) {
+				products = cookie.getValue();
+				hasProduct = true;
+					break;
+				}
+			}
+			
 		}
+		
 		if (isLogin) {
 			try {
 				countCart = cartService.countOfCart(cookieName);
@@ -58,7 +70,11 @@ public class CartCheckFilter implements Filter {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else{
+		}else if(hasProduct){
+			String [] product =products.split("@"); 
+			countCart = product.length -1;
+			countAnswer = 0;
+		}else {
 			countCart = 0;
 			countAnswer = 0;
 		}

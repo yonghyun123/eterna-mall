@@ -16,7 +16,7 @@
               <textarea class="review" name="content" id="qna-contents" rows="6"  maxlength="200" required="required"></textarea>
             </div>
 			<div class="checkbox">
-              <label><input type="checkbox" id="secret-flag" value="1" name="secret-flag">Remember me</label>
+              <label><input type="checkbox" id="secret-flag" value="1" name="secret-flag">비밀글로 저장하기</label>
             </div>
 			<input type="hidden" name="productId" id="qna-modal-productId">
 			<input type="hidden" name="userId" id="qna-modal-userId">

@@ -47,11 +47,11 @@ if(request.getAttribute("answerCount") != null){
   </div> 
   <nav class="site-navigation text-right text-md-center" role="navigation">
     <div class="container">
+
       <ul class="site-menu js-clone-nav d-none d-md-block" id="topList">
         <li id="homeL"><a href="/eterna.mall">Home</a></li>
         <li id="productsL"><a href="/product.mall">Products</a></li>
         <li id="faqL"><a href="/notice.jsp">FAQ</a></li>
-
         <c:choose>
           <c:when test="${!empty cookie.loginId.value}">
               <li><a id="logout-btn">Logout</a></li>

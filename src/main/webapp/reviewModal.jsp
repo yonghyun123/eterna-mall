@@ -16,6 +16,7 @@
               <label for="id"><span class="glyphicon glyphicon-user"></span> 리뷰 내용</label>
               <textarea class="review" name="content" id="review-contetn" rows="6" maxlength="200" placeholder="리뷰내용"></textarea>
             </div>
+            <p>제품 평가하기</p>
             <div class="starRev">
 			  <span class="starR1 on">0.5</span>
 			  <span class="starR2">1.0</span>
@@ -28,10 +29,14 @@
 			  <span class="starR1">4.5</span>
 			  <span class="starR2">5.0</span>
 			</div>
+			<div class="row">
+			 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>리뷰 등록하기</button>
+			</div>
+			<p></p>
 			<input type="hidden" name="score" value="0.5" id="hidden-score">
 			<input type="hidden" name="productId" id="review-modal-productId">
 			<input type="hidden" name="userId" id="review-modal-userId">
-              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>리뷰 등록하기</button>
+             
           </form>
         </div>
       </div>
@@ -48,7 +53,6 @@
 	  $(this).parent().children('span').removeClass('on');
 	  var score = $(this).addClass('on').text();
 	  $(this).addClass('on').prevAll('span').addClass('on');
-	  console.log(score);
 	  $('#hidden-score').val(score);
 	  
 	  return false;
