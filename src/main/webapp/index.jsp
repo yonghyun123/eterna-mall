@@ -35,7 +35,7 @@
 </head>
 <body>
 	<div class="site-wrap">
-		<div class="container" data-aos="fade">
+		<div class="container video-section" data-aos="fade">
 			<div class="col-lg-10 video-cover">
 				<video autoplay muted loop id="myVideo">
 					 <source src="videos/background.mp4" type="video/mp4">
@@ -104,9 +104,8 @@
 										varStatus="status">
 										<div class="item">
 											<div class="block-4 text-center">
-												<figure class="block-4-image">
-													<img src="/images/${Hproduct.thumnail }" alt="Image placeholder"
-														class="img-fluid">
+												<figure class="block-4-imag">
+													<img src="/images/${Hproduct.thumnail }" alt="Image placeholder" class="img-fluid hot-item-image">
 												</figure>
 												<div class="block-4-text p-4">
 													<h3>
