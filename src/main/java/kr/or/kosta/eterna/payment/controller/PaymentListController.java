@@ -62,29 +62,41 @@ public class PaymentListController implements Controller {
 		String productCount = request.getParameter("productCount");
 
 		try {	
-				if(userId!=null) {
+			if(userId!=null) {
 				recentAddressList = buyService.recentAddress(userId);
 				cartList = cartService.toBuylistAll(userId);
 				couponList = couponService.userCouponList(userId);
 				user = userService.read(userId);
-				}
-				if (productId != null) {
-					orderCart = cartService.order(productId);
+			}
+			if (productId != null) {
+				orderCart = cartService.order(productId);
 			}
 
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);
 		}
-
-		if (productId == null) {
-			mav.addObject("cartList", cartList);
-			mav.addObject("uriCheck", "cartpayment");
-		} else {
+		
+		//비회원 주문이면서 단일 상품주문
+		if(userId == null && productId != null){
+			orderCart.put("count", productCount);
+			orderCart.put("productId", productId);
+			orderList.add(orderCart);
+			mav.addObject("cartList", orderList);
+			mav.addObject("uriCheck", "nonpayment");
+		//회원이면서 단일 상품주문
+		} else if(userId != null && productId != null){
 			orderCart.put("count", productCount);
 			orderCart.put("productId", productId);
 			orderList.add(orderCart);
 			mav.addObject("cartList", orderList);
 			mav.addObject("uriCheck", "payment");
+		//회원이면서 장바구니 상품주문	
+		} else if(userId != null && productId == null) {
+			mav.addObject("cartList", cartList);
+			mav.addObject("uriCheck", "cartpayment");
+		//비회원 주문이면서 장바구니 쿠키이용할때	
+		} else {
+			mav.addObject("uriCheck", "noncartpayment");
 		}
 
 		mav.addObject("recentAddressList", recentAddressList);

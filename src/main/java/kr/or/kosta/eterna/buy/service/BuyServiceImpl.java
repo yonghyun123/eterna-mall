@@ -18,6 +18,12 @@ public class BuyServiceImpl implements BuyService {
    public void setBuyDao(BuyDao buyDao) {
       this.buyDao = buyDao;
    }
+   
+   @Override
+   public void nonCreate(Buy buy) throws Exception{
+	  buyDao.nonCreateInfo(buy);
+	  buyDao.createManage(buy);
+   }
 
    @Override
    public void create(Buy buy) throws Exception {

@@ -38,4 +38,6 @@ public interface BuyService {
    
    /* 주문번호별 상세보기 */
    public List<Buy> showOrderDetailUser(String id) throws Exception;
+   /*비회원 단일 상품 구매 */
+   void nonCreate(Buy buy) throws Exception;
 }

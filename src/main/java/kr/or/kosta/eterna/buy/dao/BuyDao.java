@@ -51,5 +51,7 @@ public interface BuyDao {
 	
 	/* 주문번호별 상세보기 */
 	public List<Buy> showOrderDetailUser(String id) throws Exception;
+	/* 비회원 단일상품 구매 */
+	void nonCreateInfo(Buy buy) throws Exception;
 
 }

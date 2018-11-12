@@ -183,10 +183,6 @@
   <script src="../js/adminController.js"></script>
 
 <script>
-window.onload = function(){
-	eventRegist();
-}
-
 function eventRegist(){
 	
 	/*모달 창에 product table의 id 값을 전해줌*/
@@ -203,6 +199,7 @@ function eventRegist(){
 	}
 }
 
+eventRegist();
 </script>
 </body>
 

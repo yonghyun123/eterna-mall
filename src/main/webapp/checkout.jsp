@@ -131,19 +131,20 @@
                <thead>
                 <tr class="col-md-12">
                   <th>Name</th>
-                  <td><input type="text" class="form-control col-md-3" id="sendName" name="sendName"></td>
+                  <td class="col-md-6"><input type="text" class="form-control col-md-3" id="sendName" name="sendName"><span id="buyer-name-id"></span></td>
                 </tr>
+                
                 <tr class="col-md-12">
                   <th>Phone</th>
-                  <td><input type="text" class="form-control col-md-3" id="sendTel" name="sendTel"></td>
+                  <td><input type="text" class="form-control col-md-3" id="buyer-sendTel" name="sendTel"><span id="buyer-tel-id"></span></td>
                 </tr>
                 <tr class="col-md-12">
                   <th>E-mail</th>
-                  <td><input type="text" class="form-control col-md-3" id="sendEmail" name="sendEmail"></td>
+                  <td><input type="text" class="form-control col-md-3" id="sendEmail" name="sendEmail"><span id="buyer-email-id"></span></td>
                 </tr>
                 <tr class="col-md-12">
                   <th>Password</th>
-                  <td><input type="text" class="form-control col-md-3" id="sendPassword" name="sendPassword"></td>
+                  <td><input type="text" class="form-control col-md-3" id="sendPassword" name="sendPassword"><span id="buyer-passwd-id"></span></td>
                 </tr>
               </thead>
               </c:otherwise>
@@ -189,11 +190,11 @@
                 </tr>
                 <tr class="col-md-12">
                   <th>수령인 이름</th>
-                  <td><input type="text" class="form-control col-md-3" id="receiver" name="name"></td>
+                  <td><input type="text" class="form-control col-md-3" id="receiver" name="receiverName"><span id="receiver-name-id"></span></td>
                 </tr>
                 <tr class="col-md-12">
                   <th>휴대폰</th>
-                  <td class="phone"><input type="text" class="form-control col-md-3" id="receiverPhone" name="phone" maxlength="11"></td>
+                  <td class="phone"><input type="text" class="form-control col-md-3" id="receiverPhone" name="receiverPhone" maxlength="11"><span id="receiver-tel-id"></span></td>
                 </tr>
                 <tr class="col-md-12">
                   <th>배송요청사항</th>
@@ -248,12 +249,29 @@
                 </c:when>
                 <c:otherwise>
                 <tr class="col-md-12">
+	
                   <th>쿠폰 적용 </th>
-                  <td>보유한 쿠폰이 존재하지 않습니다</td>
+                  <td>보유한 쿠폰이 존재하지 않습니다
+					<div class="find" style="display: none;">
+                      선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon" class="btn btn-primary btn-sm">쿠폰 선택</a> 
+                      <input type="hidden"  class="couponId">
+                      <input type="hidden" class="couponRate">
+                      <a id="cancleCoupon" >적용 취소</a>
+                    </div>
+                  </td>
                 </tr>
                 <tr class="col-md-12">
                   <th>적립금 적용</th>
-                  <td>보유한 적립금이 존재하지 않습니다</td>
+                  <td>보유한 적립금이 존재하지 않습니다
+					<div style="display: none;"> 사용가능 적립금 : <span class="availablePoint">${user.userPoint }</span> (원) 
+					<a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
+					<a id="canclePointBtn" >적용 취소</a>
+                    </div>
+                    <div class="toUsePoint" style="display: none;">
+                      <span>사용할 적립금 : </span>
+                      <input type="text" class="form-control" id="toUsePoint" name="name">
+                      <span>(원)</span>
+                    </div></td>
                 </tr> 
                 </c:otherwise>
                 </c:choose>
@@ -545,7 +563,25 @@
 				  var receiver = $('#receiver').val();
 				  var receiverPhone = $('#receiverPhone').val();
 				  var productTotalCount = $('#product-total-count').val();
+				  
+				  var buyerName;
+				  var buyerPasswd;
+				  var buyerPhone;
 
+				  if($('#sendName')){
+					  buyerName = $('#sendName').val();
+				  }
+				  if($('#sendPassword')){
+					  buyerPasswd = $('#sendPassword').val();
+				  }
+				  if($('#buyer-sendTel')){
+					  buyerPhone = $('#buyer-sendTel').val();
+				  }
+				  
+				  
+				  console.log(buyerName);
+				  console.log(buyerPasswd);
+				  console.log(buyerPhone);
 				  console.log(reducePrice);
 				  console.log(productId);
 				  console.log(productCount);
@@ -561,7 +597,26 @@
 		          form.setAttribute("charset", "UTF-8");
 		          form.setAttribute("method", "Post");
 		          form.setAttribute("action", postUri);
-
+		          
+		          //buyerInfo
+		          //buyerName
+				  var hiddenBuyerName = document.createElement("input");
+				  hiddenBuyerName.setAttribute("type", "hidden");
+				  hiddenBuyerName.setAttribute("name", "buyerName");
+				  hiddenBuyerName.setAttribute("value", buyerName);
+					  
+				  //buyerPhone
+				  var hiddenBuyerPhone = document.createElement("input");
+				  hiddenBuyerPhone.setAttribute("type", "hidden");
+				  hiddenBuyerPhone.setAttribute("name", "buyerPhone");
+				  hiddenBuyerPhone.setAttribute("value", buyerPhone);
+				  
+				  //buyerPasswd
+				  var hiddenBuyerPasswd = document.createElement("input");
+				  hiddenBuyerPasswd.setAttribute("type", "hidden");
+				  hiddenBuyerPasswd.setAttribute("name", "buyerPasswd");
+				  hiddenBuyerPasswd.setAttribute("value", buyerPasswd);
+				  
 		          //productId
 		          var hiddenProductId = document.createElement("input");
 		 		  hiddenProductId.setAttribute("type", "hidden");
@@ -615,14 +670,10 @@
 		          hiddenProductTotalCount.setAttribute("type", "hidden");
 		          hiddenProductTotalCount.setAttribute("name", "productTotalCount");
 		          hiddenProductTotalCount.setAttribute("value", productTotalCount);
-		        
-		          /*비회원 단일 구매 */
-				  var hiddenProductTotalCount = document.createElement("input");
-		          hiddenProductTotalCount.setAttribute("type", "hidden");
-		          hiddenProductTotalCount.setAttribute("name", "productTotalCount");
-		          hiddenProductTotalCount.setAttribute("value", productTotalCount);
-		        
 			          
+		          form.appendChild(hiddenBuyerName);
+		          form.appendChild(hiddenBuyerPhone);
+		          form.appendChild(hiddenBuyerPasswd);
 		          form.appendChild(hiddenProductId);
 		          form.appendChild(hiddenProductCount);
 		          form.appendChild(hiddenTotalPrice);
@@ -640,11 +691,194 @@
 	  });
     }
     
-    buyBtnClicked()
+    buyBtnClicked();
+
+    
+    var inputRegExpr = {
+		   passwdCheck: function(val){
+			      var msg = '';
+			      var regPasswd = /^(?=.*[a-zA-Z])(?=.*\d).{5,15}$/;
+			       if(val.length == 0){
+		             msg = ' ';
+		             checkpw = 0;
+		          }
+			      else if (val.length > 15 || val.lengh < 5 || !regPasswd.test(val)) {
+			         msg = '패스워드 길이는 영문, 숫자 포함 5~15자 입니다.';
+			      } else {
+			    	  msg = '사용가능합니다.'
+			         checkpw = 1;
+			      }
+				  document.getElementById('buyer-passwd-id').innerText = msg;
+		   },
+		   nameCheck: function(val){
+			   var msg = '';
+			      var regName = /(^[가-힣]{2,10}$|^[a-zA-Z]{2,10})/;
+			       if(val.length == 0){
+		             msg = ' ';
+		             checkName = 0;
+			      }
+			      else if (!regName.test(val)) {
+			         msg = ' 영문, 한글 2~10자 내로 입력 가능합니다.';
+			         checkName = 0;
+			      } else {
+			    	  msg = '사용가능합니다.'
+			         checkName = 1;
+			      }
+			       document.getElementById('buyer-name-id').innerText = msg;
+		   },
+		   receiverNameCheck: function(val){
+			   var msg = '';
+			      var regName = /(^[가-힣]{2,10}$|^[a-zA-Z]{2,10})/;
+			      if(val.length == 0){
+		             msg = ' ';
+		             checkReceiverName = 0;
+			      }
+			      else if (!regName.test(val)) {
+			         msg = ' 영문, 한글 2~10자 내로 입력 가능합니다.';
+			         checkReceiverName = 0;
+			      } else {
+			    	  msg = '사용가능합니다.';
+			    	  checkReceiverName = 1;
+			      }
+			       document.getElementById('receiver-name-id').innerText = msg;
+		   },
+		   emailCheck: function(val){
+			  var msg = '';
+		      var regEmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+		      if(val.length == 0){
+		         msg = ' ';
+		         checkemail = 0;
+		      }
+		      else if(!regEmail.test(val)){
+	               msg = '이메일 형식에 맞게 입력해주세요.';
+	               checkemail= 0;
+		      }else{
+                msg = '사용가능합니다.'
+                checkemail=1;
+		      }
+		      document.getElementById('buyer-email-id').innerText = msg;
+		   },
+		   
+		   phoneCheck: function(val){
+			   var msg = '';
+		       var regTel = /^01([0|1|6|7|8|9]?)?([0-9]{8,9})$/;
+		       if(val.length == 0){
+	              msg = ' ';
+	              checkTel = 0;
+		       }
+		       else if (!regTel.test(val)) {
+		          msg = ' 01012341234 형식으로 입력해주세요.';
+		          checkTel = 0;
+		       } else {
+		          msg = '사용가능합니다.'
+		          checkTel = 1;
+		       }
+		       document.getElementById('buyer-tel-id').innerText = msg;
+		   },
+		   receiverPhoneCheck: function(val){
+			   var msg = '';
+		       var regTel = /^01([0|1|6|7|8|9]?)?([0-9]{8,9})$/;
+		       if(val.length == 0){
+	              msg = ' ';
+	              checkReceiverTel = 0;
+		       }
+		       else if (!regTel.test(val)) {
+		          msg = ' 01012341234 형식으로 입력해주세요.';
+		          checkReceiverTel = 0;
+		       } else {
+		          msg = '사용가능합니다.';
+		          checkReceiverTel = 1;
+		       }
+		       document.getElementById('receiver-tel-id').innerText = msg;
+		   },
+		   
+		   addressCheck: function(val){
+			   /* 주소 공백 확인 */
+		       var zip = document.getElementById('zip-code').value;
+		       var street = document.getElementById('street-address').value;
+		       var detail = document.getElementById('detail-address').value;
+		       if(zip.length != 0 && street.length != 0 && detail.length != 0){
+		          checkAddress = 1;
+		       }else{
+		          checkAddress = 0;
+		       }
+		   }
+	};
+    
+    //비회원 유효성 체크 함수
+    function checkExprInputData(){
+    	var checkpw = 0;
+    	var checkName = 0;
+    	var checkemail = 0;
+    	var checkTel = 0;
+    	var checkReceiverName = 0;
+    	var checkReceiverTel = 0;
+    	
+    	var sendName = document.querySelector('#sendName');
+    	var sendTel = document.querySelector('#buyer-sendTel');
+    	var sendPassword = document.querySelector('#sendPassword');
+    	var sendEmail = document.querySelector('#sendEmail');
+    	var receiverName = document.querySelector('#receiver');
+    	var receiverPhone = document.querySelector('#receiverPhone');
+    	receiverName.onkeyup = function(){
+    		var val = this.value;
+    		inputRegExpr.receiverNameCheck(val);
+    		ableJoin();
+    	}
+    	receiverPhone.onkeyup = function(val){
+    		var val = this.value;
+    		inputRegExpr.receiverPhoneCheck(val);
+    		ableJoin();
+    	}
+    	
+    	sendName.onkeyup = function(){
+    		var val = this.value;
+    		inputRegExpr.nameCheck(val);
+    		ableJoin();
+    	};
+    	sendEmail.onkeyup = function(){
+    		var val = this.value;
+    		inputRegExpr.emailCheck(val);
+    		ableJoin();
+    	};
+    	sendPassword.onkeyup = function(){
+    		var val = this.value;
+    		inputRegExpr.passwdCheck(val);
+    		ableJoin();
+    	};
+    	sendTel.onkeyup = function(){
+    		var val = this.value;
+    		inputRegExpr.phoneCheck(val);
+    		ableJoin();
+    	}
+        document.getElementById('new-zipcod-address').onkeyup = function(){
+        	inputRegExpr.addressCheck();
+            ableJoin();
+         }
+         
+         document.getElementById('new-street-address').onkeyup = function(){
+        	inputRegExpr.addressCheck();
+            ableJoin();
+         }
+         
+         document.getElementById('new-detail-address').onkeyup = function(){
+        	inputRegExpr.addressCheck();
+            ableJoin();
+         }
+    	
+    }
+    //checkExprInputData();
+    
+    /* 유효성 확인 후 join 버튼 활성화 */
+    function ableJoin(){
+       if(checkpw == 1 && checkemail==1 && checkName == 1 && checkTel == 1 && checkReceiverName == 1 && checkReceiverTel == 1){
+          document.getElementById("loading-btn").disabled = false;
+       }else{
+          document.getElementById("loading-btn").disabled = true;
+       }
+    }
     </script>
   
   </body>
 </html>
 
-
->>>>>>> 0e9dabfca5add47d9f6e41d4c6a7cebd59498701
