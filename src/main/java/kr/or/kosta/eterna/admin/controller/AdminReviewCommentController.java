@@ -25,6 +25,7 @@ public class AdminReviewCommentController implements Controller {
          throws ServletException {
       String id = request.getParameter("id");
       String content = request.getParameter("content");
+      content = content.replace("\r\n", "<br>");
       ModelAndView mav = new ModelAndView();
       XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
       reviewService = (ReviewService) factory.getBean(ReviewServiceImpl.class);

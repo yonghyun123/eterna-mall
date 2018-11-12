@@ -152,7 +152,7 @@
 
 	<!-- 유저별 구매 총액 조회 by 이철우 -->
 	<select id="userPriceAmount" resultType="int" parameterType="String">
-		SELECT SUM(total_price)
+		SELECT NVL(SUM(total_price),0)
 		FROM sm_buy_info
 		WHERE user_id = #{userId}
 	</select>
