@@ -50,8 +50,14 @@
     <div class="cart-section">
       <div class="container">
         <div class="row mb-4">
-          <form class="col-md-12" method="post"
-            action="/cartDelete.mall">
+          <c:choose>
+          <c:when test="${loginId != null }">
+          <form class="col-md-12" method="post" action="/cartDelete.mall">
+            </c:when>
+            <c:otherwise>
+            <form class="col-md-12" method="post" action="/nonUserCartDelete.mall">
+            </c:otherwise>
+            </c:choose>
             <div>
               <table class="cart-table">
                 <thead>
@@ -292,7 +298,7 @@
 
 				var hiddenDelete = document.createElement("input");
 				hiddenDelete.setAttribute("type", "hidden");
-				hiddenDelete.setAttribute("name", "productId");
+				hiddenDelete.setAttribute("name", "deleteCheck");
 				hiddenDelete.setAttribute("value", productId);
 				form.appendChild(hiddenDelete);
 				document.body.appendChild(form);
