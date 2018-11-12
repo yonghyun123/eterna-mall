@@ -1,8 +1,5 @@
 package kr.or.kosta.eterna.review.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +23,9 @@ public class ReviewCreateController implements Controller{
 		String productId = request.getParameter("productId");
 		String userId = request.getParameter("userId");
 		String subject = request.getParameter("subject");
-		String boardId = "1";
 		String content = request.getParameter("content");
 		String score = request.getParameter("score");
+		content = content.replace("\r\n", "<br>");
 		
 		Review review = new Review();
 		review.setProductId(productId);

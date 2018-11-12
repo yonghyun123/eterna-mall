@@ -32,10 +32,21 @@ if(request.getAttribute("answerCount") != null){
               </li>
               
               <li>
+              	<c:choose>
+              	
+              	<c:when test="${loginId != null }">
                 <a href="/cart.mall" class="site-cart">
                   <span class="icon icon-shopping_cart"></span>
                   <span class="count"><%=countOfCart %></span>
                 </a>
+                </c:when>
+           		<c:otherwise>
+           		  <a href="/nonUserCartList.mall" class="site-cart">
+                  <span class="icon icon-shopping_cart"></span>
+                  <span class="count"><%=countOfCart %></span>
+                </a>
+           		 </c:otherwise>
+            </c:choose>  
               </li> 
               <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
             </ul>

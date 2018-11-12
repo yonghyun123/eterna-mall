@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding='UTF-8' %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
     <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
     <meta charset="utf-8">
@@ -139,17 +138,19 @@
                             </c:forEach>
                             </td>
                             <td class="order-date-flag text-center">
-                            ${orderAllList[startIndex].orderDate } <br>
                             <c:set var="flag" value="${orderAllList[startIndex].orderFlag }"/> 
                             <c:choose>
                               <c:when test="${flag == 0 }">
-                               배송 완료
+                                ${orderAllList[startIndex].orderDate } 출발 <br>
+                                배송 전
                               </c:when>
                               <c:when test="${flag == 1 }">
-                               배송 중
+                                ${orderAllList[startIndex].orderDate } 출발 <br>
+                                배송 중
                               </c:when>
                               <c:when test="${flag == 2 }">
-                               배송준비중
+                                ${orderAllList[startIndex].receiverDate } 도착 <br>
+                                배송 완료
                               </c:when>
                             </c:choose>
                             </td>
@@ -157,7 +158,7 @@
                           <c:set var="endIndex" value="${endIndex + orderProductsLength[i.index + 1].numPurchase }"/>
                           <c:set var="startIndex" value="${startIndex + orderProductsLength[i.index].numPurchase }"/>
                           
-                        </c:forEach>  
+                        </c:forEach>
                       </tbody>
                     </table>
                   </div>
@@ -261,6 +262,12 @@
         </div>
       </div>
     </div>
+    <div id="popup-message-PWCheck-fail">비밀번호가 일치하지 않습니다</div>
+    <div id="popup-message-emailCheck-success">이메일 중복 확인</div>
+    <div id="popup-message-emailCheck-fail">중복된 이메일이 존재합니다</div>
+    <div id="popup-message-update-success">사용가능한 이메일입니다</div>
+    <div id="popup-message-Userupdate-success">개인정보가 수정되었습니다</div>
+    <div id="popup-message-inputPW">비밀번호를 입력해주세요</div>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="/js/jquery-3.3.1.min.js"></script>
@@ -343,7 +350,7 @@
   <script type="my-template" id="detail-footer">
   <div class="product-text">
     <div class="product-price-count">{orderFlag}!</div> 
-    <div class="product-name"><h4>{receiveDate} 도착</h4></div>
+    <div class="product-name"><h4>{receiveDate}</h4></div>
   </div><br>
   </script>
   
@@ -395,13 +402,13 @@
                           </tr>
                           <tr>
                             <th>새 비밀번호</th>
-                            <td><input type="text" id="newPW">
+                            <td><input type="password" id="newPW"><span id="modifyPutPw"></span>
                             </td>
                           </tr>
                           <tr>
                             <th>새 비밀번호 확인</th>
-                            <td><input type="text"
-                              id="confirmNewPW"></td>
+                            <td><input type="password"
+                              id="confirmNewPW"><span id="modifyPutCheckPw"></span></td>
                           </tr>
                           <tr>
                             <th>이름</th>
@@ -411,7 +418,9 @@
                             <th>이메일</th>
                             <td><input type="text"
                               id="new-userEmail"
-                              placeholder="{userEmail}">
+                              value="{userEmail}"><span id="modifyPutEmail"></span>
+<input type="button"
+                        class="btn btn-success emailCheck" value="중복체크">
                             </td>
                           </tr>
                           <tr>
@@ -422,7 +431,7 @@
                             <th rowspan="3">주소</th>
                             <td><input type="text"
                               id="new-zipcod-address"
-                              placeholder="{userZipcode}">
+                              value="{userZipcode}" readOnly="readOnly">
                               <input type="button"
                               class="btn btn-success"
                               onclick="daumPostcode()" value="search"></td>
@@ -430,13 +439,13 @@
                           <tr>
                             <td><input type="text"
                               id="new-street-address"
-                              placeholder="{userStreetAddress}">
+                              value="{userStreetAddress}" readOnly="readOnly"></span>
                             </td>
                           </tr>
                           <tr>
                             <td><input type="text"
                               id="new-detail-address"
-                              placeholder="{userDetailAddress}">
+                              value="{userDetailAddress}"></span>
                             </td>
                           </tr>
                           <tr>
@@ -446,7 +455,7 @@
                         </tbody>
                       </table>
                       <input type="button"
-                        class="btn btn-success modify" value="수정">
+                        class="btn btn-success modify" disabled value="수정">
                     </div>
 </script>
   <script type="my-template" id="confirm-body">
@@ -476,7 +485,7 @@
                         <div class="group_btn">
                           <span class="inner_groupbtn">
                             <button class="btn btn-primary btn-sm"
-                              id="confirmPasswdBtn">확인</button>
+                              id="confirmPasswdBtn" >확인</button>
                           </span>
                         </div>
                       </div>
@@ -494,6 +503,13 @@
       </div>
 </script>
   <script>
+  /* 유효성 체크를 위한 flag들 */
+  var checkpw = 0;
+  var checkconfirm = 0;
+  var checkemail = 1;
+  var checkAddress = 1;
+  var emailCheck = 0;
+  /* 탭 클릭 */
   function openCity(evt, cityName) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
@@ -507,7 +523,7 @@
       }
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
-      
+      /* 상품후기 탭 클릭 */
       if(evt.currentTarget.id == 'product-review'){
         $.ajax({
            url: "/reviewlist.mall",
@@ -519,7 +535,7 @@
            }
           });
       }
-      
+      /* 쿠폰 탭 클릭 */
       if(evt.currentTarget.id == 'user-coupon'){
           $.ajax({
              url: "/user/coupon.mall",
@@ -531,13 +547,14 @@
              }
             });
         }
+      /* 개인정보 수정 탭 클릭 */
       if (evt.currentTarget.id == 'user-modify') {
       var templateHtml = document.querySelector('#confirm-body').innerHTML;
       var originHtml = document.querySelector('#in-mbody');
       originHtml.innerHTML = templateHtml;
     }
   }
-  
+  /* 주문번호별 상세정보 */
   var orderList = document.querySelectorAll(".order-number");
   for (var i = 0; i < orderList.length; i++) {
         orderList[i].addEventListener('click', function(event) {
@@ -557,7 +574,7 @@
            })
         });
   }
-  
+  /* 리뷰  */
   function reviewTemplate(reviewData){
     var templateHtml = document.querySelector('#review-body').innerHTML;
     var originHtml = document.querySelector('#in-rbody');
@@ -613,7 +630,6 @@
     detailData.forEach(function(v,i){
       newHtml = templateHtml.replace('{orderDate}', v.orderDate)
                    .replace('{orderId}', v.orderNumber );
-
     });
     originHtml.innerHTML = newHtml;
     
@@ -661,6 +677,7 @@
     });
     originHtml.innerHTML = newHtml;
   }
+  /* 개인정보 수정 - 수정하기 버튼 눌렀을때 */
   $(document).on("click",".modify",function(event) {
     var userEmail = document.getElementById('new-userEmail').value;
     var confirmNewPW = document.getElementById('confirmNewPW').value;
@@ -669,7 +686,6 @@
     var detail = document.getElementById('new-detail-address').value;
     var newAddress = zipcode +'/'+ street+'/'+detail;
     var params = "confirmNewPW=" + confirmNewPW +"&userEmail="+userEmail+ "&newAddress=" + newAddress;
-    console.log(params);
     $.ajax({
       url : "/user/updateInfo.mall",
       type : "get",
@@ -682,21 +698,60 @@
       }
     });
   });
+  /* 개인정보 수정 - 이메일 중복 체크 */
+  $(document).on("click",".emailCheck",function(event) {
+    var emailCheck = document.getElementById('new-userEmail').value.trim();
+    var params = "emailCheck=" + emailCheck;
+    $.ajax({
+      url : "/user/updateInfo.mall",
+      type : "get",
+      dataType : "text",
+      data :  params,
+      success : function(data) {
+        if(data.trim()=='success'){
+        popup("popup-message-update-success");
+        document.getElementById('new-userEmail').readOnly = true;
+        document.querySelector('.emailCheck').disabled = true;
+        emailCheck = 1;
+        ableJoin();
+        } else if(data.trim() == 'fail'){
+        popup("popup-message-emailCheck-fail");
+        emailCheck = 0;
+        }
+      }
+    });
+  });
   
+  
+  /* 개인정보 수정 - 비밀번호 체크 */
   $(document).on("click","#confirmPasswdBtn",function(event) {
-    var inputPW = "inputPW=" + document.getElementById('confirm_password').value;
-    console.log(inputPW);
+   var email = document.getElementById('confirm_password').value;
+   /* 비밀번호 빈칸 */
+   if(email.trim().length==0){
+     popup("popup-message-inputPW");
+     document.getElementById('confirm_password').value = '';
+   } else {
+  var inputPW = "inputPW=" + email;
     $.ajax({
       url : "/user/updateInfo.mall",
       type : "get",
       dataType : "text",
       data :  inputPW,
       success : function(data) {
+        if(data.trim()=='fail'){
+          /* 비밀번호 불일치 */
+          popup("popup-message-PWCheck-fail");
+          document.getElementById('confirm_password').value = '';
+        } else {
+          /* 비밀번호 일치 */
         var jsonModifyData = JSON.parse(data);
         modiftTemplate(jsonModifyData);
+        eventRegist();
+        }
       }
     });
-  });
+  }
+   });
 function modiftTemplate(jsonModifyData) {
 var templateHtml = document.querySelector('#modify-body').innerHTML;
 var originHtml = document.querySelector('#in-mbody');
@@ -752,14 +807,138 @@ function daumPostcode() {
 
           // 우편번호와 주소 정보를 해당 필드에 넣는다.
           document.getElementById('new-street-address').value = fullAddr;
-                    document.getElementById('new-zipcod-address').value = data.zonecode; //5자리 새우편번호 사용
+          document.getElementById('new-zipcod-address').value = data.zonecode; //5자리 새우편번호 사용
 
-                    // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById('new-detail-address').focus();
+          // 커서를 상세주소 필드로 이동한다.
+          document.getElementById('new-detail-address').focus();
                 }
             }).open();
         }
        
+       
+/* 유효성 검사 */
+
+
+ 
+ function eventRegist(){
+  document.getElementById('newPW').onkeyup = function(){
+     var val = this.value;
+     passwdCheck(val);
+     ableJoin();
+  }
+  
+  document.getElementById('confirmNewPW').onkeyup = function(){
+     var val = this.value;
+     confirmPasswdCheck(val);
+     ableJoin();
+  }
+  
+  document.getElementById('new-userEmail').onkeyup = function(){
+     var val = this.value;
+     emailCheck(val);
+  }
+
+  
+  document.getElementById('new-detail-address').onkeyup = function(){
+     addressCheck();
+     ableJoin();
+  }
+ }
+  /* 비밀번호 체크 */
+  function passwdCheck(val) {
+	  
+      var msg = '';
+      var regPasswd = /^(?=.*[a-zA-Z])(?=.*\d).{5,15}$/;
+       if(val.length == 0){
+             msg = ' ';
+             checkpw = 0;
+          } else if (val.length > 15 || val.lengh < 5 || !regPasswd.test(val)) {
+        	  
+         msg = '패스워드 길이는 영문, 숫자 포함 5~15자 입니다.';
+         document.getElementById('modifyPutPw').style.color = 'red';
+         checkpw = 0;
+      } else {
+         msg = successMessage(val);
+         document.getElementById('modifyPutPw').style.color = 'blue';
+         checkpw = 1;
+      }
+      document.getElementById('modifyPutPw').textContent = msg;
+
+      if(val.length == 0){
+    	  $('#modifyPutCheckPw').text(' ');
+      }else if (val != document.getElementById('confirmNewPW')) {
+    	 document.getElementById('modifyPutCheckPw').style.color = 'red';
+         checkconfirm = 0;
+         $('#modifyPutCheckPw').text('비밀번호와 일치하지 않습니다.');
+      }
+   }
+  
+  /* 비밀번호 일치 확인 */
+  function confirmPasswdCheck(val){
+     var msg = '';
+     if(val.length == 0){
+         msg = ' ';
+         checkconfirm = 0;
+      }
+     else if(document.getElementById('newPW').value.length != 0 && val == document.getElementById('newPW').value){
+         msg = ' 비밀번호와 일치합니다.';
+        document.getElementById('modifyPutCheckPw').style.color = 'blue';
+        checkconfirm =1;
+      }else{
+         msg = ' 비밀번호와 일치하지 않습니다.';
+        document.getElementById('modifyPutCheckPw').style.color = 'red';
+        checkconfirm =0;
+      }
+      document.getElementById('modifyPutCheckPw').textContent = msg;
+  }
+  
+  /* 이메일 유효성, 중복 체크*/
+  function emailCheck(val){
+      var msg = '';
+     var regEmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+     if(val.length == 0){
+        msg = ' ';
+        checkemail = 0;
+     }
+     else if(!regEmail.test(val)){
+              msg = '이메일 형식에 맞게 입력해주세요.';
+              document.getElementById('modifyPutEmail').style.color = 'red';
+              checkemail= 0;
+              }else{
+                  msg = successMessage(val);
+                 document.getElementById('modifyPutEmail').style.color = 'blue';
+                 checkemail=1;
+              }
+           
+           document.getElementById('modifyPutEmail').textContent = msg;
+  }
+  /* 사용 가능 알림 */
+  var successMessage = function(val) {
+     return ' 사용 가능합니다.';
+  }
+  
+  /* 주소 공백 확인 */
+  function addressCheck(){
+      var zip = document.getElementById('new-zipcod-address').value;
+      var street = document.getElementById('new-street-address').value;
+      var detail = document.getElementById('new-detail-address').value;
+      if(zip.length != 0 && street.length != 0 && detail.length != 0){
+         checkAddress = 1;
+      }else{
+         checkAddress = 0;
+      }
+   }
+
+  /* 유효성 확인 후 join 버튼 활성화 */
+  function ableJoin(){
+	  if(document.querySelector('.emailCheck').disabled){
+     if(checkpw == 1 && checkconfirm == 1 &&  checkAddress == 1 && checkemail==1 ){
+       document.querySelector(".modify").disabled = false;
+     }else{
+       document.querySelector(".modify").disabled = true;
+     }
+	  }
+  }
   </script>
 
 </body>

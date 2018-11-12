@@ -58,11 +58,17 @@
 
 <script>
    function popup(flag) {
-      var x = document.getElementById("${flag}");
-      if(x){
-    	  x.className= "show";
-          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-      }
+	  var x;
+	  
+	  if("${flag}") {
+		  x = document.getElementById("${flag}");
+	  } else {
+		  x = document.getElementById(flag);
+	  }
+
+   	   x.className= "show";
+       setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      
   }
     if("${flag}" != null) {
     popup("${flag}");
