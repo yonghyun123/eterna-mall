@@ -53,6 +53,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	/* 적립금과 회원등급(grade), 사용한 쿠폰 삭제 업데이트 (용현수정) */
 	public void pointUpdate(User user) throws Exception{
+		int originPoint;
+		int newPoint;
+		int originGrade;
+		int newGrade;
+		
+		if(user.getUserId() != null && !user.getUserId().equals("undefined")){
+			User originUser = userDao.read(user.getUserId());
+			originPoint = Integer.parseInt(originUser.getUserPoint());
+			newPoint = Integer.parseInt(user.getUserPoint());
+			originGrade = Integer.parseInt(originUser.getUserGrade());
+			newGrade = Integer.parseInt(user.getUserGrade());
+			user.setUserPoint(Integer.toString(originPoint + newPoint));
+			user.setUserGrade(Integer.toString(originGrade + newGrade));
+		}
+		 
 		userDao.pointUpdate(user);
 		if(!user.getCouponId().equals("undefined")){
 			userDao.deleteCoupon(user);	

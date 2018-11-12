@@ -167,7 +167,7 @@
 	<script src="/js/main.js"></script>
 	<script src="/js/ajax.js"></script>
 	<script>
-		
+		$("#homeL").addClass("active");
 	</script>
 </body>
 </html>

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.kosta.eterna.buy.domain.Buy;
 import kr.or.kosta.eterna.buy.service.BuyService;
 import kr.or.kosta.eterna.buy.service.BuyServiceImpl;
+import kr.or.kosta.eterna.cart.domain.Cart;
+import kr.or.kosta.eterna.cart.service.CartService;
+import kr.or.kosta.eterna.cart.service.CartServiceImpl;
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
@@ -19,67 +22,90 @@ import kr.or.kosta.eterna.user.service.UserServiceImpl;
 public class BuyCreateController implements Controller{
 	private BuyService buyService;
 	private UserService userService;
+	private CartService cartService;
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		ModelAndView mav = new ModelAndView();
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
-		
-		String productId = request.getParameter("productId");
-		String productCount = request.getParameter("productCount");
+		buyService = (BuyService)factory.getBean(BuyServiceImpl.class);
+		userService = (UserService)factory.getBean(UserServiceImpl.class);
+		cartService = (CartService)factory.getBean(CartServiceImpl.class);
+		String uri = request.getRequestURI();
+		String contextPath = request.getContextPath();
+		System.out.println(contextPath);
+		uri = uri.substring(contextPath.length(), uri.lastIndexOf("."));
+		System.out.println("BuyCreateController[Info] : 요청 URI: " + uri);
+
+		String userId = (String)request.getAttribute("loginId");
 		String totalPrice = request.getParameter("totalPrice");
 		String reducePrice = request.getParameter("reducePrice");
 		String selectedCouponId = request.getParameter("selectedCouponId");
 		String fullAddress = request.getParameter("fullAddress");
 		String receiver = request.getParameter("receiver");
 		String receiverPhone = request.getParameter("receiverPhone");
-		String userId = (String)request.getAttribute("loginId");
-		
-		System.out.println("buyCreate-------productId: "+productId);
-		System.out.println("buyCreate-------productCount: "+productCount);
-		System.out.println("buyCreate-------totalPrice: "+totalPrice);
-		System.out.println("buyCreate-------reducePrice: "+reducePrice);
-		System.out.println("buyCreate-------selectedCouponId: "+selectedCouponId);
-		System.out.println("buyCreate-------fullAddress: "+fullAddress);
-		
 		Buy buy = new Buy();
-		buy.setUserId(userId);
-		buy.setReceiverName(receiver);
-		buy.setReceiverAddress(fullAddress);
-		buy.setTotalPrice(totalPrice);
-		buy.setReducePrice(reducePrice);
-		buy.setReceiverTel(receiverPhone);
-		buy.setProductId(productId);
-		buy.setCount(productCount);
-		
 		User user = new User();
 		String userPoint = null;
-		
 		if(totalPrice != null){
 			int tempPoint = (int) (Integer.parseInt(totalPrice) * 0.01);
 			userPoint = Integer.toString(tempPoint);
 		}
-		user.setUserId(userId);
-		user.setUserPoint(userPoint);
-		user.setUserGrade(totalPrice);
-		user.setCouponId(selectedCouponId);
-		System.out.println("buyCreate-------userPoint: "+userPoint);
-		System.out.println("buyCreate-------totalPrice: "+totalPrice);
 		
-		
-		
-		buyService = (BuyService)factory.getBean(BuyServiceImpl.class);
-		userService = (UserService)factory.getBean(UserServiceImpl.class);
-		
-		List<Buy> list = null;
-		try {
-			buyService.create(buy);
-			userService.pointUpdate(user);
-		} catch (Exception e) {
-			throw new ServletException("CartService.list() 예외 발생", e);
+		if(uri.equals("/cartpayment")){
+			//장바구니에서 구매버튼 눌렀을 때
+			buy.setUserId(userId);
+			buy.setReceiverName(receiver);
+			buy.setReceiverAddress(fullAddress);
+			buy.setTotalPrice(totalPrice);
+			buy.setReducePrice(reducePrice);
+			buy.setReceiverTel(receiverPhone);
+			
+			user.setUserId(userId);
+			user.setUserPoint(userPoint);
+			user.setUserGrade(totalPrice);
+			user.setCouponId(selectedCouponId);
+			//order-cart 가져와야 하는부분
+			
+			try {
+				List<Cart> cartList = cartService.readOrderCart(userId);
+				
+				buyService.create(buy, cartList);
+				userService.pointUpdate(user);
+				cartService.toBuyDelete(userId, cartList);
+			} catch (Exception e) {
+				throw new ServletException("CartService.list() 예외 발생", e);
+			}
+			
+		} else {
+			// 상품이 한개인 경우
+			// uri -> /payment
+			String productId = request.getParameter("productId");
+			String productCount = request.getParameter("productCount");
+			
+			buy.setUserId(userId);
+			buy.setReceiverName(receiver);
+			buy.setReceiverAddress(fullAddress);
+			buy.setTotalPrice(totalPrice);
+			buy.setReducePrice(reducePrice);
+			buy.setReceiverTel(receiverPhone);
+			buy.setProductId(productId);
+			buy.setCount(productCount);
+			
+
+			user.setUserId(userId);
+			user.setUserPoint(userPoint);
+			user.setUserGrade(totalPrice);
+			user.setCouponId(selectedCouponId);
+			
+			try {
+				buyService.create(buy);
+				userService.pointUpdate(user);
+			} catch (Exception e) {
+				throw new ServletException("CartService.list() 예외 발생", e);
+			}
 		}
-		mav.addObject("list", list);
 		mav.setView("redirect:/thankyou.jsp");
 
 		return mav;

@@ -108,6 +108,22 @@ public class MybatisCartDao implements CartDao {
 		sqlSession.commit();
 		sqlSession.close();			
 	}
+	@Override
+	public List<Cart> readOrderCart(String userId) throws Exception{
+		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
+		List<Cart> cartList = sqlSession.selectList(NAMESPACE+"readCartOrder",userId);
+		sqlSession.close();
+		return cartList;
+	}
+
+	@Override
+	public int countOfCart(String userId) throws Exception {
+		SqlSession  sqlSession = sqlSessionFactory.openSession(true);
+		int count = sqlSession.selectOne(NAMESPACE+"countOfCart",userId);
+		sqlSession.close();
+		return count;
+	}
+
 }
 
 

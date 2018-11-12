@@ -203,9 +203,14 @@ jQuery(document).ready(function($) {
 
     $("#login-btn").click(function(){
         $("#login-modal").modal();
+        $('#topList').children('li').siblings().removeClass('active');
+        $("#loginL").addClass("active");
     });
     $("#signup-btn").click(function(){
         $("#signup-modal").modal();
+        $('#topList').children('li').siblings().removeClass('active');
+        $("#signupL").addClass("active");
+
     });
     $("#loading-btn").click(function(){
         $("#loading-modal").modal();
@@ -217,3 +222,4 @@ jQuery(document).ready(function($) {
         $("#recentAddress-modal").modal();
     });
 });
+
