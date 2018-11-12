@@ -53,7 +53,6 @@
 	  $(this).parent().children('span').removeClass('on');
 	  var score = $(this).addClass('on').text();
 	  $(this).addClass('on').prevAll('span').addClass('on');
-	  console.log(score);
 	  $('#hidden-score').val(score);
 	  
 	  return false;
