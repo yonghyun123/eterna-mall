@@ -23,17 +23,30 @@ if(request.getAttribute("answerCount") != null){
         <div class="col-6 col-md-4 order-3 order-md-3 text-right">
           <div class="site-top-icons">
             <ul>
-              <li><a href="/user/myPage.mall"><span class="icon icon-person">
-              <%if(countOfAnswer != 0){%>
-            	 <img src="/images/new-tag.png" style="margin-left: -30px; margin-top: -55px;">
-              <%} %>
+              <li>
+              <c:choose>
+                <c:when test="${loginId != null }">
+                <a href="/user/myPage.mall">
+                <span class="icon icon-person">
+                <%if(countOfAnswer != 0){%>
+              	 <img src="/images/new-tag.png" style="margin-left: -30px; margin-top: -55px;">
+                <%} %>
               </span>
               </a>
+              </c:when>
+              <c:otherwise>
+              <a id="noneUserDeliverBtn">
+                <span class="icon icon-person">
+                <%if(countOfAnswer != 0){%>
+                 <img src="/images/new-tag.png" style="margin-left: -30px; margin-top: -55px;">
+                <%} %>
+                </span>
+                </a>
+              </c:otherwise>
+              </c:choose>
               </li>
-              
               <li>
               	<c:choose>
-              	
               	<c:when test="${loginId != null }">
                 <a href="/cart.mall" class="site-cart">
                   <span class="icon icon-shopping_cart"></span>
@@ -101,6 +114,7 @@ if(request.getAttribute("answerCount") != null){
     <%@ include file="/user/login.jsp"%>
     <%@ include file="/user/signup.jsp"%>
     <%@ include file="/user/modal.jsp"%>
+    <%@ include file="/user/nonUserDeliveryCheck.jsp"%>
     <%@ include file="/user/order-detail-modal.jsp"%>
   </nav>
 </header>

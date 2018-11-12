@@ -201,10 +201,13 @@ jQuery(document).ready(function($) {
    };
    siteMagnificPopup();
 
+    $("#noneUserDeliverBtn").click(function(){
+        $("#nonUserDeliveryCheck-modal").modal();
+    });
     $("#login-btn").click(function(){
-        $("#login-modal").modal();
-        $('#topList').children('li').siblings().removeClass('active');
-        $("#loginL").addClass("active");
+    	$("#login-modal").modal();
+    	$('#topList').children('li').siblings().removeClass('active');
+    	$("#loginL").addClass("active");
     });
     $("#signup-btn").click(function(){
         $("#signup-modal").modal();
