@@ -14,6 +14,7 @@ public class Review {
 	private String regdate;
 	private String subject;
 	private String groupNo;
+	private String levelNo;
 	private String content;
 	private String score;
 	private String answerFlag;
@@ -45,6 +46,16 @@ public class Review {
 		this.productId = productId;
 		this.content = content;
 		this.score = score;
+	}
+	
+	
+
+	public String getLevelNo() {
+		return levelNo;
+	}
+
+	public void setLevelNo(String levelNo) {
+		this.levelNo = levelNo;
 	}
 
 	public String getDescription() {
