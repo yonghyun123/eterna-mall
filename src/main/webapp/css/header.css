@@ -103,7 +103,13 @@
 #popup-message-login-success,
 #popup-message-logout-success,
 #popup-message-join-success, 
-#popup-message-join-fail {
+#popup-message-join-fail, 
+#popup-message-PWCheck-fail,
+#popup-message-Userupdate-success, 
+#popup-message-emailCheck-success, 
+#popup-message-inputPW, 
+#popup-message-emailCheck-fail, 
+#popup-message-update-success {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
@@ -123,7 +129,13 @@
 #popup-message-login-success.show,
 #popup-message-logout-success.show,
 #popup-message-join-success.show, 
-#popup-message-join-fail.show {
+#popup-message-join-fail.show, 
+#popup-message-PWCheck-fail.show, 
+#popup-message-inputPW.show, 
+#popup-message-emailCheck-success.show, 
+#popup-message-emailCheck-fail.show, 
+#popup-message-Userupdate-success.show, 
+#popup-message-update-success.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
