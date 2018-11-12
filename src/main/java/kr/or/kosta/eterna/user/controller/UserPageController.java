@@ -9,13 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.kosta.eterna.buy.domain.Buy;
-import kr.or.kosta.eterna.buy.service.BuyService;
-import kr.or.kosta.eterna.buy.service.BuyServiceImpl;
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
-import kr.or.kosta.eterna.coupon.service.CouponService;
-import kr.or.kosta.eterna.coupon.service.CouponServiceImpl;
 import kr.or.kosta.eterna.qna.service.QnAService;
 import kr.or.kosta.eterna.qna.service.QnAServiceImpl;
 import kr.or.kosta.eterna.user.domain.User;
@@ -30,18 +26,13 @@ import kr.or.kosta.eterna.user.service.UserServiceImpl;
 public class UserPageController implements Controller {
 	
 	private UserService userService;
-	private BuyService buyService;
-	private CouponService couponService;
-	private QnAService qnaService;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		userService = (UserService)factory.getBean(UserServiceImpl.class);
-		buyService = (BuyService)factory.getBean(BuyServiceImpl.class);
-		couponService = (CouponService)factory.getBean(CouponServiceImpl.class);
-		qnaService = (QnAService)factory.getBean(QnAServiceImpl.class);
 
 		ModelAndView mav = new ModelAndView();
 		
@@ -51,10 +42,10 @@ public class UserPageController implements Controller {
 		Map<String, Object> map = new HashMap<>();
 		User user = null;
 		String userId = (String)request.getAttribute("loginId");
-		int countOfAnswer = 0;
-		if(request.getAttribute("answerCount") != null){
-			countOfAnswer = (int)request.getAttribute("answerCount");
-		}
+//		int countOfAnswer = 0;
+//		if(request.getAttribute("answerCount") != null){
+//			countOfAnswer = (int)request.getAttribute("answerCount");
+//		}
 		try {
 			
 			map = userService.myPage(userId);
@@ -64,27 +55,18 @@ public class UserPageController implements Controller {
 			amount = (int)map.get("amount");
 //			유저의 다음 등급 도달에 필요한 금액 조회
 			grade = (int) map.get("grade");
-			
-/*
-			user = userService.read(userId);
-//			유저 총 구매액
-			amount = userService.userPriceAmount(userId);
-//			유저의 다음 등급 도달에 필요한 금액 조회
-			grade = userService.searchUpTier(userId);
-*/
-
 //			유저의 쿠폰 보유량
-			couponLength = couponService.couponLength(userId);
+			couponLength = (int) map.get("couponLength");
 //			유저의 전체구매 목록(orderNumber별 복수의 상품 구매도 count)
-			orderAllList = buyService.listAllByUser(userId);
+			orderAllList = (List<Buy>) map.get("orderAllList");
 //			유저의 주문 번호별 품목 개수 (각 주문 번호별로 row로 쌓임)
-			orderProductsLength = buyService.numPurchase(userId);
+			orderProductsLength = (List<Buy>) map.get("orderProductsLength");
 //			유저의 주문 횟수
 			orderCountLength = orderProductsLength.size();
 			// Q&A에 답글 달린 글 읽으면 flag 업데이트
-			if(countOfAnswer != 0){
+			/*if(countOfAnswer != 0){
 				qnaService.readQnA(userId);
-			}
+			}*/
 		} catch (Exception e) {
 			throw new ServletException("UserService.list() 예외 발생", e);
 		}

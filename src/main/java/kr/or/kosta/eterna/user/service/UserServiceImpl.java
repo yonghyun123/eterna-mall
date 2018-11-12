@@ -4,19 +4,51 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.kosta.eterna.buy.dao.BuyDao;
+import kr.or.kosta.eterna.buy.domain.Buy;
+import kr.or.kosta.eterna.coupon.dao.CouponDao;
+import kr.or.kosta.eterna.qna.dao.QnADao;
 import kr.or.kosta.eterna.user.dao.UserDao;
 import kr.or.kosta.eterna.user.domain.User;
 
 public class UserServiceImpl implements UserService {
 	
 	private UserDao userDao;
+	private CouponDao couponDao;
+	private BuyDao buyDao;
+	private QnADao qnaDao;
 	
+	public QnADao getQnaDao() {
+		return qnaDao;
+	}
+
+	public void setQnaDao(QnADao qnaDao) {
+		this.qnaDao = qnaDao;
+	}
+
 	public UserDao getUserDao() {
 		return userDao;
 	}
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+
+	public CouponDao getCouponDao() {
+		return couponDao;
+	}
+
+	public void setCouponDao(CouponDao couponDao) {
+		this.couponDao = couponDao;
+	}
+
+	public BuyDao getBuyDao() {
+		return buyDao;
+	}
+
+	public void setBuyDao(BuyDao buyDao) {
+		this.buyDao = buyDao;
 	}
 
 
@@ -102,9 +134,16 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.read(userId);
 		int amount = userDao.userPriceAmount(userId);
 		int grade = userDao.searchUpTier(userId);
+		int couponLength = couponDao.couponLength(userId);
+		List<Buy> orderAllList = buyDao.listAllByUser(userId);
+		List<Buy> orderProductsLength = buyDao.numPurchase(userId);
 		map.put("user", user);
 		map.put("amount", amount);
 		map.put("grade", grade);
+		map.put("couponLength", couponLength);
+		map.put("orderAllList", orderAllList);
+		map.put("orderProductsLength", orderProductsLength);
+		qnaDao.readQnA(userId);
 		return map;
 	}
 }
