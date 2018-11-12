@@ -31,10 +31,6 @@ public class IndexController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
 		indexService = (IndexService) factory.getBean(IndexServiceImpl.class);
 		List<Product> BrandNewZeroList=null;
-		List<Product> BrandNewFirstList=null;
-		List<Product> BrandNewSecondList=null;
-		List<Product> BrandNewThridList=null;
-		List<Product> BrandNewForthList=null;
 		List<Product> HotItemList=null;
 		try {
 		BrandNewZeroList = indexService.brandNewList("0");
@@ -43,10 +39,6 @@ public class IndexController implements Controller {
 			e.printStackTrace();
 		}
 		mav.addObject("BrandNewZeroList", BrandNewZeroList);
-		mav.addObject("BrandNewFirstList", BrandNewFirstList);
-		mav.addObject("BrandNewSecondList", BrandNewSecondList);
-		mav.addObject("BrandNewThridList", BrandNewThridList);
-		mav.addObject("BrandNewForthList", BrandNewForthList);
 		mav.addObject("HotItemList", HotItemList);
 		
 		mav.setView("/");

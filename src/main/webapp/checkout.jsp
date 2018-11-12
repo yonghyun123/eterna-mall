@@ -269,7 +269,7 @@
                   <th>일반결제</th>
                   <td><div>
                     <label>
-                      <input type="radio" value="creditCard" name="generalPay"> <span>신용카드</span></label>
+                      <input type="radio" value="creditCard" name="generalPay" checked="checked"> <span>신용카드</span></label>
                     </div>
                     <div><label>
                       <input type="radio" value="tele" name="generalPay"> <span>휴대폰</span></label>
@@ -291,7 +291,7 @@
                 </tr>
               </thead>
             </table>
-                          </div>
+			</div>
             <div class="title">
               <h2>개인정보 수집/제공</h2>
             </div>
@@ -301,7 +301,7 @@
                   <th>일반결제</th>
                   <td>
                     <div class="checkInfo">
-                      <label><input type="checkbox" name="info"> <span>[필수] 개인정보 수집 및 이용 동의</span></label>
+                      <label id="info-checkbox"><input type="checkbox" name="info"id="info-check" > <span>[필수] 개인정보 수집 및 이용 동의</span></label>
                     </div>
                   </td>
                 </tr>
@@ -341,7 +341,7 @@
                 </tbody>
               </table>
               <div class="form-group">
-                <button class="btn btn-primary btn-lg py-3 btn-block" id="loading-btn">Place Order</button>
+                <button class="btn btn-primary btn-lg py-3 btn-block" id="loading-btn" disabled="disabled">Place Order</button>
               </div>
             </div>
           </div>
@@ -350,10 +350,11 @@
       </div>
     </div>
 
-    
-    <%@ include file="recentAddress.jsp"%>
-    <%@ include file="psersonalInfo.jsp"%>
-<%--     <%@ include file="/loading.jsp"%> --%>
+<%@ include file="coupon.jsp"%>
+<%@ include file="loading.jsp" %>
+<%@ include file="personalInfo.jsp" %>
+<%@ include file="recentAddress.jsp"%>
+
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="/js/jquery-3.3.1.min.js"></script>
@@ -444,6 +445,16 @@
         }
       }
     }); 
+    /* 정보제공 체크박스 */
+    $('#info-checkbox').change(function(){
+    	if($("input:checkbox[id='info-check']").is(":checked") == true){
+    		$('#personalInfo-modal').modal();
+    		$('#loading-btn').attr('disabled', false); 
+    	} else {
+    		$('#loading-btn').attr('disabled', true);
+    	}
+    		
+    })
     /* 결제 라디오 버튼 */
     $('.generalPay').change(function(){
       var check = document.getElementsByName('generalPay');
@@ -472,6 +483,7 @@
       $('.orderTotal').text(orderTotal);
     });
     });
+    
     // 우편번호 찾기 화면을 넣을 element
       function daumPostcode() {
           new daum.Postcode({
@@ -626,6 +638,6 @@
   
   </body>
 </html>
-<%@ include file="coupon.jsp"%>
-<%@ include file="loading.jsp" %>
 
+
+>>>>>>> 0e9dabfca5add47d9f6e41d4c6a7cebd59498701
