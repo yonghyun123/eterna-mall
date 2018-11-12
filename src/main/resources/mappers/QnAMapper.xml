@@ -134,5 +134,6 @@
    UPDATE sm_product_answer 
 	SET    answer_flag = 2 
 	WHERE  user_id = #{userId} 
+	AND answer_flag = 1
    </update>
 </mapper>
