@@ -2,9 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% int countOfCart = 0;
+int countOfAnswer = 0;
 if(request.getAttribute("cartCount") != null){
 	countOfCart = (int)request.getAttribute("cartCount");
-} %>
+}
+if(request.getAttribute("answerCount") != null){
+	countOfAnswer = (int)request.getAttribute("answerCount");
+}
+%>
 <header class="site-navbar" role="banner">
   <div class="site-navbar-top">
     <div class="container">
@@ -12,15 +17,20 @@ if(request.getAttribute("cartCount") != null){
         <div class="col-6 col-md-4 order-2 order-md-1">         
         </div>
         <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
-          <div class="site-logo">
-            <a href="/eterna.mall" class="js-logo-clone">ETERNA</a>
-          </div>
+            <a href="/eterna.mall" class="js-logo-clone"><img src="/images/logo1.png" style="width: 250px;"></a>
         </div>
 
         <div class="col-6 col-md-4 order-3 order-md-3 text-right">
           <div class="site-top-icons">
             <ul>
-              <li><a href="/user/myPage.mall"><span class="icon icon-person"></span></a></li>
+              <li><a href="/user/myPage.mall"><span class="icon icon-person">
+              <%if(countOfAnswer != 0){%>
+            	 <img src="/images/new-tag.png" style="margin-left: -30px; margin-top: -55px;">
+              <%} %>
+              </span>
+              </a>
+              </li>
+              
               <li>
                 <a href="/cart.mall" class="site-cart">
                   <span class="icon icon-shopping_cart"></span>

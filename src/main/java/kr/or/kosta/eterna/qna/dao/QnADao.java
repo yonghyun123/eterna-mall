@@ -35,5 +35,11 @@ public interface QnADao {
 
    /* 답변 대기중인 Q&A 수 */
    public int newQnA() throws Exception;
+   
+   /* 답변완료된 글 갯수 */
+   public int countAnswer(String userId) throws Exception;
+   
+   /* 답변 글 조회시 answer Flag 변경*/
+   public void readQnA(String userId) throws Exception;
 
 }

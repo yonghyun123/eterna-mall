@@ -14,9 +14,9 @@ import kr.or.kosta.eterna.index.service.IndexServiceImpl;
 import kr.or.kosta.eterna.product.domain.Product;
 
 /**
- * /payment.mall에 대한 요청 처리 컨트롤러
+ * index.mall에 대한 요청 처리 컨트롤러
  * 
- * @author 서지원
+ * @author 권현우
  *
  */
 public class IndexController implements Controller {
