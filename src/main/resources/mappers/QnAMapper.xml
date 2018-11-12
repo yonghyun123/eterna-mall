@@ -120,4 +120,19 @@
    FROM   sm_product_answer 
    WHERE  answer_flag = 0 
    </select>
+   
+   <!-- 나의 질문글 답변달림 여부 -->
+   <select id="alertQnA" resultType="int">
+    SELECT Count(*) 
+	FROM   sm_product_answer 
+	WHERE  answer_flag = 1 
+       AND user_id = #{userId} 
+   </select>
+   
+   <!-- 답변글 읽으면 answerFlag 2로 변경 -->
+   <update id="updateRead">
+   UPDATE sm_product_answer 
+	SET    answer_flag = 2 
+	WHERE  user_id = #{userId} 
+   </update>
 </mapper>

@@ -1,6 +1,8 @@
 package kr.or.kosta.eterna.user.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.eterna.user.dao.UserDao;
 import kr.or.kosta.eterna.user.domain.User;
@@ -92,5 +94,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int couponLength(String userId) throws Exception {
 		return userDao.couponLength(userId);
+	}
+
+	@Override
+	public Map<String, Object> myPage(String userId) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		User user = userDao.read(userId);
+		int amount = userDao.userPriceAmount(userId);
+		int grade = userDao.searchUpTier(userId);
+		map.put("user", user);
+		map.put("amount", amount);
+		map.put("grade", grade);
+		return map;
 	}
 }
