@@ -18,7 +18,10 @@ import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 import kr.or.kosta.eterna.review.service.ReviewService;
 import kr.or.kosta.eterna.review.service.ReviewServiceImpl;
-
+/**
+ * 비회원 장바구니 리스트 생성
+ * @author 권현우
+ * */
 public class NonUserCartCreateController implements Controller {
 	private CartService cartService;
 
@@ -47,9 +50,7 @@ public class NonUserCartCreateController implements Controller {
 					/**productsCookie의 value를 받아온다*/
 					String products = cookie.getValue();
 					/**@단위(product/value 한쌍)로 잘라주고*/
-					System.out.println("split : " + products);
 					String [] productArray = products.split("@");
-					System.out.println("afterSplit: " +productArray.length );
 					/**잘려진 한 쌍을*/
 					for (String product : productArray) {
 						/**#단위(key따로 Value 따로)로 자른다다*/
@@ -59,14 +60,11 @@ public class NonUserCartCreateController implements Controller {
 						if(productDetail[0].equals(productId)){
 							/**중복이라고 출력*/
 							out.println(0);
-							System.out.println("duplicate : "+ products);
 							return null;
 						}	
 					}
 					products += productId +"#"+ productCount+"@";
-					System.out.println("before: " + cookie.getValue());
 					cookie.setValue(products);
-					System.out.println("after: " + cookie.getValue());
 					response.addCookie(cookie);
 					out.println(1);
 					return null;
@@ -74,10 +72,9 @@ public class NonUserCartCreateController implements Controller {
 			}
 		 }else{
 			 System.out.println("haveNonCookie");
-			 String products = productId + "#" + productCount +"@";
+			 String products = "@"+ productId + "#" + productCount +"@";
 			 Cookie cookie = new Cookie("products",products);
 			 response.addCookie(cookie);
-			 System.out.println("done");
 			 out.println(1);
 		 }
 		return null;
