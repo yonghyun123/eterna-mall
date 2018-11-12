@@ -11,18 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.kosta.eterna.cart.domain.Cart;
+import kr.or.kosta.eterna.cart.service.CartService;
+import kr.or.kosta.eterna.cart.service.CartServiceImpl;
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 import kr.or.kosta.eterna.nonusercart.service.NonUserCartService;
 import kr.or.kosta.eterna.nonusercart.service.NonUserCartServiceImpl;
-import kr.or.kosta.eterna.product.domain.Product;
 
 /**
- * 비회원 장바구니리스트를 생성하는 컨트롤러
+ * 비회원 장바구니 리스트 삭제기능
+ * 
  * @author 권현우
+ *
  */
-public class NonUserCartListController implements Controller {
+public class NonUserCartDeleteController implements Controller {
 
 	private NonUserCartService nonusercartService;
 
@@ -34,13 +37,14 @@ public class NonUserCartListController implements Controller {
 		Cookie[] cookies; 
 		nonusercartService = (NonUserCartService) factory.getBean(NonUserCartServiceImpl.class);
 		List<Cart> list = null;
-		List<String> productValue = new ArrayList<String>();
-		Map<String,String> map = new HashMap<String,String>();
+		List<String> productValue = new ArrayList<String>();		
+		String productId = request.getParameter("productId");
 		if(request.getCookies().length != 1) {
 			cookies = request.getCookies();
 			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("products")) {	
+				if(cookie.getName().equals("products")) {
 				String products = cookie.getValue();
+				System.out.println("productsFrist= " +  products);
 				String [] productArray = products.split("@");
 				
 				for(int i=1; i<productArray.length; i++) {
@@ -48,6 +52,28 @@ public class NonUserCartListController implements Controller {
 				}
 				try {
 					list=nonusercartService.listAll(productValue);
+					products = "";
+					System.out.println("size = " + list.size());
+					for (Cart cart : list) {
+						if(cart.getProductId().equals(productId)  ) {
+							System.out.println("remove");
+						}else {
+						products += ("@"+cart.getProductId()+"#"+cart.getCount());
+						System.out.println("productsAdding=" + products);
+						}
+					}
+					
+					if(products != "") {
+						System.out.println("products=" + products );
+						cookie.setValue(products);
+						response.addCookie(cookie);
+					}else {
+						System.out.println("products=" + products );
+						cookie.setMaxAge(0);
+						response.addCookie(cookie);
+						mav.setView("/cart.jsp");
+						return mav;
+					}
 				} catch (Exception e) {
 					// TO\DO Auto-generated catch block
 					e.printStackTrace();
@@ -55,8 +81,7 @@ public class NonUserCartListController implements Controller {
 			}
 			}
 		}
-		mav.addObject("list", list);
-		mav.setView("/cart.jsp");
+		mav.setView("/nonUserCartList.mall");
 		return mav;
 
 	}

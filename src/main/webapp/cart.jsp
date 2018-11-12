@@ -43,6 +43,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-7 text-center pt-4 cart-heading">
+      
         <h2>장바구니</h2>
       </div>
     </div>
@@ -111,8 +112,17 @@
                           <td class="product-price text-right"><span
                             class="totalCost"></span> 원</td>
                           <!-- 삭제 버튼 -->
+                         <c:choose>
+            			<c:when test="${loginId != null }">
                           <td class="cart-button text-center"><i
-                            class="fas fa-trash"></i></td>
+							class="fas fa-trash" id="loginDelete"></i>
+                          </td>
+                     	</c:when>
+           				 <c:otherwise>
+           				<td class="cart-button text-center"><i
+							class="fas fa-trash" id="nonloginDelete"></i>
+           				 </c:otherwise>
+            		</c:choose>  
                         </tr>
                       </c:forEach>
                     </c:when>
@@ -125,6 +135,7 @@
                 </tbody>
               </table>
             </div>
+            
             <div class="col-md-6">
               <div class="row mb-5">
                 <div class="col-md-6 mb-3 mb-md-0">
@@ -252,7 +263,7 @@
 			};
 
 			/* 장바구니 하나씩 삭제할 때  - cartDeleteController*/
-			$(document).on("click",".fa-trash",function(event) {
+			$(document).on("click","#loginDelete",function(event) {
 						var productId = $(this).closest("tr").find(
 								".hiddenDelete").val();
 						var form = document.createElement("form");
@@ -268,6 +279,27 @@
 						document.body.appendChild(form);
 						form.submit();
 					});
+			
+			/**비회원 장바구니 하나씩 삭제할 때  - nonUsercartDeleteController*/
+			$(document).on("click","#nonloginDelete",function(event) {
+				var formData = new FormData();
+				var productId = $(this).closest("tr").find(
+				".hiddenDelete").val();
+				var form = document.createElement("form");
+				form.setAttribute("charset", "UTF-8");
+				form.setAttribute("method", "Post");
+				form.setAttribute("action", "/nonUserCartDelete.mall");
+
+				var hiddenDelete = document.createElement("input");
+				hiddenDelete.setAttribute("type", "hidden");
+				hiddenDelete.setAttribute("name", "productId");
+				hiddenDelete.setAttribute("value", productId);
+				form.appendChild(hiddenDelete);
+				document.body.appendChild(form);
+				form.submit();
+		
+			});
+			
 			/* 수량 수정 */
 			$(document).on("click", ".btn-outline-primary", function(event) {
 				calculator();

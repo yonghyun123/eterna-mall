@@ -41,4 +41,10 @@ public interface AdminService {
 
 	/* 답변 대기중인 review */
 	public int newReview() throws Exception;
+	
+	/* 등급 판단 후 등급 업데이트 */
+	public void updateTier(String userId) throws Exception;
+	
+	/* 제품 배송중으로 변경시 재고 변경 */
+	public void updateStock(String productDescription, String count) throws Exception;
 }

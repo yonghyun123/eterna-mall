@@ -58,7 +58,7 @@
 								varStatus="status">
 								<div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
 									<a class="block-2-item" href="/detail.mall?productId=${product.productId }">
-										<figure class="image">
+										<figure class="image text-center">
 											<img src="/images/${product.thumnail}" alt="" class="img-fluid">
 										</figure>
 										<div class="text">

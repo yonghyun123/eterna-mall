@@ -1,5 +1,6 @@
 package kr.or.kosta.eterna.product.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,8 @@ public class MybatisProductDao implements ProductDao {
 	public void update(Product product) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		sqlSession.update(NAMESPACE + "update", product);
+		sqlSession.commit();
+		sqlSession.close();
 
 	}
 
@@ -56,6 +59,7 @@ public class MybatisProductDao implements ProductDao {
 	public void delete(String productId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		sqlSession.delete(NAMESPACE + "delete", Integer.parseInt(productId));
+		sqlSession.commit();
 	}
 
 	/** 전체제품 조회 */
@@ -163,5 +167,16 @@ public class MybatisProductDao implements ProductDao {
 		List<Product> productList = sqlSession.selectList(NAMESPACE + "listByScore");
 		sqlSession.close();
 		return productList;
+	}
+
+	@Override
+	public void updateStock(String productDescription, String count) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("productDescription", productDescription);
+		map.put("count", count);
+		sqlSession.update(NAMESPACE + "updateStock", map);
+		sqlSession.commit();
+		sqlSession.close();		
 	}
 }
