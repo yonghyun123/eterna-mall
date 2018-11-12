@@ -14,9 +14,9 @@ import kr.or.kosta.eterna.index.service.IndexServiceImpl;
 import kr.or.kosta.eterna.product.domain.Product;
 
 /**
- * /payment.mall에 대한 요청 처리 컨트롤러
+ * index.mall에 대한 요청 처리 컨트롤러
  * 
- * @author 서지원
+ * @author 권현우
  *
  */
 public class IndexController implements Controller {
@@ -38,10 +38,6 @@ public class IndexController implements Controller {
 		List<Product> HotItemList=null;
 		try {
 		BrandNewZeroList = indexService.brandNewList("0");
-		BrandNewFirstList = indexService.brandNewList("1");
-		BrandNewSecondList = indexService.brandNewList("2");
-		BrandNewThridList = indexService.brandNewList("3");
-		BrandNewForthList = indexService.brandNewList("4");
 		HotItemList = indexService.popularProductList();
 		} catch (Exception e) {
 			e.printStackTrace();
