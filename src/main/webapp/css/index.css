@@ -17,3 +17,17 @@
 .building {
 	padding-right: 20%;
 }
+
+.hot-item-image {
+	height: 300px;
+}
+
+.col-md-12 .owl-carousel .owl-item img {
+	width: auto !important;
+	margin: 0 auto;
+	padding: 10%;
+}
+
+.video-section {
+	margin-top: 3%;
+}
