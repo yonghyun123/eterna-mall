@@ -41,6 +41,7 @@ public class UserOrderDetailController implements Controller {
 		
 		List<Buy> orderDetailList;
 		int shippingFee = 0;
+		String orderFlag = null;
 		String id = request.getParameter("orderNumber");
 		
 		try {
@@ -60,8 +61,18 @@ public class UserOrderDetailController implements Controller {
 			jsonObject.put("productPrice", buy.getProductPrice());
 			jsonObject.put("productCount", buy.getCount());
 			jsonObject.put("orderDate", buy.getOrderDate());
+			jsonObject.put("fileName", buy.getFileName());
 			jsonObject.put("receiveDate", buy.getReceiveDate());
-			jsonObject.put("orderFlag", buy.getOrderFlag());
+			
+			if(buy.getOrderFlag().equals("0")) {
+				orderFlag = "배송완료";
+			} else if (buy.getOrderFlag().equals("1")) {
+				orderFlag = "배송중";
+			} else {
+				orderFlag = "배송준비중";
+			}
+			
+			jsonObject.put("orderFlag", orderFlag);
 			jsonObject.put("receiverName", buy.getReceiverName());
 			jsonObject.put("receiverTel", buy.getReceiverTel());
 			jsonObject.put("receiverAddress", buy.getReceiverAddress());
@@ -72,7 +83,7 @@ public class UserOrderDetailController implements Controller {
 				shippingFee = 3000;
 			}
 			jsonObject.put("shippingFee", shippingFee);
-			jsonObject.put("totalPrice", Integer.parseInt(buy.getTotalPrice()) + Integer.parseInt(buy.getReducePrice()) + shippingFee);
+			jsonObject.put("totalPrice", Integer.parseInt(buy.getTotalPrice()) - Integer.parseInt(buy.getReducePrice()) + shippingFee);
 			jsonArray.add(jsonObject);
 		}
 		

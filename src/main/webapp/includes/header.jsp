@@ -74,6 +74,7 @@ if(request.getAttribute("cartCount") != null){
     <%@ include file="/user/login.jsp"%>
     <%@ include file="/user/signup.jsp"%>
     <%@ include file="/user/modal.jsp"%>
+    <%@ include file="/user/order-detail-modal.jsp"%>
   </nav>
 </header>
 

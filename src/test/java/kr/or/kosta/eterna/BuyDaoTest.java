@@ -42,7 +42,7 @@ public class BuyDaoTest {
 	
 //	@Test
 	public void testCreate() {
-		Buy buy = new Buy("hee", "조희진", "01058837760", "인천시 부평구", "서지원", "01012341234", "서울시 강북구", "3", "후","공진향 수연 로션", "71.png",null);
+		Buy buy = new Buy("hee", "조희진", "01058837760", "인천시 부평구", "서지원", "01012341234", "서울시 강북구", "3", "후","공진향 수연 로션", "71.png",null, "0");
 		try {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -89,7 +89,7 @@ public class BuyDaoTest {
 	}
 	*/
 
-	@Test
+//	@Test
 	public void testListAll() {
 		try {
 			List<Buy> list = buyDao.listAllByUser("hee");
@@ -117,6 +117,18 @@ public class BuyDaoTest {
 		}
 	}
 	
-	
+	@Test
+	public void testShowOrderDetailUser() {
+		try {
+			List<Buy> list = buyDao.showOrderDetailUser("2");
+			for (Buy buy : list) {
+				logger.debug(buy);
+				//System.out.println(user);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
