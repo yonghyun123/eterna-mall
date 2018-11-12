@@ -64,6 +64,9 @@
 	padding: 15%;
 }
 
+.similarResult{
+	
+}
 /* popup을 위한 css */
 #popup-message-login-success,
 #popup-message-logout-success,
@@ -83,6 +86,7 @@
     bottom: 50%;
     font-size: 17px;
 }
+
 
 #popup-message-login-success.show,
 #popup-message-logout-success.show,
