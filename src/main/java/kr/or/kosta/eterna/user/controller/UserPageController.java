@@ -63,7 +63,6 @@ public class UserPageController implements Controller {
 		} catch (Exception e) {
 			throw new ServletException("UserService.list() 예외 발생", e);
 		}
-		
 		mav.addObject("user", user);
 		mav.addObject("amount", amount);
 		mav.addObject("grade", grade);
