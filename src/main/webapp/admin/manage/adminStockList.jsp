@@ -227,7 +227,7 @@ div{
 		<button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
 	<div class="modal-body" id="modal-body">
-  <table>
+  <table style="text-align :center;">
       <tr>
               <th>Name</th>
               <th>Content</th>
@@ -274,17 +274,17 @@ div{
             <tr>
 			<tr>
               <td>ThumNail</td>
-              <td>{thumNail}</td>
+              <td><img src="/images/{thumNail}" alt="Image placeholder" class="img-fluid" style="width:70px;"></td>
             </tr>
             <tr>
 			<tr>
               <td>MainImg</td>
-              <td>{main}</td>
+              <td><img src="/images/{main}" alt="Image placeholder" class="img-fluid" style="width:200px;"></td>
             </tr>
             <tr>
 			<tr>
               <td>SideImg</td>
-              <td>{side}</td>
+              <td><img src="/images/{side}" alt="Image placeholder" class="img-fluid" style="width:70px;"></td>
             </tr>
 </table>
 </div>

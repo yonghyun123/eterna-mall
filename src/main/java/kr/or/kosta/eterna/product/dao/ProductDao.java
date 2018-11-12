@@ -47,6 +47,8 @@ public interface ProductDao {
 	public List<Product> listByRegdate() throws Exception;
 	/* 평점별 전체 리스트(select선택시 필요)*/
 	public List<Product> listByScore() throws Exception;
+	/* 제품 배송중으로 변경시 재고 변경 */
+	public void updateStock(String productDescription, String count) throws Exception;
 	
     
 }

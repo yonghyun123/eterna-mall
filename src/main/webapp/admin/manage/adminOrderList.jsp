@@ -42,15 +42,18 @@ $(document).ready(function() {
        viewOrderListDetails(this);
        var id = $(this).closest("tr").find(".orderId").text();
         document.getElementById("orderIdH").value = id;
+        var userId = $(this).closest("tr").find(".orderUserId").text();
+        document.getElementById("orderUserIdH").value = userId;
         var status = $(this).closest("tr").find(".status").text();
         document.getElementById("orderFlag").value = status;
         statusChange(status);
     })
-
+/*
     document.getElementById("saveB").onclick = function() {
        updateStatus();
     }
- }
+*/
+}
  
  function statusChange(status){
     if(status == '배송전'){
@@ -87,21 +90,24 @@ function viewOrderListDetails(value) {
      var originHtml = document.querySelector('#insertTbody');
      var newHtml = '';
      detailData.forEach(function(v,i){
-        console.log(v);
         newHtml += templateHtml.replace('{order Number}', v.id)
                            .replace('{product}', v.productDescription)
-                           .replace('{product Image}', v.fileName)
+                           .replace('{thumnail}', v.fileName)
                            .replace('{count}', v.count);
      });
      originHtml.innerHTML = newHtml;
+     $('.product').attr('size', $('.product').val().length);
  }
 
  /* 배송 상태 orderFlag를 controller에 전달해줌*/
  function updateStatus() {
     var orderFlag = document.getElementById("orderFlag").value;
     var id = document.getElementById("orderIdH").value;
+    var userId = document.getElementById("orderUserIdH").value;
+    var product = document.getElementsByName("productDescription");
+    alert(product);
     location.href = "/admin/orderupdate.mall?orderFlag="
-          + orderFlag + "&id=" + id;
+          + orderFlag + "&id=" + id + "&userId="+userId + "&product=" + product;
  }
 
 
@@ -111,11 +117,11 @@ function viewOrderListDetails(value) {
   <tr class="insertTr">
 <td>{order Number}
 </td>
-<td>{product}
+<td><input type="text" class="product" name="product" value="{product}" style="border:none;">
 </td>
-<td>{product Image}
+<td><img src="/images/{thumnail}" alt="Image placeholder" class="img-fluid" style="width: 50px;">
 </td>
-<td>{count}
+<td><input type="text" class="product" name="count" value="{count}" style="border:none;">
 </tr>
 </script>
 
@@ -183,7 +189,7 @@ function viewOrderListDetails(value) {
                       varStatus="status">
                       <tr>
                         <td class="orderId">${order.id }</td>
-                        <td>${order.userId }</td>
+                        <td class="orderUserId">${order.userId }</td>
                         <td>${order.buyerName }</td>
                         <td>${order.buyerTel }</td>
                         <td>${order.receiverName}</td>
@@ -228,16 +234,18 @@ function viewOrderListDetails(value) {
   
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog" >
-    <div class="modal-dialog" style="max-width: 600px;">
+    <div class="modal-dialog" style="max-width: 800px;">
     
       <!-- Modal content-->
       <div class="modal-content">
+      <form action="/admin/orderupdate.mall">
         <div class="modal-header">
           <h4 class="modal-title">주문 상세</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-        <input type="hidden" id="orderIdH">
+        <input type="hidden" id="orderIdH" name="id">
+		<input type="hidden" id="orderUserIdH" name="userId">
         <table style="text-align: center;">
         <tr>
           <th>order Number</th>
@@ -248,16 +256,17 @@ function viewOrderListDetails(value) {
         <tbody id="insertTbody">
         </tbody>
         </table>
-        <select id="orderFlag">
+        <select id="orderFlag" name="orderFlag">
           <option value=0>배송전
           <option value=1>배송중
           <option value=2>배송완료
         </select>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="saveB">Save</button>
+        <button type="submit" class="btn btn-default" id="saveB">Save</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
+        </form>
       </div>
       
     </div>
