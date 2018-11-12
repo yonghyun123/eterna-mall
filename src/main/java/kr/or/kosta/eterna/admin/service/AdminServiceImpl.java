@@ -171,13 +171,11 @@ public class AdminServiceImpl implements AdminService {
 		FileInfo[] fileArray = (FileInfo[]) map.get("fileArray");
 		for (FileInfo fileInfo : fileArray) {
 			fileInfoDao.regist(fileInfo);
-			System.out.println("파일 업로드");
 		}
 
 		ProductImage[] imageArray = (ProductImage[]) map.get("imageArray");
 		for (ProductImage productImage : imageArray) {
 			productImageDao.regist(productImage);
-			System.out.println("이미지 업로드");
 		}
 
 		priceDao.registProductPrice((Price) map.get("price"));
