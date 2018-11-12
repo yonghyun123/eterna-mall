@@ -12,12 +12,59 @@
              count, 
              product_id, 
              user_id) 
-		VALUES     (7, 
+		VALUES     (cart_id_seq.nextval, 
             #{count}, 
             #{productId}, 
             #{userId})
 	</insert>
-
+	<!-- 지원 추가  -->
+	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->                        
+	<insert id="toBuycreate" parameterType="Cart">
+		INSERT INTO SM_cart_order
+            (id, 
+             count, 
+             product_id, 
+             user_id) 
+		VALUES     (cart_order_id_seq.nextval, 
+            #{count}, 
+            #{productId}, 
+            #{userId})
+	</insert>
+	<!-- 용현추가 장바구니 -> 결제 데이터 -->
+	<select id="readCartOrder" resultType="Cart">
+		SELECT product_id as "productId",
+			   count      as "count"
+		FROM   SM_cart_order
+		WHERE  user_id = #{value}
+	</select>
+	
+	<!-- 지원 추가  -->
+	<!-- 전체 장바구니 리스트 -->
+	<select id="toBuylistAll" resultType="Cart">
+	 SELECT c.count as count,
+	 		c.user_id as userId,
+	 		c.product_id as productId, 
+       		p.product_brand as productBrand, 
+       		p.product_description as productDescription, 
+      		m.price as price,
+       		f.file_name as fileName
+	 FROM   SM_cart_order c 
+       	join SM_product p 
+         ON c.product_id = p.product_id 
+       	join SM_product_price m 
+         ON p.product_id=m.product_id 
+      	join SM_product_image i 
+         ON p.product_id=i.product_id
+       	join SM_file_info f
+         ON i.file_id=f.file_id
+	 Where c.user_id = #{userId} and i.image_type = 'th'
+	</select>
+	<!-- 지원 추가  -->
+	<!-- 장바구니 제품 삭제 -->
+	<delete id="toBuydelete" parameterType="String">
+		DELETE FROM SM_cart_order
+		WHERE  user_id = #{userId} 
+	</delete>
 	<!-- userId와 productId를 통한 장바구니 검색(동일상품 체크시) -->                        
 	<select id="read" resultType="Cart" parameterType="map">
 		SELECT c.count as count,
@@ -75,4 +122,17 @@
        		AND product_id = #{productId}
 	</delete>
 	
+	<!-- 상세페이지 -> 주문페이지 주문시 cart가 보내주는 데이터 (yonghyun)-->
+	<select id="order"  resultType="java.util.HashMap" parameterType="Integer">
+		SELECT fn.file_name "fileName", p.product_description "productDescription", pp.price "price"
+		FROM SM_product_image pi, SM_file_info fn, SM_product_price pp, SM_product p
+		WHERE pi.product_id =#{productId} AND pp.product_id =#{productId} AND p.product_id=#{productId} AND pi.image_type='th' and pi.file_id = fn.file_id
+	</select>
+	
+	<!-- 희진 추가!!!! 유저별 장바구니에 등록된 물품 리스트 개수 -->
+	<select id="countOfCart" resultType="int">
+	SELECT Count(product_id) 
+	FROM   sm_cart 
+	WHERE  user_id = #{userId}
+	</select>
 </mapper>
