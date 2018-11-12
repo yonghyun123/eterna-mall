@@ -27,6 +27,34 @@
 		      <if test="passwd!=null">#{passwd},</if>
 		      #{userId})
     </insert>
+    
+        <!-- 주문리스트 추가 -->
+    <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+    <insert id="noncreateInfo" parameterType="Buy">
+		INSERT INTO sm_buy_info 
+		      (id,
+		       buyer_name,
+		       buyer_tel,
+		       buyer_address,
+		       receiver_name, 
+		       receiver_tel, 
+		       receiver_address,
+		       order_flag,
+		       total_price,
+		       <if test="passwd!=null">passwd,</if>
+		       reduce_price) 
+		VALUES     (buy_info_id_seq.nextval,
+			  #{buyerName},
+			  #{buyerTel},
+			  '서울시 / 강남구 / 압구정동 130-1번지',
+		      #{receiverName}, 
+		      #{receiverTel}, 
+		      #{receiverAddress}, 
+		      0,
+		      #{totalPrice},
+		      <if test="passwd!=null">#{passwd},</if>
+		      #{reducePrice})
+    </insert>
    
     <!-- 주문번호별 구매 목록 추가 -->
     <!-- id 값 next.val 로 수정해야함!!!!!!!!!! (쿼리수정 yonghyun)-->

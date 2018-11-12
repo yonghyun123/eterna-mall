@@ -36,7 +36,8 @@
             (id, 
              user_id, 
              product_id, 
-             board_id, 
+             board_id,
+             subject, 
              content, 
              group_no, 
              level_no) 
@@ -45,7 +46,8 @@
             (select product_id
             from sm_product_review
             where id=#{id}), 
-            1, 
+            1,
+            #{subject}, 
             #{content}, 
             (select group_no
             from sm_product_review
@@ -66,7 +68,7 @@
 		       level_no AS "levelNo"
 		FROM   sm_product_review 
 		WHERE  product_id = #{productId}
-		ORDER BY group_no desc, regdate ASC
+		ORDER BY group_no desc, level_no ASC
 	</select>
 	
 	<!-- 회원별 리뷰 리스트 -->
