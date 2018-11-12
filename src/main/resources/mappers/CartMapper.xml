@@ -3,7 +3,6 @@
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="kr.or.kosta.eterna.cart">
-
 	<!-- 장바구니에 물건 추가 -->
 	<!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->                        
 	<insert id="create" parameterType="Cart">
