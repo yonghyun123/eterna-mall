@@ -41,7 +41,19 @@
 		          (select MAX(id) from SM_buy_info), 
 		          #{productId}) 
     </insert>
-
+    <!-- 주문번호별 구매 목록 추가 -->
+    <!-- id 값 next.val 로 수정해야함!!!!!!!!!! (쿼리수정 yonghyun)-->
+    <insert id="createManageByCart" parameterType="Cart">
+		INSERT INTO sm_buy_manage 
+		         (id, 
+		          count, 
+		          buy_id, 
+		          product_id) 
+		VALUES  (buy_manage_id_seq.nextval, 
+		          #{count}, 
+		          (select MAX(id) from SM_buy_info), 
+		          #{productId}) 
+    </insert>
 	<!-- 유저별 구매 리스트 by 이철우 -->
 	<select id="listClient" parameterType="String" resultType="Buy">
 		SELECT bi.create_date          AS orderDate, 
@@ -71,7 +83,7 @@
                  ON pi.file_id = fi.file_id
 		WHERE  bi.user_id = #{userId}
 		       AND pi.image_type = 'th' 
-		ORDER  BY ordernumber 
+		ORDER  BY orderNumber DESC
     </select>
     
     <!-- 전체 리스트 -->
@@ -122,6 +134,7 @@
 		       bi.receiver_name      AS receiverName, 
 		       bi.receiver_tel       AS receiverTel, 
 		       bi.receiver_address   AS receiverAddress, 
+		       fi.file_name          AS fileName,
         <!-- 여기에 결제수단 추가 -->
 		       bi.total_price        AS totalPrice, 
 		       bi.reduce_price       AS reducePrice 
@@ -201,12 +214,13 @@
     
    	<!-- 유저의 주문번호별 품목개수 조회 by 이철우 -->
 	<select id="orderProductsLength" resultType="Buy">
-		SELECT Count(bm.buy_id) AS numPurchase 
+		SELECT bi.id,
+               Count(bm.buy_id) AS numPurchase
 		FROM   sm_buy_info bi 
-		       JOIN sm_buy_manage bm 
-		         ON bi.id = bm.buy_id 
-		WHERE  bi.user_id = #{userId} 
-		GROUP  BY bm.buy_id 
+        JOIN   sm_buy_manage bm 
+        ON bi.id = bm.buy_id 
+		WHERE  bi.user_id = #{userId}
+		GROUP  BY bm.buy_id, bi.id
 	</select>
     
     

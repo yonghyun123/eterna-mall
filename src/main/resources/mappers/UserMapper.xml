@@ -48,8 +48,8 @@
 	<update id="pointUpdate" parameterType="User">
 		UPDATE SM_user
 		<set>
-			<if test="userPoint != null">user_point = #{userGrade},</if>
-			<if test="userGrade != null">user_grade = #{userPoint}</if>
+			<if test="userPoint != null">user_point = #{userPoint},</if>
+			<if test="userGrade != null">user_grade = #{userGrade}</if>
 		</set>
 		WHERE user_id=#{userId}
 	</update>

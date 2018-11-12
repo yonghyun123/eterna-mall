@@ -64,9 +64,38 @@
 	padding: 15%;
 }
 
-.similarResult{
-	
+/* order-detail modal CSS */
+
+.detail-modal-dialog {
+	max-width: 80%;
 }
+
+#in-detail-footer {
+	vertical-align: middle;
+}
+
+.detail-inform-table {
+	width: 100%;
+	border: solid 1px #dddfe1;
+}
+
+.order-detail-table {
+	border: solid 1px #dddfe1;
+}
+
+.detail-modal-body {
+	padding: 5% 10%;
+}
+
+.order-input {
+	display: inline-block;
+}
+
+.inform-td {
+	background-color: #fafafa;
+}
+
+>>>>>>> 0e9dabfca5add47d9f6e41d4c6a7cebd59498701
 /* popup을 위한 css */
 #popup-message-login-success,
 #popup-message-logout-success,

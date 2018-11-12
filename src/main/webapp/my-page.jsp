@@ -124,7 +124,7 @@
                         <c:set var="startIndex" value="0"/>
                         <c:set var="endIndex" value="${orderProductsLength[0].numPurchase - 1}"/>
                         <c:set var="orderCountLength" value="${orderCountLength - 1}"/>
-                        <c:forEach var="index" begin="0" end="${orderCountLength }">
+                        <c:forEach var="index" begin="0" end="${orderCountLength }" varStatus="i">
                           <tr class="order-list-row">
                             <td class="order-number text-center" id="${orderAllList[startIndex].orderNumber }">${orderAllList[startIndex].orderNumber }</td>
                             <td colspan="5" class="order-inform text-left">
@@ -137,10 +137,24 @@
                                 </div><br>
                             </c:forEach>
                             </td>
-                            <td class="order-date-flag text-center">${orderAllList[startIndex].orderDate } <br> ${orderAllList[startIndex].orderFlag }</td>
+                            <td class="order-date-flag text-center">
+                            ${orderAllList[startIndex].orderDate } <br>
+                            <c:set var="flag" value="${orderAllList[startIndex].orderFlag }"/> 
+                            <c:choose>
+                              <c:when test="${flag == 0 }">
+                               배송 완료
+                              </c:when>
+                              <c:when test="${flag == 1 }">
+                               배송 중
+                              </c:when>
+                              <c:when test="${flag == 2 }">
+                               배송준비중
+                              </c:when>
+                            </c:choose>
+                            </td>
                           </tr>
-                          <c:set var="endIndex" value="${startIndex + orderProductsLength[index].numPurchase }"/>
-                          <c:set var="startIndex" value="${startIndex + orderProductsLength[index].numPurchase }"/>
+                          <c:set var="endIndex" value="${endIndex + orderProductsLength[i.index + 1].numPurchase }"/>
+                          <c:set var="startIndex" value="${startIndex + orderProductsLength[i.index].numPurchase }"/>
                           
                         </c:forEach>  
                       </tbody>
@@ -310,6 +324,56 @@
   </tr>
   </script>
   
+  <script type="my-template" id="detail-header">
+	<span class="text-left"><h2>주문 상세</h2></span>
+	<div class="text-left"><span>주문일 : <h4 class="order-input">{orderDate}</h4>  |  주문번호 : <h4 class="order-input">{orderId}</h4></span></div>
+  </script>
+  
+  <script type="my-template" id="detail-body">
+	<img alt="" class="product-thumbnail" src="/images/{fileName}">
+	<div class="product-text"> 
+	  <div class="product-name">{productDescription}</div>
+	  <div class="product-price-count">{productPrice}원 / {productCount}개</div>
+	</div><br>
+  </script>
+  
+  <script type="my-template" id="detail-footer">
+	<div class="product-text">
+	  <div class="product-price-count">{orderFlag}!</div> 
+	  <div class="product-name"><h4>{receiveDate} 도착</h4></div>
+	</div><br>
+  </script>
+  
+  <script type="my-template" id="detail-inform">
+    <tr>
+      <th colspan="4" width="50%">받는사람 정보</th>
+      <th colspan="4" width="50%"> 결제 정보 </th>
+              </tr>
+              <tr>
+                <td class="inform-td" colspan="2">받는 사람</td>
+                <td colspan="2">{receiverName}</td>
+                <td class="inform-td" colspan="2">총 상품 가격</td>
+                <td colspan="2">{totalProductPrice}</td>
+              </tr>
+              <tr>
+                <td class="inform-td" colspan="2">연락처</td>
+                <td colspan="2">{receiverTel}</td>
+                <td class="inform-td" colspan="2">할인금액</td>
+                <td colspan="2">{reducePrice}</td>
+              </tr>
+              <tr>
+                <td class="inform-td" colspan="2">주소</td>
+                <td colspan="2">{receiverAddress}</td>
+                <td class="inform-td" colspan="2">배송비</td>
+                <td colspan="2">{shippingFee}</td>
+              </tr>
+              <tr>
+                <td colspan="4"></td>
+                <td class="inform-td" colspan="2">총 결제금액</td>
+                <td colspan="2"><h5>{totalPrice}</h5></td>
+    </tr>
+  </script>
+  
   
   <script>
   function openCity(evt, cityName) {
@@ -350,6 +414,26 @@
         	  });
         }
    } 	
+  
+  var orderList = document.querySelectorAll(".order-number");
+  for (var i = 0; i < orderList.length; i++) {
+        orderList[i].addEventListener('click', function(event) {
+           var orderNumber = "orderNumber=" + this.id;
+           $.ajax({
+           		url: '/user/orderNumber.mall',
+           		data: orderNumber,
+           		dataType:'text',
+           		success: function(data) {
+           			var jsonDetailData = JSON.parse(data);
+           			var body = detailHeaderTemplate(jsonDetailData);
+           			detailBodyTemplate(jsonDetailData, body);
+           			detailFooterTemplate(jsonDetailData);
+           			detailInformTemplate(jsonDetailData);
+           			$("#order-detail-modal").modal('show');
+           		}
+           })
+        });
+  }
   
   function reviewTemplate(reviewData){
 	  var templateHtml = document.querySelector('#review-body').innerHTML;
@@ -397,14 +481,62 @@
 	  originHtml.innerHTML = newHtml;
   }
   
-  var orderList = document.querySelectorAll(".order-number");
-  for (var i = 0; i < orderList.length; i++) {
-        orderList[i].addEventListener('click', function(event) {
-           alert(this.id);
-           /* $.ajax({
-           		url:   
-           }) */
-        });
+  function detailHeaderTemplate(detailData){
+	  var templateHtml = document.querySelector('#detail-header').innerHTML;
+	  var originHtml = document.querySelector('#in-detail-header');
+	  var body = document.querySelector('#in-detail-body');
+	  var newHtml = '';
+	 
+	  detailData.forEach(function(v,i){
+		  newHtml = templateHtml.replace('{orderDate}', v.orderDate)
+		  						 .replace('{orderId}', v.orderNumber );
+
+	  });
+	  originHtml.innerHTML = newHtml;
+	  
+	  return body;
+  }
+  
+  function detailBodyTemplate(detailData, body){
+	  var templateHtml = document.querySelector('#detail-body').innerHTML;
+	  var originHtml = body;
+	  var newHtml = '';
+	  detailData.forEach(function(v,i){
+		newHtml += templateHtml.replace('{fileName}', v.fileName)
+							   .replace('{productDescription}', v.productDescription)
+		  					   .replace('{productPrice}', v.productPrice)
+		  					   .replace('{productCount}', v.productCount);
+	  });
+	  
+	  originHtml.innerHTML = newHtml;
+  }
+  
+  function detailFooterTemplate(detailData){
+	  var templateHtml = document.querySelector('#detail-footer').innerHTML;
+	  var originHtml = document.querySelector('#in-detail-footer');
+	  var newHtml = '';
+	  detailData.forEach(function(v,i){
+		  newHtml = templateHtml.replace('{receiveDate}', v.receiveDate)
+		  						 .replace('{orderFlag}', v.orderFlag);
+	  });
+	  originHtml.innerHTML = newHtml;
+  } 
+  
+  function detailInformTemplate(detailData){
+	  var templateHtml = document.querySelector('#detail-inform').innerHTML;
+	  var originHtml = document.querySelector('#in-detail-inform');
+	  var newHtml = '';
+	  detailData.forEach(function(v,i){
+		  newHtml = templateHtml.replace('{receiverName}', v.receiverName)
+		  						 .replace('{receiverTel}', v.receiverTel)
+		  						 .replace('{receiverAddress}', v.receiverAddress)
+		  						 .replace('{totalProductPrice}', v.totalProductPrice)
+		  						 .replace('{reducePrice}', v.reducePrice)
+		  						 .replace('{shippingFee}', v.shippingFee)
+		  						 .replace('{totalPrice}', v.totalPrice);
+		  						 
+	  });
+	  originHtml.innerHTML = newHtml;
   }
   </script>
 
