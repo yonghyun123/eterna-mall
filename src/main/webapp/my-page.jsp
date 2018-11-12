@@ -43,7 +43,7 @@
 
     <div class="my-page-top-section">
       <div class="container">
-        <div class="row mb-4 my-page-top">
+        <div class="row mb-4 my-page-top">  
           <div class="user-grade">
             <div class="user text-black text-left">
               <span class="grade">${user.tierType }</span>
@@ -97,9 +97,10 @@
             <div class="tab" id="tab">
               <button class="tablinks active" onclick="openCity(event, '주문 내역')" id="defaultOpen">주문 내역</button>
               <button class="tablinks" onclick="openCity(event, '상품 후기')" id="product-review">상품 후기</button>
+              <button class="tablinks" onclick="openCity(event, 'Q&A')" id="product-qna">Q&A</button>
               <button class="tablinks" onclick="openCity(event, '적립금')" id="user-point">적립금</button>
               <button class="tablinks" onclick="openCity(event, '쿠폰')" id="user-coupon">쿠폰</button>
-              <button class="tablinks" onclick="openCity(event, '개인정보 수정')" id="user-edit">개인정보 수정</button>
+              <button class="tablinks" onclick="openCity(event, '개인정보 수정')" id="user-modify">개인정보 수정</button>
             </div>
             <div id="주문 내역" class="tabcontent" style="display: block;">
               <div class="container">
@@ -137,17 +138,19 @@
                             </c:forEach>
                             </td>
                             <td class="order-date-flag text-center">
-                            ${orderAllList[startIndex].orderDate } <br>
                             <c:set var="flag" value="${orderAllList[startIndex].orderFlag }"/> 
                             <c:choose>
                               <c:when test="${flag == 0 }">
-                               배송 완료
+                                ${orderAllList[startIndex].orderDate } 출발 <br>
+                                배송 전
                               </c:when>
                               <c:when test="${flag == 1 }">
-                               배송 중
+                                ${orderAllList[startIndex].orderDate } 출발 <br>
+                                배송 중
                               </c:when>
                               <c:when test="${flag == 2 }">
-                               배송준비중
+                                ${orderAllList[startIndex].receiverDate } 도착 <br>
+                                배송 완료
                               </c:when>
                             </c:choose>
                             </td>
@@ -155,7 +158,7 @@
                           <c:set var="endIndex" value="${endIndex + orderProductsLength[i.index + 1].numPurchase }"/>
                           <c:set var="startIndex" value="${startIndex + orderProductsLength[i.index].numPurchase }"/>
                           
-                        </c:forEach>  
+                        </c:forEach>
                       </tbody>
                     </table>
                   </div>
@@ -253,6 +256,8 @@
                 </div>
               </div>
             </div>
+            <div id="개인정보 수정" class="tabcontent" style="display: none;">
+              <div class="container" id="in-mbody"></div>
           </div>
         </div>
       </div>
@@ -277,35 +282,35 @@
 
   <script type="my-template" id="review-body">
   <tr>
-  	<td class="text-center">
-  		{number}
-  	</td>
-  	<td class="title">
-  		{subject}
-  		<span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
-  		<span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
-  	</td>
-  	<td class="text-center">
-  		{userId}
-  	</td>
-  	<td class="text-center">
-  		{regdate}
-  	</td>
-  	<td>
-  		<div class="section_review_list">
-  			<div class="review_box">
-  				<div class="short_review_area">
-  					<div class="grade_area">
-  					<!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-  					<span class="graph_mask"> <em class="graph_value" style="width: {score}%;"></em> </span>
-  				</div>
-  				</div>
-  			</div>
-  		</div>
-  	<td>
+    <td class="text-center">
+      {number}
+    </td>
+    <td class="title">
+      {subject}
+      <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+      <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+    </td>
+    <td class="text-center">
+      {userId}
+    </td>
+    <td class="text-center">
+      {regdate}
+    </td>
+    <td>
+      <div class="section_review_list">
+        <div class="review_box">
+          <div class="short_review_area">
+            <div class="grade_area">
+            <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
+            <span class="graph_mask"> <em class="graph_value" style="width: {score}%;"></em> </span>
+          </div>
+          </div>
+        </div>
+      </div>
+    <td>
   </tr>
   <tr style='display:none;'>
-  	<td colspan="4">{content}</td>
+    <td colspan="4">{content}</td>
   </tr>
   </script>
   
@@ -324,29 +329,29 @@
       {useFlag}
     </td>
     <td class="title">
-	  {couponDate}
+    {couponDate}
     </td>
   </tr>
   </script>
   
   <script type="my-template" id="detail-header">
-	<span class="text-left"><h2>주문 상세</h2></span>
-	<div class="text-left"><span>주문일 : <h4 class="order-input">{orderDate}</h4>  |  주문번호 : <h4 class="order-input">{orderId}</h4></span></div>
+  <span class="text-left"><h2>주문 상세</h2></span>
+  <div class="text-left"><span>주문일 : <h4 class="order-input">{orderDate}</h4>  |  주문번호 : <h4 class="order-input">{orderId}</h4></span></div>
   </script>
   
   <script type="my-template" id="detail-body">
-	<img alt="" class="product-thumbnail" src="/images/{fileName}">
-	<div class="product-text"> 
-	  <div class="product-name">{productDescription}</div>
-	  <div class="product-price-count">{productPrice}원 / {productCount}개</div>
-	</div><br>
+  <img alt="" class="product-thumbnail" src="/images/{fileName}">
+  <div class="product-text"> 
+    <div class="product-name">{productDescription}</div>
+    <div class="product-price-count">{productPrice}원 / {productCount}개</div>
+  </div><br>
   </script>
   
   <script type="my-template" id="detail-footer">
-	<div class="product-text">
-	  <div class="product-price-count">{orderFlag}!</div> 
-	  <div class="product-name"><h4>{receiveDate}</h4></div>
-	</div><br>
+  <div class="product-text">
+    <div class="product-price-count">{orderFlag}!</div> 
+    <div class="product-name"><h4>{receiveDate}</h4></div>
+  </div><br>
   </script>
   
   <script type="my-template" id="detail-inform">
@@ -378,7 +383,6 @@
                 <td colspan="2"><h5>{totalPrice}</h5></td>
     </tr>
   </script>
-
   <script type="my-template" id="modify-body">
 <div class="row justify-content-center">
                       <div
@@ -398,12 +402,12 @@
                           </tr>
                           <tr>
                             <th>새 비밀번호</th>
-                            <td><input type="text" id="newPW"><span id="modifyPutPw"></span>
+                            <td><input type="password" id="newPW"><span id="modifyPutPw"></span>
                             </td>
                           </tr>
                           <tr>
                             <th>새 비밀번호 확인</th>
-                            <td><input type="text"
+                            <td><input type="password"
                               id="confirmNewPW"><span id="modifyPutCheckPw"></span></td>
                           </tr>
                           <tr>
@@ -498,9 +502,14 @@
         </div>
       </div>
 </script>
-
   <script>
-
+  /* 유효성 체크를 위한 flag들 */
+  var checkpw = 0;
+  var checkconfirm = 0;
+  var checkemail = 1;
+  var checkAddress = 1;
+  var emailCheck = 0;
+  /* 탭 클릭 */
   function openCity(evt, cityName) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
@@ -514,100 +523,105 @@
       }
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
-      
+      /* 상품후기 탭 클릭 */
       if(evt.currentTarget.id == 'product-review'){
-      	$.ajax({
-      		 url: "/reviewlist.mall",
-      		 type:"get",
-      		 dataType:"text",
-      		 success: function(data){
-      			 var jsonReviewData = JSON.parse(data);
-      			 reviewTemplate(jsonReviewData);
-      		 }
-      	  });
+        $.ajax({
+           url: "/reviewlist.mall",
+           type:"get",
+           dataType:"text",
+           success: function(data){
+             var jsonReviewData = JSON.parse(data);
+             reviewTemplate(jsonReviewData);
+           }
+          });
       }
-      
+      /* 쿠폰 탭 클릭 */
       if(evt.currentTarget.id == 'user-coupon'){
-        	$.ajax({
-        		 url: "/user/coupon.mall",
-        		 type:"get",
-        		 dataType:"text",
-        		 success: function(data){
-        			 var jsonCouponData = JSON.parse(data);
-        			 couponTemplate(jsonCouponData);
-        		 }
-        	  });
+          $.ajax({
+             url: "/user/coupon.mall",
+             type:"get",
+             dataType:"text",
+             success: function(data){
+               var jsonCouponData = JSON.parse(data);
+               couponTemplate(jsonCouponData);
+             }
+            });
         }
-   } 	
-  
+      /* 개인정보 수정 탭 클릭 */
+      if (evt.currentTarget.id == 'user-modify') {
+      var templateHtml = document.querySelector('#confirm-body').innerHTML;
+      var originHtml = document.querySelector('#in-mbody');
+      originHtml.innerHTML = templateHtml;
+    }
+  }
+  /* 주문번호별 상세정보 */
   var orderList = document.querySelectorAll(".order-number");
   for (var i = 0; i < orderList.length; i++) {
         orderList[i].addEventListener('click', function(event) {
            var orderNumber = "orderNumber=" + this.id;
            $.ajax({
-           		url: '/user/orderNumber.mall',
-           		data: orderNumber,
-           		dataType:'text',
-           		success: function(data) {
-           			var jsonDetailData = JSON.parse(data);
-           			var body = detailHeaderTemplate(jsonDetailData);
-           			detailBodyTemplate(jsonDetailData, body);
-           			detailFooterTemplate(jsonDetailData);
-           			detailInformTemplate(jsonDetailData);
-           			$("#order-detail-modal").modal('show');
-           		}
+              url: '/user/orderNumber.mall',
+              data: orderNumber,
+              dataType:'text',
+              success: function(data) {
+                var jsonDetailData = JSON.parse(data);
+                var body = detailHeaderTemplate(jsonDetailData);
+                detailBodyTemplate(jsonDetailData, body);
+                detailFooterTemplate(jsonDetailData);
+                detailInformTemplate(jsonDetailData);
+                $("#order-detail-modal").modal('show');
+              }
            })
         });
   }
-  
+  /* 리뷰  */
   function reviewTemplate(reviewData){
-	  var templateHtml = document.querySelector('#review-body').innerHTML;
-	  var originHtml = document.querySelector('#in-rbody');
-	  var newHtml = '';
-	  reviewData.forEach(function(v,i){
-		  var scoreFormat = Number(v.score) * 20;
-		  scoreFormat+'%';
-		  newHtml += templateHtml.replace('{number}', i+1)
-		  						 .replace('{subject}', v.subject)
-		  						 .replace('{userId}', v.userId)
-		  						 .replace('{regdate}', v.regdate)  
-		  						 .replace('{score}', scoreFormat )
-		  						 .replace('{content}', v.content);
+    var templateHtml = document.querySelector('#review-body').innerHTML;
+    var originHtml = document.querySelector('#in-rbody');
+    var newHtml = '';
+    reviewData.forEach(function(v,i){
+      var scoreFormat = Number(v.score) * 20;
+      scoreFormat+'%';
+      newHtml += templateHtml.replace('{number}', i+1)
+                   .replace('{subject}', v.subject)
+                   .replace('{userId}', v.userId)
+                   .replace('{regdate}', v.regdate)  
+                   .replace('{score}', scoreFormat )
+                   .replace('{content}', v.content);
 
-	  });
-	  originHtml.innerHTML = newHtml;
-	  
-	  $(".plusIcon").on("click",function(){
-		  var obj = $(this);
-		  if( obj.hasClass("glyphicon-plus") ){
-		   	 obj.hide();
-		   	 obj.next().show();            
-		   	 obj.parent().parent().next().show();
-		  }else{
-		     obj.hide();
-		     obj.prev().show();
-		     obj.parent().parent().next().hide();
-		  }
-	  });
+    });
+    originHtml.innerHTML = newHtml;
+    
+    $(".plusIcon").on("click",function(){
+      var obj = $(this);
+      if( obj.hasClass("glyphicon-plus") ){
+         obj.hide();
+         obj.next().show();            
+         obj.parent().parent().next().show();
+      }else{
+         obj.hide();
+         obj.prev().show();
+         obj.parent().parent().next().hide();
+      }
+    });
   }
   
   function couponTemplate(couponData){
-	  var templateHtml = document.querySelector('#coupon-body').innerHTML;
-	  var originHtml = document.querySelector('#in-cbody');
-	  var newHtml = '';
-	  couponData.forEach(function(v,i){
-		  newHtml += templateHtml.replace('{couponId}', v.couponId)
-		  						 .replace('{couponName}', v.couponName)
-		  						 .replace('{couponRate}', v.couponRate)
-		  						 .replace('{useFlag}', v.useFlag)  
-		  						 .replace('{couponDate}', v.couponDate );
+    var templateHtml = document.querySelector('#coupon-body').innerHTML;
+    var originHtml = document.querySelector('#in-cbody');
+    var newHtml = '';
+    couponData.forEach(function(v,i){
+      newHtml += templateHtml.replace('{couponId}', v.couponId)
+                   .replace('{couponName}', v.couponName)
+                   .replace('{couponRate}', v.couponRate)
+                   .replace('{useFlag}', v.useFlag)  
+                   .replace('{couponDate}', v.couponDate );
 
-	  });
-	  originHtml.innerHTML = newHtml;
+    });
+    originHtml.innerHTML = newHtml;
   }
   
   function detailHeaderTemplate(detailData){
-
     var templateHtml = document.querySelector('#detail-header').innerHTML;
     var originHtml = document.querySelector('#in-detail-header');
     var body = document.querySelector('#in-detail-body');
@@ -620,51 +634,49 @@
     originHtml.innerHTML = newHtml;
     
     return body;
-
   }
   
   function detailBodyTemplate(detailData, body){
-	  var templateHtml = document.querySelector('#detail-body').innerHTML;
-	  var originHtml = body;
-	  var newHtml = '';
-	  detailData.forEach(function(v,i){
-		newHtml += templateHtml.replace('{fileName}', v.fileName)
-							   .replace('{productDescription}', v.productDescription)
-		  					   .replace('{productPrice}', v.productPrice)
-		  					   .replace('{productCount}', v.productCount);
-	  });
-	  
-	  originHtml.innerHTML = newHtml;
+    var templateHtml = document.querySelector('#detail-body').innerHTML;
+    var originHtml = body;
+    var newHtml = '';
+    detailData.forEach(function(v,i){
+    newHtml += templateHtml.replace('{fileName}', v.fileName)
+                 .replace('{productDescription}', v.productDescription)
+                   .replace('{productPrice}', v.productPrice)
+                   .replace('{productCount}', v.productCount);
+    });
+    
+    originHtml.innerHTML = newHtml;
   }
   
   function detailFooterTemplate(detailData){
-	  var templateHtml = document.querySelector('#detail-footer').innerHTML;
-	  var originHtml = document.querySelector('#in-detail-footer');
-	  var newHtml = '';
-	  detailData.forEach(function(v,i){
-		  newHtml = templateHtml.replace('{receiveDate}', v.receiveDate)
-		  						 .replace('{orderFlag}', v.orderFlag);
-	  });
-	  originHtml.innerHTML = newHtml;
+    var templateHtml = document.querySelector('#detail-footer').innerHTML;
+    var originHtml = document.querySelector('#in-detail-footer');
+    var newHtml = '';
+    detailData.forEach(function(v,i){
+      newHtml = templateHtml.replace('{receiveDate}', v.receiveDate)
+                   .replace('{orderFlag}', v.orderFlag);
+    });
+    originHtml.innerHTML = newHtml;
   } 
   
   function detailInformTemplate(detailData){
-	  var templateHtml = document.querySelector('#detail-inform').innerHTML;
-	  var originHtml = document.querySelector('#in-detail-inform');
-	  var newHtml = '';
-	  detailData.forEach(function(v,i){
-		  newHtml = templateHtml.replace('{receiverName}', v.receiverName)
-		  						 .replace('{receiverTel}', v.receiverTel)
-		  						 .replace('{receiverAddress}', v.receiverAddress)
-		  						 .replace('{totalProductPrice}', v.totalProductPrice)
-		  						 .replace('{reducePrice}', v.reducePrice)
-		  						 .replace('{shippingFee}', v.shippingFee)
-		  						 .replace('{totalPrice}', v.totalPrice);
-		  						 
-	  });
-	  originHtml.innerHTML = newHtml;
+    var templateHtml = document.querySelector('#detail-inform').innerHTML;
+    var originHtml = document.querySelector('#in-detail-inform');
+    var newHtml = '';
+    detailData.forEach(function(v,i){
+      newHtml = templateHtml.replace('{receiverName}', v.receiverName)
+                   .replace('{receiverTel}', v.receiverTel)
+                   .replace('{receiverAddress}', v.receiverAddress)
+                   .replace('{totalProductPrice}', v.totalProductPrice)
+                   .replace('{reducePrice}', v.reducePrice)
+                   .replace('{shippingFee}', v.shippingFee)
+                   .replace('{totalPrice}', v.totalPrice);
+                   
+    });
+    originHtml.innerHTML = newHtml;
   }
-
   /* 개인정보 수정 - 수정하기 버튼 눌렀을때 */
   $(document).on("click",".modify",function(event) {
     var userEmail = document.getElementById('new-userEmail').value;
@@ -674,7 +686,6 @@
     var detail = document.getElementById('new-detail-address').value;
     var newAddress = zipcode +'/'+ street+'/'+detail;
     var params = "confirmNewPW=" + confirmNewPW +"&userEmail="+userEmail+ "&newAddress=" + newAddress;
-    console.log(params);
     $.ajax({
       url : "/user/updateInfo.mall",
       type : "get",
@@ -721,14 +732,12 @@
      document.getElementById('confirm_password').value = '';
    } else {
   var inputPW = "inputPW=" + email;
-    console.log(inputPW);
     $.ajax({
       url : "/user/updateInfo.mall",
       type : "get",
       dataType : "text",
       data :  inputPW,
       success : function(data) {
-        console.log(data);
         if(data.trim()=='fail'){
           /* 비밀번호 불일치 */
           popup("popup-message-PWCheck-fail");
@@ -756,7 +765,7 @@ jsonModifyData.forEach(function(v, i) {
           '{userStreetAddress}', v.userStreetAddress).replace(
           '{userDetailAddress}', v.userDetailAddress).replace(
           '{userRegdate}', v.userRegdate).replace(
-
+          '{userTel}', v.userTel);
 
 });
 originHtml.innerHTML = newHtml;
@@ -808,12 +817,7 @@ function daumPostcode() {
        
        
 /* 유효성 검사 */
-/* 유효성 체크를 위한 flag들 */
- var checkpw = 0;
- var checkconfirm = 0;
- var checkemail = 1;
- var checkAddress = 1;
- var emailCheck = 0;
+
 
  
  function eventRegist(){
@@ -927,14 +931,14 @@ function daumPostcode() {
 
   /* 유효성 확인 후 join 버튼 활성화 */
   function ableJoin(){
-	  if(document.querySelector(".emailCheck").disabled){
-     if(checkpw == 1 && checkconfirm == 1 &&  checkAddress == 1 &&checkemail==1 &&emailCheck==1){
+	  if(document.querySelector('.emailCheck').disabled){
+     if(checkpw == 1 && checkconfirm == 1 &&  checkAddress == 1 && checkemail==1 ){
        document.querySelector(".modify").disabled = false;
      }else{
        document.querySelector(".modify").disabled = true;
      }
-  }
 	  }
+  }
   </script>
 
 </body>
