@@ -73,6 +73,7 @@
                   <input type="radio" class="mr-2 mt-1" value="복합성" name="type"> <span class="text-black">복합성</span>
                 </label>
               </div>
+              
               <input id="searchC" type="button" class="buy-now btn btn-sm btn-primary" value="SEARCH">
             </div>
           </div>
