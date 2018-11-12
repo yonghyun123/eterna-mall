@@ -44,7 +44,7 @@
     <div class="site-section">
       <div class="container">
 
-        <div class="row mb-5">
+        <div class="row mb-3">
           <div class="col-md-9 order-2">
 
             <div class="row">
@@ -75,18 +75,18 @@
               </div>
             </div>
             
-            <ul class="row mb-5 product_info" id="insertUl">
+            <ul class="row mb-3 product_info" id="insertUl">
             
               <c:forEach var="product" items="${productList}" varStatus="status">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                   <div class="block-4 text-center border" style="width:220px; height:380px;">
+                   <div class="block-4 text-center border product-list">
                    <figure class="block-4-image">
                       <form id="form${status.index}" action="/detail.mall" method="post">
-                         <a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid" style="width: 80px; height:200px;"></a>
+                         <a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
                          <input type="hidden" name="productId" value="${product.productId }">
                       </form>
                    </figure>
-                   <div class="block-4-text p-4">
+                   <div class="block-4-text p-4 product-list-text">
                     <h3><a href="shop-single.html">${product.productBrand}</a></h3>
                     <p class="mb-0">${product.productDescription }</p>
                     <p class="text-primary font-weight-bold">W${product.price}</p>
