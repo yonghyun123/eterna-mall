@@ -26,6 +26,7 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public void createComment(QnA qna) throws Exception {
 		qnaDao.createComment(qna);
+		qnaDao.updateFlag(qna.getId());
 	}
 
 	@Override
@@ -46,6 +47,16 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public List<QnA> listAll() throws Exception {
 		return qnaDao.listAll();
+	}
+
+	@Override
+	public int countAnswer(String userId) throws Exception {
+		return qnaDao.countAnswer(userId);
+	}
+
+	@Override
+	public void readQnA(String userId) throws Exception {
+		qnaDao.readQnA(userId);
 	}
 	
 /*	
