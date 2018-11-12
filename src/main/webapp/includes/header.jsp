@@ -41,6 +41,7 @@ if(request.getAttribute("cartCount") != null){
         <li id="homeL"><a href="/eterna.mall">Home</a></li>
         <li id="productsL"><a href="/product.mall">Products</a></li>
         <li id="faqL"><a href="/notice.jsp">FAQ</a></li>
+
         <c:choose>
           <c:when test="${!empty cookie.loginId.value}">
               <li><a id="logout-btn">Logout</a></li>
