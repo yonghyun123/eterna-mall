@@ -38,14 +38,10 @@
       </div>
     </div>
     <div class="site-section">
-    <c:forEach var="imageList" items="${imageList}" varStatus="status">
-
-    </c:forEach>
-    
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <img src="/images/${imageList[0].fileName}" alt="Image" class="img-fluid">
+          <div class="col-md-6 text-center">
+            <img src="/images/${imageList[0].fileName}" alt="Image" class="img-fluid shop-single-image" style="width:170px; height:280px">
           </div>
           <div class="col-md-6">
             <h2 class="text-black">${selectProduct.productDescription }</h2>
