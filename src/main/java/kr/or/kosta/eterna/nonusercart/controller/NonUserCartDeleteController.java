@@ -74,14 +74,14 @@ public class NonUserCartDeleteController implements Controller {
 					}
 					
 					if(products != "") {
-						System.out.println("products=" + products );
+						System.out.println("Noneproducts=" + products );
 						cookie.setValue(products);
 						response.addCookie(cookie);
 					}else {
-						System.out.println("products=" + products );
+						System.out.println("Existproducts=" + products );
 						cookie.setMaxAge(0);
 						response.addCookie(cookie);
-						mav.setView("/cart.jsp");
+						mav.setView("redirect:/cart.jsp");
 						return mav;
 					}
 				} catch (Exception e) {
@@ -91,7 +91,7 @@ public class NonUserCartDeleteController implements Controller {
 			}
 			}
 		}
-		mav.setView("/nonUserCartList.mall");
+		mav.setView("redirect:/nonUserCartList.mall");
 		return mav;
 
 	}
