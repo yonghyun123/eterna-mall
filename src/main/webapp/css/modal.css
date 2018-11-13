@@ -5,6 +5,7 @@
 	float: right;
 	padding: 3%;
 	margin-top: 1%;
+	width: 100%;
 }
 
 #cancleCouponBtn {
@@ -12,25 +13,33 @@
 }
 
 #info-table * {
-	border: solid;
-	thin;
-	black;
+	border: solid 1px #dddfe1;
 }
 
 #info-table th, #coupon-table th {
-	background: #7971ea;
+	background: #dddfe1;
 	color: white;
 	text-align: center;
 }
 
-#info-table, #coupon-table {
-	font-size: 12px;
+#coupon-dialog {
+	max-width: 40%;
 }
 
-#coupon-dialog {
-	max-width: 60%;
+.coupon-list-form {
+	display: inline-block;
+	width: 100%;
 }
 
 #coupon-table * {
 	text-align: center;
+}
+
+#coupon-table {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.form-group {
+	margin: 0;
 }

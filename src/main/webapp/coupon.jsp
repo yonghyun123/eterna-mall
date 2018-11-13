@@ -5,13 +5,10 @@
    <div class="modal fade" id="coupon-modal" role="dialog">
       <div class="modal-dialog" id="coupon-dialog">
          <div class="modal-content">
-            <div class="modal-body">
-               <form role="form" class="text-left">
+            <div class="modal-body text-center">
+               <form role="form" class="text-center coupon-list-form">
                   <div class="form-group">
-            <div class="title">
-                     <h2>${user.userId }님이보유한쿠폰목록입니다</h2>
-              </div>
-                      <table id= "coupon-table">
+                      <table id="coupon-table">
                         <thead>
                            <tr>
                               <th>번호</th>
@@ -81,6 +78,8 @@
          var couponId = $(this).closest("tr").find(".couponId").val();
          var couponRate = $(this).closest("tr").find(".couponRate").val();
          var discountAmount = Number($(this).closest("tr").find(".discountAmount").text());
+         alert($(this).closest("tr").find(".discountAmount").text());
+         alert(discountAmount);
          selectedCouponId = couponId;
          var shippingFee = $('.shippingFee').text();
          var applyPoint = $('.applyPoint').text();
