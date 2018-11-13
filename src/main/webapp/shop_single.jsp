@@ -22,9 +22,11 @@
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/aos.css">
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/viewList.css">
 
 
 <jsp:include page="/includes/header.jsp"></jsp:include>
+<jsp:include page="/includes/viewList.jsp"></jsp:include>
 </head>
 <body>
   <div class="site-wrap">
@@ -93,7 +95,7 @@
       </div>
       <div class="site-section block-3 site-blocks-2 bg-light">
         <div class="container">
-          <a href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
+          <!-- <a href="#"><i class="far fa-arrow-alt-circle-up"></i></a> -->
           <div class="row">
           <div class="col-md-12">
             <div class="tab" id="tab">
@@ -192,6 +194,7 @@
   <script src="/js/aos.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/paginathing.js"></script>
+  <script src="/js/viewList.js"></script>
   <script type="my-template" id="qna-detail-body">
 <tr>
 	<td class="title">

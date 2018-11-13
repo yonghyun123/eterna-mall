@@ -4,15 +4,12 @@ $(document).ready(function() {
 	 Cpage = 0;   // 현재 페이지
 	    // 원하는 페이지 사이즈로 조정하세용
 	chkRecent(1);
-	console.log(Cpage);
 	$(".btn_next").on('click',function(){
 	chkRecent(Cpage + 1);
-	console.log(Cpage);
 	return;
 	});
 	$(".btn_prev").on('click',function(){
 	chkRecent(Cpage - 1);
-	console.log(Cpage);
 	return;
 	});
 });
@@ -23,11 +20,10 @@ function eventRegist(){
 function removeRecentItem(itemname){
 
 	var itemID = getCookie("recentView");
-	console.log(itemID);
-	var totcount = itemID.split('@').length-1;
+	var totcount = itemID.split('@').length-2;
 
 	console.log(totcount);
-	if(totcount == 2){
+	if(totcount == 1){
 		document.cookie = "recentView=;path=/";
 		chkRecent(Cpage);
 		return;
@@ -76,7 +72,7 @@ function chkRecent(a){
 				var itemId = thisItem.split('#')[0];
 				var itemDes = thisItem.split("#")[1].replace(/\*/g," ");
 				var itemImg = thisItem.split('#')[2];
-			$("#right_zzim ul").append('<li><a href="/detail.mall?productId='+itemId+'" target="_top"><img src="/images/'+itemImg+'" border="0"  width="75" height="75"><p>'+itemDes+'</p></a><div class="detail"><a href="#" onclick="removeRecentItem(\''+thisItem+'\');" class="btn_delete">삭제</a></div></li>')
+			$("#right_zzim ul").append('<li><a href="/detail.mall?productId='+itemId+'" target="_top"><img src="/images/'+itemImg+'" border="0"  width="50" height="50"><p>'+itemDes+'</p></a><div class="detail"><a onclick="removeRecentItem(\''+thisItem+'\');" class="btn_delete">삭제</a></div></li>')
 
 			}
 
