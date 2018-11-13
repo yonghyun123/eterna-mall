@@ -1,6 +1,10 @@
 package kr.or.kosta.eterna.common.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -26,6 +30,7 @@ public class CartCheckFilter implements Filter {
 
 	private String cookieName;
 	private String products; 
+	private String recentViews;
 	private CartService cartService;
 	private QnAService qnaService;
 	private int countCart = 0;
@@ -44,6 +49,7 @@ public class CartCheckFilter implements Filter {
 		Cookie[] cookies = ((HttpServletRequest) request).getCookies();
 		boolean isLogin = false;
 		boolean hasProduct = false;
+		boolean hasView = false;
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("loginId")) {
@@ -59,6 +65,14 @@ public class CartCheckFilter implements Filter {
 				hasProduct = true;
 					break;
 				}
+			}
+			
+			for(Cookie cookie : cookies) {
+				if (cookie.getName().equals("recentView")) {
+					recentViews = cookie.getValue();
+					hasView = true;
+						break;
+					}
 			}
 			
 		}
@@ -78,8 +92,22 @@ public class CartCheckFilter implements Filter {
 			countCart = 0;
 			countAnswer = 0;
 		}
+		List<String[]>recentViewList = new ArrayList<String[]>();
+		if(hasView) {
+			String[] recentviewArray = recentViews.split("@");
+			String[] recentviewDetail = null;
+			
+			/*Map<String, String>recentView = new HashMap<String, String>();
+			*/
+		
+			for(int i=1; i<recentviewArray.length; i++ ) {
+				recentviewDetail = recentviewArray[i].split("#");
+				recentViewList.add(recentviewDetail);
+			}
+		}
 		request.setAttribute("cartCount", countCart);
 		request.setAttribute("answerCount", countAnswer);
+		request.setAttribute("recentViewList", recentViewList);
 		request.setAttribute("uri", ((HttpServletRequest) request).getRequestURI());
 		chain.doFilter(request, response);
 	}

@@ -111,48 +111,56 @@
                 <div class="row">
                   <div class="container">
                     <table class="table table-hover order-list-table">
-                      <thead>
-                        <tr>
-                          <th class="order-list-number text-center">주문 번호</th>
-                          <th class="order-list-info text-center" colspan="5">주문 내용</th>
-                          <th class="order-list-status text-center">배송 결과</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <c:set var="startIndex" value="0"/>
-                        <c:set var="endIndex" value="${orderProductsLength[0].numPurchase - 1}"/>
-                        <c:set var="orderCountLength" value="${orderCountLength - 1}"/>
-                        <c:forEach var="index" begin="0" end="${orderCountLength }" varStatus="i">
-                          <tr class="order-list-row">
-                            <td class="order-number text-center" id="${orderAllList[startIndex].orderNumber }">${orderAllList[startIndex].orderNumber }</td>
-                            <td colspan="5" class="order-inform text-left">
-                            <!-- 상품 이름 및 이미지에 해당 상품 페이지 이동 a태그 걸기 -->
-                            <c:forEach var="buy" items="${orderAllList }" begin="${startIndex }" end="${endIndex }" varStatus="x">
-                                <img alt="" class="product-thumbnail" src="/images/${buy.fileName }">
-                                <div class="product-text"> 
-                                  <div class="product-name">${buy.productDescription }</div>
-                                  <div class="product-price-count">${buy.productPrice }원 / ${buy.count }개</div>
-                                </div><br>
-                            </c:forEach>
-                            </td>
-                            <td class="order-date-flag text-center">
-                            <c:set var="flag" value="${orderAllList[startIndex].orderFlag }"/> 
-                            <c:choose>
-                              <c:when test="${flag == 0 }">
-                                <h4>배송 전</h4> ${orderAllList[startIndex].orderDate } <span>출발</span> 
-                              </c:when>
-                              <c:when test="${flag == 1 }">
-                                <h4>배송 중</h4> ${orderAllList[startIndex].orderDate } <span>출발</span>
-                              </c:when>
-                              <c:when test="${flag == 2 }">
-                                <h4>배송 완료</h4> ${orderAllList[startIndex].orderDate } <span>도착</span>
-                              </c:when>
-                            </c:choose>
-                            </td>
-                          </tr>
-                          <c:set var="endIndex" value="${endIndex + orderProductsLength[i.index + 1].numPurchase }"/>
-                          <c:set var="startIndex" value="${startIndex + orderProductsLength[i.index].numPurchase }"/>
-                        </c:forEach>
+                        <c:choose>
+                          <c:when test="${orderCountLength != 0 }">
+                            <thead>
+                              <tr>
+                                <th class="order-list-number text-center">주문 번호</th>
+                                <th class="order-list-info text-center" colspan="5">주문 내용</th>
+                                <th class="order-list-status text-center">배송 결과</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <c:set var="startIndex" value="0"/>
+                              <c:set var="endIndex" value="${orderProductsLength[0].numPurchase - 1}"/>
+                              <c:set var="orderCountLength" value="${orderCountLength - 1}"/>
+                              <c:forEach var="index" begin="0" end="${orderCountLength }" varStatus="i">
+                                <tr class="order-list-row">
+                                  <td class="order-number text-center" id="${orderAllList[startIndex].orderNumber }">${orderAllList[startIndex].orderNumber }</td>
+                                  <td colspan="5" class="order-inform text-left">
+                                  <!-- 상품 이름 및 이미지에 해당 상품 페이지 이동 a태그 걸기 -->
+                                  <c:forEach var="buy" items="${orderAllList }" begin="${startIndex }" end="${endIndex }" varStatus="x">
+                                      <img alt="" class="product-thumbnail" src="/images/${buy.fileName }">
+                                      <div class="product-text"> 
+                                        <div class="product-name">${buy.productDescription }</div>
+                                        <div class="product-price-count">${buy.productPrice }원 / ${buy.count }개</div>
+                                      </div><br>
+                                  </c:forEach>
+                                  </td>
+                                  <td class="order-date-flag text-center">
+                                  <c:set var="flag" value="${orderAllList[startIndex].orderFlag }"/> 
+                                  <c:choose>
+                                    <c:when test="${flag == 0 }">
+                                      <h4>배송 전</h4> ${orderAllList[startIndex].orderDate } <span>출발</span> 
+                                    </c:when>
+                                    <c:when test="${flag == 1 }">
+                                      <h4>배송 중</h4> ${orderAllList[startIndex].orderDate } <span>출발</span>
+                                    </c:when>
+                                    <c:when test="${flag == 2 }">
+                                      <h4>배송 완료</h4> ${orderAllList[startIndex].orderDate } <span>도착</span>
+                                    </c:when>
+                                  </c:choose>
+                                  </td>
+                                </tr>
+                                <c:set var="endIndex" value="${endIndex + orderProductsLength[i.index + 1].numPurchase }"/>
+                                <c:set var="startIndex" value="${startIndex + orderProductsLength[i.index].numPurchase }"/>
+                              </c:forEach>
+                            </c:when>
+                          <c:otherwise>
+                            <th class="text-center" style="padding: 3% 0"><h4>주문내역이 존재하지 않습니다.</h4></th>
+                          </c:otherwise>
+                        </c:choose>
+
                       </tbody>
                     </table>
                   </div>
@@ -199,6 +207,45 @@
                 </div>
               </div>
             </div>
+            
+            <!-- Q&A 탭 -->
+            <div id="QNA" class="tabcontent" style="display: none;">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-md-7 site-section-heading text-center pt-4">
+                    <h2>Q&A</h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="container">
+                    <table class="table table-hover" id="table-qna">
+                      <thead>
+                        <tr>
+                          <th>주문번호</th>
+                          <th>내용</th>
+                          <th>일자</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-qbody">
+                      <!-- template 들어올 공간  -->
+                      </tbody>
+                    </table>
+                    <div class="in-page">
+                    </div>
+                    <div class="row aos-init aos-animate"
+                      data-aos="fade-up">
+                      <div class="col-md-12 text-center">
+                        <div class="site-block-27">
+                          <ul>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             <!-- 적립금 탭 -->
             <div id="적립금" class="tabcontent" style="display: none;">
               <div class="container">
@@ -212,13 +259,14 @@
                     <table class="table table-hover" id="table-point">
                       <thead>
                         <tr>
-                          <th>번호</th>
-                          <th>제목</th>
-                          <th>작성자</th>
-                          <th>등록일자</th>
+                          <th>주문번호</th>
+                          <th>상태</th>
+                          <th>상세 내용</th>
+                          <th>금액</th>
+                          <th>일자</th>
                         </tr>
                       </thead>
-                      <tbody id="in-tbody">
+                      <tbody id="in-pbody">
                       <!-- template 들어올 공간  -->
                       </tbody>
                     </table>
@@ -242,7 +290,6 @@
                           <th>쿠폰번호</th>
                           <th colspan="5">쿠폰명</th>
                           <th>할인금액</th>
-                          <th>사용여부</th>
                           <th>유효기간</th>
                         </tr>
                       </thead>
@@ -272,6 +319,7 @@
     <div id="popup-message-update-success">사용가능한 이메일입니다</div>
     <div id="popup-message-Userupdate-success">개인정보가 수정되었습니다</div>
     <div id="popup-message-inputPW">비밀번호를 입력해주세요</div>
+    <%@ include file="user/order-detail-modal.jsp"%>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="/js/jquery-3.3.1.min.js"></script>
@@ -317,6 +365,27 @@
     <td colspan="4">{content}</td>
   </tr>
   </script>
+  
+  <script type="my-template" id="qna-body">
+  <tr>
+    <td class="text-center">
+      {number}
+    </td>
+    <td class="title">
+      {subject}
+    </td>
+    <td class="text-center">
+      {userId}
+    </td>
+    <td class="text-center">
+      {regdate}
+    </td>
+    <td class="text-center">
+      {regdate}
+    </td>
+  </tr>
+  </script>
+  
   <!-- coupon template -->
   <script type="my-template" id="coupon-body">
   <tr>
@@ -330,62 +399,13 @@
       {couponRate}%
     </td>
     <td class="title">
-      {useFlag}
-    </td>
-    <td class="title">
     {couponDate}
     </td>
   </tr>
   </script>
-  <!-- 주문상세 template -->
-  <script type="my-template" id="detail-header">
-  <span class="text-left"><h2>주문 상세</h2></span>
-  <div class="text-left">주문일 : <h4 class="detail-order-date">{orderDate}</h4>   주문번호 : <h4 class="detail-order-id">{orderId}</h4></div>
-  </script>
-
-  <script type="my-template" id="detail-body">
-  <img alt="" class="product-thumbnail" src="/images/{fileName}">
-  <div class="product-text"> 
-    <div class="product-name">{productDescription}</div>
-    <div class="product-price-count">{productPrice}원 / {productCount}개</div>
-  </div><br>
-  </script>
   
-  <script type="my-template" id="detail-side">
-  <div class="order-detail-flag">
-    <div class="product-price-count"><h4>{orderFlag}!</h4></div> 
-    <div class="product-name">{receiveDate}</div>
-  </div><br>
-  </script>
-  <script type="my-template" id="detail-inform">
-    <tr>
-      <th class="order-detail-tr" colspan="4" width="50%">받는사람 정보</th>
-      <th class="order-detail-tr" colspan="4" width="50%"> 결제 정보 </th>
-              </tr>
-              <tr>
-                <td class="inform-td" colspan="2">받는 사람</td>
-                <td colspan="2">{receiverName}</td>
-                <td class="inform-td" colspan="2">총 상품 가격</td>
-                <td colspan="2">{totalProductPrice}</td>
-              </tr>
-              <tr>
-                <td class="inform-td" colspan="2">연락처</td>
-                <td colspan="2">{receiverTel}</td>
-                <td class="inform-td" colspan="2">할인금액</td>
-                <td colspan="2">{reducePrice}</td>
-              </tr>
-              <tr>
-                <td class="inform-td" colspan="2">주소</td>
-                <td colspan="2">{receiverAddress}</td>
-                <td class="inform-td" colspan="2">배송비</td>
-                <td colspan="2">{shippingFee}</td>
-              </tr>
-              <tr>
-                <td colspan="4"></td>
-                <td class="inform-td" colspan="2">총 결제금액</td>
-                <td colspan="2"><h5>{totalPrice}</h5></td>
-    </tr>
-  </script>
+  
+  
   <!-- 개인정보 수정 template -->
   <script type="my-template" id="modify-body">
   <div class="row justify-content-center">
@@ -462,10 +482,10 @@
       	  </tr>
         </tbody>
       </table>
-  	
   </div>
-</script>
-<!-- 개인정보 확인시 비밀번호 확인 template -->
+  </script>
+
+  <!-- 개인정보 확인시 비밀번호 확인 template -->
   <script type="my-template" id="confirm-body">
   <div class="row justify-content-center">
     <div class="col-md-7 site-section-heading text-center pt-4">
@@ -484,6 +504,7 @@
     </div>
   </div>                        
   </script>
+  
   <!-- 개인정보 수정 성공시 template -->
   <script type="my-template" id="success-body">
   <div class="container">
@@ -518,6 +539,7 @@
       }
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
+      
       /* 상품후기 탭 클릭 */
       if(evt.currentTarget.id == 'product-review'){
         $.ajax({
@@ -528,8 +550,21 @@
              var jsonReviewData = JSON.parse(data);
              reviewTemplate(jsonReviewData);
            }
-          });
+        });
       }
+      
+      if(evt.currentTarget.id == 'product-qna'){
+          $.ajax({
+             url: "/reviewlist.mall",
+             type:"get",
+             dataType:"text",
+             success: function(data){
+               var jsonReviewData = JSON.parse(data);
+               reviewTemplate(jsonReviewData);
+             }
+          });
+        }
+      
       /* 쿠폰 탭 클릭 */
       if(evt.currentTarget.id == 'user-coupon'){
           $.ajax({
@@ -540,14 +575,17 @@
                var jsonCouponData = JSON.parse(data);
                couponTemplate(jsonCouponData);
              }
-            });
+          });
         }
+      
       /* 개인정보 수정 탭 클릭 */
       if (evt.currentTarget.id == 'user-modify') {
       var templateHtml = document.querySelector('#confirm-body').innerHTML;
       var originHtml = document.querySelector('#in-mbody');
       originHtml.innerHTML = templateHtml;
-    }
+      }
+      
+      
   }
   /* 주문번호별 상세정보 */
   var orderList = document.querySelectorAll(".order-number");
@@ -569,6 +607,7 @@
            })
         });
   }
+  
   /* 리뷰  */
   function reviewTemplate(reviewData){
     var templateHtml = document.querySelector('#review-body').innerHTML;
@@ -600,6 +639,7 @@
       }
     });
   }
+  
   /* 쿠폰  */
   function couponTemplate(couponData){
     var templateHtml = document.querySelector('#coupon-body').innerHTML;
@@ -609,7 +649,6 @@
       newHtml += templateHtml.replace('{couponId}', v.couponId)
                    .replace('{couponName}', v.couponName)
                    .replace('{couponRate}', v.couponRate)
-                   .replace('{useFlag}', v.useFlag)  
                    .replace('{couponDate}', v.couponDate );
 
     });
@@ -672,6 +711,7 @@
     });
     originHtml.innerHTML = newHtml;
   }
+  
   /* 개인정보 수정 - 수정하기 버튼 눌렀을때 */
   $(document).on("click",".modify",function(event) {
     var userEmail = document.getElementById('new-userEmail').value;
@@ -694,6 +734,7 @@
       }
     });
   });
+  
   /* 개인정보 수정 - 이메일 중복 체크 */
   $(document).on("click",".emailCheck",function(event) {
     var emailCheck = document.getElementById('new-userEmail').value.trim();
@@ -746,7 +787,8 @@
         }
     });
   }
-	});
+});
+  
   /* 개인정보 수정 template */
     function modiftTemplate(jsonModifyData) {
     var templateHtml = document.querySelector('#modify-body').innerHTML;
@@ -765,6 +807,7 @@
     });
     originHtml.innerHTML = newHtml;
     }
+  
   /* 주소입력 API */
   function daumPostcode() {
     new daum.Postcode(

@@ -33,10 +33,11 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
-
+<link rel="stylesheet" href="/css/viewList.css">
 <jsp:include page="/includes/header.jsp"></jsp:include>
-
+<jsp:include page="/includes/viewList.jsp"></jsp:include>
 </head>
+
 <body>
 	<div class="site-wrap">
 		<div class="container video-section" data-aos="fade">
@@ -166,8 +167,9 @@
 	<script src="/js/aos.js"></script>
 	<script src="/js/main.js"></script>
 	<script src="/js/ajax.js"></script>
-	<script src="/js/snow.js"></script>
-	
+
+	<script src="/js/viewList.js"></script>
+  <script src="/js/snow.js"></script>
 	<script>
 		$("#homeL").addClass("active");
 	</script>
