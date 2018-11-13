@@ -205,10 +205,15 @@ jQuery(document).ready(function($) {
         $("#nonUserDeliveryCheck-modal").modal();
     });
     $("#login-btn").click(function(){
+    	var templateHtml = document.querySelector('#login-body').innerHTML;
+    	var originHtml = document.querySelector('#nonUserBody');
+    	originHtml.innerHTML = templateHtml;
     	$("#login-modal").modal();
     	$('#topList').children('li').siblings().removeClass('active');
     	$("#loginL").addClass("active");
     });
+
+    
     $("#signup-btn").click(function(){
         $("#signup-modal").modal();
         $('#topList').children('li').siblings().removeClass('active');
