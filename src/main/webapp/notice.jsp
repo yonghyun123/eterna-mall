@@ -264,10 +264,97 @@
                       <tr style="display: none;">
                       	<td colspan="3">
                                                      할인 된 금액은 결제 전 주문서(Payment)에서 확인가능하며,<br> 
+                                                      마이페이지의 주문 상세보기 에서 확인하실 수 있습니다 <br> 
+                        </td>
+                      </tr>
+                      <tr style="display: none;">
+                        <td colspan="3">
+                                                     주문서 (Payment) 에 적립금 사용 칸에 1원 단위로 적용이 가능합니다.<br> 
                                                      서 사용가능한 적립금 조회하신 후 사용할 적립금을 입력하여 적용할 수 있습니다. <br> 
                                                      적립금이 0원이거나, 보유한 적립금을 초과하여 적용하실 수 없습니다.  <br> <br>
                         </td>
                       </tr>
+                      <tr>
+                        <td>5</td>
+                        <td class="title"> 할인 된 금액은 어디서 확인할 수 있나요?
+                        <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+                        <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+                        </td>
+                      </tr>
+                      <tr style="display: none;">
+                        <td colspan="3">
+                                                     할인 된 금액은 결제 전 주문서(Payment)에서 확인가능하며,<br> 
+                                                     마이페이지의 주문 상세보기 에서 확인하실 수 있습니다 <br> 
+                                                     상단 우측의 마이페이지  &gt; 주문내역  &gt; 주문번호 클릭
+                       </td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td class="title"> 주문이 안 됩니다.
+                        <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+                        <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+                        </td>
+                      </tr>
+                      <tr style="display: none;">
+                        <td colspan="3">
+                                                     주문이 안 되는 경우,<br> 
+                                                     모든 인터넷 창을 종료 후, Eterna 홈페이지 재접속 후에 다시 로그인해주세요 <br>  <br> 
+                                                     공용 PC의 경우 방화벽이 높게 설정되어 있을 경우, 결제가 어려울 수 있습니다.<br>  <br> 
+                                                     재로그인, 재접속 이후에도 동일한 문제가 발생하실 경우, 고객센터(033-111-2222)에 문의를 남겨주세요<br> 
+                       </td>
+                       </tr><tr>
+                        <td>7</td>
+                        <td class="title"> 적립금은 어떻게 쌓을 수 있나요?
+                        <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+                        <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+                        </td>
+                      </tr>
+                      <tr style="display: none;">
+                        <td colspan="3">
+                                                     적립금은 주문 결제와 주문 결제 후, 후기 작성을 통해 쌓을 수 있습니다.<br> <br>  
+                        1. 주문 결제 적립금 : 각 주문건의 0.1%의 적립율을 곱한 금액으로 지급됩니다. <br> 
+                        2. 후기 작성 : 주문 결제 후, 후기 작성을 통해 200원의 적립금이 지급됩니다.<br>
+                       </td>
+                       </tr>
+                       <tr>
+                        <td>8</td>
+                        <td class="title"> 회원가입은 무료인가요?
+                        <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+                        <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+                        </td>
+                      </tr>
+                      <tr style="display: none;">
+                        <td colspan="3">
+                        Eterna 배송지역 상관없이 회원가입은 무료입니다.<br> 
+                                                      회원가입 후 다양한 상품과 혜택을 만나보세요! <br> 
+                       </td>
+                       </tr>
+                       <tr>
+                        <td>9</td>
+                        <td class="title"> 비회원 주문내역에 대한 실적 합산이 가능한가요?
+                        <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+                        <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+                        </td>
+                      </tr>
+                      <tr style="display: none;">
+                        <td colspan="3">
+                                                      비회원으로 구매하신 내역은 실적 합산이 불가합니다<br>  
+                                                      주문하시기 전 회원가입 하셔서 적립금도 쌓고 더 많은 혜택을 누리세요!<br> 
+                       </td>
+                       </tr>
+                       <tr>
+                        <td>10</td>
+                        <td class="title"> 상품 후기는 어떻게 남길 수 있나요?
+                        <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+                        <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+                        </td>
+                      </tr>
+                      <tr style="display: none;">
+                        <td colspan="3">
+                                                      구매하신 상품에 한해 상품 후기를 남길 수 있습니다<br>   
+                                                      구매하신 상품 상세보기  &gt; 제품 리뷰 &gt; 리뷰 등록<br> 
+                       </td>
+                       </tr>
                    </tbody>
                  </table>
                </div>
@@ -303,29 +390,6 @@
 		  }
 	  });
 	
-  
-	$("#faqL").addClass("active");
-           $('#table-notice tbody').paginathing({
-           // Limites your pagination number
-           // false or number
-           limitPagination: 5,
-           perPage: 6,
-           // Pagination controls
-           prevNext: true,
-           firstLast: true,
-           prevText: '&laquo;',
-           nextText: '&raquo;',
-           firstText: 'First',
-           lastText: 'Last',
-           firstClass: 'test_page',
-           ulClass: 'pagination custom_pagination',
-           liClass: 'test_page page',
-           activeClass: 'active',
-           disabledClass: 'disabled',
-           insertAfter: '#table-notice'
-         }); 
-           
-
          document.getElementById("defaultOpen").click();
          function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
@@ -341,26 +405,6 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
          }
-         
-         $('#table-faq tbody').paginathing({
-             // Limites your pagination number
-             // false or number
-             limitPagination: 5,
-             perPage: 5,
-             // Pagination controls
-             prevNext: true,
-             firstLast: true,
-             prevText: '&laquo;',
-             nextText: '&raquo;',
-             firstText: 'First',
-             lastText: 'Last',
-             firstClass: 'test_page',
-             ulClass: 'pagination custom_pagination',
-             liClass: 'test_page page',
-             activeClass: 'active',
-             disabledClass: 'disabled',
-             insertAfter: '#table-faq'
-           });  
 
       </script>
 </body>

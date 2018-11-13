@@ -30,7 +30,7 @@ public class UserLogoutController implements Controller {
 		        response.addCookie(cookie);
 		    }
 		}
-		mav.setView("redirect:index.jsp");
+		mav.setView("redirect:/eterna.mall");
 		return mav;
 	}
 
