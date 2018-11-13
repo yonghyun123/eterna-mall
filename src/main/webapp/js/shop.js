@@ -1,11 +1,19 @@
-
-
 $(document).ready(function() {
 	eventRegist();
+	$('#Progress_Loading').hide(); //첫 시작시 로딩바를 숨겨준다.
 })
+.ajaxStart(function(){
+	$('#Progress_Loading').show(); //ajax실행시 로딩바를 보여준다.
+})
+.ajaxStop(function(){
+	$('#Progress_Loading').hide(); //ajax종료시 로딩바를 숨겨준다.
+});
 
 function eventRegist() {
 	$("#searchC").on("click", function() {
+		$('.d-flex').children('#woman').parent().parent().removeClass('active');
+		$('.d-flex').children('#man').parent().parent().removeClass('active');
+		$('.d-flex').children('#all').parent().parent().removeClass('active');
 		searchByCondition();
 	})
 	
@@ -98,6 +106,7 @@ function listTemplate(listData) {
 	var newHtml = '';
 	if (listData.length == 0) {
 		newHtml = "<li class='col-sm-6 col-lg-4 mb-4' data-aos='fade-up' style='margin-left: 35%'>검색결과가 존재하지 않습니다.</li>";
+		$('#Progress_Loading').hide();
 	} else {
 		listData.forEach(function(v, i) {
 			var price = v.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
