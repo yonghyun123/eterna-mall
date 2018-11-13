@@ -85,18 +85,6 @@
 	padding-bottom: 11%;
 }
 
-.order-list-row {
-	border-top: 1px solid #dddfe1;
-	border-bottom: 1px solid #dddfe1;
-}
-
-.order-list-number, .order-list-status {
-	width: 15%;
-	margin: 0;
-	border-right: 1px solid #dddfe1;
-	border-left: 1px solid #dddfe1;
-}
-
 tr > .order-number, tr > .order-date-flag {
 	vertical-align: middle;
 	border-right: 1px solid #dddfe1;
@@ -121,6 +109,61 @@ tr > .order-number, tr > .order-date-flag {
 	margin: 3% 0;
 }
 
+.detail-order-date, .detail-order-id {
+	margin: 0 1%;
+	display: inline-block;
+}
+
+#confirmPasswdBtn {
+	padding: 3px 10px;
+	
+}
+
+#in-mbody {
+	min-height: 300px;
+	padding-top: 3%;
+}
+
+.confirm-text {
+	font-size: 16px;
+}
+
+.passwd-box {
+	margin-top: 2%;
+}
+
+.update-row {
+	width: 50%;
+	margin: 3% auto;
+}
+
+.cart-table {
+	width: 100%;
+}
+
+.cart-table tr td {
+	padding: 1% 0;
+}
+
+.cart-table input[type="text"], .cart-table input{
+	width: 60%;
+}
+
+.cart-table input[type="button"] {
+	width: 30%;
+	padding: 1% 0;
+	margin: 0 0 0 1%;
+}
+
+.update-address {
+	vertical-align: baseline;
+	padding-top: 2%;
+}
+
+tr > td > .modify {
+	width: 60% !important;
+}
+
 /* Style the tab */
 .tab {
    overflow: hidden;
@@ -136,7 +179,7 @@ tr > .order-number, tr > .order-date-flag {
    outline: none;
    cursor: pointer;
    padding: 14px;
-   width: 16.5%;
+   width: 16.6%;
    transition: 0.3s;
    font-size: 17px;
    transition: 0.3s;

@@ -54,23 +54,22 @@
           </div>
           <ul class="user-saving">
             <li>
-              <a href="#" class="saving-link">
+              <a class="saving-link">
                 <div class="inner-class">
                   <div class="info-text text-black">적립금</div>
                   <div class="info">
                     <span class="saving-score">${user.userPoint }원</span>
-                    <i class="fas fa-angle-right fa-xs"></i>
+                  
                   </div>
                 </div>
               </a>
             </li>
             <li>
-              <a href="#" class="coupon-link">
+              <a class="coupon-link">
                 <div class="inner-class">
                   <div class="info-text text-black">쿠폰</div>
                   <div class="info">
                     <span class="coupon-quantity">${couponLength } 장</span>
-                    <i class="fas fa-angle-right"></i>
                   </div>
                 </div>
               </a>
@@ -96,7 +95,7 @@
             <div class="tab" id="tab">
               <button class="tablinks active" onclick="openCity(event, '주문 내역')" id="defaultOpen">주문 내역</button>
               <button class="tablinks" onclick="openCity(event, '상품 후기')" id="product-review">상품 후기</button>
-              <button class="tablinks" onclick="openCity(event, 'Q&A')" id="product-qna">Q&A</button>
+              <button class="tablinks" onclick="openCity(event, 'QNA')" id="product-qna">Q&A</button>
               <button class="tablinks" onclick="openCity(event, '적립금')" id="user-point">적립금</button>
               <button class="tablinks" onclick="openCity(event, '쿠폰')" id="user-coupon">쿠폰</button>
               <button class="tablinks" onclick="openCity(event, '개인정보 수정')" id="user-modify">개인정보 수정</button>
@@ -140,13 +139,13 @@
                             <c:set var="flag" value="${orderAllList[startIndex].orderFlag }"/> 
                             <c:choose>
                               <c:when test="${flag == 0 }">
-                                ${orderAllList[startIndex].orderDate } 출발 <br> 배송 전
+                                <h4>배송 전</h4> ${orderAllList[startIndex].orderDate } <span>출발</span> 
                               </c:when>
                               <c:when test="${flag == 1 }">
-                                ${orderAllList[startIndex].orderDate } 출발 <br> 배송 중
+                                <h4>배송 중</h4> ${orderAllList[startIndex].orderDate } <span>출발</span>
                               </c:when>
                               <c:when test="${flag == 2 }">
-                                ${orderAllList[startIndex].receiverDate } 도착 <br> 배송 완료
+                                <h4>배송 완료</h4> ${orderAllList[startIndex].orderDate } <span>도착</span>
                               </c:when>
                             </c:choose>
                             </td>
@@ -341,7 +340,7 @@
   <!-- 주문상세 template -->
   <script type="my-template" id="detail-header">
   <span class="text-left"><h2>주문 상세</h2></span>
-  <div class="text-left"><span>주문일 : <h4 class="order-input">{orderDate}</h4>  |  주문번호 : <h4 class="order-input">{orderId}</h4></span></div>
+  <div class="text-left">주문일 : <h4 class="detail-order-date">{orderDate}</h4>   주문번호 : <h4 class="detail-order-id">{orderId}</h4></div>
   </script>
 
   <script type="my-template" id="detail-body">
@@ -352,16 +351,16 @@
   </div><br>
   </script>
   
-  <script type="my-template" id="detail-footer">
-  <div class="product-text">
-    <div class="product-price-count">{orderFlag}!</div> 
-    <div class="product-name"><h4>{receiveDate}</h4></div>
+  <script type="my-template" id="detail-side">
+  <div class="order-detail-flag">
+    <div class="product-price-count"><h4>{orderFlag}!</h4></div> 
+    <div class="product-name">{receiveDate}</div>
   </div><br>
   </script>
   <script type="my-template" id="detail-inform">
     <tr>
-      <th colspan="4" width="50%">받는사람 정보</th>
-      <th colspan="4" width="50%"> 결제 정보 </th>
+      <th class="order-detail-tr" colspan="4" width="50%">받는사람 정보</th>
+      <th class="order-detail-tr" colspan="4" width="50%"> 결제 정보 </th>
               </tr>
               <tr>
                 <td class="inform-td" colspan="2">받는 사람</td>
@@ -394,11 +393,8 @@
        <h2>개인정보 수정</h2>
     </div>
   </div>
-  <div class="title">
-      <h2>기본정보</h2>
-  </div>
-    <div class="row text-center">
-      <table class="cart-table">
+    <div class="row text-center update-row">
+      <table class="cart-table text-left">
         <tbody>
           <tr>
             <th>아이디</th>
@@ -406,14 +402,19 @@
           </tr>
           <tr>
             <th>새 비밀번호</th>
-            <td><input type="password" id="newPW"><span id="modifyPutPw"></span>
-            </td>
+            <td><input type="password" id="newPW"></td>
+          </tr>
+		  <tr>
+            <th></th>
+			<td><span id="modifyPutPw"></span></td>
           </tr>
           <tr>
             <th>새 비밀번호 확인</th>
-            <td><input type="password" id="confirmNewPW">
-				<span id="modifyPutCheckPw"></span>
-			</td>
+            <td><input type="password" id="confirmNewPW"></td>
+          </tr>
+		  <tr>
+            <th></th>
+			<td><span id="modifyPutCheckPw"></span></td>
           </tr>
           <tr>
             <th>이름</th>
@@ -421,61 +422,65 @@
           </tr>
           <tr>
             <th>이메일</th>
-            <td><input type="text" id="new-userEmail" value="{userEmail}">
-				<span id="modifyPutEmail"></span>
+            <td>
+				<input type="text" id="new-userEmail" value="{userEmail}">
 				<input type="button" class="btn btn-success emailCheck" value="중복체크">
             </td>
+          </tr>
+		  <tr>
+            <th></th>
+            <td><span id="modifyPutEmail"></span></td>
           </tr>
           <tr>
             <th>휴대폰</th>
             <td>{userTel}</td>
           </tr>
           <tr>
-            <th rowspan="3">주소</th>
-            <td><input type="text" id="new-zipcod-address" value="{userZipcode}" readOnly="readOnly">
+            <th rowspan="3" class="update-address">주소</th>
+            <td>
+			  <input type="text" id="new-zipcod-address" value="{userZipcode}" readOnly="readOnly">
               <input type="button" class="btn btn-success" onclick="daumPostcode()" value="search">
 			</td>
      	  </tr>
     	  <tr>
-      	  	<td><input type="text" id="new-street-address" value="{userStreetAddress}" readOnly="readOnly">
+      	  	<td>
+			  <input type="text" id="new-street-address" value="{userStreetAddress}" readOnly="readOnly">
           	</td>
      	  </tr>
           <tr>
-          	<td><input type="text" id="new-detail-address" value="{userDetailAddress}">
+          	<td>
+			  <input type="text" id="new-detail-address" value="{userDetailAddress}" placeholder="상세주소">
         	</td>
       	  </tr>
       	  <tr>
         	<th>회원가입 날짜</th>
         	<td>{userRegdate}</td>
       	  </tr>
+		  <tr>
+        	<th></th>
+        	<td><input type="button" class="btn btn-success modify" disabled value="수정"></td>
+      	  </tr>
         </tbody>
       </table>
-  	<input type="button" class="btn btn-success modify" disabled value="수정">
+  	
   </div>
 </script>
 <!-- 개인정보 확인시 비밀번호 확인 template -->
   <script type="my-template" id="confirm-body">
   <div class="row justify-content-center">
     <div class="col-md-7 site-section-heading text-center pt-4">
-      <h2>비밀번호 재확인</h2><br>
-        <h4>회원님의 정보를 안전하게 보호하기 위해 <br>비밀번호를 다시 한번 확인해주세요</h4>
-     </div>
+        <h4>개인정보 수정</h4>
+        <div class="confirm-text"><div>회원님의 정보를 안전하게 보호하기 위해</div> 비밀번호를 다시 한번 확인해주세요.</div>
+    </div>
   </div>
-  <div class="row text-center">
+  <div class="row text-center passwd-box">
     <div class="container">
       <div class="field_pw">
-        <div class="tit_id">아이디</div>
-        <span class="txt_id">${user.userId }</span>
-        <div class="tit_pw">비밀번호</div>
-      <div>
-        <input type="password" name="confirm_password" id="confirm_password" class="col-md-3">
+      	<div>
+          <input type="password" name="confirm_password" id="confirm_password" class="col-md-3" placeholder="비밀번호">
+   	      <button class="btn btn-primary" id="confirmPasswdBtn">확인</button>
+        </div>
       </div>
-    </div>
-    <div class="group_btn">
-      <span class="inner_groupbtn">
-      <button class="btn btn-primary btn-sm" id="confirmPasswdBtn">확인</button>
-      </span>
-    </div>
     </div>
   </div>                        
   </script>
@@ -557,7 +562,7 @@
                 var jsonDetailData = JSON.parse(data);
                 var body = detailHeaderTemplate(jsonDetailData);
                 detailBodyTemplate(jsonDetailData, body);
-                detailFooterTemplate(jsonDetailData);
+                detailSideTemplate(jsonDetailData);
                 detailInformTemplate(jsonDetailData);
                 $("#order-detail-modal").modal('show');
               }
@@ -640,9 +645,9 @@
     originHtml.innerHTML = newHtml;
   }
   
-  function detailFooterTemplate(detailData){
-    var templateHtml = document.querySelector('#detail-footer').innerHTML;
-    var originHtml = document.querySelector('#in-detail-footer');
+  function detailSideTemplate(detailData){
+    var templateHtml = document.querySelector('#detail-side').innerHTML;
+    var originHtml = document.querySelector('#in-detail-side');
     var newHtml = '';
     detailData.forEach(function(v,i){
       newHtml = templateHtml.replace('{receiveDate}', v.receiveDate)
