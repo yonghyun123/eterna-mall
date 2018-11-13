@@ -419,9 +419,9 @@
       var applyPoint = $('.applyPoint').text();
       var toUsePoint = Number($('#toUsePoint').val());
       if (availablePoint == 0) {
-        alert("적립금이 0점이면 못씀");
+        popup("popup-message-use-point-minus");
       } else if ((availablePoint - toUsePoint) < 0) {
-        alert("보유한 적립금보다 적게 입력해주세요");
+    	  popup("popup-message-use-point-minus");
       } else {
         applyPoint = availablePoint - toUsePoint;
         applyCoupon = $('.applyCoupon').text();
@@ -543,7 +543,7 @@
     function buyBtnClicked(){
 	  var orderBtn = document.querySelector('#loading-btn');
 	  orderBtn.addEventListener('click', function(){
-			//setTimeout(function() {
+			setTimeout(function() {
 				  var count = document.querySelectorAll('.orderProductCount');
 				  var productId = document.querySelectorAll('.orderProductId');
 				  console.log(count);
@@ -719,10 +719,9 @@
 		          document.body.appendChild(form);
 		          
  		          form.submit(); 
-		//	}, 3000)
+			}, 3000)
 	  });
     }
-    
     buyBtnClicked();
 
     
