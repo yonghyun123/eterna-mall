@@ -100,7 +100,7 @@ div{
     $('.details').click(function(){
       viewOrderListDetails(this);
     });
-   $('#registProduct').click(function(){
+   $('#registProduct').bind('click', function(){
 	   productRegist();
    });
    
@@ -124,7 +124,6 @@ div{
          dataType:"text",
          success: function(data){
            var jsonDetailData = JSON.parse(data);
-           console.log(jsonDetailData);
            modalview(jsonDetailData);
          }
         });
@@ -149,6 +148,7 @@ div{
   }
   /**제품등록*/
   function productRegist(){
+	  $('#registProduct').unbind('click');
 	  var formData = new FormData();
 	 
 	  var categorySelector =  $('#categorySelector').val();
@@ -159,6 +159,7 @@ div{
 	  var minAgeSelector =  $('#minAgeSelector').val();
 	  var maxAgeSelector =  $('#maxAgeSelector').val();
 	  var InputPrice =  $('#InputPrice').val();
+	  var skinType = $('#skintypeSelector').val();
 	  var inputThumnail = $('#inputThumnail').get(0).files[0];
 	  var inputMainImg = $('#inputMainImg').get(0).files[0];
 	  var inputSideImg = $('#inputSideImg').get(0).files[0];
@@ -172,6 +173,7 @@ div{
 	  formData.append("minAgeSelector",minAgeSelector );
 	  formData.append("maxAgeSelector",maxAgeSelector );
 	  formData.append("InputPrice",InputPrice);
+	  formData.append("skinType",skinType);
 	  formData.append("inputThumnail",inputThumnail);
 	  formData.append("inputMainImg", inputMainImg);
 	  formData.append("inputSideImg",inputSideImg );
@@ -183,14 +185,19 @@ div{
 	         processData: false,
              contentType: false,
 	         data: formData,
+	         async: false,
 	         dataType:"text",
 	         success: function(data){        	 	 
-	        	 registSuccess();
 	        	 $('#inputBrand').empty();
 	        	 $('#inputProduct').empty();
 	        	 $('#productStock').empty();
 	        	 $('#InputPrice').empty();
+	        	 registSuccess();
 	         }
+  }).done(function(){
+	  $('#registProduct').bind('click', function(){
+		  productRegist();
+	  });
   });
   }
   

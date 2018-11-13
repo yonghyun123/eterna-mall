@@ -25,6 +25,7 @@ function eventRegist() {
 			$.ajax({
 				url : "/selector.mall",
 				type : "post",
+				async: false,
 				data : {
 					select : select
 				},
@@ -80,6 +81,7 @@ function searchByCondition() {
 	$.ajax({
 		url : "/conditions.mall",
 		type : "post",
+		async: false,
 		data : {
 			ages : ageValues,
 			productKind : productValues,

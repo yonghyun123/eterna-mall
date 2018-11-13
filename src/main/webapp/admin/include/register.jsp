@@ -62,8 +62,8 @@
               <div class="form-label-group">
                 <select class="form-control" id="categorySelector">
                   <option value="" selected disabled hidden>Category</option>
-                  <option value='0'>Lip</option>
-                  <option value='1'>Clensing</option>
+                  <option value='1'>Lip</option>
+                  <option value='0'>Clensing</option>
                   <option value='2'>Skin</option>
                   <option value='3'>Lotion</option>
                   <option value='4'>SunCare</option>
@@ -74,8 +74,8 @@
               <div class="form-label-group">
                 <select class="form-control" id="SexSelector">
                   <option value="" selected disabled hidden>Sex</option>
-                  <option value='남성'>Female</option>
-                  <option value='여성'>Male</option>
+                  <option value='여성'>Female</option>
+                  <option value='남성'>Male</option>
                 </select>
               </div>
             </div>
@@ -84,7 +84,7 @@
                 <select class="form-control" id="skintypeSelector">
                   <option value="" selected disabled hidden>SkinType</option>
                   <option>dry</option>
-                  <option>oliy</option>
+                  <option>oily</option>
                   <option>complex</option>
                 </select>
               </div>
