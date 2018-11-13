@@ -19,7 +19,7 @@ import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 import kr.or.kosta.eterna.user.domain.User;
 import kr.or.kosta.eterna.user.domain.UserRcmd;
 
-/**	주문목록 출력 서블릿
+/**	회원 상세보기 출력 서블릿
  * @author 권현우
  *
  */

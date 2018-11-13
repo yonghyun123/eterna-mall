@@ -51,7 +51,7 @@
   
   function viewOrderListDetails(value){
     var userId = $(value).parents()[1].childNodes[3].innerHTML;
-    console.log(typeof productId);
+
       $.ajax({
          url: "/admin/userview.mall",
          type:"get",
@@ -60,8 +60,9 @@
          },
          dataType:"text",
          success: function(data){
+        	 console.log(data);
            var jsonDetailData = JSON.parse(data);
-           console.log(jsonDetailData);
+           	console.log(jsonDetailData);
            modalview(jsonDetailData);
          }
         });

@@ -34,7 +34,7 @@ public class AdminServiceImpl implements AdminService {
 	private ProductImageDao productImageDao;
 	private FileInfoDao fileInfoDao;
 	private PriceDao priceDao;
-	
+
 	private QnADao qnaDao;
 	private ReviewDao reviewDao;
 
@@ -121,11 +121,18 @@ public class AdminServiceImpl implements AdminService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		User user = userDao.read(userId);
 		UserRcmd useRrcmd = userRcmdDao.read(userId);
-		int cleansingCount = Integer.parseInt(useRrcmd.getCleansingCount());
-		int libCount = Integer.parseInt(useRrcmd.getLibCount());
-		int lotionCount = Integer.parseInt(useRrcmd.getLotionCount());
-		int skinCount = Integer.parseInt(useRrcmd.getSkinCount());
-		int sunCount = Integer.parseInt(useRrcmd.getSunCount());
+		int cleansingCount = 0;
+		int libCount = 0;
+		int lotionCount = 0;
+		int skinCount = 0;
+		int sunCount = 0;
+		if (useRrcmd != null) {
+			cleansingCount = Integer.parseInt(useRrcmd.getCleansingCount());
+			libCount = Integer.parseInt(useRrcmd.getLibCount());
+			lotionCount = Integer.parseInt(useRrcmd.getLotionCount());
+			skinCount = Integer.parseInt(useRrcmd.getSkinCount());
+			sunCount = Integer.parseInt(useRrcmd.getSunCount());
+		}
 		Map<String, Integer> countMap = new HashMap<String, Integer>();
 		countMap.put("Cleansing", cleansingCount);
 		countMap.put("Lib", libCount);
@@ -215,7 +222,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void updateTier(String userId) throws Exception {
 		int difference = userDao.differenceAmount(userId);
-		if(difference < 0){
+		if (difference < 0) {
 			userDao.updateGrade(userId);
 		}
 	}

@@ -109,16 +109,20 @@
 										varStatus="status">
 										<div class="item">
 											<div class="block-4 text-center">
+											 <form id="form${status.index}" action="/detail.mall" method="post">
 												<figure class="block-4-imag">
-													<img src="/images/${Hproduct.thumnail }" alt="Image placeholder" class="img-fluid hot-item-image">
+													<a class="images-btn"><img src="/images/${Hproduct.thumnail }" alt="Image placeholder" class="img-fluid hot-item-image"></a>
 												</figure>
+												<input type="hidden" name="productId" value="${Hproduct.productId }">
+												
 												<div class="block-4-text p-4">
-													<h3>
-														<a href="/detail.mall?productId=${Hproduct.productId }">${Hproduct.productBrand }</a>
-													</h3>
-													<p class="mb-0">${Hproduct.productDescription }</p>
-													<p class="text-primary font-weight-bold">W<fmt:formatNumber value="${Hproduct.price }" pattern="#,###"/></p>
+													<h6>
+														<a class="images-btn">${Hproduct.productDescription }</a>
+													</h6>
+													<p class="mb-0">${Hproduct.productBrand }</p>
+													<p class="text-primary font-weight-bold">&#8361;<fmt:formatNumber value="${Hproduct.price }" pattern="#,###"/></p>
 												</div>
+												</form>
 											</div>
 										</div>
 									</c:forEach>
@@ -167,7 +171,7 @@
 	<script src="/js/aos.js"></script>
 	<script src="/js/main.js"></script>
 	<script src="/js/ajax.js"></script>
-
+<script src="/js/shop.js"></script>
 	<script src="/js/viewList.js"></script>
   <script src="/js/snow.js"></script>
 	<script>
