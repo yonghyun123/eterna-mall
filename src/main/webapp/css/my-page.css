@@ -164,6 +164,14 @@ tr > td > .modify {
 	width: 60% !important;
 }
 
+.order-list-row {
+	border-bottom: 1px solid #dddfe1;
+}
+
+#user-modify {
+	width: 17%;
+}
+
 /* Style the tab */
 .tab {
    overflow: hidden;

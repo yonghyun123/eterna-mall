@@ -49,7 +49,14 @@
               <span class="name">${user.userName }님</span>
             </div>
             <div class="grade-inform text-black">
-              <span class="grade-score">다음 등급까지 ${grade - amount }점 남았습니다.</span>
+              <c:choose>
+                <c:when test="${amount >= 1000000 }">
+                  <span class="grade-score">VVIP 고객이십니다.</span>
+                </c:when>
+                <c:otherwise>
+                  <span class="grade-score">다음 등급까지 ${grade - amount }점 남았습니다.</span>  
+                </c:otherwise>
+              </c:choose>
             </div>
           </div>
           <ul class="user-saving">
@@ -59,7 +66,6 @@
                   <div class="info-text text-black">적립금</div>
                   <div class="info">
                     <span class="saving-score">${user.userPoint }원</span>
-                  
                   </div>
                 </div>
               </a>
@@ -79,7 +85,7 @@
                 <div>
                   <div class="info-text text-black">총 구매금액</div>
                   <div class="info">
-                    <span  class="all-buy-price">${amount } 원</span>
+                    <span class="all-buy-price">${amount } 원</span>
                   </div>
                 </div>
               </a>
@@ -220,10 +226,10 @@
                   <div class="container">
                     <table class="table table-hover" id="table-qna">
                       <thead>
-                        <tr>
-                          <th>주문번호</th>
-                          <th>내용</th>
-                          <th>일자</th>
+                        <tr class="text-center">
+                          <th colspan="1">주문번호</th>
+                          <th colspan="4">내용</th>
+                          <th colspan="2">일자</th>
                         </tr>
                       </thead>
                       <tbody id="in-qbody">
@@ -368,21 +374,20 @@
   
   <script type="my-template" id="qna-body">
   <tr>
-    <td class="text-center">
-      {number}
+    <td colspan="1" class="text-center">
+      {orderNumber}
     </td>
-    <td class="title">
-      {subject}
+    <td colspan="4" class="title">
+      [{productName}] {subject}
+	  <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+      <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
     </td>
-    <td class="text-center">
-      {userId}
-    </td>
-    <td class="text-center">
+    <td colspan="2" class="text-center">
       {regdate}
     </td>
-    <td class="text-center">
-      {regdate}
-    </td>
+  </tr>
+  <tr style='display:none;'>
+    <td colspan="4">{content}</td>
   </tr>
   </script>
   
@@ -553,14 +558,15 @@
         });
       }
       
+      /* Q&A 탭 클릭 */
       if(evt.currentTarget.id == 'product-qna'){
           $.ajax({
-             url: "/reviewlist.mall",
+             url: "/user/qnaList.mall",
              type:"get",
              dataType:"text",
              success: function(data){
-               var jsonReviewData = JSON.parse(data);
-               reviewTemplate(jsonReviewData);
+               var jsonQNAData = JSON.parse(data);
+               QNATemplate(jsonQNAData);
              }
           });
         }
@@ -653,6 +659,35 @@
 
     });
     originHtml.innerHTML = newHtml;
+  }
+  
+  /* QNA */
+  function QNATemplate(QNAData){
+    var templateHtml = document.querySelector('#qna-body').innerHTML;
+    var originHtml = document.querySelector('#in-qbody');
+    var newHtml = '';
+    QNAData.forEach(function(v,i){
+      newHtml += templateHtml.replace('{orderNumber}', v.id)
+                   .replace('{productName}', v.productName)
+                   .replace('{subject}', v.subject)
+                   .replace('{content}', v.content)
+                   .replace('{regdate}', v.regdate);
+
+    });
+    originHtml.innerHTML = newHtml;
+    
+    $(".plusIcon").on("click",function(){
+        var obj = $(this);
+        if( obj.hasClass("glyphicon-plus") ){
+           obj.hide();
+           obj.next().show();            
+           obj.parent().parent().next().show();
+        }else{
+           obj.hide();
+           obj.prev().show();
+           obj.parent().parent().next().hide();
+        }
+    });
   }
   
   function detailHeaderTemplate(detailData){

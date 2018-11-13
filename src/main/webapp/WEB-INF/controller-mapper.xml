@@ -13,6 +13,8 @@
     <bean type="controller" name="/reviewCreate" class="kr.or.kosta.eterna.review.controller.ReviewCreateController" />
     <!-- qNa관리 -->   
     <bean type="controller" name="/qnalist" class="kr.or.kosta.eterna.qna.controller.QnAController" />
+    <!-- 유저별 QNA 조회 -->   
+    <bean type="controller" name="/user/qnaList" class="kr.or.kosta.eterna.qna.controller.QnAUserListController" />
     <!-- qNa 등록 -->   
     <bean type="controller" name="/qnaCreate" class="kr.or.kosta.eterna.qna.controller.QnACreateController" />
     <!-- 로그인 -->   
@@ -57,6 +59,7 @@
     <bean type="controller" name="/user/updateInfo" class="kr.or.kosta.eterna.user.controller.UserUpdateController" />
     <!-- 결제창 -->
     <bean type="controller" name="/checkout" class="kr.or.kosta.eterna.payment.controller.PaymentListController" />
+    
     
 	<!--비회원 관련 컨트롤러 -->   
     <!-- 비회원 장바구니 쿠키 등록 -->

@@ -74,19 +74,21 @@
 	
 	<!-- 회원별 Q&A 리스트 -->
 	<select id="myList" resultType="QnA">
-	 SELECT user_id     AS userId,
-	 	id, 
-       product_id  AS productId, 
-       regdate,
-       subject, 
-       content, 
-       board_id as boardId, 
-       answer_flag AS answerFlag,
-       group_no as groupNo,
-       level_no as levelNo 
-	FROM   SM_product_answer 
+	 SELECT pa.user_id     AS userId,
+	   pa.id, 
+       pa.product_id  AS productId, 
+       pa.regdate,
+       pa.subject, 
+       pa.content, 
+       pa.board_id as boardId, 
+       pa.answer_flag AS answerFlag,
+       pa.group_no as groupNo,
+       pa.level_no as levelNo,
+       p.product_description as productDescription 
+	FROM   sm_product_answer pa
+	JOIN   sm_product p 
+	ON pa.product_id = p.product_id
 	WHERE  user_id = #{userId}
-	 
 	</select>
 	
 	<!-- 전체 Q&A 리스트 -->
