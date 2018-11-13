@@ -214,8 +214,7 @@
     <select id="newUser" resultType="int">
     SELECT Count(user_regdate) 
     FROM   sm_user 
-    WHERE  To_char(To_date(user_regdate, 'YYYY/MM/DD HH24:MI:SS'), 'yyyymmdd') = 
-        To_char(SYSDATE, 'yyyymmdd') 
+    WHERE  To_char(To_date(user_regdate, 'YYYY/MM/DD HH24:MI:SS'), 'YYYY/MM') = '2018/11'
     </select>
     
     <!-- 다음 등급까지 남은 차액 -->

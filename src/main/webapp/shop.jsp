@@ -36,6 +36,7 @@
   </head>
   <body>
   
+  
   <div class="site-wrap">
 
 
@@ -90,9 +91,11 @@
                 
               </div>
             </div>
-            
+                        <div id ="Progress_Loading" style="margin-left: 40%;"><!-- 로딩바 -->
+<img src="/images/loadingbar.gif"/>
+</div>
             <ul class="row mb-3 product_info" id="insertUl">
-            
+
               <c:forEach var="product" items="${productList}" varStatus="status">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                    <div class="block-4 text-center border product-list">
@@ -134,25 +137,25 @@
   <script src="/js/main.js"></script>
  <script src="/js/paginathing.js"></script>
   <script src="/js/ajax.js"></script>
-  <script src="/js/shop.js"></script>
   <script src="/js/viewList.js"></script>
+    <script src="/js/shop.js"></script>
   <script>
 		$("#productsL").addClass("active");
 	</script>
   <script id="templateList" type="text/template">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                    <div class="block-4 text-center border" style="width:220px; height:380px;">
+<form id="form{number}" action="/detail.mall" method="post">
                    <figure class="block-4-image">
-                      <form id="form{number}" action="/detail.mall" method="post">
                          <a class="images-btn"><img src="/images/{thumnail}" alt="Image placeholder" class="img-fluid" style="width: 80px; height:200px;"></a>
                          <input type="hidden" name="productId" value="{productId}">
-                      </form>
                    </figure>
                    <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">{productBrand}</a></h3>
-                    <p class="mb-0">{productDescription}</p>
+                    <h3><a href="shop-single.html">{productDescription}</a></h3>
+                    <p class="mb-0">{productBrand}</p>
                     <p class="text-primary font-weight-bold">&#8361;{price}</p>
                    </div>
+ </form>
                  </div>
                </li>
 </script>
@@ -190,11 +193,13 @@
 		</c:when>
 	</c:choose>
 	
+	
 	<c:choose>
 	<c:when test="${count == 0 }">
 	<script type="text/javascript">
 	var originHtml = document.querySelector('#insertUl');
 	var newHtml = "<li class='col-sm-6 col-lg-4 mb-4' data-aos='fade-up' style='margin-left: 35%'>검색결과가 존재하지 않습니다.</li>";
+	$('#Progress_Loading').hide();
 	originHtml.innerHTML = newHtml;
 	</script>
 	</c:when>
