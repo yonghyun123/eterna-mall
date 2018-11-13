@@ -22,6 +22,19 @@
 		#{userAddress},
 		#{userTel})
 	</insert>
+	<!-- Point리스트 생성 -->
+	<insert id="createPoint" parameterType="Point">
+	INSERT INTO sm_point_manage
+		(id,
+		user_id,
+		status,
+		point)
+		VALUES
+		(point_manage_id_seq.nextval,
+		#{userId},
+		#{status},
+		#{point})
+	</insert>
 
 	<!-- id를 이용한 회원 검색 -->
 	<!-- 구매 등급 property 추가(tierId) by 이철우 -->
@@ -114,6 +127,8 @@
 		</set>
 		WHERE user_id=#{userId}
 	</update>
+	
+	
 
     <!-- 전체 회원 리스트 -->
     <select id="listAll" resultType="User">
