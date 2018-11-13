@@ -5,7 +5,6 @@
 <div id="rightSide">
 
 	<div id="right_zzim">
-
 		<div  class="recTit">최근본상품 <span id=recentCnt></span></div>
 
 			<ul style="list-style-type: none; padding:0px"></ul>   

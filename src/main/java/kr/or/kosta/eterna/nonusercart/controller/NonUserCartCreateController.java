@@ -32,7 +32,7 @@ public class NonUserCartCreateController implements Controller {
 		cartService = (CartService)factory.getBean(CartServiceImpl.class);
 		String productId = request.getParameter("productId");
 		String productCount = request.getParameter("productCount");
-		Cookie[] cookies = request.getCookies(); 
+		Cookie[] cookies;
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();
@@ -40,7 +40,8 @@ public class NonUserCartCreateController implements Controller {
 			e.printStackTrace();
 		}
 		
-		if(cookies != null) {
+		if(request.getCookies() != null) {
+			cookies=request.getCookies();
 			for(Cookie cookie : cookies) {
 				/**products라는 쿠키가 있을때*/
 				if(cookie.getName().equals("products")){

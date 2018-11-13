@@ -51,5 +51,6 @@ public interface ProductDao {
 	public void updateStock(String productDescription, String count) throws Exception;
 	/* 검색 제품 조회 by 이철우 */
 	public List<Product> listBySearch(String inputSearch) throws Exception;
-    
+    /**제품 카테고리 조회*/
+	public int productSkinCategory(String productId) throws Exception;
 }

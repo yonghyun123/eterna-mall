@@ -5,6 +5,7 @@
 
 position: absolute;
 
+
 top: 547px;
 
 left: 50%;
@@ -14,12 +15,12 @@ margin: 0 0 0 510px;
 	}
 
 #rightSide #right_zzim {
-
+background-color:white;
 position: fixed;
 top: 35%;
 left: 53.5%;
 margin-left: 37%;
-border:1px solid #B0B5BD;
+border:3px solid #B0B5BD;
 width:114px;
 height:60%;
 z-index: 999;
@@ -105,7 +106,7 @@ text-indent: -9000px;
 
 position: absolute;
 
-top: 380px;
+top: 90%;
 
 left: 4px;
 
@@ -129,7 +130,7 @@ display:inline-block;
 
 position: absolute;
 
-top: 380px;
+top: 90%;
 
 right: 4px;
 

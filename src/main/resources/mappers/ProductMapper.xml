@@ -569,4 +569,11 @@
 	SET    product_stock = product_stock - #{count} 
 	WHERE  product_description = #{productDescription} 
 	</update>
+	
+	<!-- product 카테고리 받아오기 -->
+	<select id="productSkinType"  resultType="Integer">
+	select category_id
+	from sm_product
+	where product_id = #{value}
+	</select>
 </mapper>

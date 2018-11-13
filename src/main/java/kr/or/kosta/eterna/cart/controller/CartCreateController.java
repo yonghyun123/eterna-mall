@@ -38,7 +38,7 @@ public class CartCreateController implements Controller {
 				createCart.setCount(productCount);
 				createCart.setUserId(userId);
 				createCart.setProductId(productId);
-				cartService.create(createCart);;
+				cartService.create(createCart);
 			}
 		} catch (Exception e) {
 			throw new ServletException("CartService.list() 예외 발생", e);

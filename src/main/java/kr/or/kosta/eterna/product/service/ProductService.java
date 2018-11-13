@@ -44,5 +44,7 @@ public interface ProductService {
 	
 	/* 평점별 전체 리스트(select선택시 필요)*/
 	public List<Product> listByScore() throws Exception;
-
+	
+	/**제품 카테고리 조회*/
+	public int productSkinCategory(String productId) throws Exception;
 }

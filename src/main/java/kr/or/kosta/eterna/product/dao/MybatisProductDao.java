@@ -187,4 +187,12 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return productList;
 	}
+
+	@Override
+	public int productSkinCategory(String productId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int Type = sqlSession.selectOne(NAMESPACE + "productSkinType",productId);
+		sqlSession.close();
+		return Type;
+	}
 }
