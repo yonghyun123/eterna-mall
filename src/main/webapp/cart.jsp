@@ -205,6 +205,7 @@
   <script src="/js/main.js"></script>
   <script type="text/javascript">
 			/* 화면 로딩 */
+			var loginId = "${cookie.loginId.value}";
 			$(function() {
 				document.getElementById("allCheck").checked = true;
 				allChecked();
@@ -289,8 +290,7 @@
 			/**비회원 장바구니 하나씩 삭제할 때  - nonUsercartDeleteController*/
 			$(document).on("click","#nonloginDelete",function(event) {
 				var formData = new FormData();
-				var productId = $(this).closest("tr").find(
-				".hiddenDelete").val();
+				var productId = $(this).closest("tr").find(".hiddenDelete").val();
 				var form = document.createElement("form");
 				form.setAttribute("charset", "UTF-8");
 				form.setAttribute("method", "Post");
@@ -326,20 +326,45 @@
 				console.log('countArr : ' + countArr);
 				console.log(typeof countArr);
 				console.log('productIdArr : ' + productIdArr);
-				countArr = JSON.stringify(countArr);
-				productIdArr = JSON.stringify(productIdArr);
-				$.ajax({
-					type : "post",
-					url : "/cartUpdate.mall",
-					dataType : "text",
-					data : {
-						'countArr' : countArr,
-						'productIdArr' : productIdArr
-					},
-					success : function() {
-						window.location.href = "/order.mall";
+				var countArrStr = JSON.stringify(countArr);
+				var productIdArrStr = JSON.stringify(productIdArr);
+				
+				if(loginId){
+					$.ajax({
+						type : "post",
+						url : "/cartUpdate.mall",
+						dataType : "text",
+						data : {
+							'countArr' : countArrStr,
+							'productIdArr' : productIdArrStr
+						},
+						success : function() {
+							window.location.href = "/order.mall";
+						}
+					});
+				} else {
+					var form = document.createElement("form");
+					form.setAttribute("charset", "UTF-8");
+					form.setAttribute("method", "Post");
+					form.setAttribute("action", "/cartUpdate.mall");
+					var hiddenCount = [];
+					var hiddenId = [];
+					for(var i = 0; i < countArr.length; i++){
+						 hiddenCount[i] = document.createElement('input');
+						 hiddenCount[i].setAttribute('type', 'hidden');
+						 hiddenCount[i].setAttribute('name', 'productCount');
+						 hiddenCount[i].setAttribute('value', countArr[i]);
+						 form.appendChild(hiddenCount[i]);
+						 
+						 hiddenId[i] = document.createElement('input');
+						 hiddenId[i].setAttribute('type', 'hidden');
+						 hiddenId[i].setAttribute('name', 'productId');
+						 hiddenId[i].setAttribute('value', productIdArr[i]);
+						 form.appendChild(hiddenId[i]);
 					}
-				})
+					document.body.appendChild(form);
+					form.submit();
+				}
 			});
 		</script>
 </body>
