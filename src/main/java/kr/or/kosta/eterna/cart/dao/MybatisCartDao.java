@@ -124,6 +124,15 @@ public class MybatisCartDao implements CartDao {
 		return count;
 	}
 
+	@Override
+	public Cart nonReadCart(String productId) throws Exception {
+		Cart cart = null;
+		SqlSession	sqlSession = sqlSessionFactory.openSession(true);
+		cart = sqlSession.selectOne(NAMESPACE+"nonUserCart", productId);
+		sqlSession.close();
+		return cart;
+	}
+
 }
 
 
