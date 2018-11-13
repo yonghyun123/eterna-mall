@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Eterna &mdash; Most Valuable Cosmetic</title>
 <meta charset="utf-8">
 <meta name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,6 +26,10 @@
 <link rel="stylesheet" href="/css/cart.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+
+<link rel="icon" href="/images/lipstick.png">
+<link rel="apple-touch-icon" href="/images/lipstick.png">
+
 <jsp:include page="/includes/header.jsp" />
 </head>
 <body>
@@ -35,7 +39,7 @@
         <div class="row">
           <div class="col-md-12 mb-0">
             <!-- QueryString 파싱해서 동적으로 span태그 생성 -->
-            <a href="/index.html">Home</a> <span class="mx-2 mb-0">/</span>
+            <a href="/eterna.mall">Home</a> <span class="mx-2 mb-0">/</span>
             <strong class="text-black">Cart</strong>
           </div>
         </div>
