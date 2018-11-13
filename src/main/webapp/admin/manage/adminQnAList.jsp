@@ -99,7 +99,7 @@
                         <td>${qna.userId }</td>
                         <td>${qna.productDescription }</td>
                         <td>${qna.subject }</td>
-                        <td>${qna.content}</td>
+                        <td>${qna.content}<input type="hidden" value="${qna.secretFlag }" class="secretFlag"></td>
                         <c:choose>
                         <c:when test="${qna.answerFlag == 0}">
                         <td><div>답변 대기중</div>
@@ -145,6 +145,7 @@
         </div>
         <div class="modal-body">
         <input type="hidden" id="productIdH">
+        <input type="hidden" id="secretFlagH">
         <textarea rows="6" cols="60" id="content">Some text..</textarea>
         </div>
         <div class="modal-footer">
@@ -188,14 +189,18 @@ function eventRegist(){
 	/*모달 창에 product table의 id 값을 전해줌*/
 	$("button[data-target='#myModal']").on("click",function(){
 		var id = $(this).closest("tr").find(".productId").text();
+		var secretFlag = $(this).closest("tr").find(".secretFlag").val();
 		document.getElementById("productIdH").value = id;
+		document.getElementById("secretFlagH").value = secretFlag;
+		
 	})
-	
-	/*모달 창에서 submit 버튼을 눌렀을 시 controller로 전달*/
+
+		/*버 튼을 눌렀을 시 controller로 전달*/
 	document.getElementById("submitB").onclick = function(){
 		var id = document.getElementById("productIdH").value;
 		var content = document.getElementById("content").value;
-		location.href = "/admin/qnacomment.mall?id="+id+"&content="+content;
+		var secretFlag = document.getElementById("secretFlagH").value;
+		location.href = "/admin/qnacomment.mall?id="+id+"&content="+content+"&secretFlag="+secretFlag;
 	}
 }
 
