@@ -135,11 +135,11 @@ public class AdminServiceImpl implements AdminService {
 			sunCount = Integer.parseInt(useRrcmd.getSunCount());
 		}
 		Map<String, Integer> countMap = new HashMap<String, Integer>();
-		countMap.put("Cleansing", cleansingCount);
-		countMap.put("Lib", libCount);
-		countMap.put("Lotion", lotionCount);
-		countMap.put("Skin", skinCount);
-		countMap.put("Sun", sunCount);
+		countMap.put("클렌징", cleansingCount);
+		countMap.put("립제품", libCount);
+		countMap.put("로션", lotionCount);
+		countMap.put("스킨", skinCount);
+		countMap.put("선케어", sunCount);
 		List<String> sortedKeyList = SortMap(countMap);
 		map.put("user", user);
 		map.put("sortedKeyList", sortedKeyList);

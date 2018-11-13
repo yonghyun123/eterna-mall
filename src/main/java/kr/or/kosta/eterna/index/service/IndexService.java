@@ -10,5 +10,8 @@ public interface IndexService {
     public List<Product> brandNewList(String categoryId) throws Exception;
     /**인기상품 리스트*/
     public List<Product> popularProductList() throws Exception;
+    /**카테고리 별 인기상품 리스트*/
+    public List<Product> popularProductListByRcmd(String categoryId) throws Exception;
+    
 	
 }

@@ -60,7 +60,6 @@ public class ProductDetailController implements Controller {
 		 
 		if(request.getCookies()!=null) {
 			cookies = request.getCookies();
-			System.out.println(selectProduct.getCategoryType());
 			for(Cookie cookie : cookies) {
 				if(cookie.getName().equals(category)) {
 					int count = Integer.parseInt(cookie.getValue());

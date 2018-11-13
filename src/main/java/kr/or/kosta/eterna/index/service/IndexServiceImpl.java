@@ -29,6 +29,12 @@ public class IndexServiceImpl implements IndexService {
 		List<Product> list = productDao.popularProductList();
 		return list;
 	}
+	
+	@Override
+	public List<Product> popularProductListByRcmd(String categoryId) throws Exception {
+		List<Product> list = productDao.popularProductListByRcmd(categoryId);
+		return list;
+	}
 
 
 }
