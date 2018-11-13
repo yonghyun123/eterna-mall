@@ -24,12 +24,6 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
-	public void createComment(QnA qna) throws Exception {
-		qnaDao.createComment(qna);
-		qnaDao.updateFlag(qna.getId());
-	}
-
-	@Override
 	public void update(QnA qna, String id) throws Exception {
 		qnaDao.update(qna, id);
 	}

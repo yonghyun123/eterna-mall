@@ -18,6 +18,7 @@ import kr.or.kosta.eterna.product.domain.Product;
 import kr.or.kosta.eterna.productImage.dao.ProductImageDao;
 import kr.or.kosta.eterna.productImage.domain.ProductImage;
 import kr.or.kosta.eterna.qna.dao.QnADao;
+import kr.or.kosta.eterna.qna.domain.QnA;
 import kr.or.kosta.eterna.review.dao.ReviewDao;
 import kr.or.kosta.eterna.user.dao.UserDao;
 import kr.or.kosta.eterna.user.dao.UserRcmdDao;
@@ -230,5 +231,13 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void updateStock(String productDescription, String count) throws Exception {
 		productDao.updateStock(productDescription, count);
+	}
+
+	
+
+	@Override
+	public void createComment(QnA qna) throws Exception {
+		qnaDao.createComment(qna);
+		qnaDao.updateFlag(qna.getId());
 	}
 }

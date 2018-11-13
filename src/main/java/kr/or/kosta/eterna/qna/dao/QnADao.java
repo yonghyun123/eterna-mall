@@ -18,6 +18,10 @@ public interface QnADao {
    /* Q&A 답글 생성(관리자만) */
    public void createComment(QnA qna) throws Exception;
    
+   /* Q&A 비밀답글 생성(관리자만) */
+   public void createSecretComment(QnA qna) throws Exception;
+
+   
    /* Q&A 수정*/
    public void update(QnA qna, String id) throws Exception;
    

@@ -114,4 +114,12 @@ public class MybatisQnADao implements QnADao {
 		sqlSession.close();
 	}
 
+	@Override
+	public void createSecretComment(QnA qna) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.insert(NAMESPACE + "createSecretComment", qna);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+
 }
