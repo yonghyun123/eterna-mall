@@ -169,6 +169,9 @@
     <script type="text/javascript">
     $("#search-input").val('${inputSearch}');
     $("#search-input").focus();
+    var originHtml = document.querySelector('#insertCondition');
+    var newHtml = '&nbsp;&nbsp;'+' \''+'${inputSearch}'+'\' 로 검색한 결과 ' + '>';
+    originHtml.innerHTML = newHtml;
     </script>
     </c:when>
     </c:choose>
@@ -185,6 +188,16 @@
 		 }
 		 </script>
 		</c:when>
+	</c:choose>
+	
+	<c:choose>
+	<c:when test="${count == 0 }">
+	<script type="text/javascript">
+	var originHtml = document.querySelector('#insertUl');
+	var newHtml = "<li class='col-sm-6 col-lg-4 mb-4' data-aos='fade-up' style='margin-left: 35%'>검색결과가 존재하지 않습니다.</li>";
+	originHtml.innerHTML = newHtml;
+	</script>
+	</c:when>
 	</c:choose>
   </body>
 </html>

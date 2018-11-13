@@ -146,7 +146,7 @@
 	
 	<!-- 희진 추가!!!! 유저별 장바구니에 등록된 물품 리스트 개수 -->
 	<select id="countOfCart" resultType="int">
-	SELECT Count(product_id) 
+	SELECT Count(product_id)
 	FROM   sm_cart 
 	WHERE  user_id = #{userId}
 	</select>
