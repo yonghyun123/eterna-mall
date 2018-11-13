@@ -26,6 +26,8 @@
  </div>
  <div id="popup-message-nonuser-delivery-fail">일치하는 정보가 없습니다</div>
  <script>
+ 
+
  document.getElementById("nonUserConfirm-button").onclick=function(){
 	 var nonUserOrderNum = document.getElementById("nonUserOrderNum").value;
 	 var nonUserPw = document.getElementById("nonUserPw").value;
@@ -54,7 +56,12 @@
              detailSideTemplate(jsonDetailData);
              detailInformTemplate(jsonDetailData);
         	 $("#nonUserDeliveryCheck-modal").modal('hide');
+        	 $("body").css("overflow","hidden");
+        	 $("#order-detail-modal").css("overflow-x","hidden").css("overflow-y","auto");
         	 $("#order-detail-modal").modal('show');
+        	 $("#order-detail-modal").click(function(){
+        		 $("body").css("overflow","auto");
+        		 });
         	   }
            }
         })
@@ -67,6 +74,7 @@
 		 popup("popup-message-nonuser-delivery-fail");
 	}
 	 }
+	 
  }
  function detailHeaderTemplate(detailData){
 	    var templateHtml = document.querySelector('#detail-header').innerHTML;
