@@ -13,24 +13,23 @@
         <div class="modal-body">
           <form role="form" class="text-left" action="login.mall">
             <div class="form-group">
-              <label for="id"><span class="glyphicon glyphicon-user"></span> ID</label>
+              <label><span class="glyphicon glyphicon-user"></span> ID</label>
               <input type="text" class="form-control" name="inputId" id="id" placeholder="Enter ID" required>
             </div>
             <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <label><span class="glyphicon glyphicon-eye-open"></span> Password</label>
               <input type="password" class="form-control" name="inputPasswd" id="psw" placeholder="Enter Password" required>
               
             </div>
             <div class="checkbox" id="nonUserBody">
               
             </div>
-              <button type="button" class="btn btn-success btn-block" id="login-button"><span class="glyphicon glyphicon-off"></span> Login</button>
+              <button type="button" class="btn btn-success btn-block" id="login-bt"><span class="glyphicon glyphicon-off"></span> Login</button>
           </form>
           <button type="submit" class="btn btn-danger btn-default btn-cancel" data-dismiss="modal" id="btn-cancel"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
         </div>
         <div class="modal-footer text-center user-support">
           <p><a href="#">Sign Up</a></p> / 
-          <p><a href="#">Forgot Password?</a></p>
         </div>
       </div>
     </div>
@@ -49,7 +48,7 @@
 			document.getElementById("id").value = "${cookie.rememberId.value}";	
 	} 
 	
-	document.getElementById("login-button").onclick = function () {
+	document.getElementById("login-bt").onclick = function () {
 		var id = document.getElementById("id");
 		var password = document.getElementById("psw");
 		var rememberId = document.getElementById("rememberId");

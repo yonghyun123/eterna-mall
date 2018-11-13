@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.kosta.eterna.buy.domain.Buy;
+import kr.or.kosta.eterna.qna.domain.QnA;
 
 /**
  * 관리자 Service 복잡한 트랜잭션 처리나 예외처리 등
@@ -47,4 +48,7 @@ public interface AdminService {
 	
 	/* 제품 배송중으로 변경시 재고 변경 */
 	public void updateStock(String productDescription, String count) throws Exception;
+	   
+	   /* Q&A 답글 생성(관리자만) */
+		public void createComment(QnA qna) throws Exception;
 }

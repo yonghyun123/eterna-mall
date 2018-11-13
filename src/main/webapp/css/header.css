@@ -41,8 +41,12 @@
 }
 
 .modal-body {
-	padding: 40px 50px;
+	padding: 5%;
 }
+
+#personalInfo-modal .modal-body {
+	padding: 5%;
+} 
 
 #detail-address {
 	margin-top: 1%;
@@ -68,6 +72,10 @@
 
 .user-support p {
 	display: inline-block;
+}
+
+#join-form {
+	padding: 0 10%;
 }
 
 /* fail modal CSS */
@@ -111,6 +119,7 @@
 
 .inform-td {
 	background-color: #fafafa;
+	width: 16%;
 }
 
 #in-detail-body {
@@ -144,6 +153,7 @@
 }
 
 /* popup을 위한 css */
+#popup-message-use-point-minus,
 #popup-message-nonuser-delivery-fail,
 #popup-message-login-success,
 #popup-message-logout-success,
@@ -170,6 +180,7 @@
     font-size: 17px;
 }
 
+#popup-message-use-point-minus.show,
 #popup-message-nonuser-delivery-fail.show,
 #popup-message-login-success.show,
 #popup-message-logout-success.show,
@@ -204,23 +215,4 @@
 @keyframes fadeout {
     from {bottom: 50%; opacity: 1;}
     to {bottom: 0; opacity: 0;}
-}
-
-.product-thumbnail {
-	width: 100px;
-	height: 100px;
-	display: inline-block;
-	margin: 2% 4% 2% 2%;
-}
-
-
-.product-text {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 3% 0;
-}
-
-.detail-order-date, .detail-order-id {
-	margin: 0 1%;
-	display: inline-block;
 }

@@ -71,6 +71,33 @@
             where id=#{id}), 
             1)
    </insert>
+   
+   <!-- 비밀글에 대한 답글 -->
+   <insert id="createSecretComment" parameterType="QnA">
+      INSERT INTO sm_product_answer 
+            (id, 
+             user_id, 
+             product_id, 
+             board_id, 
+             subject, 
+             content, 
+             group_no, 
+             level_no,
+             secret_flag) 
+      VALUES     (qna_id_seq.nextval,
+            'manager', 
+            (select product_id
+            from SM_product_answer
+            where id=#{id}), 
+            2, 
+            '답변글 입니다.', 
+            #{content}, 
+            (select group_no
+            from SM_product_answer
+            where id=#{id}), 
+            1,
+            1)
+   </insert>
 	
 	<!-- 회원별 Q&A 리스트 -->
 	<select id="myList" resultType="QnA">
@@ -103,7 +130,8 @@
        board_id as boardId, 
        answer_flag AS answerFlag,
        group_no as groupNo,
-       level_no as levelNo 
+       level_no as levelNo,
+       secret_flag as secretFlag 
    FROM   SM_product_answer a
    join SM_product p 
          ON a.product_id = p.product_id

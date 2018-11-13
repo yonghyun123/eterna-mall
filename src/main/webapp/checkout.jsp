@@ -27,6 +27,7 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/css/checkout.css">
 <link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
 <jsp:include page="/includes/header.jsp"></jsp:include>
 </head>
 <body>
@@ -44,7 +45,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-7 text-center pt-4 cart-heading">
-        <h2>Payment</h2>
+        <h2>결제</h2>
       </div>
     </div>
   </div>
@@ -52,16 +53,12 @@
     <div class="container">
       <div class="row mb-4">
         <div class="col-md-12">
-          <div class="title">
-            <h2>Product Information</h2>
-          </div>
           <table class="cart-table">
             <thead>
               <tr>
-                <th class="product-inform" colspan="5">Product Information</th>
-                <th class="product-quantity">Amount</th>
-                <th class="product-price text-right">Total Price</th>
-                <th class="product-remove"></th>
+                <th class="product-inform" colspan="5">상품정보</th>
+                <th class="product-quantity">수량</th>
+                <th class="product-price">상품가격</th>
               </tr>
             </thead>
             <tbody>
@@ -91,9 +88,8 @@
                       </td>
                       <!-- 금액 -->
                       
-                      <td class="product-price text-right">
+                      <td class="product-price text-center">
                       <span class="totalCost" id="totalCost"></span>원</td>
-                      <td></td>
                     </tr>
                   </c:forEach>
                 </c:when>
@@ -108,22 +104,22 @@
         <div class="row mb-4">
           <div class="col-md-12">
             <div class="title">
-              <h2>Buyer Information</h2>
+              <h2>구매자 정보</h2>
             </div>
             <table class="cart-table">
             <c:choose>
                     <c:when test="${not empty user }">
               <thead>
                 <tr class="col-md-12">
-                  <th>Name</th>
+                  <th>이름</th>
                   <td>${user.userName }</td>
                 </tr>
                 <tr class="col-md-12">
-                  <th>Phone</th>
+                  <th>전화번호</th>
                   <td>${user.userTel }</td>
                 </tr>
                 <tr class="col-md-12">
-                  <th>E-mail</th>
+                  <th>이메일</th>
                   <td>${user.userEmail }</td>
                 </tr>
               </thead>
@@ -131,20 +127,20 @@
               <c:otherwise>
                <thead>
                 <tr class="col-md-12">
-                  <th>Name</th>
+                  <th>이름</th>
                   <td class="col-md-6"><input type="text" class="form-control col-md-3" id="sendName" name="sendName"><span id="buyer-name-id"></span></td>
                 </tr>
                 
                 <tr class="col-md-12">
-                  <th>Phone</th>
+                  <th>전화번호</th>
                   <td><input type="text" class="form-control col-md-3" id="buyer-sendTel" name="sendTel"><span id="buyer-tel-id"></span></td>
                 </tr>
                 <tr class="col-md-12">
-                  <th>E-mail</th>
+                  <th>이메일</th>
                   <td><input type="text" class="form-control col-md-3" id="sendEmail" name="sendEmail"><span id="buyer-email-id"></span></td>
                 </tr>
                 <tr class="col-md-12">
-                  <th>Password</th>
+                  <th>전화번호</th>
                   <td><input type="text" class="form-control col-md-3" id="sendPassword" name="sendPassword"><span id="buyer-passwd-id"></span></td>
                 </tr>
               </thead>
@@ -154,10 +150,18 @@
           </div>
           <div class="col-md-12">
             <div class="title">
-              <h2>Shipping Information</h2>
+              <h2>수령인 정보</h2>
             </div>
             <table class="cart-table">
               <thead>
+                <tr class="col-md-12">
+                  <th>수령인 이름</th>
+                    <td><input type="text" class="form-control col-md-3" id="receiver" name="receiverName"><span id="receiver-name-id"></span></td>
+                </tr>
+                <tr class="col-md-12">
+                  <th>휴대폰</th>
+                    <td class="phone"><input type="text" class="form-control col-md-3" id="receiverPhone" name="receiverPhone" maxlength="11"><span id="receiver-tel-id"></span></td>
+                </tr>
                 <tr class="col-md-12">
                   <th>주소</th>
                   <td>
@@ -165,12 +169,10 @@
                     <c:when test="${not empty user }">
                     <div>
                       <div class="address">
-                        <label><input type="radio" value="equealAdr" name="address"
-                          id="equealAdr"> 주문자 주소와 동일
-                        </label><label><input type="radio" value="RecentAdr" name="address" id="ChoiceRecentAdr">
-                        최근주소
-                        </label><label><input type="radio" value="newAdr" name="address" id="newAdr"> 새주소
-                                                         </label><input type="button" class="btn btn-success" onclick="daumPostcode()" value="search">
+                        <input type="radio" value="equealAdr" name="address" id="equealAdr"> 주문자 주소와 동일
+                        <input type="radio" value="RecentAdr" name="address" id="ChoiceRecentAdr">최근주소
+                        <input type="radio" value="newAdr" name="address" id="newAdr"> 새주소
+                        <input type="button" class="btn btn-success address-bt" onclick="daumPostcode()" value="search">
                       </div>
                     </div>
                     </c:when>
@@ -190,16 +192,8 @@
                   </td>
                 </tr>
                 <tr class="col-md-12">
-                  <th>수령인 이름</th>
-                  <td><input type="text" class="form-control col-md-3" id="receiver" name="receiverName"><span id="receiver-name-id"></span></td>
-                </tr>
-                <tr class="col-md-12">
-                  <th>휴대폰</th>
-                  <td class="phone"><input type="text" class="form-control col-md-3" id="receiverPhone" name="receiverPhone" maxlength="11"><span id="receiver-tel-id"></span></td>
-                </tr>
-                <tr class="col-md-12">
                   <th>배송요청사항</th>
-                  <td><textarea name="request" cols="30" rows="5" class="form-control" maxlength="50"></textarea>
+                  <td><textarea name="request" cols="30" rows="5" class="form-control" maxlength="50" style="width: 50%;"></textarea>
                     <div class="chk_bytes">
                       <span>0</span>자 / 50자
                     </div></td>
@@ -225,25 +219,23 @@
                   <th>쿠폰 적용 </th>
                   <td>
                     <div class="find">
-                      선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon" class="btn btn-primary btn-sm">쿠폰 선택</a> 
+                      선택 쿠폰 : <span class="selectedCoupon"></span><a id="coupon" class="btn btn-primary btn-sm">쿠폰 선택</a> 
                       <input type="hidden"  class="couponId">
                       <input type="hidden" class="couponRate">
-                      <a id="cancleCoupon" >적용 취소</a>
+                      <a id="cancelCoupon" class="btn btn-primary btn-sm">적용 취소</a>
                     </div>
                   </td>
                 </tr>
                 <tr class="col-md-12">
                   <th>적립금 적용</th>
                   <td>
-                  <div>
-                      사용가능 적립금 : <span class="availablePoint">${user.userPoint }</span>
-                      (원) <a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
-                                                  <a id="canclePointBtn" >적용 취소</a>
+                    <div>
+                        사용가능한 적립금 : <span class="availablePoint">${user.userPoint }</span> (원)
                     </div>
                     <div class="toUsePoint">
-                      <span>사용할 적립금 : </span>
                       <input type="text" class="form-control" id="toUsePoint" name="name">
-                      <span>(원)</span>
+                      <a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
+                      <a id="cancelPointBtn" class="btn btn-primary btn-sm">적용 취소</a>
                     </div>
                     </td>
                 </tr>
@@ -257,7 +249,7 @@
                       선택 쿠폰 : <span class="selectedCoupon"></span> <a id="coupon" class="btn btn-primary btn-sm">쿠폰 선택</a> 
                       <input type="hidden"  class="couponId">
                       <input type="hidden" class="couponRate">
-                      <a id="cancleCoupon" >적용 취소</a>
+                      <a id="cancelCoupon" >적용 취소</a>
                     </div>
                   </td>
                 </tr>
@@ -266,7 +258,7 @@
                   <td>보유한 적립금이 존재하지 않습니다
 					<div style="display: none;"> 사용가능 적립금 : <span class="availablePoint">${user.userPoint }</span> (원) 
 					<a id="pointBtn" class="btn btn-primary btn-sm">사용</a>
-					<a id="canclePointBtn" >적용 취소</a>
+					<a id="cancelPointBtn" >적용 취소</a>
                     </div>
                     <div class="toUsePoint" style="display: none;">
                       <span>사용할 적립금 : </span>
@@ -279,7 +271,7 @@
               </thead>
             </table>
             <div class="title">
-              <h2>Payment<input type="hidden" id="pay"></h2>
+              <h2>결제 수단<input type="hidden" id="pay"></h2>
             </div>
             <div class="generalPay">
             <table class="cart-table">
@@ -370,7 +362,7 @@
     </div>
 
 <%@ include file="coupon.jsp"%>
-<%-- <%@ include file="loading.jsp" %>--%>
+<%@ include file="loading.jsp" %>
 <%@ include file="personalInfo.jsp" %>
 <%@ include file="recentAddress.jsp"%>
 
@@ -427,9 +419,9 @@
       var applyPoint = $('.applyPoint').text();
       var toUsePoint = Number($('#toUsePoint').val());
       if (availablePoint == 0) {
-        alert("적립금이 0점이면 못씀");
+        popup("popup-message-use-point-minus");
       } else if ((availablePoint - toUsePoint) < 0) {
-        alert("보유한 적립금보다 적게 입력해주세요");
+    	  popup("popup-message-use-point-minus");
       } else {
         applyPoint = availablePoint - toUsePoint;
         applyCoupon = $('.applyCoupon').text();
@@ -487,7 +479,7 @@
     }); 
     
     /* 쿠폰 적용 취소 눌렀을 때 */
-    $('#cancleCoupon').click(function(){
+    $('#cancelCoupon').click(function(){
       $('.applyCoupon').text(0);
       var applyPoint2 = $('.applyPoint').text();
       var orderTotal = Number(productPrice)  + Number(shippingFee)  - Number(applyPoint2);
@@ -496,7 +488,7 @@
       selectedCouponId = '';
     });
     /* 적립금 적용 취소 눌렀을 때 */
-    $('#canclePointBtn').click(function(){
+    $('#cancelPointBtn').click(function(){
       $('.applyPoint').text(0);
       var applyCoupon2 = $('.applyCoupon').text();
       var orderTotal = Number(productPrice)  + Number(shippingFee)  - Number(applyCoupon2);
@@ -551,7 +543,7 @@
     function buyBtnClicked(){
 	  var orderBtn = document.querySelector('#loading-btn');
 	  orderBtn.addEventListener('click', function(){
-			//setTimeout(function() {
+			setTimeout(function() {
 				  var count = document.querySelectorAll('.orderProductCount');
 				  var productId = document.querySelectorAll('.orderProductId');
 				  console.log(count);
@@ -727,10 +719,9 @@
 		          document.body.appendChild(form);
 		          
  		          form.submit(); 
-		//	}, 3000)
+			}, 3000)
 	  });
     }
-    
     buyBtnClicked();
 
     

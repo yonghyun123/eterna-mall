@@ -29,6 +29,8 @@ public class Product {
    private String etcImage;
    /**제품 가격*/
    private String price;
+   /*제품 피부 타입*/
+   private String productType;
    
    public Product() {
       super();
@@ -55,7 +57,15 @@ public class Product {
    }
 
 
-   public String getProductId() {
+   public String getProductType() {
+	return productType;
+}
+
+public void setProductType(String productType) {
+	this.productType = productType;
+}
+
+public String getProductId() {
       return productId;
    }
 
@@ -167,10 +177,14 @@ public class Product {
       this.price = price;
    }
 
-   @Override
-   public String toString() {
-      return "User [productId=" + productId + ", categoryType=" + categoryType + ", productBrand=" + productBrand + ", productSex=" + productSex + ", productDescription=" + productDescription
-            + ", productStock=" + productStock + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", minAge=" + minAge + ", maxAge=" + maxAge 
-            + ", thumnail=" + thumnail + ", mainImg=" + mainImg +", etcImage=" + etcImage +", price=" + price+"]";
-   }
+@Override
+public String toString() {
+	return "Product [productId=" + productId + ", categoryType=" + categoryType + ", productBrand=" + productBrand
+			+ ", productSex=" + productSex + ", productDescription=" + productDescription + ", productStock="
+			+ productStock + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", minAge=" + minAge
+			+ ", maxAge=" + maxAge + ", thumnail=" + thumnail + ", mainImg=" + mainImg + ", etcImage=" + etcImage
+			+ ", price=" + price + ", productType=" + productType + "]";
+}
+
+  
 }

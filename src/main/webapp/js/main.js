@@ -201,6 +201,8 @@ jQuery(document).ready(function($) {
    siteMagnificPopup();
 
     $("#noneUserDeliverBtn").click(function(){
+    	$('#nonUserOrderNum').val('');
+    	$('#nonUserPw').val('');
         $("#nonUserDeliveryCheck-modal").modal();
     });
     $("#login-btn").click(function(){
@@ -209,7 +211,7 @@ jQuery(document).ready(function($) {
     	originHtml.innerHTML = templateHtml;
     	
     	var rememberId = '${cookie.rememberId.value}';
-    	if(rememberId != null){
+    	if(rememberId == null){
     		document.getElementById("id").value='';
     	}
     	document.getElementById("psw").value='';

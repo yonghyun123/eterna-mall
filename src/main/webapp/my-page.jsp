@@ -153,7 +153,7 @@
                                       <h4>배송 중</h4> ${orderAllList[startIndex].orderDate } <span>출발</span>
                                     </c:when>
                                     <c:when test="${flag == 2 }">
-                                      <h4>배송 완료</h4> ${orderAllList[startIndex].orderDate } <span>도착</span>
+                                      <h4>배송 완료</h4> ${orderAllList[startIndex].receiveDate } <span>도착</span>
                                     </c:when>
                                   </c:choose>
                                   </td>
@@ -182,8 +182,18 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="in-rbody">
-                      
+                    <table class="table table-hover">
+                      <thead class="text-center">
+                        <tr>
+                          <th>번호</th>
+                          <th>제목</th>
+                          <th>작성자</th>
+                          <th>등록일자</th>
+                          <th colspan="100"></th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-rbody">
+                      </tbody>
                     </table>
                     <div class="in-page">
                     </div>
@@ -213,7 +223,16 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="in-qbody">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr class="text-center">
+                          <th colspan="1">주문번호</th>
+                          <th colspan="4">내용</th>
+                          <th colspan="2">일자</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-qbody">
+                      </tbody>
                     </table>
                     <div class="in-page">
                     </div>
@@ -241,7 +260,17 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="in-pbody">
+                    <table class="table table-hover col-md-10 text-center" style="margin: 0 auto;">
+                      <thead>
+                        <tr>
+                          <th>번호</th>
+                          <th>상태</th>
+                          <th>금액</th>
+                          <th>일자</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-pbody">
+                      </tbody>                    
                     </table>
                   </div>
                 </div>
@@ -257,7 +286,17 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover text-center" id="in-cbody">
+                    <table class="table table-hover text-center">
+                      <thead>
+                        <tr>
+                          <th>쿠폰번호</th>
+                          <th colspan="5">쿠폰명</th>
+                          <th>할인금액</th>
+                          <th>유효기간</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-cbody">
+                      </tbody>
                     </table>
                   </div>
                 </div>
@@ -296,15 +335,6 @@
   
  <!-- review template -->
   <script type="my-template" id="review-body">
-  <thead class="text-center">
-    <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>작성자</th>
-      <th>등록일자</th>
-    </tr>
-  </thead>
-  <tbody id="in-rbody">
 	<tr>
       <td class="text-center">
         {number}
@@ -334,21 +364,12 @@
       <td>
     </tr>
     <tr style='display:none;'>
-      <td colspan="4">{content}</td>
+      <td colspan="100">{content}</td>
   	</tr>            
-  </tbody>
   </script>
   
   <!-- qna template -->
   <script type="my-template" id="qna-body">
-  	<thead>
-    	<tr class="text-center">
-	  		<th colspan="1">주문번호</th>
-	  		<th colspan="4">내용</th>
-	  		<th colspan="2">일자</th>
-		</tr>
-  	</thead>
-	<tbody id="in-qbody">
   		<tr>
     		<td colspan="1" class="text-center">
       			{orderNumber}
@@ -363,22 +384,12 @@
     		</td>
   		</tr>
   		<tr style='display:none;'>
-    		<td colspan="4">{content}</td>
+    		<td colspan="100">{content}</td>
   		</tr>
-	</tbody>
   </script>
   
   <!-- coupon template -->
   <script type="my-template" id="coupon-body">
-	<thead>
-		<tr>
-			<th>쿠폰번호</th>
-			<th colspan="5">쿠폰명</th>
-			<th>할인금액</th>
-			<th>유효기간</th>
-		</tr>
-	</thead>
-	<tbody id="in-cbody">
 		<tr>
 	   	 	<td class="title">
       			{couponId}
@@ -393,30 +404,16 @@
     			{couponDate}
 	    	</td>
 	  	</tr>
-	</tbody>
   </script>
   
   <!-- point template -->
   <script type="my-template" id="point-body">
-  <thead>
-	<tr>
-		<th>주문번호</th>
-		<th>상태</th>
-		<th>상세 내용</th>
-		<th>금액</th>
-		<th>일자</th>
-	</tr>
-  </thead>
-  <tbody>
      <tr>
 		<td class="title">
 			{orderNumber}
 		</td>
 		<td class="title">
 			{pointFlag}
-		</td>
-		<td class="title" colspan="5">
-			{pointInform}%
 		</td>
 	   	<td class="title">
 			{point}
@@ -425,7 +422,6 @@
 			{pointDate}
 	    </td>
 	 </tr>                
-  </tbody>
   </script>
   
   <!-- 개인정보 수정 template -->
@@ -542,9 +538,7 @@
   
   <!-- 실패 template -->
   <script type="my-template" id="fail-body">
-    <tbody>
-      <th class="text-center" style="padding: 3% 0"><h4>{item} 존재하지 않습니다.</h4></th>
-    </tbody>
+      <tr class="text-center"><td colspan="100">{item} 존재하지 않습니다.</td></tr>
   </script>
   
   <script>
@@ -594,6 +588,19 @@
         }
       });
     }
+  	
+  	/* Q&A 탭 클릭 */
+  	if(evt.currentTarget.id == 'user-point'){
+      $.ajax({
+        url: "/user/point.mall",
+        type:"get",
+        dataType:"text",
+        success: function(data){
+          var jsonQNAData = JSON.parse(data);
+          pointTemplate(jsonQNAData);
+        }
+      });
+    }
       
     /* 쿠폰 탭 클릭 */
     if(evt.currentTarget.id == 'user-coupon'){
@@ -608,7 +615,7 @@
       });
     }
       
-      /* 개인정보 수정 탭 클릭 */
+    /* 개인정보 수정 탭 클릭 */
     if (evt.currentTarget.id == 'user-modify') {
       var templateHtml = document.querySelector('#confirm-body').innerHTML;
       var originHtml = document.querySelector('#in-mbody');
@@ -654,7 +661,13 @@
                                .replace('{content}', v.content);
 	  });
   	  
-      $(".plusIcon").on("click",function(){
+    }else {
+      var templateHtml = document.querySelector('#fail-body').innerHTML;
+      newHtml += templateHtml.replace('{item}', "등록하신 리뷰가");
+    }
+    originHtml.innerHTML = newHtml;
+    
+    $(".plusIcon").on("click",function(){
         var obj = $(this);
         if(obj.hasClass("glyphicon-plus")){
           obj.hide();
@@ -665,10 +678,25 @@
           obj.prev().show();
           obj.parent().parent().next().hide();
         }
-      });
-    }else {
-      var templateHtml = document.querySelector('#fail-body').innerHTML;
-      newHtml += templateHtml.replace('{item}', "등록하신 리뷰가");
+     });
+  }
+  
+  /* 적립금  */
+  function pointTemplate(pointData){
+    var originHtml = document.querySelector('#in-pbody');
+    var newHtml = '';
+    if(pointData.length != 0) {
+    	var templateHtml = document.querySelector('#point-body').innerHTML;      
+      	pointData.forEach(function(v,i){
+          newHtml += templateHtml.replace('{orderNumber}', v.orderNumber)
+                                 .replace('{pointFlag}', v.pointFlag)
+                                 .replace('{point}', v.point)
+                                 .replace('{pointDate}', v.pointDate);
+
+        });
+      }else {
+    	var templateHtml = document.querySelector('#fail-body').innerHTML;
+        newHtml += templateHtml.replace('{item}', "적립금 관련 내역이");
     }
     originHtml.innerHTML = newHtml;
   }
@@ -707,8 +735,12 @@
   	                             .replace('{regdate}', v.regdate);
 
     	});
-
-        $(".plusIcon").on("click",function(){
+      }else {
+    	var templateHtml = document.querySelector('#fail-body').innerHTML;
+        newHtml += templateHtml.replace('{item}', "등록하신 문의글이");
+      }
+      originHtml.innerHTML = newHtml;
+      $(".plusIcon").on("click",function(){
           var obj = $(this);
           if(obj.hasClass("glyphicon-plus")){
              obj.hide();
@@ -719,14 +751,10 @@
              obj.prev().show();
              obj.parent().parent().next().hide();
           }
-        });
-      }else {
-    	var templateHtml = document.querySelector('#fail-body').innerHTML;
-        newHtml += templateHtml.replace('{item}', "등록하신 문의글이");
-      }
-      originHtml.innerHTML = newHtml;
+      });
   }
   
+  /* 주문번호 별 상세보기 헤더 */
   function detailHeaderTemplate(detailData){
     var templateHtml = document.querySelector('#detail-header').innerHTML;
     var originHtml = document.querySelector('#in-detail-header');
@@ -742,6 +770,7 @@
     return body;
   }
   
+  /* 주문번호 별 상세보기 바디 */
   function detailBodyTemplate(detailData, body){
     var templateHtml = document.querySelector('#detail-body').innerHTML;
     var originHtml = body;
@@ -755,6 +784,7 @@
     originHtml.innerHTML = newHtml;
   }
   
+  /* 주문번호 별 상세보기 사이드 */
   function detailSideTemplate(detailData){
     var templateHtml = document.querySelector('#detail-side').innerHTML;
     var originHtml = document.querySelector('#in-detail-side');
@@ -766,25 +796,8 @@
     originHtml.innerHTML = newHtml;
   } 
   
+  /* 주문번호 별 상세보기 푸터쪽 결제정보 */
   function detailInformTemplate(detailData){
-    var templateHtml = document.querySelector('#detail-inform').innerHTML;
-    var originHtml = document.querySelector('#in-detail-inform');
-    var newHtml = '';
-    detailData.forEach(function(v,i){
-      v.receiverAddress = parsingAddress(v.receiverAddress);		
-    	
-      newHtml = templateHtml.replace('{receiverName}', v.receiverName)
-                   		    .replace('{receiverTel}', v.receiverTel)
-                   			.replace('{receiverAddress}', v.receiverAddress)
-                   			.replace('{totalProductPrice}', v.totalProductPrice)
-                   			.replace('{reducePrice}', v.reducePrice)
-                   			.replace('{shippingFee}', v.shippingFee)
-                   			.replace('{totalPrice}', v.totalPrice);
-    });
-    originHtml.innerHTML = newHtml;
-  }
-  
-  function emptyTemplate(detailData){
     var templateHtml = document.querySelector('#detail-inform').innerHTML;
     var originHtml = document.querySelector('#in-detail-inform');
     var newHtml = '';

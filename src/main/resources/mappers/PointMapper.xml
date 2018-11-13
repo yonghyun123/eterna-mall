@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.eterna.point">
+	<select id="userPointList" resultType="Point">
+	SELECT id,
+		   status,
+		   point,
+		   start_date as regdate
+	FROM sm_point_manage
+	WHERE user_id = #{userId}
+	ORDER BY id DESC
+	</select>
+</mapper>
