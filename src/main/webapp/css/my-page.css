@@ -155,6 +155,24 @@ tr > td > .modify {
 	width: 17%;
 }
 
+.product-thumbnail {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	margin: 2% 4% 2% 2%;
+}
+
+.product-text {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 3% 0;
+}
+
+.detail-order-date, .detail-order-id {
+	margin: 0 1%;
+	display: inline-block;
+}
+
 /* Style the tab */
 .tab {
    overflow: hidden;

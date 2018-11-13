@@ -129,7 +129,7 @@
 }
 
 .chk_bytes {
-	float: right;
+	margin-left: 40%;
 }
 
 .border-order {
@@ -142,7 +142,7 @@
 }
 
 div .address-bt {
-	width: 11%;
+	width: 11% !important;
 	margin-bottom: 1%;
 }
 
@@ -150,7 +150,11 @@ div .address-bt {
 	margin: 0 1%;
 }
 
-div .form-control {
+.address input[type="button"] {
+	width: 50%;
+}
+
+#new-zipcod-address, #new-street-address, #new-detail-address {
 	width: 50%;
 	margin-top: 1%;
 }
