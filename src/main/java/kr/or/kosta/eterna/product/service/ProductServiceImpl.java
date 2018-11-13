@@ -84,4 +84,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> listBySearch(String inputSearch) throws Exception {
 		return productDao.listBySearch(inputSearch);
 	}
+
+	@Override
+	public int productSkinCategory(String productId) throws Exception {
+		return productDao.productSkinCategory(productId);
+	}
 }

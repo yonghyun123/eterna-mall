@@ -36,6 +36,11 @@ public class NonUserCartListController implements Controller {
 		List<Cart> list = null;
 		List<String> productValue = new ArrayList<String>();
 		Map<String,String> map = new HashMap<String,String>();
+		String loginId =(String)request.getAttribute("loginId"); 
+		if(loginId!= null) {
+			mav.setView("/cart.mall");
+			return mav;
+		}
 		if(request.getCookies().length != 1) {
 			cookies = request.getCookies();
 			for(Cookie cookie : cookies) {

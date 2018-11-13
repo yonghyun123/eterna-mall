@@ -37,6 +37,7 @@ public class ProductDetailController implements Controller {
 		List<ProductImage> imageList = null;
 		String productId = request.getParameter("productId");
 		String recentView = null;
+		String category = null;
 		logger.debug("productId"+productId);
 		
 
@@ -46,6 +47,7 @@ public class ProductDetailController implements Controller {
 			//list = productService.listAll();
 			selectProduct = productService.read(productId);
 			imageList = productImageService.imageAll(productId);
+			category = productService.productSkinCategory(productId)+"";
 		} catch (Exception e) {
 			throw new ServletException("ProductDetailController 예외 발생", e);
 		}
@@ -54,9 +56,19 @@ public class ProductDetailController implements Controller {
 		mav.setView("/shop_single.jsp");
 
 		/**제품 조회시 쿠키생성*/
-		Cookie[] cookies = request.getCookies();
-		if(cookies!=null) {
-			
+		Cookie[] cookies;
+		 
+		if(request.getCookies()!=null) {
+			cookies = request.getCookies();
+			System.out.println(selectProduct.getCategoryType());
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals(category)) {
+					int count = Integer.parseInt(cookie.getValue());
+					count ++;
+					cookie.setValue(count+"");
+					response.addCookie(cookie);
+				}
+			}
 			for(Cookie cookie : cookies) {
 				if(cookie.getName().equals("recentView")&&cookie.getValue()!="") {
 					recentView = cookie.getValue();

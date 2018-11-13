@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.or.kosta.eterna.cart.domain.Cart;
+import kr.or.kosta.eterna.cart.service.CartService;
+import kr.or.kosta.eterna.cart.service.CartServiceImpl;
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
@@ -24,12 +27,14 @@ import kr.or.kosta.eterna.user.service.UserServiceImpl;
 public class UserLoginController implements Controller {
 	
 	private UserService userService;
+	private CartService cartService;
 	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		userService = (UserService)factory.getBean(UserServiceImpl.class);
+		cartService = (CartService)factory.getBean(CartServiceImpl.class);
 		HttpSession session = request.getSession();
 		String loginId, password, rememberId;
 		Cookie[] cookies;
@@ -56,8 +61,47 @@ public class UserLoginController implements Controller {
 			out.println("userNone");
 		} else {
 			session.setAttribute("flag", "popup-message-login-success");
-			Cookie cookie = new Cookie("loginId", loginId);
-			response.addCookie(cookie);
+			Cookie loginCookie = new Cookie("loginId", loginId);
+			response.addCookie(loginCookie);
+			Cookie cleanSingCookie = new Cookie("0", "0");
+			response.addCookie(cleanSingCookie);
+			Cookie liPCookie = new Cookie("1", "0");
+			response.addCookie(liPCookie);
+			Cookie skinCookie = new Cookie("2", "0");
+			response.addCookie(skinCookie);
+			Cookie lotionCookie = new Cookie("3", "0");
+			response.addCookie(lotionCookie);
+			Cookie sunCookie = new Cookie("4", "0");
+			response.addCookie(sunCookie);
+			
+			Cart cart = null;
+			Cart createCart = new Cart();
+			if(request.getCookies() != null) {
+				cookies = request.getCookies();
+			for(Cookie cookie: cookies) {
+				if(cookie.getName().equals("products")) {
+					String products = cookie.getValue();
+					String []productArray = products.split("@");
+					for(int i=1; i<productArray.length; i++) {
+						String[]productDetail = productArray[i].split("#");
+						try {
+							cart = cartService.read(loginId, productDetail[0]);
+							if(cart == null){
+								createCart.setCount(productDetail[1]);
+								createCart.setUserId(loginId);
+								createCart.setProductId(productDetail[0]);
+								cartService.create(createCart);
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				}
+			}
+			}
 		}
 		
 		// 아이디 저장
@@ -76,6 +120,7 @@ public class UserLoginController implements Controller {
 				}
 			}
 		}
+		
 		return null;
 	}
 }

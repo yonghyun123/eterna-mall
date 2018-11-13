@@ -28,6 +28,21 @@ public class UserLogoutController implements Controller {
 		    if(cookie.getName().equals("loginId")) {
 		  	    cookie.setMaxAge(0);
 		        response.addCookie(cookie);
+		    }else if(cookie.getName().equals("0")) {
+		    	cookie.setMaxAge(0);
+		        response.addCookie(cookie);
+		    }else if(cookie.getName().equals("1")) {
+		    	cookie.setMaxAge(0);
+		        response.addCookie(cookie);
+		    }else if(cookie.getName().equals("2")) {
+		    	cookie.setMaxAge(0);
+		        response.addCookie(cookie);
+		    }else if(cookie.getName().equals("3")) {
+		    	cookie.setMaxAge(0);
+		        response.addCookie(cookie);
+		    }else if(cookie.getName().equals("4")) {
+		    	cookie.setMaxAge(0);
+		        response.addCookie(cookie);
 		    }
 		}
 		mav.setView("redirect:/eterna.mall");
