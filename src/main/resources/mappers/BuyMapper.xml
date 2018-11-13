@@ -8,7 +8,10 @@
     <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
     <insert id="createInfo" parameterType="Buy">
 		INSERT INTO sm_buy_info 
-		      (id, 
+		      (id,
+		       <if test="buyerName!=null">buyer_name,</if>
+		       <if test="buyerTel!=null">buyer_tel,</if>
+		       <if test="buyerAddress!=null">buyer_address,</if>
 		       receiver_name, 
 		       receiver_tel, 
 		       receiver_address,
@@ -18,6 +21,9 @@
 		      <if test="passwd!=null">passwd,</if>
 		       user_id) 
 		VALUES     (buy_info_id_seq.nextval, 
+			   <if test="buyerName!=null">#{buyerName},</if>
+		       <if test="buyerTel!=null">#{buyerTel},</if>
+		       <if test="buyerAddress!=null">#{buyerAddress},</if>
 		      #{receiverName}, 
 		      #{receiverTel}, 
 		      #{receiverAddress}, 
@@ -26,6 +32,34 @@
 		      #{reducePrice},
 		      <if test="passwd!=null">#{passwd},</if>
 		      #{userId})
+    </insert>
+    
+        <!-- 주문리스트 추가 -->
+    <!-- id 값 next.val 로 수정해야함!!!!!!!!!! -->
+    <insert id="noncreateInfo" parameterType="Buy">
+		INSERT INTO sm_buy_info 
+		      (id,
+		       buyer_name,
+		       buyer_tel,
+		       buyer_address,
+		       receiver_name, 
+		       receiver_tel, 
+		       receiver_address,
+		       order_flag,
+		       total_price,
+		       <if test="passwd!=null">passwd,</if>
+		       reduce_price) 
+		VALUES     (buy_info_id_seq.nextval,
+			  #{buyerName},
+			  #{buyerTel},
+			  '서울시 / 강남구 / 압구정동 130-1번지',
+		      #{receiverName}, 
+		      #{receiverTel}, 
+		      #{receiverAddress}, 
+		      0,
+		      #{totalPrice},
+		      <if test="passwd!=null">#{passwd},</if>
+		      #{reducePrice})
     </insert>
    
     <!-- 주문번호별 구매 목록 추가 -->
@@ -54,6 +88,13 @@
 		          (select MAX(id) from SM_buy_info), 
 		          #{productId}) 
     </insert>
+    
+    <!-- 최근 주문번호 조회(비회원 조회) -->
+    <select id="recentOrderNumber" resultType="String">
+    	SELECT MAX(id)
+    	FROM SM_buy_info
+    </select>
+    
 	<!-- 유저별 구매 리스트 by 이철우 -->
 	<select id="listClient" parameterType="String" resultType="Buy">
 		SELECT bi.create_date          AS orderDate, 
@@ -221,6 +262,7 @@
         ON bi.id = bm.buy_id 
 		WHERE  bi.user_id = #{userId}
 		GROUP  BY bm.buy_id, bi.id
+		ORDER  BY bi.id DESC
 	</select>
     
     

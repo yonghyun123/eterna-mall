@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Eterna &mdash; Most Valuable Cosmetic</title>
 <meta charset="utf-8">
 <meta name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,6 +26,10 @@
 <link rel="stylesheet" href="/css/cart.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+
+<link rel="icon" href="/images/lipstick.png">
+<link rel="apple-touch-icon" href="/images/lipstick.png">
+
 <jsp:include page="/includes/header.jsp" />
 </head>
 <body>
@@ -35,7 +39,7 @@
         <div class="row">
           <div class="col-md-12 mb-0">
             <!-- QueryString 파싱해서 동적으로 span태그 생성 -->
-            <a href="/index.html">Home</a> <span class="mx-2 mb-0">/</span>
+            <a href="/eterna.mall">Home</a> <span class="mx-2 mb-0">/</span>
             <strong class="text-black">Cart</strong>
           </div>
         </div>
@@ -193,6 +197,7 @@
         </div>
       </div>
     </div>
+    <%@ include file="user/login.jsp"%>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="/js/jquery-3.3.1.min.js"></script>
@@ -205,6 +210,7 @@
   <script src="/js/main.js"></script>
   <script type="text/javascript">
 			/* 화면 로딩 */
+			var loginId = "${cookie.loginId.value}";
 			$(function() {
 				document.getElementById("allCheck").checked = true;
 				allChecked();
@@ -289,8 +295,7 @@
 			/**비회원 장바구니 하나씩 삭제할 때  - nonUsercartDeleteController*/
 			$(document).on("click","#nonloginDelete",function(event) {
 				var formData = new FormData();
-				var productId = $(this).closest("tr").find(
-				".hiddenDelete").val();
+				var productId = $(this).closest("tr").find(".hiddenDelete").val();
 				var form = document.createElement("form");
 				form.setAttribute("charset", "UTF-8");
 				form.setAttribute("method", "Post");
@@ -326,20 +331,50 @@
 				console.log('countArr : ' + countArr);
 				console.log(typeof countArr);
 				console.log('productIdArr : ' + productIdArr);
-				countArr = JSON.stringify(countArr);
-				productIdArr = JSON.stringify(productIdArr);
-				$.ajax({
-					type : "post",
-					url : "/cartUpdate.mall",
-					dataType : "text",
-					data : {
-						'countArr' : countArr,
-						'productIdArr' : productIdArr
-					},
-					success : function() {
-						window.location.href = "/order.mall";
+				
+				var countArrStr = JSON.stringify(countArr);
+				var productIdArrStr = JSON.stringify(productIdArr);
+				
+					
+				if(loginId){
+					$.ajax({
+						type : "post",
+						url : "/cartUpdate.mall",
+						dataType : "text",
+						data : {
+							'countArr' : countArrStr,
+							'productIdArr' : productIdArrStr
+						},
+						success : function() {
+							window.location.href = "/order.mall";
+						}
+					});
+
+					
+				} else {
+					var form = document.createElement("form");
+					form.setAttribute("charset", "UTF-8");
+					form.setAttribute("method", "Post");
+					form.setAttribute("action", "/cartUpdate.mall");
+					var hiddenCount = [];
+					var hiddenId = [];
+					for(var i = 0; i < countArr.length; i++){
+						 hiddenCount[i] = document.createElement('input');
+						 hiddenCount[i].setAttribute('type', 'hidden');
+						 hiddenCount[i].setAttribute('name', 'productCount');
+						 hiddenCount[i].setAttribute('value', countArr[i]);
+						 form.appendChild(hiddenCount[i]);
+						 
+						 hiddenId[i] = document.createElement('input');
+						 hiddenId[i].setAttribute('type', 'hidden');
+						 hiddenId[i].setAttribute('name', 'productId');
+						 hiddenId[i].setAttribute('value', productIdArr[i]);
+						 form.appendChild(hiddenId[i]);
+						 
 					}
-				})
+					document.body.appendChild(form);
+					form.submit();
+				}
 			});
 		</script>
 </body>

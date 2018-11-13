@@ -27,7 +27,6 @@ public class ProductServiceImpl implements ProductService {
 	/* 해당 상품 검색 */
 	@Override
 	public Product read(String productId) throws Exception {
-		// TODO Auto-generated method stub
 		return productDao.read(productId);
 	}
 
@@ -79,5 +78,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> listByScore() throws Exception {
 		return productDao.listByScore();
+	}
+
+	@Override
+	public List<Product> listBySearch(String inputSearch) throws Exception {
+		return productDao.listBySearch(inputSearch);
 	}
 }

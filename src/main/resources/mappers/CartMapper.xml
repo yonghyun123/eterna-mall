@@ -58,6 +58,22 @@
          ON i.file_id=f.file_id
 	 Where c.user_id = #{userId} and i.image_type = 'th'
 	</select>
+	<!-- 용현추가 -->
+	<!-- 비회원 장바구니 조회 -->
+	<select id="nonUserCart" resultType="Cart">
+		SELECT p.product_brand as productBrand,
+			p.product_id as productId, 
+   	 		p.product_description as productDescription, 
+   	 		pp.price as price,
+    		fi.file_name as fileName
+		FROM  SM_product p , SM_product_price pp, SM_product_image pi, SM_file_info fi
+		WHERE p.product_id = pp.product_id 
+		AND p.product_id = pi.product_id 
+		AND pi.file_id = fi.file_id 
+		AND pi.image_type='th'
+		AND p.product_id = #{productId}
+	</select>
+
 	<!-- 지원 추가  -->
 	<!-- 장바구니 제품 삭제 -->
 	<delete id="toBuydelete" parameterType="String">

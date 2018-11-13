@@ -21,12 +21,12 @@
               <input type="password" class="form-control" name="inputPasswd" id="psw" placeholder="Enter Password" required>
               
             </div>
-            <div class="checkbox">
-              <label><input type="checkbox" id="rememberId" value="">Remember me</label>
+            <div class="checkbox" id="nonUserBody">
+              
             </div>
               <button type="button" class="btn btn-success btn-block" id="login-button"><span class="glyphicon glyphicon-off"></span> Login</button>
           </form>
-          <button type="submit" class="btn btn-danger btn-default btn-cancel" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          <button type="submit" class="btn btn-danger btn-default btn-cancel" data-dismiss="modal" id="btn-cancel"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
         </div>
         <div class="modal-footer text-center user-support">
           <p><a href="#">Sign Up</a></p> / 
@@ -36,17 +36,25 @@
     </div>
   </div> 
  </div>
-    
+ <script type="my-template" id="login-body">
+ <label><input type="checkbox" id="rememberId" value="">Remember me</label>
+ </script>
+ <script type="my-template" id="nonUser-body">
+ <label><input type="checkbox" id="rememberId" value="">Remember me</label>
+              <span style="float: right;"><a id="orderNonUser">비회원으로 주문하기</a></span>
+ </script>
  <script>
+ 
 	if("${cookie.rememberId}" != null) { 
-			document.getElementById("id").value = "${cookie.rememberId.value}";
-	}
+			document.getElementById("id").value = "${cookie.rememberId.value}";	
+	} 
 	
 	document.getElementById("login-button").onclick = function () {
 		var id = document.getElementById("id");
 		var password = document.getElementById("psw");
 		var rememberId = document.getElementById("rememberId");
 		var params = null;
+
 		
 		if(rememberId.checked == true) {
 			params = "inputId=" + id.value + "&inputPasswd=" + password.value + "&rememberId=" + rememberId.id;
@@ -62,11 +70,17 @@
 					if(data.trim() == 'userNone') {
  						$("#login-modal").modal('hide');
  						$("#login-fail").modal('show');
+ 						
  					} else {
- 						window.location.reload();
+						if(document.location.pathname == '/index.jsp') {
+							location.href = "/eterna.mall";
+						} else {
+							window.location.reload();
+						}
  					}	
 				}, 500)
 			}
 		})
+		
 	}
  </script>

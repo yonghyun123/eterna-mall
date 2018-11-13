@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
 	eventRegist();
 })
@@ -23,6 +25,8 @@ function eventRegist() {
 					var jsonListData = JSON.parse(data);
 					listTemplate(jsonListData);
 					toDetail();
+					$('.pagination.custom_pagination').remove();
+					paginating();
 				}
 			})
 
@@ -81,7 +85,8 @@ function searchByCondition() {
 			$('#dropDown').empty();
 			listTemplate(jsonListData);
 			toDetail();
-			
+			$('.pagination.custom_pagination').remove();
+			paginating();
 		}
 	})
 }
@@ -95,11 +100,12 @@ function listTemplate(listData) {
 		newHtml = "<li class='col-sm-6 col-lg-4 mb-4' data-aos='fade-up' style='margin-left: 35%'>검색결과가 존재하지 않습니다.</li>";
 	} else {
 		listData.forEach(function(v, i) {
+			var price = v.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			newHtml += templateHtml.replace('{number}', i).replace(
 					'{thumnail}', v.thumnail).replace('{productId}',
 					v.productId).replace('{productBrand}', v.productBrand)
 					.replace('{productDescription}', v.productDescription)
-					.replace('{price}', v.price);
+					.replace('{price}', price);
 		});
 	}
 	originHtml.innerHTML = newHtml;
@@ -115,12 +121,17 @@ function listTemplate(listData) {
 
 }
 
+function paginating(){
+	var count = document.getElementById("count").value;
+	var flag = '';
+	if(count > 45){
+		flag = 5;
+	}else{
+		flag = false;
+	}
 $('.product_info').paginathing({
-	// Limites your pagination number
-	// false or number
-	limitPagination : 5,
+	limitPagination : flag,
 	perPage : 9,
-	// Pagination controls
 	prevNext : true,
 	firstLast : true,
 	prevText : '&laquo;',
@@ -133,15 +144,17 @@ $('.product_info').paginathing({
 	activeClass : 'active',
 	disabledClass : 'disabled',
 	insertAfter : '.product_info'
-});
+})}
 
 function toDetail() {
 	var imagesBtn = document.querySelectorAll('.images-btn');
 	imagesBtn.forEach(function(v) {
 		v.addEventListener('click', function(e) {
-			$("#" + e.target.parentNode.parentNode.id).submit();
+			$("#" + e.target.closest("form").id).submit();
 		})
 	})
 }
 
 toDetail();
+paginating();
+

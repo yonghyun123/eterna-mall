@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,8 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
 <link rel="stylesheet" href="/fonts/icomoon/style.css">
+<link rel="icon" href="/images/lipstick.png">
+<link rel="apple-touch-icon" href="/images/lipstick.png">
 
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/magnific-popup.css">
@@ -114,7 +117,7 @@
 														<a href="/detail.mall?productId=${Hproduct.productId }">${Hproduct.productBrand }</a>
 													</h3>
 													<p class="mb-0">${Hproduct.productDescription }</p>
-													<p class="text-primary font-weight-bold">${Hproduct.price }</p>
+													<p class="text-primary font-weight-bold">W<fmt:formatNumber value="${Hproduct.price }" pattern="#,###"/></p>
 												</div>
 											</div>
 										</div>
@@ -130,32 +133,29 @@
 			<div class="container">
 				<div class="row justify-content-center  mb-5">
 					<div class="col-md-7 site-section-heading text-center pt-4">
-						<h2>크리스마스 세일!</h2>
+						<h2><span style="color: red;">C</span><span style="color: green;">H</span><span style="color: red;">R</span><span style="color: green;">I</span><span style="color: red;">S</span><span style="color: green;">T</span><span style="color: red;">M</span><span style="color: green;">A</span><span style="color: red;">S</span> SALE</h2>
 					</div>
 				</div>
 				<div class="row align-items-center">
 					<div class="col-md-12 col-lg-7 mb-5">
-						<a href="#"><img src="images/christmasIndex.jpg"
+						<a><img src="/images/christmas.jpg"
 							alt="Image placeholder" class="img-fluid rounded"></a>
 					</div>
 					<div class="col-md-12 col-lg-5 text-center pl-md-5">
 						<h2>
-							<a href="#">모든 제품 5% 세일 예정!</a>
+							<a style="color: purple;">모든 제품 5% 세일 예정!</a>
 						</h2>
 						<p class="post-meta mb-4">
-							By <a href="#">YongZzang</a> <span class="block-8-sep">&bullet;</span>
+							By <a>HYUNNY</a> <span class="block-8-sep">&bullet;</span>
 							2018/10/31
 						</p>
 						<p>크리스마스를 기념해 모든 제품을 50% 세일합니다. 한정 수량만 판매하니 늦지마세요~</p>
-						<p>
-							<!-- <a href="#" class="btn btn-primary btn-sm">품목 보기</a> -->
-						</p>
+						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="/includes/footer.jsp"></jsp:include>
 
 	<script src="/js/jquery-3.3.1.min.js"></script>
@@ -167,9 +167,13 @@
 	<script src="/js/aos.js"></script>
 	<script src="/js/main.js"></script>
 	<script src="/js/ajax.js"></script>
+
 	<script src="/js/viewList.js"></script>
+  <script src="/js/snow.js"></script>
 	<script>
 		$("#homeL").addClass("active");
 	</script>
+	
+	
 </body>
 </html>

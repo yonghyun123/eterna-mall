@@ -43,7 +43,7 @@
        level_no as levelNo 
 	FROM   SM_product_answer 
 	WHERE  product_id = #{productId}
-	ORDER BY group_no desc, regdate ASC
+	ORDER BY group_no desc, level_no ASC
 	
 	</select>
 	<!-- Q&A 답글 -->

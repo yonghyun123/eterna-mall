@@ -85,4 +85,9 @@ public class CartServiceImpl implements CartService {
 	public int countOfCart(String userId) throws Exception {
 		return cartDao.countOfCart(userId);
 	}
+
+	@Override
+	public Cart nonReadCart(String productId) throws Exception {
+		return cartDao.nonReadCart(productId);
+	}
 }

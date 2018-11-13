@@ -18,6 +18,12 @@ public class BuyServiceImpl implements BuyService {
    public void setBuyDao(BuyDao buyDao) {
       this.buyDao = buyDao;
    }
+   
+   @Override
+   public void nonCreate(Buy buy) throws Exception{
+	  buyDao.nonCreateInfo(buy);
+	  buyDao.createManage(buy);
+   }
 
    @Override
    public void create(Buy buy) throws Exception {
@@ -63,10 +69,25 @@ public class BuyServiceImpl implements BuyService {
       return buyDao.listAmount();
    }
 
-@Override
-public List<Buy> showOrderDetailUser(String id) throws Exception {
-	return buyDao.showOrderDetailUser(id);
-}
+	@Override
+	public List<Buy> showOrderDetailUser(String id) throws Exception {
+		return buyDao.showOrderDetailUser(id);
+	}
+
+	@Override
+	public void nonCreate(Buy buy, List<Cart> productList) throws Exception {
+		buyDao.nonCreateInfo(buy);
+		   for (Cart cart : productList) {
+			   buyDao.createManage(cart);
+		   }
+	}
+	
+	
+	/* 최근주문번호 조회(비회원) */
+	@Override
+	public String recentOrderNumber() throws Exception{
+		return buyDao.recentOrderNumber();
+	}
 
 
 }

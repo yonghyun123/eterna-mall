@@ -38,6 +38,13 @@ public class MybatisBuyDao implements BuyDao {
 	}
 
 	@Override
+	public void nonCreateInfo(Buy buy) throws Exception{
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.insert(NAMESPACE + "noncreateInfo", buy);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	@Override
 	public void createManage(Buy buy) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		sqlSession.insert(NAMESPACE + "createManage", buy);
@@ -135,6 +142,15 @@ public class MybatisBuyDao implements BuyDao {
 		List<Buy> list = sqlSession.selectList(NAMESPACE + "showOrderDetailUser", id);
 		sqlSession.close();
 		return list;
+	}
+	
+	@Override
+	/* 최근 주문목록 조회 */
+	public String recentOrderNumber() throws Exception{
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		String orderNumber = sqlSession.selectOne(NAMESPACE + "recentOrderNumber");
+		sqlSession.close();
+		return orderNumber;
 	}
 
 }

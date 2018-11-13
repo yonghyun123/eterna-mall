@@ -1,16 +1,10 @@
 package kr.or.kosta.eterna.qna.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
@@ -36,6 +30,7 @@ public class QnACreateController implements Controller{
 		String userId = request.getParameter("userId");
 		String subject = request.getParameter("subject");
 		String content = request.getParameter("content");
+		content = content.replace("\r\n", "<br>");
 		String secretFlag = request.getParameter("secret-flag");
 		
 		QnA qna = new QnA();

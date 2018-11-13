@@ -179,4 +179,12 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.commit();
 		sqlSession.close();		
 	}
+
+	@Override
+	public List<Product> listBySearch(String inputSearch) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Product> productList = sqlSession.selectList(NAMESPACE + "searchList", inputSearch);
+		sqlSession.close();
+		return productList;
+	}
 }

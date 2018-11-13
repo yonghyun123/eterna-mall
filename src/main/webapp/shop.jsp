@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Eterna &mdash; Most Valuable Cosmetic</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
     <link rel="stylesheet" href="/fonts/icomoon/style.css">
+<link rel="icon" href="/images/lipstick.png">
+<link rel="apple-touch-icon" href="/images/lipstick.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/magnific-popup.css">
@@ -25,6 +28,7 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="/css/header.css">
+
     <jsp:include page="/includes/header.jsp"></jsp:include>
   
   </head>
@@ -36,7 +40,7 @@
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Shop</strong></div>
+          <div class="col-md-12 mb-0"><a href="/eterna.mall">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Products</strong></div>
         </div>
       </div>
     </div>
@@ -53,11 +57,20 @@
                 <c:choose>
                   <c:when test="${not empty count }">
                   (${count })
+                  <input type="hidden" id="count" value="${count }">
                   </c:when>
                   </c:choose>
-                </span></h2></div>
-                <div id="insertCondition">
+                </span></h2>
                 </div>
+                <div id="insertCondition">
+                <c:choose>
+                <c:when test="${not empty productSex }">
+                &nbsp;&nbsp;${productSex } >
+                </c:when>
+                </c:choose>
+                </div>
+                <c:choose>
+                <c:when test="${empty productSex && empty search }">
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto" id="dropDown">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,7 +83,8 @@
                     </div>
                   </div>
                 </div>
-                 
+                </c:when>
+                </c:choose>
                 
               </div>
             </div>
@@ -80,25 +94,28 @@
               <c:forEach var="product" items="${productList}" varStatus="status">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                    <div class="block-4 text-center border product-list">
+                   <form id="form${status.index}" action="/detail.mall" method="post">
                    <figure class="block-4-image">
-                      <form id="form${status.index}" action="/detail.mall" method="post">
                          <a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
                          <input type="hidden" name="productId" value="${product.productId }">
-                      </form>
                    </figure>
                    <div class="block-4-text p-4 product-list-text">
-                    <h3><a href="shop-single.html">${product.productBrand}</a></h3>
-                    <p class="mb-0">${product.productDescription }</p>
-                    <p class="text-primary font-weight-bold">W${product.price}</p>
+                    <h6><a class="images-btn">${product.productDescription }</a></h6>
+                    <p class="mb-0">${product.productBrand}</p>
+                    <p class="text-primary font-weight-bold">&#8361;<fmt:formatNumber value="${product.price}" pattern="#,###"/></p>
                    </div>
+                   </form>
                  </div>
                </li>
               </c:forEach>
               
             </ul>
-         
           </div>
-        <jsp:include page="/includes/side.jsp"></jsp:include>  
+          <c:choose>
+          <c:when test="${empty search }">
+        <jsp:include page="/includes/side.jsp"></jsp:include> 
+        </c:when>
+        </c:choose> 
         </div>
       </div>
     </div>
@@ -113,7 +130,7 @@
   <script src="/js/jquery.magnific-popup.min.js"></script>
   <script src="/js/aos.js"></script>
   <script src="/js/main.js"></script>
-  <script src="/js/paginathing.js"></script>
+ <script src="/js/paginathing.js"></script>
   <script src="/js/ajax.js"></script>
   <script src="/js/shop.js"></script>
   <script>
@@ -131,7 +148,7 @@
                    <div class="block-4-text p-4">
                     <h3><a href="shop-single.html">{productBrand}</a></h3>
                     <p class="mb-0">{productDescription}</p>
-                    <p class="text-primary font-weight-bold">W{price}</p>
+                    <p class="text-primary font-weight-bold">&#8361;{price}</p>
                    </div>
                  </div>
                </li>
@@ -140,8 +157,31 @@
  <script id="templateCount" type="text/template">
         <span class="text-black ml-auto" id="countS">
                   ({count})
+<input type="hidden" id="count" value="{count}">
                 </span>
 </script>
 
+    <c:choose>
+    <c:when test="${not empty inputSearch }">
+    <script type="text/javascript">
+    $("#search-input").val('${inputSearch}');
+    $("#search-input").focus();
+    </script>
+    </c:when>
+    </c:choose>
+    
+	<c:choose>
+		<c:when test="${not empty productSex }">
+		 <script>
+		 if('${productSex}' == '여성'){
+			 $('.d-flex').children('#woman').parent().parent().addClass('active');
+		 }else if('${productSex}' == '남성'){
+			 $('.d-flex').children('#man').parent().parent().addClass('active');
+		 }else if('${productSex}' == '공용'){
+			 $('.d-flex').children('#all').parent().parent().addClass('active');
+		 }
+		 </script>
+		</c:when>
+	</c:choose>
   </body>
 </html>

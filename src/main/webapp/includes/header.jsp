@@ -23,17 +23,30 @@ if(request.getAttribute("answerCount") != null){
         <div class="col-6 col-md-4 order-3 order-md-3 text-right">
           <div class="site-top-icons">
             <ul>
-              <li><a href="/user/myPage.mall"><span class="icon icon-person">
-              <%if(countOfAnswer != 0){%>
-            	 <img src="/images/new-tag.png" style="margin-left: -30px; margin-top: -55px;">
-              <%} %>
+              <li>
+              <c:choose>
+                <c:when test="${loginId != null }">
+                <a href="/user/myPage.mall">
+                <span class="icon icon-person">
+                <%if(countOfAnswer != 0){%>
+              	 <img src="/images/new-tag.png" style="margin-left: -30px; margin-top: -55px;">
+                <%} %>
               </span>
               </a>
+              </c:when>
+              <c:otherwise>
+              <a id="noneUserDeliverBtn">
+                <span class="icon icon-person">
+                <%if(countOfAnswer != 0){%>
+                 <img src="/images/new-tag.png" style="margin-left: -30px; margin-top: -55px;">
+                <%} %>
+                </span>
+                </a>
+              </c:otherwise>
+              </c:choose>
               </li>
-              
               <li>
               	<c:choose>
-              	
               	<c:when test="${loginId != null }">
                 <a href="/cart.mall" class="site-cart">
                   <span class="icon icon-shopping_cart"></span>
@@ -73,10 +86,10 @@ if(request.getAttribute("answerCount") != null){
           </c:otherwise>
         </c:choose>
         <li>
-          <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left search">
-            <form action="" class="site-block-top-search">
+          <div class="col-6 col-md-4 order-2 order-md-1 text-left search">
+            <form action="/search.mall" class="site-top-search" name="searchForm" method="post">
               <span class="icon icon-search2"></span>
-              <input type="text" class="form-control border-0 search-input" placeholder="Search">
+              <input type="text" class="form-control border-0" id="search-input" name="inputText" placeholder="Search" onkeyup="enterSearch(this.form);">
             </form>
           </div>              
         </li>
@@ -91,11 +104,18 @@ if(request.getAttribute("answerCount") != null){
           		window.location.href="/logout.mall"; 
         	} 
       	}     	
-
+      	
+      	function enterSearch(f) {
+      	    if(f.keyCode == 13){
+      	    	searchForm.submit();
+      	    }
+      	}
     </script>
+    
     <%@ include file="/user/login.jsp"%>
     <%@ include file="/user/signup.jsp"%>
     <%@ include file="/user/modal.jsp"%>
+    <%@ include file="/user/nonUserDeliveryCheck.jsp"%>
     <%@ include file="/user/order-detail-modal.jsp"%>
   </nav>
 </header>

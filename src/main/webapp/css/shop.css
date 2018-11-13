@@ -17,7 +17,7 @@
 }
 
 .custom_pagination {
-	float: right;
+	    margin-left: 30%;
 }
 
 .product_info {
@@ -39,4 +39,33 @@
 
 li .product-list-text {
 	padding: 5% !important;
+}
+
+.images-btn {
+	cursor: pointer;
+	color: red;
+}
+
+h6 {
+	color: #7971ea!important;
+}
+
+li.page.active {
+	background-color: #7971ea;
+}
+
+li.page.active > a {
+	color: white;
+}
+li.mb-1.active {
+	background-color: #7971ea;
+}
+
+li.mb-1.active > a {
+	color: white;
+}
+
+.order-2 {
+	width: 100%;
+	margin: 0 auto;
 }

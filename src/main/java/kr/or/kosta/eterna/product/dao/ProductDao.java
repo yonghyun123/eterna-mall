@@ -49,6 +49,7 @@ public interface ProductDao {
 	public List<Product> listByScore() throws Exception;
 	/* 제품 배송중으로 변경시 재고 변경 */
 	public void updateStock(String productDescription, String count) throws Exception;
-	
+	/* 검색 제품 조회 by 이철우 */
+	public List<Product> listBySearch(String inputSearch) throws Exception;
     
 }
