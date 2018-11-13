@@ -312,6 +312,9 @@
 			});
 			/* 주문버튼  */
 			$(document).on("click", "#order", function(event) {
+				/*  */
+			    	
+			    
 				var countArr = [];
 				var productIdArr = [];
 				var count = document.querySelectorAll('.cartCount');
@@ -336,8 +339,19 @@
 						'countArr' : countArr,
 						'productIdArr' : productIdArr
 					},
-					success : function() {
+					success : function(data) {
+						/* 비회원 주문인지 회원 주문인지 모달 띄워주기 */
+						/* paymetController에서 flag보내기 */
+// 				    	if(data.trim()=='success'){
+// 						var templateHtml = document.querySelector('#nonUser-body').innerHTML;
+// 				        var originHtml = document.querySelector('#nonUserBody');
+// 				        originHtml.innerHTML = templateHtml;
+// 				        console.log(templateHtml);
+// 				        console.log(originHtml);
+// 				    	$("#login-modal").modal();
+// 					 } else if(data.trim() == 'fail'){
 						window.location.href = "/order.mall";
+// 					}
 					}
 				})
 			});
