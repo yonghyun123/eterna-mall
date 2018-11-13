@@ -80,7 +80,6 @@ public class ProductDetailController implements Controller {
 				}
 			}
 		}
-		System.out.println(selectProduct.getProductDescription().replaceAll(" ", "*"));
 		 recentView ="@"+productId +"#"+selectProduct.getProductDescription().replaceAll(" ", "*") +"#"+ imageList.get(0).getFileName()+"@" ;
 		 Cookie cookie = new Cookie("recentView", recentView);
 		 response.addCookie(cookie);
