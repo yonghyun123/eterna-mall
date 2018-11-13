@@ -41,7 +41,7 @@
  </script>
  <script type="my-template" id="nonUser-body">
  <label><input type="checkbox" id="rememberId" value="">Remember me</label>
-              <span style="float: right;"><a href="order.mall">비회원으로 주문하기</a></span>
+              <span style="float: right;"><a id="orderNonUser">비회원으로 주문하기</a></span>
  </script>
  <script>
 	if("${cookie.rememberId}" != null) { 
@@ -69,7 +69,11 @@
  						$("#login-modal").modal('hide');
  						$("#login-fail").modal('show');
  					} else {
- 						window.location.reload();
+						if(document.location.pathname == '/index.jsp') {
+							location.href = "/eterna.mall";
+						} else {
+							window.location.reload();
+						}
  					}	
 				}, 500)
 			}
