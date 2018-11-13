@@ -6,7 +6,7 @@
 
 	<!-- userId를 이용한 쿠폰 리스트 조회 -->                         
 	<select id="userCouponList" resultType="Coupon">
-		SELECT  c.coupon_id as couponId,
+		SELECT  cu.id as couponId,
 		        c.coupon_name as couponName,
 		        c.coupon_rate as couponRate,
 		        cu.flag as useFlag,
