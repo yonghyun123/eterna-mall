@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/aos.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/viewList.css">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/footer.css">
@@ -30,6 +31,7 @@
     <link rel="stylesheet" href="/css/header.css">
 
     <jsp:include page="/includes/header.jsp"></jsp:include>
+    <jsp:include page="/includes/viewList.jsp"></jsp:include>
   
   </head>
   <body>
@@ -133,6 +135,7 @@
  <script src="/js/paginathing.js"></script>
   <script src="/js/ajax.js"></script>
   <script src="/js/shop.js"></script>
+  <script src="/js/viewList.js"></script>
   <script>
 		$("#productsL").addClass("active");
 	</script>
@@ -166,6 +169,9 @@
     <script type="text/javascript">
     $("#search-input").val('${inputSearch}');
     $("#search-input").focus();
+    var originHtml = document.querySelector('#insertCondition');
+    var newHtml = '&nbsp;&nbsp;'+' \''+'${inputSearch}'+'\' 로 검색한 결과 ' + '>';
+    originHtml.innerHTML = newHtml;
     </script>
     </c:when>
     </c:choose>
@@ -182,6 +188,16 @@
 		 }
 		 </script>
 		</c:when>
+	</c:choose>
+	
+	<c:choose>
+	<c:when test="${count == 0 }">
+	<script type="text/javascript">
+	var originHtml = document.querySelector('#insertUl');
+	var newHtml = "<li class='col-sm-6 col-lg-4 mb-4' data-aos='fade-up' style='margin-left: 35%'>검색결과가 존재하지 않습니다.</li>";
+	originHtml.innerHTML = newHtml;
+	</script>
+	</c:when>
 	</c:choose>
   </body>
 </html>

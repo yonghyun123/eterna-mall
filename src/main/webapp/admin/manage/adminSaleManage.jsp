@@ -167,6 +167,7 @@ function drawVisualization(salesData){
     <td><div id="chart_div" style="width: 600px; height: 400px; margin-top:25px"></div></td>
     <td><div>카테고리
     <select id="categoryS">
+    <option>------</option>
     <option>립제품</option>
     <option>스킨</option>
     <option>로션</option>

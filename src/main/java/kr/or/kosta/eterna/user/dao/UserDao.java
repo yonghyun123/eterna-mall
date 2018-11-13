@@ -2,6 +2,7 @@ package kr.or.kosta.eterna.user.dao;
 
 import java.util.List;
 
+import kr.or.kosta.eterna.point.domain.Point;
 import kr.or.kosta.eterna.user.domain.User;
 
 /**
@@ -56,4 +57,6 @@ public interface UserDao {
 	
 	/* 등급 올리기 */
 	public void updateGrade(String userId) throws Exception;
+	/* 적립금 저장 */
+	public void createPoint(Point point) throws Exception;
 }

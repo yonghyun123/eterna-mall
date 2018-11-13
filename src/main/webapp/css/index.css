@@ -31,3 +31,10 @@
 .video-section {
 	margin-top: 3%;
 }
+
+.images-btn {
+	cursor: pointer;
+}
+h6 {
+	color: #7971ea!important;
+}

@@ -28,173 +28,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <div class="site-section block-3 site-blocks-2 bg-light">
      <div class="container">
        <a href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
        <div class="row">
        <div class="col-md-12 mb-5">
-         <div class="tab" id="tab">
-           <button class="tablinks active" onclick="openCity(event, 'product-notice')" id="defaultOpen">공지사항</button>
-           <button class="tablinks" onclick="openCity(event, 'product-FAQ')">FAQ</button>
-         </div>
-         <div id="product-notice" class="tabcontent" style="display: block;">
-           <div class="container">
-             <div class="row justify-content-center">
-               <div class="col-md-7 site-section-heading text-center pt-4">
-                 <h2>공지사항</h2>
-               </div>
-             </div>
-             <div class="row">
-               <div class="container">
-                 <table class="table table-hover mb-4" id="table-notice">
-                   <thead>
-                     <tr>
-                       <th>Firstname</th>
-                       <th>Lastname</th>
-                       <th>Email</th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td>John</td>
-                       <td>Doe</td>
-                       <td>john@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>Mary</td>
-                       <td>Moe</td>
-                       <td>mary@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>July</td>
-                       <td>Dooley</td>
-                       <td>july@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>John</td>
-                       <td>Doe</td>
-                       <td>john@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>Mary</td>
-                       <td>Moe</td>
-                       <td>mary@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>July</td>
-                       <td>Dooley</td>
-                       <td>july@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>John</td>
-                       <td>Doe</td>
-                       <td>john@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>Mary</td>
-                       <td>Moe</td>
-                       <td>mary@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>July</td>
-                       <td>Dooley</td>
-                       <td>july@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>John</td>
-                       <td>Doe</td>
-                       <td>john@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>Mary</td>
-                       <td>Moe</td>
-                       <td>mary@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>July</td>
-                       <td>Dooley</td>
-                       <td>july@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>John</td>
-                       <td>Doe</td>
-                       <td>john@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>Mary</td>
-                       <td>Moe</td>
-                       <td>mary@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>July</td>
-                       <td>Dooley</td>
-                       <td>july@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>John</td>
-                       <td>Doe</td>
-                       <td>john@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>Mary</td>
-                       <td>Moe</td>
-                       <td>mary@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>July</td>
-                       <td>Dooley</td>
-                       <td>july@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>John</td>
-                       <td>Doe</td>
-                       <td>john@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>Mary</td>
-                       <td>Moe</td>
-                       <td>mary@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>July</td>
-                       <td>Dooley</td>
-                       <td>july@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>John</td>
-                       <td>Doe</td>
-                       <td>john@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>Mary</td>
-                       <td>Moe</td>
-                       <td>mary@example.com</td>
-                     </tr>
-                     <tr>
-                       <td>July</td>
-                       <td>Dooley</td>
-                       <td>july@example.com</td>
-                     </tr>
-                   </tbody>
-                 </table>
-                 <div class="in-page">
-                 
-                 </div>
-                 <div class="row aos-init aos-animate"
-                   data-aos="fade-up">
-                   <div class="col-md-12 text-center">
-                     <div class="site-block-27">
-                       <ul>
-                       </ul>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-         <div id="product-FAQ" class="tabcontent"
-           style="display: none;">
            <div class="container">
              <div class="row justify-content-center">
                <div
@@ -366,8 +203,6 @@
              </div>
            </div>
          </div>
-       </div>
-     </div>
    </div>
    <jsp:include page="/includes/footer.jsp"></jsp:include>
    </div>
@@ -395,22 +230,8 @@
 		  }
 	  });
 	
-         document.getElementById("defaultOpen").click();
-         function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-               tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-               tablinks[i].className = tablinks[i].className.replace(
-                     " active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-         }
-
+  $('#faqL').addClass('active');
+     
       </script>
 </body>
 </html>

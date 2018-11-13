@@ -32,18 +32,15 @@ public class NonUserCartCreateController implements Controller {
 		cartService = (CartService)factory.getBean(CartServiceImpl.class);
 		String productId = request.getParameter("productId");
 		String productCount = request.getParameter("productCount");
-		Cookie[] cookies; 
+		Cookie[] cookies = request.getCookies(); 
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/**쿠키가 존재할때*/
-		if(request.getCookies().length!=1) {
-			/**쿠키더미를 받아와서*/
-			cookies = request.getCookies();
-			/**쿠키더미를 털어서*/
+		
+		if(cookies != null) {
 			for(Cookie cookie : cookies) {
 				/**products라는 쿠키가 있을때*/
 				if(cookie.getName().equals("products")){
@@ -70,13 +67,12 @@ public class NonUserCartCreateController implements Controller {
 					return null;
 				}
 			}
-		 }else{
-			 System.out.println("haveNonCookie");
-			 String products = "@"+ productId + "#" + productCount +"@";
-			 Cookie cookie = new Cookie("products",products);
-			 response.addCookie(cookie);
-			 out.println(1);
-		 }
-		return null;
+		}
+		
+		 String products = "@"+ productId + "#" + productCount +"@";
+		 Cookie cookie = new Cookie("products",products);
+		 response.addCookie(cookie);
+		 out.println(1);
+		 return null;
 	}
 }

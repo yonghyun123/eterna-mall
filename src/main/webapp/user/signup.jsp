@@ -102,10 +102,8 @@ List<User> list = userService.listAll();
  var checkTel = 0;
  var checkAddress = 0;
  
-     window.onload = function() {
-        document.getElementById('join').disabled = true;
+      document.getElementById('join').disabled = true;
       eventRegist();
-   }
      
      function eventRegist(){
         document.getElementById("join").onclick = function() {
