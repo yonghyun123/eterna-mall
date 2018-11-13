@@ -143,5 +143,14 @@ public class MybatisBuyDao implements BuyDao {
 		sqlSession.close();
 		return list;
 	}
+	
+	@Override
+	/* 최근 주문목록 조회 */
+	public String recentOrderNumber() throws Exception{
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		String orderNumber = sqlSession.selectOne(NAMESPACE + "recentOrderNumber");
+		sqlSession.close();
+		return orderNumber;
+	}
 
 }

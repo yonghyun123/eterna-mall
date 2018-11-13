@@ -9,8 +9,8 @@
           <form role="form" class="text-left" action="<!-- 주문조회 할  컨트롤러 -->">
           <div><h2 style="text-align: center;">비회원 주문조회</h2></div>
             <div class="form-group">
-              <label for="nonUserTel"><span class="glyphicon glyphicon-user"></span> Telephone</label>
-              <input type="text" class="form-control" name="inputNonUserTel" id="nonUserTel" placeholder="등록했던 휴대폰  번호를 입력해주세요" required>
+              <label for="nonUserTel"><span class="glyphicon glyphicon-user"></span> OrderNumber</label>
+              <input type="text" class="form-control" name="inputNonUserTel" id="nonUserTel" placeholder="주문번호를 입력해주세요" required>
             </div>
             <div class="form-group">
               <label for="nonUserPw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
