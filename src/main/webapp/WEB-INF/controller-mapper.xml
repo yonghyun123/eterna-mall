@@ -72,7 +72,8 @@
     <bean type="controller" name="/nonpayment" class="kr.or.kosta.eterna.buy.controller.NonUserBuyCreateController"/>
     <!-- 비회원 장바구니 주문 -->
     <bean type="controller" name="/noncartpayment" class="kr.or.kosta.eterna.buy.controller.NonUserBuyCreateController"/>
-    
+    <!-- 비회원 상세보기 -->
+   <bean type="controller" name="/nonUserDetail" class="kr.or.kosta.eterna.nonusercart.controller.NonUserOrderDetailController"/>
     
     <!-- 관리자 컨트롤러 -->
     <!--  관리자페이지 -->

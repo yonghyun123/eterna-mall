@@ -153,4 +153,15 @@ public class MybatisBuyDao implements BuyDao {
 		return orderNumber;
 	}
 
+	@Override
+	public Buy nonUserCertify(String id, String passwd) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("passwd", passwd);
+		Buy buy = sqlSession.selectOne(NAMESPACE + "nonUserCertify", map);
+		sqlSession.close();
+		return buy;
+	}
+
 }
