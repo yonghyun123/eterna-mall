@@ -40,4 +40,7 @@ public interface BuyService {
    public List<Buy> showOrderDetailUser(String id) throws Exception;
    /*비회원 단일 상품 구매 */
    void nonCreate(Buy buy) throws Exception;
+   
+   /*비회원 장바구니 상품 구매 */
+   void nonCreate(Buy buy, List<Cart> cart) throws Exception;
 }

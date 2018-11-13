@@ -55,21 +55,22 @@ public class BuyCreateController implements Controller{
 		}
 		try {
 			if(userId != null){
-				
+				originUser = userService.read(userId);
 			}
-			originUser = userService.read(userId);
+		
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		// 회원이라면 주소지 setting
 		if(originUser!= null){
-			user.setUserAddress(originUser.getUserAddress());
-			user.setUserName(originUser.getUserName());
-			user.setUserTel(originUser.getUserTel());
+			buy.setBuyerAddress(originUser.getUserAddress());
+			buy.setBuyerName(originUser.getUserName());
+			buy.setBuyerTel(originUser.getUserTel());
 		}
 		
 		if(uri.equals("/cartpayment")){
+			
 			//장바구니에서 구매버튼 눌렀을 때
 			buy.setUserId(userId);
 			buy.setReceiverName(receiver);
@@ -77,6 +78,7 @@ public class BuyCreateController implements Controller{
 			buy.setTotalPrice(totalPrice);
 			buy.setReducePrice(reducePrice);
 			buy.setReceiverTel(receiverPhone);
+			
 			
 			user.setUserId(userId);
 			user.setUserPoint(userPoint);
