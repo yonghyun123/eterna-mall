@@ -13,7 +13,9 @@
 		product_description,
 		product_stock,
 		min_age,
-		max_age)
+		max_age,
+		product_type
+		)
 		VALUES (#{productId},
 		#{categoryType},
 		#{productBrand},
@@ -21,7 +23,8 @@
 		#{productDescription},
 		#{productStock},
 		#{minAge},
-		#{maxAge})
+		#{maxAge},
+		#{productType})
 	</insert>
 
 	<!-- 제품조회 이미지 조회는 별도로 해줘야함 -->
