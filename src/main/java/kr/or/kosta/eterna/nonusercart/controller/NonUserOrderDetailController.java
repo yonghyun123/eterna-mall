@@ -78,7 +78,7 @@ public class NonUserOrderDetailController implements Controller {
 				JSONArray jsonArray = new JSONArray();
 				for (Buy buy : orderDetailList) {
 					JSONObject jsonObject = new JSONObject();
-					jsonObject.put("orderNumber", buy.getId());
+					jsonObject.put("orderNumber", orderDate + "A" + id);
 					jsonObject.put("productDescription", buy.getProductDescription());
 					jsonObject.put("productPrice", buy.getProductPrice());
 					jsonObject.put("productCount", buy.getCount());
