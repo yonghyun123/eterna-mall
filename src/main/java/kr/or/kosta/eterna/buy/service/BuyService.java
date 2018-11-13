@@ -39,8 +39,12 @@ public interface BuyService {
    /* 주문번호별 상세보기 */
    public List<Buy> showOrderDetailUser(String id) throws Exception;
    /*비회원 단일 상품 구매 */
-   void nonCreate(Buy buy) throws Exception;
+   public void nonCreate(Buy buy) throws Exception;
    
    /*비회원 장바구니 상품 구매 */
-   void nonCreate(Buy buy, List<Cart> cart) throws Exception;
+   public void nonCreate(Buy buy, List<Cart> cart) throws Exception;
+   
+   /* 최근주문번호 조회(비회원) */
+   public String recentOrderNumber() throws Exception;
+   
 }

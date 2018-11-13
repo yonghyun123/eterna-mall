@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String orderNumber = request.getParameter("order");
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,11 +26,8 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/shop_single.css">
-
-    
   </head>
   <body>
-  
   <div class="site-wrap">
     <jsp:include page="/includes/header.jsp"></jsp:include>
     <div class="bg-light py-3">
@@ -44,8 +44,11 @@
           <div class="col-md-12 text-center">
             <span class="icon-check_circle display-3 text-success"></span>
             <h2 class="display-3 text-black">Thank you!</h2>
+            당신의 주문번호는 
+            <h2 class="display-3"><%=orderNumber %></h2>
+             입니다
             <p class="lead mb-5">You order was successfuly completed.</p>
-            <p><a href="/index.jsp" class="btn btn-sm btn-primary">Back to shop</a></p>
+            <p><a href="/eterna.mall" class="btn btn-sm btn-primary">Back to shop</a></p>
           </div>
         </div>
       </div>

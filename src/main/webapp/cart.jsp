@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Eterna &mdash; Most Valuable Cosmetic</title>
 <meta charset="utf-8">
 <meta name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,6 +26,10 @@
 <link rel="stylesheet" href="/css/cart.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+
+<link rel="icon" href="/images/lipstick.png">
+<link rel="apple-touch-icon" href="/images/lipstick.png">
+
 <jsp:include page="/includes/header.jsp" />
 </head>
 <body>
@@ -35,7 +39,7 @@
         <div class="row">
           <div class="col-md-12 mb-0">
             <!-- QueryString 파싱해서 동적으로 span태그 생성 -->
-            <a href="/index.html">Home</a> <span class="mx-2 mb-0">/</span>
+            <a href="/eterna.mall">Home</a> <span class="mx-2 mb-0">/</span>
             <strong class="text-black">Cart</strong>
           </div>
         </div>
@@ -327,7 +331,7 @@
 				console.log('countArr : ' + countArr);
 				console.log(typeof countArr);
 				console.log('productIdArr : ' + productIdArr);
-
+				
 				var countArrStr = JSON.stringify(countArr);
 				var productIdArrStr = JSON.stringify(productIdArr);
 				
@@ -348,37 +352,28 @@
 
 					
 				} else {
-				    	var templateHtml = document.querySelector('#nonUser-body').innerHTML;
-				    	var originHtml = document.querySelector('#nonUserBody');
-				    	originHtml.innerHTML = templateHtml;
-				    	$("#login-modal").modal();
-				    	$('#topList').children('li').siblings().removeClass('active');
-				    	$("#loginL").addClass("active");
-				    	
-				    	document.getElementById('orderNonUser').onclick=function(){
-				    	var form = document.createElement("form");
-						form.setAttribute("charset", "UTF-8");
-						form.setAttribute("method", "Post");
-						form.setAttribute("action", "/cartUpdate.mall");
-						var hiddenCount = [];
-						var hiddenId = [];
-						for(var i = 0; i < countArr.length; i++){
-							 hiddenCount[i] = document.createElement('input');
-							 hiddenCount[i].setAttribute('type', 'hidden');
-							 hiddenCount[i].setAttribute('name', 'productCount');
-							 hiddenCount[i].setAttribute('value', countArr[i]);
-							 form.appendChild(hiddenCount[i]);
-							 
-							 hiddenId[i] = document.createElement('input');
-							 hiddenId[i].setAttribute('type', 'hidden');
-							 hiddenId[i].setAttribute('name', 'productId');
-							 hiddenId[i].setAttribute('value', productIdArr[i]);
-							 form.appendChild(hiddenId[i]);
-
-						}
-						document.body.appendChild(form);
-						form.submit();
-				    	}
+					var form = document.createElement("form");
+					form.setAttribute("charset", "UTF-8");
+					form.setAttribute("method", "Post");
+					form.setAttribute("action", "/cartUpdate.mall");
+					var hiddenCount = [];
+					var hiddenId = [];
+					for(var i = 0; i < countArr.length; i++){
+						 hiddenCount[i] = document.createElement('input');
+						 hiddenCount[i].setAttribute('type', 'hidden');
+						 hiddenCount[i].setAttribute('name', 'productCount');
+						 hiddenCount[i].setAttribute('value', countArr[i]);
+						 form.appendChild(hiddenCount[i]);
+						 
+						 hiddenId[i] = document.createElement('input');
+						 hiddenId[i].setAttribute('type', 'hidden');
+						 hiddenId[i].setAttribute('name', 'productId');
+						 hiddenId[i].setAttribute('value', productIdArr[i]);
+						 form.appendChild(hiddenId[i]);
+						 
+					}
+					document.body.appendChild(form);
+					form.submit();
 				}
 			});
 		</script>
