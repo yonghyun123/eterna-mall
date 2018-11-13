@@ -166,11 +166,16 @@
 
 	<!-- 유저의 다음 등급 도달에 필요한 금액 조회 by 이철우 -->
 	<select id="searchUpTier" resultType="int" parameterType="String">
+		<![CDATA[
 		SELECT sut.grade 
 		FROM   sm_user su, 
-       	sm_user_tier sut 
-		WHERE  su.tier_id + 1 = sut.tier_id 
-       	AND su.user_id = #{userId} 
+        sm_user_tier sut 
+		WHERE  su.user_id = #{userId} 
+        AND ( ( ( su.tier_id = 4 ) 
+              AND ( sut.tier_id = 4 ) ) 
+              OR ( ( su.tier_id < 4 ) 
+                   AND ( sut.tier_id = su.tier_id + 1 ) ) )
+	 	]]>
 	</select>
 	
 	<!-- 회원 삭제(id를 제외한 나머지 정보들 삭제) -->
