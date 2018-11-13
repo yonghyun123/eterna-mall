@@ -116,7 +116,7 @@
               <thead>
                 <tr class="col-md-12">
                   <th>Name</th>
-                  <td>${user.userId }</td>
+                  <td>${user.userName }</td>
                 </tr>
                 <tr class="col-md-12">
                   <th>Phone</th>
@@ -551,7 +551,7 @@
     function buyBtnClicked(){
 	  var orderBtn = document.querySelector('#loading-btn');
 	  orderBtn.addEventListener('click', function(){
-			//setTimeout(function() {
+			setTimeout(function() {
 				  var count = document.querySelectorAll('.orderProductCount');
 				  var productId = document.querySelectorAll('.orderProductId');
 				  console.log(count);

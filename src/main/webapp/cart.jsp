@@ -193,6 +193,7 @@
         </div>
       </div>
     </div>
+    <%@ include file="user/login.jsp"%>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="/js/jquery-3.3.1.min.js"></script>
@@ -312,9 +313,6 @@
 			});
 			/* 주문버튼  */
 			$(document).on("click", "#order", function(event) {
-				/*  */
-			    	
-			    
 				var countArr = [];
 				var productIdArr = [];
 				var count = document.querySelectorAll('.cartCount');
@@ -333,6 +331,7 @@
 				var countArrStr = JSON.stringify(countArr);
 				var productIdArrStr = JSON.stringify(productIdArr);
 				
+					
 				if(loginId){
 					$.ajax({
 						type : "post",
@@ -346,29 +345,40 @@
 							window.location.href = "/order.mall";
 						}
 					});
-				} else {
-					var form = document.createElement("form");
-					form.setAttribute("charset", "UTF-8");
-					form.setAttribute("method", "Post");
-					form.setAttribute("action", "/cartUpdate.mall");
-					var hiddenCount = [];
-					var hiddenId = [];
-					for(var i = 0; i < countArr.length; i++){
-						 hiddenCount[i] = document.createElement('input');
-						 hiddenCount[i].setAttribute('type', 'hidden');
-						 hiddenCount[i].setAttribute('name', 'productCount');
-						 hiddenCount[i].setAttribute('value', countArr[i]);
-						 form.appendChild(hiddenCount[i]);
-						 
-						 hiddenId[i] = document.createElement('input');
-						 hiddenId[i].setAttribute('type', 'hidden');
-						 hiddenId[i].setAttribute('name', 'productId');
-						 hiddenId[i].setAttribute('value', productIdArr[i]);
-						 form.appendChild(hiddenId[i]);
 
-					}
-					document.body.appendChild(form);
-					form.submit();
+					
+				} else {
+				    	var templateHtml = document.querySelector('#nonUser-body').innerHTML;
+				    	var originHtml = document.querySelector('#nonUserBody');
+				    	originHtml.innerHTML = templateHtml;
+				    	$("#login-modal").modal();
+				    	$('#topList').children('li').siblings().removeClass('active');
+				    	$("#loginL").addClass("active");
+				    	
+				    	document.getElementById('orderNonUser').onclick=function(){
+				    	var form = document.createElement("form");
+						form.setAttribute("charset", "UTF-8");
+						form.setAttribute("method", "Post");
+						form.setAttribute("action", "/cartUpdate.mall");
+						var hiddenCount = [];
+						var hiddenId = [];
+						for(var i = 0; i < countArr.length; i++){
+							 hiddenCount[i] = document.createElement('input');
+							 hiddenCount[i].setAttribute('type', 'hidden');
+							 hiddenCount[i].setAttribute('name', 'productCount');
+							 hiddenCount[i].setAttribute('value', countArr[i]);
+							 form.appendChild(hiddenCount[i]);
+							 
+							 hiddenId[i] = document.createElement('input');
+							 hiddenId[i].setAttribute('type', 'hidden');
+							 hiddenId[i].setAttribute('name', 'productId');
+							 hiddenId[i].setAttribute('value', productIdArr[i]);
+							 form.appendChild(hiddenId[i]);
+
+						}
+						document.body.appendChild(form);
+						form.submit();
+				    	}
 				}
 			});
 		</script>
