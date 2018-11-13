@@ -15,6 +15,7 @@ import kr.or.kosta.eterna.cart.service.CartServiceImpl;
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
+import kr.or.kosta.eterna.point.domain.Point;
 import kr.or.kosta.eterna.user.domain.User;
 import kr.or.kosta.eterna.user.service.UserService;
 import kr.or.kosta.eterna.user.service.UserServiceImpl;
@@ -45,21 +46,37 @@ public class BuyCreateController implements Controller{
 		String fullAddress = request.getParameter("fullAddress");
 		String receiver = request.getParameter("receiver");
 		String receiverPhone = request.getParameter("receiverPhone");
+		String usedPoint = request.getParameter("usedPoint");
+		
+		System.out.println("입력안했을때 포인트!!!!"+usedPoint);
+
+		Point savePoint = new Point();
+		Point spendPoint = new Point();
 		Buy buy = new Buy();
 		User user = new User();
 		User originUser = null;
-		String userPoint = null;
+		int userPoint = 0;
+		int tempPoint = 0;
 		if(totalPrice != null){
-			int tempPoint = (int) (Integer.parseInt(totalPrice) * 0.01);
-			userPoint = Integer.toString(tempPoint);
+			tempPoint= (int) (Integer.parseInt(totalPrice) * 0.01);
 		}
 		try {
 			if(userId != null){
 				originUser = userService.read(userId);
+				if(usedPoint != null || !usedPoint.equals("undefined")){
+					savePoint.setUserId(userId);
+					savePoint.setStatus("적립");
+					savePoint.setPoint(Integer.toString(tempPoint));
+					
+					spendPoint.setUserId(userId);
+					spendPoint.setStatus("사용");
+					spendPoint.setPoint(usedPoint);
+					
+					userPoint = Integer.parseInt(originUser.getUserPoint()) + tempPoint - Integer.parseInt(usedPoint);
+				}
 			}
 		
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		// 회원이라면 주소지 setting
@@ -70,6 +87,7 @@ public class BuyCreateController implements Controller{
 		}
 		
 		if(uri.equals("/cartpayment")){
+		
 			
 			//장바구니에서 구매버튼 눌렀을 때
 			buy.setUserId(userId);
@@ -79,9 +97,8 @@ public class BuyCreateController implements Controller{
 			buy.setReducePrice(reducePrice);
 			buy.setReceiverTel(receiverPhone);
 			
-			
 			user.setUserId(userId);
-			user.setUserPoint(userPoint);
+			user.setUserPoint(Integer.toString(userPoint));
 			user.setUserGrade(totalPrice);
 			user.setCouponId(selectedCouponId);
 			//order-cart 가져와야 하는부분
@@ -92,6 +109,11 @@ public class BuyCreateController implements Controller{
 				buyService.create(buy, cartList);
 				userService.pointUpdate(user);
 				cartService.toBuyDelete(userId, cartList);
+				userService.createPoint(savePoint);
+				if(!usedPoint.equals("0")){
+					userService.createPoint(spendPoint);	
+				}
+				
 			} catch (Exception e) {
 				throw new ServletException("CartService.list() 예외 발생", e);
 			}
@@ -113,13 +135,18 @@ public class BuyCreateController implements Controller{
 			
 
 			user.setUserId(userId);
-			user.setUserPoint(userPoint);
+			user.setUserPoint(Integer.toString(userPoint));
 			user.setUserGrade(totalPrice);
 			user.setCouponId(selectedCouponId);
 			
 			try {
 				buyService.create(buy);
 				userService.pointUpdate(user);
+				userService.createPoint(savePoint);
+				if(!usedPoint.equals("0")){
+					userService.createPoint(spendPoint);	
+				}
+				
 			} catch (Exception e) {
 				throw new ServletException("CartService.list() 예외 발생", e);
 			}
@@ -127,6 +154,7 @@ public class BuyCreateController implements Controller{
 		mav.setView("redirect:/thankyou.jsp");
 
 		return mav;
+
 	}
 
 }

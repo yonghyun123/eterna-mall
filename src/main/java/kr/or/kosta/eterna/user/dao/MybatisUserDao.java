@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import kr.or.kosta.eterna.point.domain.Point;
 import kr.or.kosta.eterna.user.domain.User;
 
 /**
@@ -154,6 +155,15 @@ public class MybatisUserDao implements UserDao {
 	public void updateGrade(String userId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		sqlSession.update(NAMESPACE + "updateGrade", userId);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	/* 적립금 저장 */
+	@Override
+	public void createPoint(Point point) throws Exception{
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		sqlSession.insert(NAMESPACE + "createPoint", point);
 		sqlSession.commit();
 		sqlSession.close();
 	}

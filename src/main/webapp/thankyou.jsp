@@ -44,9 +44,16 @@ String orderNumber = request.getParameter("order");
           <div class="col-md-12 text-center">
             <span class="icon-check_circle display-3 text-success"></span>
             <h2 class="display-3 text-black">Thank you!</h2>
-            당신의 주문번호는 
-            <h2 class="display-3"><%=orderNumber %></h2>
-             입니다
+            <%
+            if(orderNumber != null){
+            	%>
+                당신의 주문번호는 
+                <h2 class="display-3"><%=orderNumber %></h2>
+                 입니다
+                 <%
+            }
+            %>
+
             <p class="lead mb-5">You order was successfuly completed.</p>
             <p><a href="/eterna.mall" class="btn btn-sm btn-primary">Back to shop</a></p>
           </div>

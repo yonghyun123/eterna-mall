@@ -370,7 +370,7 @@
     </div>
 
 <%@ include file="coupon.jsp"%>
-<%@ include file="loading.jsp" %>
+<%-- <%@ include file="loading.jsp" %>--%>
 <%@ include file="personalInfo.jsp" %>
 <%@ include file="recentAddress.jsp"%>
 
@@ -551,7 +551,7 @@
     function buyBtnClicked(){
 	  var orderBtn = document.querySelector('#loading-btn');
 	  orderBtn.addEventListener('click', function(){
-			setTimeout(function() {
+			//setTimeout(function() {
 				  var count = document.querySelectorAll('.orderProductCount');
 				  var productId = document.querySelectorAll('.orderProductId');
 				  console.log(count);
@@ -565,7 +565,9 @@
 				
 				  var couponPrice = $('.applyCoupon').text();
 				  var couponPoint = $('.applyPoint').text();
-				  
+				  if(!couponPoint){
+					  couponPoint = 0;
+				  }
 				  var productId = "${cartList[0].productId}"; 
 				  var productCount ="${cartList[0].count}";
 				  var reducePrice = Number(couponPrice) + Number(couponPoint);
@@ -613,6 +615,7 @@
 		          form.setAttribute("action", postUri);
 		          
 		          //buyerInfo
+		          
 		          //buyerName
 				  var hiddenBuyerName = document.createElement("input");
 				  hiddenBuyerName.setAttribute("type", "hidden");
@@ -630,6 +633,12 @@
 				  hiddenBuyerPasswd.setAttribute("type", "hidden");
 				  hiddenBuyerPasswd.setAttribute("name", "buyerPasswd");
 				  hiddenBuyerPasswd.setAttribute("value", buyerPasswd);
+				  
+				  var hiddenUsedPoint = document.createElement('input');
+				  hiddenUsedPoint.setAttribute('type', 'hidden');
+				  hiddenUsedPoint.setAttribute('name', 'usedPoint');
+				  hiddenUsedPoint.setAttribute('value',couponPoint)
+				  
 				  
 		          //productId
 		          var hiddenProductId = document.createElement("input");
@@ -661,6 +670,7 @@
 		          hiddenSelectedCoupon.setAttribute("name", "selectedCouponId");
 		          hiddenSelectedCoupon.setAttribute("value", selectedCouponId);
 		          
+		
 		          //fullAddress(/구분자 사용)
 		          var hiddenFullAddr = document.createElement("input");
 		          hiddenFullAddr.setAttribute("type", "hidden");
@@ -700,6 +710,7 @@
 					   form.appendChild(hiddenId[i]);
 				  }
 		          
+				  form.appendChild(hiddenUsedPoint);
 		          form.appendChild(hiddenBuyerName);
 		          form.appendChild(hiddenBuyerPhone);
 		          form.appendChild(hiddenBuyerPasswd);
@@ -716,7 +727,7 @@
 		          document.body.appendChild(form);
 		          
  		          form.submit(); 
-			}, 3000)
+		//	}, 3000)
 	  });
     }
     
