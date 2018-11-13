@@ -74,44 +74,5 @@ public class NonUserCartCreateController implements Controller {
 		 response.addCookie(cookie);
 		 out.println(1);
 		 return null;
-		/**쿠키가 존재할때*//*
-		if(request.getCookies().length!=1) {
-			*//**쿠키더미를 받아와서*//*
-			cookies = request.getCookies();
-			*//**쿠키더미를 털어서*//*
-			for(Cookie cookie : cookies) {
-				*//**products라는 쿠키가 있을때*//*
-				if(cookie.getName().equals("products")){
-					*//**productsCookie의 value를 받아온다*//*
-					String products = cookie.getValue();
-					*//**@단위(product/value 한쌍)로 잘라주고*//*
-					String [] productArray = products.split("@");
-					*//**잘려진 한 쌍을*//*
-					for (String product : productArray) {
-						*//**#단위(key따로 Value 따로)로 자른다다*//*
-						String [] productDetail = product.split("#");
-						*//**key 값이 현재 productId와 같으면*//*
-						
-						if(productDetail[0].equals(productId)){
-							*//**중복이라고 출력*//*
-							out.println(0);
-							return null;
-						}	
-					}
-					products += productId +"#"+ productCount+"@";
-					cookie.setValue(products);
-					response.addCookie(cookie);
-					out.println(1);
-					return null;
-				}
-			}
-		 }else{
-			 String products = "@"+ productId + "#" + productCount +"@";
-			 Cookie cookie = new Cookie("products",products);
-			 response.addCookie(cookie);
-			 out.println(1);
-		 }
-		return null;
-	}*/
 	}
 }

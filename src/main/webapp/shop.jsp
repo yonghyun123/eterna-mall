@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/aos.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/viewList.css">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/footer.css">
@@ -30,6 +31,7 @@
     <link rel="stylesheet" href="/css/header.css">
 
     <jsp:include page="/includes/header.jsp"></jsp:include>
+    <jsp:include page="/includes/viewList.jsp"></jsp:include>
   
   </head>
   <body>
@@ -133,6 +135,7 @@
  <script src="/js/paginathing.js"></script>
   <script src="/js/ajax.js"></script>
   <script src="/js/shop.js"></script>
+  <script src="/js/viewList.js"></script>
   <script>
 		$("#productsL").addClass("active");
 	</script>
