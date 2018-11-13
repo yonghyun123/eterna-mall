@@ -329,7 +329,7 @@
 				console.log('countArr : ' + countArr);
 				console.log(typeof countArr);
 				console.log('productIdArr : ' + productIdArr);
-
+				
 				var countArrStr = JSON.stringify(countArr);
 				var productIdArrStr = JSON.stringify(productIdArr);
 				
@@ -365,7 +365,7 @@
 						 hiddenId[i].setAttribute('name', 'productId');
 						 hiddenId[i].setAttribute('value', productIdArr[i]);
 						 form.appendChild(hiddenId[i]);
-
+						 
 					}
 					document.body.appendChild(form);
 					form.submit();
