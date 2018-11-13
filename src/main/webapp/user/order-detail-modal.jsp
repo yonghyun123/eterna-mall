@@ -65,28 +65,27 @@
     <tr>
       <th class="order-detail-tr" colspan="4" width="50%">받는사람 정보</th>
       <th class="order-detail-tr" colspan="4" width="50%"> 결제 정보 </th>
-              </tr>
-              <tr>
-                <td class="inform-td" colspan="2">받는 사람</td>
-                <td colspan="2">{receiverName}</td>
-                <td class="inform-td" colspan="2">총 상품 가격</td>
-                <td colspan="2">{totalProductPrice}</td>
-              </tr>
-              <tr>
-                <td class="inform-td" colspan="2">연락처</td>
-                <td colspan="2">{receiverTel}</td>
-                <td class="inform-td" colspan="2">할인금액</td>
-                <td colspan="2">{reducePrice}</td>
-              </tr>
-              <tr>
-                <td class="inform-td" colspan="2">주소</td>
-                <td colspan="2">{receiverAddress}</td>
-                <td class="inform-td" colspan="2">배송비</td>
-                <td colspan="2">{shippingFee}</td>
-              </tr>
-              <tr>
-                <td colspan="4"></td>
-                <td class="inform-td" colspan="2">총 결제금액</td>
-                <td colspan="2"><h5>{totalPrice}</h5></td>
-    </tr>
+         </tr>
+           <tr>
+             <td class="inform-td" colspan="2" style="width:13%;">받는 사람</td>
+               <td colspan="2">{receiverName}</td>
+               <td class="inform-td" colspan="2">총 상품 가격</td>
+               <td colspan="2">{totalProductPrice}</td>
+             </tr>
+             <tr>
+               <td class="inform-td" colspan="2">연락처</td>
+               <td colspan="2">{receiverTel}</td>
+               <td class="inform-td" colspan="2">할인금액</td>
+               <td colspan="2">{reducePrice}</td>
+             </tr>
+             <tr>
+               <td class="inform-td" colspan="2" rowspan="2">주소</td>
+               <td colspan="2" rowspan="2">{receiverAddress}</td>
+               <td class="inform-td" colspan="2">배송비</td>
+               <td colspan="2">{shippingFee}</td>
+             </tr>
+             <tr>
+               <td class="inform-td" colspan="2">총 결제금액</td>
+               <td colspan="2"><h5>{totalPrice}</h5></td>
+             </tr>
   </script>

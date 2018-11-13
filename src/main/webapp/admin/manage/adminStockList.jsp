@@ -356,8 +356,6 @@ div{
                         <td>${product.productStock }
                         </td>
                         <td><button type="button" class="details" data-toggle="modal" data-target="#myModal">상세</button>
-                        <br>
-                        <button type="button" class="details" data-toggle="modal" data-target="#myModal">삭제</button>
                         </td>
                       </tr>
                     </c:forEach>

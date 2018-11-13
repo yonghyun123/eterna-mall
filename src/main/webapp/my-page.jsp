@@ -136,11 +136,11 @@
                                   <td colspan="5" class="order-inform text-left">
                                   <!-- 상품 이름 및 이미지에 해당 상품 페이지 이동 a태그 걸기 -->
                                   <c:forEach var="buy" items="${orderAllList }" begin="${startIndex }" end="${endIndex }" varStatus="x">
-                                      <img alt="" class="product-thumbnail" src="/images/${buy.fileName }">
-                                      <div class="product-text"> 
-                                        <div class="product-name">${buy.productDescription }</div>
-                                        <div class="product-price-count">${buy.productPrice }원 / ${buy.count }개</div>
-                                      </div><br>
+                                    <img alt="" class="product-thumbnail" src="/images/${buy.fileName }">
+                                    <div class="product-text"> 
+                                      <div class="product-name">${buy.productDescription }</div>
+                                      <div class="product-price-count">${buy.productPrice }원 / ${buy.count }개</div>
+                                    </div><br>
                                   </c:forEach>
                                   </td>
                                   <td class="order-date-flag text-center">
@@ -166,7 +166,6 @@
                             <th class="text-center" style="padding: 3% 0"><h4>주문내역이 존재하지 않습니다.</h4></th>
                           </c:otherwise>
                         </c:choose>
-
                       </tbody>
                     </table>
                   </div>
@@ -183,18 +182,8 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="table-review">
-                      <thead class="text-center">
-                        <tr>
-                          <th>번호</th>
-                          <th>제목</th>
-                          <th>작성자</th>
-                          <th>등록일자</th>
-                        </tr>
-                      </thead>
-                      <tbody id="in-rbody">
-                      <!-- template 들어올 공간  -->
-                      </tbody>
+                    <table class="table table-hover" id="in-rbody">
+                      
                     </table>
                     <div class="in-page">
                     </div>
@@ -224,17 +213,7 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="table-qna">
-                      <thead>
-                        <tr class="text-center">
-                          <th colspan="1">주문번호</th>
-                          <th colspan="4">내용</th>
-                          <th colspan="2">일자</th>
-                        </tr>
-                      </thead>
-                      <tbody id="in-qbody">
-                      <!-- template 들어올 공간  -->
-                      </tbody>
+                    <table class="table table-hover" id="in-qbody">
                     </table>
                     <div class="in-page">
                     </div>
@@ -262,19 +241,7 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="table-point">
-                      <thead>
-                        <tr>
-                          <th>주문번호</th>
-                          <th>상태</th>
-                          <th>상세 내용</th>
-                          <th>금액</th>
-                          <th>일자</th>
-                        </tr>
-                      </thead>
-                      <tbody id="in-pbody">
-                      <!-- template 들어올 공간  -->
-                      </tbody>
+                    <table class="table table-hover" id="in-pbody">
                     </table>
                   </div>
                 </div>
@@ -290,18 +257,7 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover text-center" id="table-coupon">
-                      <thead>
-                        <tr>
-                          <th>쿠폰번호</th>
-                          <th colspan="5">쿠폰명</th>
-                          <th>할인금액</th>
-                          <th>유효기간</th>
-                        </tr>
-                      </thead>
-                      <tbody id="in-cbody">
-                      <!-- template 들어올 공간  -->
-                      </tbody>
+                    <table class="table table-hover text-center" id="in-cbody">
                     </table>
                   </div>
                 </div>
@@ -337,79 +293,140 @@
   <script src="/js/aos.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/ajax.js"></script>
+  
  <!-- review template -->
   <script type="my-template" id="review-body">
-  <tr>
-    <td class="text-center">
-      {number}
-    </td>
-    <td class="title">
-      {subject}
-      <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
-      <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
-    </td>
-    <td class="text-center">
-      {userId}
-    </td>
-    <td class="text-center">
-      {regdate}
-    </td>
-    <td>
-      <div class="section_review_list">
-        <div class="review_box">
-          <div class="short_review_area">
-            <div class="grade_area">
-            <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-            <span class="graph_mask"> <em class="graph_value" style="width: {score}%;"></em> </span>
-          </div>
+  <thead class="text-center">
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>등록일자</th>
+    </tr>
+  </thead>
+  <tbody id="in-rbody">
+	<tr>
+      <td class="text-center">
+        {number}
+      </td>
+      <td class="title">
+        {subject}
+        <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+        <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+      </td>
+      <td class="text-center">
+        {userId}
+      </td>
+      <td class="text-center">
+        {regdate}
+      </td>
+      <td>
+        <div class="section_review_list">
+          <div class="review_box">
+            <div class="short_review_area">
+              <div class="grade_area">
+                <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
+                <span class="graph_mask"> <em class="graph_value" style="width: {score}%;"></em> </span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    <td>
-  </tr>
-  <tr style='display:none;'>
-    <td colspan="4">{content}</td>
-  </tr>
+      <td>
+    </tr>
+    <tr style='display:none;'>
+      <td colspan="4">{content}</td>
+  	</tr>            
+  </tbody>
   </script>
   
+  <!-- qna template -->
   <script type="my-template" id="qna-body">
-  <tr>
-    <td colspan="1" class="text-center">
-      {orderNumber}
-    </td>
-    <td colspan="4" class="title">
-      [{productName}] {subject}
-	  <span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
-      <span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
-    </td>
-    <td colspan="2" class="text-center">
-      {regdate}
-    </td>
-  </tr>
-  <tr style='display:none;'>
-    <td colspan="4">{content}</td>
-  </tr>
+  	<thead>
+    	<tr class="text-center">
+	  		<th colspan="1">주문번호</th>
+	  		<th colspan="4">내용</th>
+	  		<th colspan="2">일자</th>
+		</tr>
+  	</thead>
+	<tbody id="in-qbody">
+  		<tr>
+    		<td colspan="1" class="text-center">
+      			{orderNumber}
+    		</td>
+    		<td colspan="4" class="title">
+      			[{productName}] {subject}
+	  			<span class="open-close glyphicon glyphicon-plus plusIcon">상세보기</span>
+      			<span class="open-close glyphicon glyphicon-minus plusIcon" style="display:none">닫기</span>
+    		</td>
+    		<td colspan="2" class="text-center">
+      		{regdate}
+    		</td>
+  		</tr>
+  		<tr style='display:none;'>
+    		<td colspan="4">{content}</td>
+  		</tr>
+	</tbody>
   </script>
   
   <!-- coupon template -->
   <script type="my-template" id="coupon-body">
-  <tr>
-    <td class="title">
-      {couponId}
-    </td>
-    <td class="title">
-      {couponName}
-    </td>
-    <td class="title" colspan="5">
-      {couponRate}%
-    </td>
-    <td class="title">
-    {couponDate}
-    </td>
-  </tr>
+	<thead>
+		<tr>
+			<th>쿠폰번호</th>
+			<th colspan="5">쿠폰명</th>
+			<th>할인금액</th>
+			<th>유효기간</th>
+		</tr>
+	</thead>
+	<tbody id="in-cbody">
+		<tr>
+	   	 	<td class="title">
+      			{couponId}
+    		</td>
+    		<td class="title">
+      			{couponName}
+    		</td>
+    		<td class="title" colspan="5">
+		      	{couponRate}%
+    		</td>
+	    	<td class="title">
+    			{couponDate}
+	    	</td>
+	  	</tr>
+	</tbody>
   </script>
   
-  
+  <!-- point template -->
+  <script type="my-template" id="point-body">
+  <thead>
+	<tr>
+		<th>주문번호</th>
+		<th>상태</th>
+		<th>상세 내용</th>
+		<th>금액</th>
+		<th>일자</th>
+	</tr>
+  </thead>
+  <tbody>
+     <tr>
+		<td class="title">
+			{orderNumber}
+		</td>
+		<td class="title">
+			{pointFlag}
+		</td>
+		<td class="title" colspan="5">
+			{pointInform}%
+		</td>
+	   	<td class="title">
+			{point}
+	    </td>
+		<td class="title">
+			{pointDate}
+	    </td>
+	 </tr>                
+  </tbody>
+  </script>
   
   <!-- 개인정보 수정 template -->
   <script type="my-template" id="modify-body">
@@ -523,6 +540,13 @@
   </div>
   </script>
   
+  <!-- 실패 template -->
+  <script type="my-template" id="fail-body">
+    <tbody>
+      <th class="text-center" style="padding: 3% 0"><h4>{item} 존재하지 않습니다.</h4></th>
+    </tbody>
+  </script>
+  
   <script>
   /* 유효성 체크를 위한 flag들 */
   var checkpw = 0;
@@ -530,164 +554,177 @@
   var checkemail = 1;
   var checkAddress = 1;
   var emailCheck = 0;
+  
   /* 탭 클릭 */
   function openCity(evt, cityName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-         tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-         
-         tablinks[i].className = tablinks[i].className.replace("active", "");
-      }
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.className += " active";
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace("active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
       
-      /* 상품후기 탭 클릭 */
-      if(evt.currentTarget.id == 'product-review'){
-        $.ajax({
-           url: "/reviewlist.mall",
-           type:"get",
-           dataType:"text",
-           success: function(data){
-             var jsonReviewData = JSON.parse(data);
-             reviewTemplate(jsonReviewData);
-           }
-        });
-      }
-      
-      /* Q&A 탭 클릭 */
-      if(evt.currentTarget.id == 'product-qna'){
-          $.ajax({
-             url: "/user/qnaList.mall",
-             type:"get",
-             dataType:"text",
-             success: function(data){
-               var jsonQNAData = JSON.parse(data);
-               QNATemplate(jsonQNAData);
-             }
-          });
+    /* 상품후기 탭 클릭 */
+    if(evt.currentTarget.id == 'product-review'){
+      $.ajax({
+        url: "/reviewlist.mall",
+        type:"get",
+        dataType:"text",
+        success: function(data){
+      	  var jsonReviewData = JSON.parse(data);
+          reviewTemplate(jsonReviewData);	  
         }
+      });
+    }
       
-      /* 쿠폰 탭 클릭 */
-      if(evt.currentTarget.id == 'user-coupon'){
-          $.ajax({
-             url: "/user/coupon.mall",
-             type:"get",
-             dataType:"text",
-             success: function(data){
-               var jsonCouponData = JSON.parse(data);
-               couponTemplate(jsonCouponData);
-             }
-          });
+  	/* Q&A 탭 클릭 */
+  	if(evt.currentTarget.id == 'product-qna'){
+      $.ajax({
+        url: "/user/qnaList.mall",
+        type:"get",
+        dataType:"text",
+        success: function(data){
+          var jsonQNAData = JSON.parse(data);
+          QNATemplate(jsonQNAData);
         }
+      });
+    }
+      
+    /* 쿠폰 탭 클릭 */
+    if(evt.currentTarget.id == 'user-coupon'){
+      $.ajax({
+        url: "/user/coupon.mall",
+        type:"get",
+        dataType:"text",
+        success: function(data){
+          var jsonCouponData = JSON.parse(data);
+          couponTemplate(jsonCouponData);
+        }
+      });
+    }
       
       /* 개인정보 수정 탭 클릭 */
-      if (evt.currentTarget.id == 'user-modify') {
+    if (evt.currentTarget.id == 'user-modify') {
       var templateHtml = document.querySelector('#confirm-body').innerHTML;
       var originHtml = document.querySelector('#in-mbody');
       originHtml.innerHTML = templateHtml;
-      }
-      
-      
+    }
   }
+  
   /* 주문번호별 상세정보 */
   var orderList = document.querySelectorAll(".order-number");
   for (var i = 0; i < orderList.length; i++) {
-        orderList[i].addEventListener('click', function(event) {
-           var orderNumber = "orderNumber=" + this.id;
-           $.ajax({
-              url: '/user/orderNumber.mall',
-              data: orderNumber,
-              dataType:'text',
-              success: function(data) {
-                var jsonDetailData = JSON.parse(data);
-                var body = detailHeaderTemplate(jsonDetailData);
-                detailBodyTemplate(jsonDetailData, body);
-                detailSideTemplate(jsonDetailData);
-                detailInformTemplate(jsonDetailData);
-                $("#order-detail-modal").modal('show');
-              }
-           })
-        });
+    orderList[i].addEventListener('click', function(event) {
+      var orderNumber = "orderNumber=" + this.id;
+      $.ajax({
+        url: '/user/orderNumber.mall',
+        data: orderNumber,
+        dataType:'text',
+        success: function(data) {
+          var jsonDetailData = JSON.parse(data);
+          var body = detailHeaderTemplate(jsonDetailData);
+          detailBodyTemplate(jsonDetailData, body);
+          detailSideTemplate(jsonDetailData);
+          detailInformTemplate(jsonDetailData);
+          $("#order-detail-modal").modal('show');
+        }
+      })
+    });
   }
   
   /* 리뷰  */
   function reviewTemplate(reviewData){
-    var templateHtml = document.querySelector('#review-body').innerHTML;
     var originHtml = document.querySelector('#in-rbody');
     var newHtml = '';
-    reviewData.forEach(function(v,i){
-      var scoreFormat = Number(v.score) * 20;
-      scoreFormat+'%';
-      newHtml += templateHtml.replace('{number}', i+1)
-                   .replace('{subject}', v.subject)
-                   .replace('{userId}', v.userId)
-                   .replace('{regdate}', v.regdate)  
-                   .replace('{score}', scoreFormat )
-                   .replace('{content}', v.content);
-
-    });
+    if(reviewData.length != 0) {
+      var templateHtml = document.querySelector('#review-body').innerHTML;      
+  	  reviewData.forEach(function(v,i){
+  	    var scoreFormat = Number(v.score) * 20;
+  	    scoreFormat+'%';
+  	    newHtml += templateHtml.replace('{number}', i+1)
+  	                           .replace('{subject}', v.subject)
+  	                           .replace('{userId}', v.userId)
+                               .replace('{regdate}', v.regdate)  
+	                           .replace('{score}', scoreFormat )
+                               .replace('{content}', v.content);
+	  });
+  	  
+      $(".plusIcon").on("click",function(){
+        var obj = $(this);
+        if(obj.hasClass("glyphicon-plus")){
+          obj.hide();
+          obj.next().show();            
+          obj.parent().parent().next().show();
+        }else {
+          obj.hide();
+          obj.prev().show();
+          obj.parent().parent().next().hide();
+        }
+      });
+    }else {
+      var templateHtml = document.querySelector('#fail-body').innerHTML;
+      newHtml += templateHtml.replace('{item}', "등록하신 리뷰가");
+    }
     originHtml.innerHTML = newHtml;
-    
-    $(".plusIcon").on("click",function(){
-      var obj = $(this);
-      if( obj.hasClass("glyphicon-plus") ){
-         obj.hide();
-         obj.next().show();            
-         obj.parent().parent().next().show();
-      }else{
-         obj.hide();
-         obj.prev().show();
-         obj.parent().parent().next().hide();
-      }
-    });
   }
   
   /* 쿠폰  */
   function couponTemplate(couponData){
-    var templateHtml = document.querySelector('#coupon-body').innerHTML;
     var originHtml = document.querySelector('#in-cbody');
     var newHtml = '';
-    couponData.forEach(function(v,i){
-      newHtml += templateHtml.replace('{couponId}', v.couponId)
-                   .replace('{couponName}', v.couponName)
-                   .replace('{couponRate}', v.couponRate)
-                   .replace('{couponDate}', v.couponDate );
+    if(couponData.length != 0) {
+    	var templateHtml = document.querySelector('#coupon-body').innerHTML;      
+      	couponData.forEach(function(v,i){
+          newHtml += templateHtml.replace('{couponId}', v.couponId)
+                                 .replace('{couponName}', v.couponName)
+                                 .replace('{couponRate}', v.couponRate)
+                                 .replace('{couponDate}', v.couponDate);
 
-    });
+        });
+      }else {
+    	var templateHtml = document.querySelector('#fail-body').innerHTML;
+        newHtml += templateHtml.replace('{item}', "쿠폰이");
+      }
     originHtml.innerHTML = newHtml;
   }
   
   /* QNA */
   function QNATemplate(QNAData){
-    var templateHtml = document.querySelector('#qna-body').innerHTML;
     var originHtml = document.querySelector('#in-qbody');
     var newHtml = '';
-    QNAData.forEach(function(v,i){
-      newHtml += templateHtml.replace('{orderNumber}', v.id)
-                   .replace('{productName}', v.productName)
-                   .replace('{subject}', v.subject)
-                   .replace('{content}', v.content)
-                   .replace('{regdate}', v.regdate);
+    if(QNAData.length != 0) {
+    	var templateHtml = document.querySelector('#qna-body').innerHTML;      
+    	QNAData.forEach(function(v,i){
+    	  newHtml += templateHtml.replace('{orderNumber}', v.id)
+    	                         .replace('{productName}', v.productName)
+  	                             .replace('{subject}', v.subject)
+  	                             .replace('{content}', v.content)
+  	                             .replace('{regdate}', v.regdate);
 
-    });
-    originHtml.innerHTML = newHtml;
-    
-    $(".plusIcon").on("click",function(){
-        var obj = $(this);
-        if( obj.hasClass("glyphicon-plus") ){
-           obj.hide();
-           obj.next().show();            
-           obj.parent().parent().next().show();
-        }else{
-           obj.hide();
-           obj.prev().show();
-           obj.parent().parent().next().hide();
-        }
-    });
+    	});
+
+        $(".plusIcon").on("click",function(){
+          var obj = $(this);
+          if(obj.hasClass("glyphicon-plus")){
+             obj.hide();
+             obj.next().show();            
+             obj.parent().parent().next().show();
+          }else {
+             obj.hide();
+             obj.prev().show();
+             obj.parent().parent().next().hide();
+          }
+        });
+      }else {
+    	var templateHtml = document.querySelector('#fail-body').innerHTML;
+        newHtml += templateHtml.replace('{item}', "등록하신 문의글이");
+      }
+      originHtml.innerHTML = newHtml;
   }
   
   function detailHeaderTemplate(detailData){
@@ -698,7 +735,7 @@
    
     detailData.forEach(function(v,i){
       newHtml = templateHtml.replace('{orderDate}', v.orderDate)
-                   .replace('{orderId}', v.orderNumber );
+               			    .replace('{orderId}', v.orderNumber );
     });
     originHtml.innerHTML = newHtml;
     
@@ -711,11 +748,10 @@
     var newHtml = '';
     detailData.forEach(function(v,i){
     newHtml += templateHtml.replace('{fileName}', v.fileName)
-                 .replace('{productDescription}', v.productDescription)
-                   .replace('{productPrice}', v.productPrice)
-                   .replace('{productCount}', v.productCount);
+                 		   .replace('{productDescription}', v.productDescription)
+                   		   .replace('{productPrice}', v.productPrice)
+                   		   .replace('{productCount}', v.productCount);
     });
-    
     originHtml.innerHTML = newHtml;
   }
   
@@ -725,7 +761,7 @@
     var newHtml = '';
     detailData.forEach(function(v,i){
       newHtml = templateHtml.replace('{receiveDate}', v.receiveDate)
-                   .replace('{orderFlag}', v.orderFlag);
+    		                .replace('{orderFlag}', v.orderFlag);
     });
     originHtml.innerHTML = newHtml;
   } 
@@ -735,16 +771,45 @@
     var originHtml = document.querySelector('#in-detail-inform');
     var newHtml = '';
     detailData.forEach(function(v,i){
+      v.receiverAddress = parsingAddress(v.receiverAddress);		
+    	
       newHtml = templateHtml.replace('{receiverName}', v.receiverName)
-                   .replace('{receiverTel}', v.receiverTel)
-                   .replace('{receiverAddress}', v.receiverAddress)
-                   .replace('{totalProductPrice}', v.totalProductPrice)
-                   .replace('{reducePrice}', v.reducePrice)
-                   .replace('{shippingFee}', v.shippingFee)
-                   .replace('{totalPrice}', v.totalPrice);
-                   
+                   		    .replace('{receiverTel}', v.receiverTel)
+                   			.replace('{receiverAddress}', v.receiverAddress)
+                   			.replace('{totalProductPrice}', v.totalProductPrice)
+                   			.replace('{reducePrice}', v.reducePrice)
+                   			.replace('{shippingFee}', v.shippingFee)
+                   			.replace('{totalPrice}', v.totalPrice);
     });
     originHtml.innerHTML = newHtml;
+  }
+  
+  function emptyTemplate(detailData){
+    var templateHtml = document.querySelector('#detail-inform').innerHTML;
+    var originHtml = document.querySelector('#in-detail-inform');
+    var newHtml = '';
+    detailData.forEach(function(v,i){
+      v.receiverAddress = parsingAddress(v.receiverAddress);		
+    	
+      newHtml = templateHtml.replace('{receiverName}', v.receiverName)
+                   		    .replace('{receiverTel}', v.receiverTel)
+                   			.replace('{receiverAddress}', v.receiverAddress)
+                   			.replace('{totalProductPrice}', v.totalProductPrice)
+                   			.replace('{reducePrice}', v.reducePrice)
+                   			.replace('{shippingFee}', v.shippingFee)
+                   			.replace('{totalPrice}', v.totalPrice);
+    });
+    originHtml.innerHTML = newHtml;
+  }
+  
+  /* 주소 파싱 메서드 */
+  function parsingAddress(address) {
+    var addressArray = address.split('/');
+    var receiverAddress;
+    if(addressArray) {
+	  receiveAddress = "(" + addressArray[0] + ") " + addressArray[1] + " " + addressArray[2]; 	  
+    }
+    return receiveAddress;	  
   }
   
   /* 개인정보 수정 - 수정하기 버튼 눌렀을때 */
@@ -762,10 +827,10 @@
       dataType : "text",
       data :  params,
       success : function(data) {
-          var templateHtml = document.querySelector('#success-body').innerHTML;
-          var originHtml = document.querySelector('#in-mbody');
-          originHtml.innerHTML = templateHtml;
-          popup("popup-message-Userupdate-success");
+        var templateHtml = document.querySelector('#success-body').innerHTML;
+        var originHtml = document.querySelector('#in-mbody');
+        originHtml.innerHTML = templateHtml;
+        popup("popup-message-Userupdate-success");
       }
     });
   });
@@ -781,14 +846,14 @@
       data :  params,
       success : function(data) {
         if(data.trim()=='success'){
-        popup("popup-message-update-success");
-        document.getElementById('new-userEmail').readOnly = true;
-        document.querySelector('.emailCheck').disabled = true;
-        emailCheck = 1;
-        ableJoin();
+          popup("popup-message-update-success");
+          document.getElementById('new-userEmail').readOnly = true;
+          document.querySelector('.emailCheck').disabled = true;
+          emailCheck = 1;
+          ableJoin();
         } else if(data.trim() == 'fail'){
-        popup("popup-message-emailCheck-fail");
-        emailCheck = 0;
+          popup("popup-message-emailCheck-fail");
+          emailCheck = 0;
         }
       }
     });
@@ -796,14 +861,14 @@
   
   /* 개인정보 수정 - 비밀번호 체크 */
   $(document).on("click","#confirmPasswdBtn",function(event) {
-   var email = document.getElementById('confirm_password').value;
-   /* 비밀번호 빈칸 */
-   if(email.trim().length==0){
-     popup("popup-message-inputPW");
-     document.getElementById('confirm_password').value = '';
-   } else {
-  	 var inputPW = "inputPW=" + email;
-   	 $.ajax({
+    var email = document.getElementById('confirm_password').value;
+    /* 비밀번호 빈칸 */
+    if(email.trim().length==0){
+      popup("popup-message-inputPW");
+      document.getElementById('confirm_password').value = '';
+    } else {
+  	  var inputPW = "inputPW=" + email;
+   	  $.ajax({
         url : "/user/updateInfo.mall",
         type : "get",
         dataType : "text",
@@ -815,121 +880,118 @@
             document.getElementById('confirm_password').value = '';
           } else {
             /* 비밀번호 일치 */
-          var jsonModifyData = JSON.parse(data);
-          modiftTemplate(jsonModifyData);
-          eventRegist();
+            var jsonModifyData = JSON.parse(data);
+            modiftTemplate(jsonModifyData);
+            eventRegist();
           }
         }
-    });
-  }
-});
+      });
+    }
+  });
   
   /* 개인정보 수정 template */
-    function modiftTemplate(jsonModifyData) {
+  function modiftTemplate(jsonModifyData) {
     var templateHtml = document.querySelector('#modify-body').innerHTML;
     var originHtml = document.querySelector('#in-mbody');
     var newHtml = '';
     jsonModifyData.forEach(function(v, i) {
       newHtml = templateHtml.replace('{userId}', v.userId)
-          .replace('{userName}', v.userName)
-          .replace('{userEmail}', v.userEmail)
-          .replace('{userZipcode}', v.userZipcode)
-          .replace('{couponDate}', v.couponDate)
-          .replace('{userStreetAddress}', v.userStreetAddress)
-          .replace('{userDetailAddress}', v.userDetailAddress)
-          .replace('{userRegdate}', v.userRegdate)
-          .replace('{userTel}', v.userTel);
+          				  .replace('{userName}', v.userName)
+          				  .replace('{userEmail}', v.userEmail)
+          				  .replace('{userZipcode}', v.userZipcode)
+          				  .replace('{couponDate}', v.couponDate)
+          				  .replace('{userStreetAddress}', v.userStreetAddress)
+          				  .replace('{userDetailAddress}', v.userDetailAddress)
+          				  .replace('{userRegdate}', v.userRegdate)
+          				  .replace('{userTel}', v.userTel);
     });
     originHtml.innerHTML = newHtml;
-    }
+  }
   
   /* 주소입력 API */
   function daumPostcode() {
-    new daum.Postcode(
-        {
-          oncomplete : function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var fullAddr = ''; // 최종 주소 변수
-            var extraAddr = ''; // 조합형 주소 변수
-  
-            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-              fullAddr = data.roadAddress;
-  
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-              fullAddr = data.jibunAddress;
-            }
-  
-            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-            if (data.userSelectedType === 'R') {
-              //법정동명이 있을 경우 추가한다.
-              if (data.bname !== '') {
-                extraAddr += data.bname;
-              }
-              // 건물명이 있을 경우 추가한다.
-              if (data.buildingName !== '') {
-                extraAddr += (extraAddr !== '' ? ', '
-                    + data.buildingName
-                    : data.buildingName);
-              }
-              // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-              fullAddr += (extraAddr !== '' ? ' ('
-                  + extraAddr + ')' : '');
-            }
-  
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('new-street-address').value = fullAddr;
-            document.getElementById('new-zipcod-address').value = data.zonecode; //5자리 새우편번호 사용
-  
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById('new-detail-address').focus();
-                  }
-              }).open();
-          }
-       
-/* 유효성 검사 */
- function eventRegist(){
-  document.getElementById('newPW').onkeyup = function(){
-     var val = this.value;
-     passwdCheck(val);
-     ableJoin();
-  }
-  
-  document.getElementById('confirmNewPW').onkeyup = function(){
-     var val = this.value;
-     confirmPasswdCheck(val);
-     ableJoin();
-  }
-  
-  document.getElementById('new-userEmail').onkeyup = function(){
-     var val = this.value;
-     emailCheck(val);
-  }
+    new daum.Postcode({
+      oncomplete : function(data) {
+        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var fullAddr = ''; // 최종 주소 변수
+        var extraAddr = ''; // 조합형 주소 변수
 
-  
-  document.getElementById('new-detail-address').onkeyup = function(){
-     addressCheck();
-     ableJoin();
+        // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+        if(data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+          fullAddr = data.roadAddress;
+
+        }else { // 사용자가 지번 주소를 선택했을 경우(J)
+          fullAddr = data.jibunAddress;
+        }
+
+        // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+        if(data.userSelectedType === 'R') {
+          //법정동명이 있을 경우 추가한다.
+          if(data.bname !== '') {
+            extraAddr += data.bname;
+          }
+          // 건물명이 있을 경우 추가한다.
+          if(data.buildingName !== '') {
+            extraAddr += (extraAddr !== '' ? ', '
+              + data.buildingName
+              : data.buildingName);
+          }
+          // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+          fullAddr += (extraAddr !== '' ? ' ('
+            + extraAddr + ')' : '');
+        }
+
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        document.getElementById('new-street-address').value = fullAddr;
+        document.getElementById('new-zipcod-address').value = data.zonecode; //5자리 새우편번호 사용
+
+        // 커서를 상세주소 필드로 이동한다.
+        document.getElementById('new-detail-address').focus();
+      }
+    }).open();
   }
- }
+       
+  /* 유효성 검사 */
+  function eventRegist(){
+    document.getElementById('newPW').onkeyup = function(){
+      var val = this.value;
+      passwdCheck(val);
+      ableJoin();
+    }
+  
+    document.getElementById('confirmNewPW').onkeyup = function(){
+      var val = this.value;
+      confirmPasswdCheck(val);
+      ableJoin();
+    }
+  
+    document.getElementById('new-userEmail').onkeyup = function(){
+      var val = this.value;
+      emailCheck(val);
+    }
+
+    document.getElementById('new-detail-address').onkeyup = function(){
+    addressCheck();
+    ableJoin();
+    }
+  }
   /* 비밀번호 체크 */
   function passwdCheck(val) {
       var msg = '';
       var regPasswd = /^(?=.*[a-zA-Z])(?=.*\d).{5,15}$/;
-       if(val.length == 0){
-             msg = ' ';
-             checkpw = 0;
-          } else if (val.length > 15 || val.lengh < 5 || !regPasswd.test(val)) {
-        	  
-         msg = '패스워드 길이는 영문, 숫자 포함 5~15자 입니다.';
-         document.getElementById('modifyPutPw').style.color = 'red';
-         checkpw = 0;
+      if(val.length == 0){
+        msg = ' ';
+        checkpw = 0;
+      } else if (val.length > 15 || val.lengh < 5 || !regPasswd.test(val)) {
+        msg = '패스워드 길이는 영문, 숫자 포함 5~15자 입니다.';
+        document.getElementById('modifyPutPw').style.color = 'red';
+        checkpw = 0;
       } else {
-         msg = successMessage(val);
-         document.getElementById('modifyPutPw').style.color = 'blue';
-         checkpw = 1;
+        msg = successMessage(val);
+        document.getElementById('modifyPutPw').style.color = 'blue';
+        checkpw = 1;
       }
       document.getElementById('modifyPutPw').textContent = msg;
 
@@ -946,69 +1008,64 @@
   function confirmPasswdCheck(val){
      var msg = '';
      if(val.length == 0){
-         msg = ' ';
-         checkconfirm = 0;
-      }
-     else if(document.getElementById('newPW').value.length != 0 && val == document.getElementById('newPW').value){
-         msg = ' 비밀번호와 일치합니다.';
-        document.getElementById('modifyPutCheckPw').style.color = 'blue';
-        checkconfirm =1;
-      }else{
-         msg = ' 비밀번호와 일치하지 않습니다.';
-        document.getElementById('modifyPutCheckPw').style.color = 'red';
-        checkconfirm =0;
-      }
-      document.getElementById('modifyPutCheckPw').textContent = msg;
+       msg = ' ';
+       checkconfirm = 0;
+     }else if(document.getElementById('newPW').value.length != 0 && val == document.getElementById('newPW').value){
+       msg = ' 비밀번호와 일치합니다.';
+       document.getElementById('modifyPutCheckPw').style.color = 'blue';
+       checkconfirm =1;
+     }else {
+       msg = ' 비밀번호와 일치하지 않습니다.';
+       document.getElementById('modifyPutCheckPw').style.color = 'red';
+       checkconfirm =0;
+     }
+     document.getElementById('modifyPutCheckPw').textContent = msg;
   }
   
   /* 이메일 유효성, 중복 체크*/
   function emailCheck(val){
-      var msg = '';
-     var regEmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
-     if(val.length == 0){
-        msg = ' ';
-        checkemail = 0;
-     }
-     else if(!regEmail.test(val)){
-              msg = '이메일 형식에 맞게 입력해주세요.';
-              document.getElementById('modifyPutEmail').style.color = 'red';
-              checkemail= 0;
-              }else{
-                  msg = successMessage(val);
-                 document.getElementById('modifyPutEmail').style.color = 'blue';
-                 checkemail=1;
-              }
-           
-           document.getElementById('modifyPutEmail').textContent = msg;
+    var msg = '';
+    var regEmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+    if(val.length == 0){
+      msg = ' ';
+      checkemail = 0;
+    }else if(!regEmail.test(val)){
+      msg = '이메일 형식에 맞게 입력해주세요.';
+      document.getElementById('modifyPutEmail').style.color = 'red';
+      checkemail= 0;
+      }else {
+         msg = successMessage(val);
+         document.getElementById('modifyPutEmail').style.color = 'blue';
+         checkemail=1;
+      }
+      document.getElementById('modifyPutEmail').textContent = msg;
   }
   /* 사용 가능 알림 */
   var successMessage = function(val) {
-     return ' 사용 가능합니다.';
+      return ' 사용 가능합니다.';
   }
   
   /* 주소 공백 확인 */
   function addressCheck(){
-      var zip = document.getElementById('new-zipcod-address').value;
-      var street = document.getElementById('new-street-address').value;
-      var detail = document.getElementById('new-detail-address').value;
-      if(zip.length != 0 && street.length != 0 && detail.length != 0){
-         checkAddress = 1;
-      }else{
-         checkAddress = 0;
-      }
-   }
+	var addressFlag = 0;
+  	var zip = document.getElementById('new-zipcod-address').value;
+  	var street = document.getElementById('new-street-address').value;
+  	var detail = document.getElementById('new-detail-address').value;
+      
+  	if(zip.length != 0 && street.length != 0 && detail.length != 0){
+	  checkAddress = 1;
+    }
+  }
 
   /* 유효성 확인 후 join 버튼 활성화 */
   function ableJoin(){
-	  if(document.querySelector('.emailCheck').disabled){
-     if(checkpw == 1 && checkconfirm == 1 &&  checkAddress == 1 && checkemail==1 ){
-       document.querySelector(".modify").disabled = false;
-       checkpw=0;
-       checkconfirm=0;
-     }else{
-       document.querySelector(".modify").disabled = true;
-     }
-	  }
+	if(document.querySelector('.emailCheck').disabled){
+   	  if(checkpw == 1 && checkconfirm == 1 &&  checkAddress == 1 && checkemail==1){
+    	document.querySelector(".modify").disabled = false;
+        }else {
+          document.querySelector(".modify").disabled = true;
+      }
+  	}
   }
   </script>
 </body>

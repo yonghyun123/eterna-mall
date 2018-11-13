@@ -89,5 +89,10 @@ public class BuyServiceImpl implements BuyService {
 		return buyDao.recentOrderNumber();
 	}
 
+	@Override
+	public Buy nonUserCertify(String id, String passwd) throws Exception {
+		return buyDao.nonUserCertify(id, passwd);
+	}
+
 
 }
