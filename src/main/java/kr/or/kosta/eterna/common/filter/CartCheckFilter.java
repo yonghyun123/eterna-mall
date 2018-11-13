@@ -76,7 +76,6 @@ public class CartCheckFilter implements Filter {
 			}
 			
 		}
-		
 		if (isLogin) {
 			try {
 				countCart = cartService.countOfCart(cookieName);
