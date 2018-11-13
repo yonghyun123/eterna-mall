@@ -150,7 +150,7 @@ function toDetail() {
 	var imagesBtn = document.querySelectorAll('.images-btn');
 	imagesBtn.forEach(function(v) {
 		v.addEventListener('click', function(e) {
-			$("#" + e.target.parentNode.parentNode.id).submit();
+			$("#" + e.target.closest("form").id).submit();
 		})
 	})
 }

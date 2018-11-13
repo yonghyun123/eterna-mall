@@ -255,6 +255,7 @@
         ON bi.id = bm.buy_id 
 		WHERE  bi.user_id = #{userId}
 		GROUP  BY bm.buy_id, bi.id
+		ORDER  BY bi.id DESC
 	</select>
     
     

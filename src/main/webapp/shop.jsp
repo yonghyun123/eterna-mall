@@ -70,7 +70,7 @@
                 </c:choose>
                 </div>
                 <c:choose>
-                <c:when test="${empty productSex }">
+                <c:when test="${empty productSex && empty search }">
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto" id="dropDown">
                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,24 +94,28 @@
               <c:forEach var="product" items="${productList}" varStatus="status">
             <li class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                    <div class="block-4 text-center border product-list">
+                   <form id="form${status.index}" action="/detail.mall" method="post">
                    <figure class="block-4-image">
-                      <form id="form${status.index}" action="/detail.mall" method="post">
                          <a class="images-btn"><img src="/images/${product.thumnail}" alt="Image placeholder" class="img-fluid"></a>
                          <input type="hidden" name="productId" value="${product.productId }">
-                      </form>
                    </figure>
                    <div class="block-4-text p-4 product-list-text">
-                    <h3><a href="shop-single.html">${product.productBrand}</a></h3>
-                    <p class="mb-0">${product.productDescription }</p>
+                    <h6><a class="images-btn">${product.productDescription }</a></h6>
+                    <p class="mb-0">${product.productBrand}</p>
                     <p class="text-primary font-weight-bold">W<fmt:formatNumber value="${product.price}" pattern="#,###"/></p>
                    </div>
+                   </form>
                  </div>
                </li>
               </c:forEach>
               
             </ul>
           </div>
-        <jsp:include page="/includes/side.jsp"></jsp:include>  
+          <c:choose>
+          <c:when test="${empty search }">
+        <jsp:include page="/includes/side.jsp"></jsp:include> 
+        </c:when>
+        </c:choose> 
         </div>
       </div>
     </div>
@@ -156,6 +160,15 @@
 <input type="hidden" id="count" value="{count}">
                 </span>
 </script>
+
+    <c:choose>
+    <c:when test="${not empty inputSearch }">
+    <script type="text/javascript">
+    $("#search-input").val('${inputSearch}');
+    $("#search-input").focus();
+    </script>
+    </c:when>
+    </c:choose>
 
   </body>
 </html>
