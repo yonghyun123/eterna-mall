@@ -144,7 +144,12 @@ public class MybatisProductDao implements ProductDao {
 		List<Product> productList = sqlSession.selectList(NAMESPACE+"hotItemList");
 		return productList;
 	}
-	
+	@Override
+	public List<Product> popularProductListByRcmd(String categoryId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<Product> productList = sqlSession.selectList(NAMESPACE+"hotItemListByRcmd",categoryId);
+		return productList;
+	}
 	@Override
 	public List<Product> listBySales() throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);

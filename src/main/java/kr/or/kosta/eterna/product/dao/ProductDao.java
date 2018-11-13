@@ -39,8 +39,11 @@ public interface ProductDao {
     public int outOfStock() throws Exception;
     /**신상품 리스트(5개)*/
     public List<Product> brandNewList(String categoryId) throws Exception;
-    /**인기상품 리스트 3개*/
+    /**인기상품 리스트 5개*/
     public List<Product> popularProductList() throws Exception;
+    /**인기상품 리스트 5개*/
+    public List<Product> popularProductListByRcmd(String categoryId) throws Exception;
+    
     /* 인기상품 전체 리스트(판매량순/select선택시 필요)*/
 	public List<Product> listBySales() throws Exception;
 	/* 신상품 전체 리스트(select선택시 필요)*/
