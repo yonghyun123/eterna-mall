@@ -3,6 +3,7 @@ package kr.or.kosta.eterna.user.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.kosta.eterna.point.domain.Point;
 import kr.or.kosta.eterna.user.domain.User;
 
 /**고객의 요구사항을 반영한 도메인별(개발하고자 하는 업무영역)별 비즈니스 메소드 선언
@@ -47,4 +48,7 @@ public interface UserService {
 	
 	/* my page 에서 이루어지는 userService기능*/
 	public Map<String, Object> myPage(String userId) throws Exception;
+	
+	/* 적립금 생성*/
+	public void createPoint(Point point) throws Exception;
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import kr.or.kosta.eterna.buy.dao.BuyDao;
 import kr.or.kosta.eterna.buy.domain.Buy;
 import kr.or.kosta.eterna.coupon.dao.CouponDao;
+import kr.or.kosta.eterna.point.domain.Point;
 import kr.or.kosta.eterna.qna.dao.QnADao;
 import kr.or.kosta.eterna.user.dao.UserDao;
 import kr.or.kosta.eterna.user.domain.User;
@@ -94,11 +95,8 @@ public class UserServiceImpl implements UserService {
 		
 		if(user.getUserId() != null && !user.getUserId().equals("undefined")){
 			User originUser = userDao.read(user.getUserId());
-			originPoint = Integer.parseInt(originUser.getUserPoint());
-			newPoint = Integer.parseInt(user.getUserPoint());
 			originGrade = Integer.parseInt(originUser.getUserGrade());
 			newGrade = Integer.parseInt(user.getUserGrade());
-			user.setUserPoint(Integer.toString(originPoint + newPoint));
 			user.setUserGrade(Integer.toString(originGrade + newGrade));
 		}
 		 
@@ -145,5 +143,11 @@ public class UserServiceImpl implements UserService {
 		map.put("orderProductsLength", orderProductsLength);
 		qnaDao.readQnA(userId);
 		return map;
+	}
+	
+	/* 적립금 생성*/
+	@Override
+	public void createPoint(Point point) throws Exception{
+		userDao.createPoint(point);
 	}
 }

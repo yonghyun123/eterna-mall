@@ -120,6 +120,7 @@ public class Buy {
 		this.reducePrice = reducePrice;
 	}
 
+	
 	public String getNumPurchase() {
 		return numPurchase;
 	}
