@@ -58,13 +58,13 @@ public class UserOrderDetailController implements Controller {
 			jsonObject.put("fileName", buy.getFileName());
 			if(buy.getOrderFlag().equals("0")) {
 				orderFlag = "배송전";
-				receiveDate = buy.getOrderDate() + " 도착 예정"; 
+				receiveDate = buy.getReceiveDate() + " 도착 예정"; 
 			} else if (buy.getOrderFlag().equals("1")) {
 				orderFlag = "배송중";
-				receiveDate = buy.getOrderDate() + " 도착 예정";
+				receiveDate = buy.getReceiveDate() + " 도착 예정";
 			} else {
 				orderFlag = "배송완료";
-				receiveDate = buy.getOrderDate() + " 도착";
+				receiveDate = buy.getReceiveDate() + " 도착";
 			}
 			jsonObject.put("receiveDate", receiveDate);
 			jsonObject.put("orderFlag", orderFlag);

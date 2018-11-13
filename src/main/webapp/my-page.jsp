@@ -153,7 +153,7 @@
                                       <h4>배송 중</h4> ${orderAllList[startIndex].orderDate } <span>출발</span>
                                     </c:when>
                                     <c:when test="${flag == 2 }">
-                                      <h4>배송 완료</h4> ${orderAllList[startIndex].orderDate } <span>도착</span>
+                                      <h4>배송 완료</h4> ${orderAllList[startIndex].receiveDate } <span>도착</span>
                                     </c:when>
                                   </c:choose>
                                   </td>
@@ -260,12 +260,11 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover">
+                    <table class="table table-hover col-md-10 text-center" style="margin: 0 auto;">
                       <thead>
                         <tr>
-                          <th>주문번호</th>
+                          <th>번호</th>
                           <th>상태</th>
-                          <th>상세 내용</th>
                           <th>금액</th>
                           <th>일자</th>
                         </tr>
@@ -415,9 +414,6 @@
 		</td>
 		<td class="title">
 			{pointFlag}
-		</td>
-		<td class="title" colspan="5">
-			{pointInform}%
 		</td>
 	   	<td class="title">
 			{point}
@@ -592,6 +588,19 @@
         }
       });
     }
+  	
+  	/* Q&A 탭 클릭 */
+  	if(evt.currentTarget.id == 'user-point'){
+      $.ajax({
+        url: "/user/point.mall",
+        type:"get",
+        dataType:"text",
+        success: function(data){
+          var jsonQNAData = JSON.parse(data);
+          pointTemplate(jsonQNAData);
+        }
+      });
+    }
       
     /* 쿠폰 탭 클릭 */
     if(evt.currentTarget.id == 'user-coupon'){
@@ -606,7 +615,7 @@
       });
     }
       
-      /* 개인정보 수정 탭 클릭 */
+    /* 개인정보 수정 탭 클릭 */
     if (evt.currentTarget.id == 'user-modify') {
       var templateHtml = document.querySelector('#confirm-body').innerHTML;
       var originHtml = document.querySelector('#in-mbody');
@@ -672,6 +681,26 @@
      });
   }
   
+  /* 적립금  */
+  function pointTemplate(pointData){
+    var originHtml = document.querySelector('#in-pbody');
+    var newHtml = '';
+    if(pointData.length != 0) {
+    	var templateHtml = document.querySelector('#point-body').innerHTML;      
+      	pointData.forEach(function(v,i){
+          newHtml += templateHtml.replace('{orderNumber}', v.orderNumber)
+                                 .replace('{pointFlag}', v.pointFlag)
+                                 .replace('{point}', v.point)
+                                 .replace('{pointDate}', v.pointDate);
+
+        });
+      }else {
+    	var templateHtml = document.querySelector('#fail-body').innerHTML;
+        newHtml += templateHtml.replace('{item}', "적립금 관련 내역이");
+    }
+    originHtml.innerHTML = newHtml;
+  }
+  
   /* 쿠폰  */
   function couponTemplate(couponData){
     var originHtml = document.querySelector('#in-cbody');
@@ -725,6 +754,7 @@
       });
   }
   
+  /* 주문번호 별 상세보기 헤더 */
   function detailHeaderTemplate(detailData){
     var templateHtml = document.querySelector('#detail-header').innerHTML;
     var originHtml = document.querySelector('#in-detail-header');
@@ -740,6 +770,7 @@
     return body;
   }
   
+  /* 주문번호 별 상세보기 바디 */
   function detailBodyTemplate(detailData, body){
     var templateHtml = document.querySelector('#detail-body').innerHTML;
     var originHtml = body;
@@ -753,6 +784,7 @@
     originHtml.innerHTML = newHtml;
   }
   
+  /* 주문번호 별 상세보기 사이드 */
   function detailSideTemplate(detailData){
     var templateHtml = document.querySelector('#detail-side').innerHTML;
     var originHtml = document.querySelector('#in-detail-side');
@@ -764,25 +796,8 @@
     originHtml.innerHTML = newHtml;
   } 
   
+  /* 주문번호 별 상세보기 푸터쪽 결제정보 */
   function detailInformTemplate(detailData){
-    var templateHtml = document.querySelector('#detail-inform').innerHTML;
-    var originHtml = document.querySelector('#in-detail-inform');
-    var newHtml = '';
-    detailData.forEach(function(v,i){
-      v.receiverAddress = parsingAddress(v.receiverAddress);		
-    	
-      newHtml = templateHtml.replace('{receiverName}', v.receiverName)
-                   		    .replace('{receiverTel}', v.receiverTel)
-                   			.replace('{receiverAddress}', v.receiverAddress)
-                   			.replace('{totalProductPrice}', v.totalProductPrice)
-                   			.replace('{reducePrice}', v.reducePrice)
-                   			.replace('{shippingFee}', v.shippingFee)
-                   			.replace('{totalPrice}', v.totalPrice);
-    });
-    originHtml.innerHTML = newHtml;
-  }
-  
-  function emptyTemplate(detailData){
     var templateHtml = document.querySelector('#detail-inform').innerHTML;
     var originHtml = document.querySelector('#in-detail-inform');
     var newHtml = '';
