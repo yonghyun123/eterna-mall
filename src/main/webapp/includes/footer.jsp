@@ -7,6 +7,7 @@
   <div id="popup-message-logout-success">로그아웃 성공!</div>
   <div id="popup-message-join-success">회원가입 성공!</div>
   <div id="popup-message-join-fail">회원가입에 실패하셨습니다.</div>
+  <div id="popup-message-use-point-minus">보유한 적립금보다 많은 적립금을 사용할 수 없습니다.</div>
   
   <div class="container">
     <div class="row">

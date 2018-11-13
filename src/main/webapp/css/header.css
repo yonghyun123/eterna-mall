@@ -148,6 +148,7 @@
 }
 
 /* popup을 위한 css */
+#popup-message-use-point-minus,
 #popup-message-nonuser-delivery-fail,
 #popup-message-login-success,
 #popup-message-logout-success,
@@ -173,7 +174,7 @@
     bottom: 50%;
     font-size: 17px;
 }
-
+#popup-message-use-point-minus.show,
 #popup-message-nonuser-delivery-fail.show,
 #popup-message-login-success.show,
 #popup-message-logout-success.show,
