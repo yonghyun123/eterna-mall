@@ -121,6 +121,7 @@
 	height: 90%;
 	margin: auto;
 	vertical-align: middle;
+	width: 25%;
 }
 
 .order-list-number, .order-list-status {
@@ -131,13 +132,17 @@
 }
 
 .order-detail-flag {
-	padding: 90% 0;
-	border-left: 1px solid #dddfe1;
+	padding-top: 10%;
 }
 
 .order-detail-tr {
 	border-bottom: 1px solid #dddfe1;
 }
+
+.order-detail-table td {
+	border-right: 1px solid #dddfe1;
+}
+
 /* popup을 위한 css */
 #popup-message-login-success,
 #popup-message-logout-success,
