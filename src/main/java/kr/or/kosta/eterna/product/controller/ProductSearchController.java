@@ -15,7 +15,11 @@ import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
 import kr.or.kosta.eterna.product.domain.Product;
 import kr.or.kosta.eterna.product.service.ProductService;
 import kr.or.kosta.eterna.product.service.ProductServiceImpl;
-
+/**
+ * 제품 검색 시 출력 컨트롤러(제품명 or 제품 브랜드)
+ * @author 희진
+ *
+ */
 public class ProductSearchController implements Controller {
 	private ProductService productService;
 	Logger logger = Logger.getLogger(ProductSearchController.class);
@@ -29,14 +33,13 @@ public class ProductSearchController implements Controller {
 		productService = (ProductService)factory.getBean(ProductServiceImpl.class);
 		List<Product> list = null;
 		int count = 0;
+		boolean flag = true;
 
 		String inputSearch = null;
 		try {
-			System.out.println("input : " + request.getParameter("inputText"));
 			request.setCharacterEncoding("UTF-8");
 			inputSearch = java.net.URLDecoder.decode(request.getParameter("inputText") , "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -49,7 +52,8 @@ public class ProductSearchController implements Controller {
 		
 		mav.addObject("productList", list);
 		mav.addObject("count", count);
-
+		mav.addObject("search", flag);
+		mav.addObject("inputSearch", inputSearch);
 		mav.setView("/shop.jsp");
 		return mav;
 

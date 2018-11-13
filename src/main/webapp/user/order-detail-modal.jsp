@@ -21,7 +21,7 @@
                     <td colspan="5" class="order-inform text-left" id="in-detail-body">
                     
                     </td>
-                    <td id="in-detail-footer">
+                    <td id="in-detail-side">
                     </td>
                   </tr>
                 </tbody>

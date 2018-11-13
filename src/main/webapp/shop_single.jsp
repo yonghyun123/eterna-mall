@@ -588,6 +588,9 @@
 			});
 	     }
      </script>
+     <script>
+		$("#productsL").addClass("active");
+	</script>
 </body>
 </html>
 <%@ include file="reviewModal.jsp" %>
