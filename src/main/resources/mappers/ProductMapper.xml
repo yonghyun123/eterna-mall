@@ -466,6 +466,48 @@
 		WHERE ROWNUM between 1 and 5
 	</select>
 	
+		<!--카테고리별 인기상품 리스트 -->
+	<select id="hotItemListByRcmd" resultType="Product">
+    SELECT
+    	product_id AS "productId",
+		category_id AS "categoryId",
+		product_brand AS "productBrand",
+		product_description AS "productDescription",
+		file_name AS "thumnail",
+		price AS "price"
+		FROM (
+		SELECT
+		product.product_id ,
+		product.category_id,
+		category.category_type,
+		product.product_brand ,
+		product.product_description ,
+    	fileinfo.file_name,
+    	price.price,
+		SUM(buymanager.count)
+		FROM
+		sm_product product,
+		sm_product_image image,
+		sm_file_info fileinfo,
+		sm_product_price price,
+		sm_buy_manage buymanager,
+		sm_category category
+		WHERE
+		product.product_id = image.product_id
+		AND product.category_id = category.category_id
+		AND image.file_id = fileinfo.file_id
+		AND product.product_id = price.product_id
+		AND image.image_type = 'th'
+		AND product.product_id = buymanager.product_id
+		And category.category_type = #{value}
+    	GROUP BY product.product_id, product.category_id, category.category_type, product.product_brand,
+    	product.product_description, price.price,fileinfo.file_name
+		order by SUM(buymanager.count)
+    )
+		WHERE ROWNUM between 1 and 5
+		
+	</select>
+	
 	<!-- 판매수별 제품 리스트 -->
 	<select id="listBySales" resultType="Product">
 	    SELECT

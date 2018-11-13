@@ -44,8 +44,8 @@
       <set>   
          <if test="cleansingCount != null">cleansing_count = cleansing_count + #{cleansingCount},</if>   
          <if test="libCount != null">lib_count = lib_count + #{libCount},</if>      
-         <if test="skinCount != null">skin_count = skin_count + #{skinCount}</if>
-         <if test="lotionCount != null">lotion_count = lotion_count + #{lotionCount}</if>
+         <if test="skinCount != null">skin_count = skin_count + #{skinCount},</if>
+         <if test="lotionCount != null">lotion_count = lotion_count + #{lotionCount},</if>
          <if test="sunCount != null">sun_count = sun_count + #{sunCount}</if>
       </set>
       WHERE user_id=#{userId}   
