@@ -6,7 +6,7 @@ String orderNumber = request.getParameter("order");
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+<title>Eterna &mdash; Most Valuable Cosmetic</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -26,6 +26,10 @@ String orderNumber = request.getParameter("order");
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/shop_single.css">
+    
+    <link rel="icon" href="/images/lipstick.png">
+<link rel="apple-touch-icon" href="/images/lipstick.png">
+    
   </head>
   <body>
   <div class="site-wrap">
@@ -33,7 +37,7 @@ String orderNumber = request.getParameter("order");
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Contact</strong></div>
+          <div class="col-md-12 mb-0"><a href="/eterna.mall">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Contact</strong></div>
         </div>
       </div>
     </div>  

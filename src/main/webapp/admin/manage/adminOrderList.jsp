@@ -121,7 +121,7 @@ function viewOrderListDetails(value) {
 </td>
 <td><img src="/images/{thumnail}" alt="Image placeholder" class="img-fluid" style="width: 50px;">
 </td>
-<td><input type="text" class="product" name="count" value="{count}" style="border:none;">
+<td><input type="text" class="product" name="count" value="{count}" style="border:none; text-align: center;">
 </tr>
 </script>
 
