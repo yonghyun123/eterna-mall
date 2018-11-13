@@ -117,7 +117,8 @@
 		AND image.file_id = fileinfo.file_id
 		AND product.product_id = price.product_id
 		AND image.image_type = 'th'
-        AND UPPER(product.product_brand)||UPPER(product.product_description) LIKE UPPER(#{inputText})||'%'
+        AND (UPPER(product.product_brand) LIKE '%'||UPPER(#{inputText})||'%'
+        OR UPPER(product.product_description) LIKE '%'||UPPER(#{inputText})||'%')
 		ORDER BY product.product_brand
 	</select>
 	

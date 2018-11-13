@@ -87,7 +87,7 @@ if(request.getAttribute("answerCount") != null){
         </c:choose>
         <li>
           <div class="col-6 col-md-4 order-2 order-md-1 text-left search">
-            <form action="/search.mall" class="site-top-search" name="searchForm">
+            <form action="/search.mall" class="site-top-search" name="searchForm" method="post">
               <span class="icon icon-search2"></span>
               <input type="text" class="form-control border-0" id="search-input" name="inputText" placeholder="Search" onkeyup="enterSearch(this.form);">
             </form>
@@ -111,6 +111,7 @@ if(request.getAttribute("answerCount") != null){
       	    }
       	}
     </script>
+    
     <%@ include file="/user/login.jsp"%>
     <%@ include file="/user/signup.jsp"%>
     <%@ include file="/user/modal.jsp"%>
