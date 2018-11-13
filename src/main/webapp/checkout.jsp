@@ -193,7 +193,7 @@
                 </tr>
                 <tr class="col-md-12">
                   <th>배송요청사항</th>
-                  <td><textarea name="request" cols="30" rows="5" class="form-control" maxlength="50"></textarea>
+                  <td><textarea name="request" cols="30" rows="5" class="form-control" maxlength="50" style="width: 50%;"></textarea>
                     <div class="chk_bytes">
                       <span>0</span>자 / 50자
                     </div></td>

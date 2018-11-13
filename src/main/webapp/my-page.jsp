@@ -182,8 +182,18 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="in-rbody">
-                      
+                    <table class="table table-hover">
+                      <thead class="text-center">
+                        <tr>
+                          <th>번호</th>
+                          <th>제목</th>
+                          <th>작성자</th>
+                          <th>등록일자</th>
+                          <th colspan="100"></th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-rbody">
+                      </tbody>
                     </table>
                     <div class="in-page">
                     </div>
@@ -213,7 +223,16 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="in-qbody">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr class="text-center">
+                          <th colspan="1">주문번호</th>
+                          <th colspan="4">내용</th>
+                          <th colspan="2">일자</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-qbody">
+                      </tbody>
                     </table>
                     <div class="in-page">
                     </div>
@@ -241,7 +260,18 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover" id="in-pbody">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>주문번호</th>
+                          <th>상태</th>
+                          <th>상세 내용</th>
+                          <th>금액</th>
+                          <th>일자</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-pbody">
+                      </tbody>                    
                     </table>
                   </div>
                 </div>
@@ -257,7 +287,17 @@
                 </div>
                 <div class="row">
                   <div class="container">
-                    <table class="table table-hover text-center" id="in-cbody">
+                    <table class="table table-hover text-center">
+                      <thead>
+                        <tr>
+                          <th>쿠폰번호</th>
+                          <th colspan="5">쿠폰명</th>
+                          <th>할인금액</th>
+                          <th>유효기간</th>
+                        </tr>
+                      </thead>
+                      <tbody id="in-cbody">
+                      </tbody>
                     </table>
                   </div>
                 </div>
@@ -296,15 +336,6 @@
   
  <!-- review template -->
   <script type="my-template" id="review-body">
-  <thead class="text-center">
-    <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>작성자</th>
-      <th>등록일자</th>
-    </tr>
-  </thead>
-  <tbody id="in-rbody">
 	<tr>
       <td class="text-center">
         {number}
@@ -334,21 +365,12 @@
       <td>
     </tr>
     <tr style='display:none;'>
-      <td colspan="4">{content}</td>
+      <td colspan="100">{content}</td>
   	</tr>            
-  </tbody>
   </script>
   
   <!-- qna template -->
   <script type="my-template" id="qna-body">
-  	<thead>
-    	<tr class="text-center">
-	  		<th colspan="1">주문번호</th>
-	  		<th colspan="4">내용</th>
-	  		<th colspan="2">일자</th>
-		</tr>
-  	</thead>
-	<tbody id="in-qbody">
   		<tr>
     		<td colspan="1" class="text-center">
       			{orderNumber}
@@ -363,22 +385,12 @@
     		</td>
   		</tr>
   		<tr style='display:none;'>
-    		<td colspan="4">{content}</td>
+    		<td colspan="100">{content}</td>
   		</tr>
-	</tbody>
   </script>
   
   <!-- coupon template -->
   <script type="my-template" id="coupon-body">
-	<thead>
-		<tr>
-			<th>쿠폰번호</th>
-			<th colspan="5">쿠폰명</th>
-			<th>할인금액</th>
-			<th>유효기간</th>
-		</tr>
-	</thead>
-	<tbody id="in-cbody">
 		<tr>
 	   	 	<td class="title">
       			{couponId}
@@ -393,21 +405,10 @@
     			{couponDate}
 	    	</td>
 	  	</tr>
-	</tbody>
   </script>
   
   <!-- point template -->
   <script type="my-template" id="point-body">
-  <thead>
-	<tr>
-		<th>주문번호</th>
-		<th>상태</th>
-		<th>상세 내용</th>
-		<th>금액</th>
-		<th>일자</th>
-	</tr>
-  </thead>
-  <tbody>
      <tr>
 		<td class="title">
 			{orderNumber}
@@ -425,7 +426,6 @@
 			{pointDate}
 	    </td>
 	 </tr>                
-  </tbody>
   </script>
   
   <!-- 개인정보 수정 template -->
@@ -542,9 +542,7 @@
   
   <!-- 실패 template -->
   <script type="my-template" id="fail-body">
-    <tbody>
-      <th class="text-center" style="padding: 3% 0"><h4>{item} 존재하지 않습니다.</h4></th>
-    </tbody>
+      <tr class="text-center"><td colspan="100">{item} 존재하지 않습니다.</td></tr>
   </script>
   
   <script>
@@ -654,7 +652,13 @@
                                .replace('{content}', v.content);
 	  });
   	  
-      $(".plusIcon").on("click",function(){
+    }else {
+      var templateHtml = document.querySelector('#fail-body').innerHTML;
+      newHtml += templateHtml.replace('{item}', "등록하신 리뷰가");
+    }
+    originHtml.innerHTML = newHtml;
+    
+    $(".plusIcon").on("click",function(){
         var obj = $(this);
         if(obj.hasClass("glyphicon-plus")){
           obj.hide();
@@ -665,12 +669,7 @@
           obj.prev().show();
           obj.parent().parent().next().hide();
         }
-      });
-    }else {
-      var templateHtml = document.querySelector('#fail-body').innerHTML;
-      newHtml += templateHtml.replace('{item}', "등록하신 리뷰가");
-    }
-    originHtml.innerHTML = newHtml;
+     });
   }
   
   /* 쿠폰  */
@@ -707,8 +706,12 @@
   	                             .replace('{regdate}', v.regdate);
 
     	});
-
-        $(".plusIcon").on("click",function(){
+      }else {
+    	var templateHtml = document.querySelector('#fail-body').innerHTML;
+        newHtml += templateHtml.replace('{item}', "등록하신 문의글이");
+      }
+      originHtml.innerHTML = newHtml;
+      $(".plusIcon").on("click",function(){
           var obj = $(this);
           if(obj.hasClass("glyphicon-plus")){
              obj.hide();
@@ -719,12 +722,7 @@
              obj.prev().show();
              obj.parent().parent().next().hide();
           }
-        });
-      }else {
-    	var templateHtml = document.querySelector('#fail-body').innerHTML;
-        newHtml += templateHtml.replace('{item}', "등록하신 문의글이");
-      }
-      originHtml.innerHTML = newHtml;
+      });
   }
   
   function detailHeaderTemplate(detailData){

@@ -78,8 +78,6 @@
          var couponId = $(this).closest("tr").find(".couponId").val();
          var couponRate = $(this).closest("tr").find(".couponRate").val();
          var discountAmount = Number($(this).closest("tr").find(".discountAmount").text());
-         alert($(this).closest("tr").find(".discountAmount").text());
-         alert(discountAmount);
          selectedCouponId = couponId;
          var shippingFee = $('.shippingFee').text();
          var applyPoint = $('.applyPoint').text();
