@@ -85,13 +85,14 @@
                       <!-- 수량 -->
                       <td class="product-quantity">
                         <div class="cart-button-group input-group">
-                          <input type="text" class="form-control text-center cartCount" value="${cart.count }" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled="disabled">
+                          <input type="text" class="form-control text-center orderProductCount" value="${cart.count}" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled="disabled">
+                          <input type="hidden" class="orderProductId" value="${cart.productId }">
                         </div>
                       </td>
                       <!-- 금액 -->
                       
                       <td class="product-price text-right">
-                      <span class="totalCost"></span>원</td>
+                      <span class="totalCost" id="totalCost"></span>원</td>
                       <td></td>
                     </tr>
                   </c:forEach>
@@ -386,17 +387,19 @@
   <script type="text/javascript">
     $(function() {
       /* totalPrice뿌려주기 */
-      var cartCount = document.querySelectorAll('.cartCount');
+      var cartCount = document.querySelectorAll('.orderProductCount');
       var cartPrice = document.querySelectorAll('.cartPrice');
       var totalCost = document.querySelectorAll('.totalCost');
 	  var uriCheck = "${uriCheck}"; 
 
+	  console.log(cartCount);
+	  console.log(cartPrice);
       for (key in cartCount) {
         if (cartCount[key].value) {
-          totalCost[key].innerText = Number(cartCount[key].value)
-              * Number(cartPrice[key].innerText);
+          totalCost[key].innerText = Number(cartCount[key].value) * Number(cartPrice[key].innerText);
         }
       }
+      
       /* total product Price */
       var productPrice = 0;
       for (key in totalCost) {
@@ -548,7 +551,18 @@
     function buyBtnClicked(){
 	  var orderBtn = document.querySelector('#loading-btn');
 	  orderBtn.addEventListener('click', function(){
-			setTimeout(function() {
+			//setTimeout(function() {
+				  var count = document.querySelectorAll('.orderProductCount');
+				  var productId = document.querySelectorAll('.orderProductId');
+				  console.log(count);
+				  console.log(productId);
+				  var countArr = [];
+				  var productIdArr = [];
+				  for (var i = 0; i < count.length; i++) {
+					  countArr.push(count[i].value);
+					  productIdArr.push(productId[i].value);
+				  }
+				
 				  var couponPrice = $('.applyCoupon').text();
 				  var couponPoint = $('.applyPoint').text();
 				  
@@ -670,7 +684,22 @@
 		          hiddenProductTotalCount.setAttribute("type", "hidden");
 		          hiddenProductTotalCount.setAttribute("name", "productTotalCount");
 		          hiddenProductTotalCount.setAttribute("value", productTotalCount);
-			          
+			      var hiddenCount = [];
+			      var hiddenId = [];
+				  for(var i = 0; i < countArr.length; i++){
+				   	   hiddenCount[i] = document.createElement('input');
+					   hiddenCount[i].setAttribute('type', 'hidden');
+					   hiddenCount[i].setAttribute('name', 'productCountArr');
+					   hiddenCount[i].setAttribute('value', countArr[i]);
+					   form.appendChild(hiddenCount[i]);
+					 
+					   hiddenId[i] = document.createElement('input');
+					   hiddenId[i].setAttribute('type', 'hidden');
+					   hiddenId[i].setAttribute('name', 'productIdArr');
+					   hiddenId[i].setAttribute('value', productIdArr[i]);
+					   form.appendChild(hiddenId[i]);
+				  }
+		          
 		          form.appendChild(hiddenBuyerName);
 		          form.appendChild(hiddenBuyerPhone);
 		          form.appendChild(hiddenBuyerPasswd);

@@ -69,10 +69,18 @@ public class BuyServiceImpl implements BuyService {
       return buyDao.listAmount();
    }
 
-@Override
-public List<Buy> showOrderDetailUser(String id) throws Exception {
-	return buyDao.showOrderDetailUser(id);
-}
+	@Override
+	public List<Buy> showOrderDetailUser(String id) throws Exception {
+		return buyDao.showOrderDetailUser(id);
+	}
+
+	@Override
+	public void nonCreate(Buy buy, List<Cart> productList) throws Exception {
+		buyDao.nonCreateInfo(buy);
+		   for (Cart cart : productList) {
+			   buyDao.createManage(cart);
+		   }
+	}
 
 
 }
