@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-
 	<!-- 회원관리 -->
 	<bean type="controller" name="/user/list" class="kr.or.kosta.eterna.user.controller.UserListController" />
 	<!-- 장바구니관리 -->
@@ -27,12 +26,17 @@
 	<bean type="controller" name="/product" class="kr.or.kosta.eterna.product.controller.ProductController" />
 	<!-- 마이페이지 -->
 	<bean type="controller" name="/user/myPage" class="kr.or.kosta.eterna.user.controller.UserPageController" />
-	<!-- 주문 상세 페이지 -->
+	<!-- 제품 상세 페이지 -->
 	<bean type="controller" name="/detail" class="kr.or.kosta.eterna.product.controller.ProductDetailController" />
 	<!-- 장바구니관리 -->
     <bean type="controller" name="/cart" class="kr.or.kosta.eterna.cart.controller.CartListController" />
     <!-- 조건 컨트롤러 -->
     <bean type="controller" name="/conditions" class="kr.or.kosta.eterna.product.controller.ProductListByConditionsController" />
+    <!-- 유저별 쿠폰 조회 -->
+	<bean type="controller" name="/user/coupon" class="kr.or.kosta.eterna.coupon.controller.CouponController" />
+    <!-- 카트에서 온 결제페이지 (yonghyun) -->
+    <bean type="controller" name="/cartpayment" class="kr.or.kosta.eterna.buy.controller.BuyCreateController" />
+    
     
 	<!-- 관리자 컨트롤러 -->
 	<!--  관리자페이지 -->
@@ -67,5 +71,27 @@
    <bean type="controller" name="/admin/orderupdate" class="kr.or.kosta.eterna.admin.controller.AdminOrderUpdateController" />
    <!-- 관리자 메인페이지 정보 -->   
    <bean type="controller" name="/admin/newinfo" class="kr.or.kosta.eterna.admin.controller.AdminMainController" />
+   
+   
+<!-- 인덱스 컨트롤러  -->
+	<bean type="controller" name="/eterna" class="kr.or.kosta.eterna.index.controller.IndexController" />
+	<!-- 카트 삭제 -->
+    <bean type="controller" name="/cartDelete" class="kr.or.kosta.eterna.cart.controller.CartDeleteController" />
+   <!-- 카트 업데이트 -->
+    <bean type="controller" name="/cartUpdate" class="kr.or.kosta.eterna.cart.controller.CartUpdateController" />
+    <!-- 결제창 -->
+    <bean type="controller" name="/checkout" class="kr.or.kosta.eterna.payment.controller.PaymentListController" />
+    <!-- 장바구니관리(yonghyun) -->
+    <bean type="controller" name="/addcart" class="kr.or.kosta.eterna.cart.controller.CartCreateController" />
+	<!-- 상세페이지 주문페이지(yonghyun) -->
+    <bean type="controller" name="/order" class="kr.or.kosta.eterna.payment.controller.PaymentListController" />
+	
+ <!--비회원 관련 컨트롤러 -->	
+   <!-- 비회원 장바구니 쿠키 등록 -->
+   <bean type="controller" name="/nonUserAddcart" class="kr.or.kosta.eterna.nonusercart.controller.NonUserCartCreateController"/>
+   <!-- 비회원 장바구니 조회  -->
+   <bean type="controller" name="/nonUserCartList" class="kr.or.kosta.eterna.nonusercart.controller.NonUserCartListController"/>
+   <!-- 비회원 장바구니 삭제  -->
+   <bean type="controller" name="/nonUserCartDelete" class="kr.or.kosta.eterna.nonusercart.controller.NonUserCartDeleteController"/>
    
 </beans>
