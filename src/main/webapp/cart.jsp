@@ -312,6 +312,9 @@
 			});
 			/* 주문버튼  */
 			$(document).on("click", "#order", function(event) {
+				/*  */
+			    	
+			    
 				var countArr = [];
 				var productIdArr = [];
 				var count = document.querySelectorAll('.cartCount');
@@ -326,6 +329,7 @@
 				console.log('countArr : ' + countArr);
 				console.log(typeof countArr);
 				console.log('productIdArr : ' + productIdArr);
+
 				var countArrStr = JSON.stringify(countArr);
 				var productIdArrStr = JSON.stringify(productIdArr);
 				
@@ -361,6 +365,7 @@
 						 hiddenId[i].setAttribute('name', 'productId');
 						 hiddenId[i].setAttribute('value', productIdArr[i]);
 						 form.appendChild(hiddenId[i]);
+
 					}
 					document.body.appendChild(form);
 					form.submit();

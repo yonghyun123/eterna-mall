@@ -97,6 +97,30 @@
 		ORDER BY product.product_id
 	</select>
 
+	<!-- 검색한 물품 조회 (by 이철우) -->
+	<select id="searchList" resultType="Product">
+		SELECT product.product_id AS "productId",
+		product.category_id AS "categoryId",
+		product.product_brand AS "productBrand",
+		product.product_sex AS "productSex",
+		product.product_description AS "productDescription",
+		product.product_stock AS "productStock",
+		product.min_age AS "minAge",
+		product.max_age AS "maxAge",
+		fileinfo.file_name AS thumnail,
+		price.price AS price
+		FROM sm_product product,
+		sm_product_image image,
+		sm_file_info fileinfo,
+		sm_product_price price
+		WHERE product.product_id = image.product_id
+		AND image.file_id = fileinfo.file_id
+		AND product.product_id = price.product_id
+		AND image.image_type = 'th'
+        AND UPPER(product.product_brand)||UPPER(product.product_description) LIKE UPPER(#{inputText})||'%'
+		ORDER BY product.product_brand
+	</select>
+	
 	<!-- 물품삭제 -->
 	<delete id="delete" parameterType="Integer">
 		delete SM_product

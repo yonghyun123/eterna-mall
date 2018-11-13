@@ -21,8 +21,8 @@
               <input type="password" class="form-control" name="inputPasswd" id="psw" placeholder="Enter Password" required>
               
             </div>
-            <div class="checkbox">
-              <label><input type="checkbox" id="rememberId" value="">Remember me</label>
+            <div class="checkbox" id="nonUserBody">
+              
             </div>
               <button type="button" class="btn btn-success btn-block" id="login-button"><span class="glyphicon glyphicon-off"></span> Login</button>
           </form>
@@ -36,7 +36,13 @@
     </div>
   </div> 
  </div>
-    
+ <script type="my-template" id="login-body">
+ <label><input type="checkbox" id="rememberId" value="">Remember me</label>
+ </script>
+ <script type="my-template" id="nonUser-body">
+ <label><input type="checkbox" id="rememberId" value="">Remember me</label>
+              <span style="float: right;"><a href="order.mall">비회원으로 주문하기</a></span>
+ </script>
  <script>
 	if("${cookie.rememberId}" != null) { 
 			document.getElementById("id").value = "${cookie.rememberId.value}";

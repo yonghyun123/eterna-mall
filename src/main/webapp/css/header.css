@@ -5,12 +5,24 @@
 	margin: 0 2%;
 }
 
-.search {
-	max-width: 100%;
+.site-top-search {
+	position: relative;
 }
 
-.search-input {
-	padding-left: 20%;
+.site-top-search .icon {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	font-size: 25px;
+	font-family: 'icomoon' !important;
+	transform: translateY(-50%);
+}
+
+#search-input {
+	padding-left: 40px;
+}
+.search {
+	max-width: 100%;
 }
 
 .site-navigation .top-dropdown > li {
