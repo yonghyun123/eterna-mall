@@ -93,7 +93,6 @@ jQuery(document).ready(function($) {
         $this.addClass('active');
       }
       e.preventDefault();  
-      
     });
 
       $(window).resize(function() {
@@ -208,11 +207,16 @@ jQuery(document).ready(function($) {
     	var templateHtml = document.querySelector('#login-body').innerHTML;
     	var originHtml = document.querySelector('#nonUserBody');
     	originHtml.innerHTML = templateHtml;
+    	
+    	var rememberId = '${cookie.rememberId.value}';
+    	if(rememberId != null){
+    		document.getElementById("id").value='';
+    	}
+    	document.getElementById("psw").value='';
     	$("#login-modal").modal();
     	$('#topList').children('li').siblings().removeClass('active');
     	$("#loginL").addClass("active");
     });
-
     
     $("#signup-btn").click(function(){
         $("#signup-modal").modal();
