@@ -197,7 +197,6 @@
         </div>
       </div>
     </div>
-    <%@ include file="user/login.jsp"%>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="/js/jquery-3.3.1.min.js"></script>
