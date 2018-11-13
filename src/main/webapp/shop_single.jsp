@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+  
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Eterna &mdash; Most Valuable Cosmetic</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
@@ -31,7 +33,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0">
-            <a href="/index.jsp">Home</a> <span class="mx-2 mb-0">/</span>
+            <a href="/eterna.mall">Home</a> <span class="mx-2 mb-0">/</span>
             <strong class="text-black">${selectProduct.productDescription }</strong>
           </div>
         </div>
@@ -48,7 +50,7 @@
             <div class="mb-5">
               <p>
                 <strong class="text-black h5">Price </strong>
-                 <strong class="text-primary h4" id="product-price">${selectProduct.price }</strong>
+                <strong class="text-primary h4" id="product-price">${selectProduct.price }</strong>
               </p>
               <p>배송비 : 3,000원 (30,000원 이상 무료배송)</p>
               <div class="input-group mb-3" style="max-width: 120px;">
@@ -62,7 +64,7 @@
               </div>
               <p>
                 <strong class="text-black h5">Total Price </strong>
-                 <strong class="text-primary h4" id="total-price">${selectProduct.price}</strong>
+                 <strong class="text-primary h4" id="total-price">${selectProduct.price }</strong>
               </p>
               <p>
                 <input type="button" class="buy-now btn btn-sm btn-primary" value="Add Cart" id="add-cart-btn">
@@ -293,7 +295,6 @@
   addCartAjax();
   orderBtnClicked();
   /* order 버튼 클릭 이벤트 form동적 생성후 데이터 post */
- 	
   function orderBtnClicked(){
 	  var orderBtn = document.querySelector('#order-now-btn');
 	  orderBtn.addEventListener('click', function(){
@@ -456,7 +457,7 @@
 		  } else{
 			  //답변글일때
 			  newHtml += generalHtml.replace('{number}', i+1)
-				 .replace('{subject}','&emsp;[답변글]'+v.subject)
+				 .replace('{subject}','&emsp;<img src="/images/reply.png">[답변글]'+v.subject)
 				 .replace('{userId}', v.userId)
 				 .replace('{regdate}', v.regdate)  
 				 .replace('{score}', scoreFormat )
@@ -532,7 +533,7 @@
 		 		 } else {
 		 			 //답변글일때
 					  newHtml += generalHtml.replace('{number}', i+1)
-						 .replace('{subject}', '&emsp;[관리자]'+v.subject)
+						 .replace('{subject}', '&emsp;<img src="/images/reply.png">[관리자]'+v.subject)
 						 .replace('{userId}', v.userId)
 						 .replace('{regdate}', v.regdate)
 						 .replace('{content}', v.content);
@@ -599,5 +600,4 @@
 <%@ include file="cart/cartSuccessModal.jsp" %>
 <%@ include file="cart/nonusercartSuccessModal.jsp" %>
 <%@ include file="cart/nonusercartDupModal.jsp" %>
-
 

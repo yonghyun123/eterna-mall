@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
+    <title>Eterna &mdash; Most Valuable Cosmetic</title>
+
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
 <link rel="stylesheet" href="/fonts/icomoon/style.css">
@@ -18,6 +20,9 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+
+<link rel="icon" href="/images/lipstick.png">
+<link rel="apple-touch-icon" href="/images/lipstick.png">
 
 <jsp:include page="/includes/header.jsp"></jsp:include>
 <title>Insert title here</title>

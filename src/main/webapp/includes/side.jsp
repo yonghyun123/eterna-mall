@@ -7,9 +7,9 @@
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0" id="sexL">
               <!-- to.용현 url 정리 수정 요망!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  from.희진 -->
-                <li class="mb-1"><a href="/product.mall?sex=남성" class="d-flex"><span>남성</span></a></li>
-                <li class="mb-1"><a href="/product.mall?sex=여성" class="d-flex"><span>여성</span> </a></li>
-                <li class="mb-1"><a href="/product.mall?sex=공용" class="d-flex"><span>공용</span> </a></li>
+                <li class="mb-1"><a href="/product.mall?sex=남성" class="d-flex"><span class="gender" id="man">남성</span></a></li>
+                <li class="mb-1"><a href="/product.mall?sex=여성" class="d-flex"><span class="gender" id="woman">여성</span> </a></li>
+                <li class="mb-1"><a href="/product.mall?sex=공용" class="d-flex"><span class="gender" id="all">공용</span> </a></li>
               </ul>
             </div>
 

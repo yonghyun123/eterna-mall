@@ -102,7 +102,7 @@
                    <div class="block-4-text p-4 product-list-text">
                     <h6><a class="images-btn">${product.productDescription }</a></h6>
                     <p class="mb-0">${product.productBrand}</p>
-                    <p class="text-primary font-weight-bold">W<fmt:formatNumber value="${product.price}" pattern="#,###"/></p>
+                    <p class="text-primary font-weight-bold">&#8361;<fmt:formatNumber value="${product.price}" pattern="#,###"/></p>
                    </div>
                    </form>
                  </div>
@@ -148,7 +148,7 @@
                    <div class="block-4-text p-4">
                     <h3><a href="shop-single.html">{productBrand}</a></h3>
                     <p class="mb-0">{productDescription}</p>
-                    <p class="text-primary font-weight-bold">W{price}</p>
+                    <p class="text-primary font-weight-bold">&#8361;{price}</p>
                    </div>
                  </div>
                </li>
@@ -169,6 +169,19 @@
     </script>
     </c:when>
     </c:choose>
-
+    
+	<c:choose>
+		<c:when test="${not empty productSex }">
+		 <script>
+		 if('${productSex}' == '여성'){
+			 $('.d-flex').children('#woman').parent().parent().addClass('active');
+		 }else if('${productSex}' == '남성'){
+			 $('.d-flex').children('#man').parent().parent().addClass('active');
+		 }else if('${productSex}' == '공용'){
+			 $('.d-flex').children('#all').parent().parent().addClass('active');
+		 }
+		 </script>
+		</c:when>
+	</c:choose>
   </body>
 </html>
