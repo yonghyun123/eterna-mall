@@ -81,6 +81,13 @@ public class BuyServiceImpl implements BuyService {
 			   buyDao.createManage(cart);
 		   }
 	}
+	
+	
+	/* 최근주문번호 조회(비회원) */
+	@Override
+	public String recentOrderNumber() throws Exception{
+		return buyDao.recentOrderNumber();
+	}
 
 
 }

@@ -193,6 +193,7 @@
         </div>
       </div>
     </div>
+    <%@ include file="user/login.jsp"%>
     <jsp:include page="/includes/footer.jsp"></jsp:include>
   </div>
   <script src="/js/jquery-3.3.1.min.js"></script>
@@ -312,9 +313,6 @@
 			});
 			/* 주문버튼  */
 			$(document).on("click", "#order", function(event) {
-				/*  */
-			    	
-			    
 				var countArr = [];
 				var productIdArr = [];
 				var count = document.querySelectorAll('.cartCount');
@@ -333,6 +331,7 @@
 				var countArrStr = JSON.stringify(countArr);
 				var productIdArrStr = JSON.stringify(productIdArr);
 				
+					
 				if(loginId){
 					$.ajax({
 						type : "post",
@@ -346,6 +345,8 @@
 							window.location.href = "/order.mall";
 						}
 					});
+
+					
 				} else {
 					var form = document.createElement("form");
 					form.setAttribute("charset", "UTF-8");
