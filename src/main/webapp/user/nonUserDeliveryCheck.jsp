@@ -24,3 +24,10 @@
     </div>
   </div> 
  </div>
+ <script>
+ document.getElementById("temp").onclick=function(){
+	 alert();
+	 $("#login-modal").modal('hide');
+	 $("#order-detail-modal").modal('show');
+ }
+ </script>
