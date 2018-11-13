@@ -88,6 +88,13 @@
 		          (select MAX(id) from SM_buy_info), 
 		          #{productId}) 
     </insert>
+    
+    <!-- 최근 주문번호 조회(비회원 조회) -->
+    <select id="recentOrderNumber" resultType="String">
+    	SELECT MAX(id)
+    	FROM SM_buy_info
+    </select>
+    
 	<!-- 유저별 구매 리스트 by 이철우 -->
 	<select id="listClient" parameterType="String" resultType="Buy">
 		SELECT bi.create_date          AS orderDate, 
