@@ -139,6 +139,7 @@
 	border-bottom: 1px solid #dddfe1;
 }
 /* popup을 위한 css */
+#popup-message-nonuser-delivery-fail,
 #popup-message-login-success,
 #popup-message-logout-success,
 #popup-message-join-success, 
@@ -164,7 +165,7 @@
     font-size: 17px;
 }
 
-
+#popup-message-nonuser-delivery-fail.show,
 #popup-message-login-success.show,
 #popup-message-logout-success.show,
 #popup-message-join-success.show, 

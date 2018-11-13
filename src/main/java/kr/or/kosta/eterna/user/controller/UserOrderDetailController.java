@@ -17,12 +17,6 @@ import kr.or.kosta.eterna.buy.service.BuyServiceImpl;
 import kr.or.kosta.eterna.common.controller.Controller;
 import kr.or.kosta.eterna.common.controller.ModelAndView;
 import kr.or.kosta.eterna.common.factory.XMLObjectFactory;
-import kr.or.kosta.eterna.coupon.domain.Coupon;
-import kr.or.kosta.eterna.coupon.service.CouponService;
-import kr.or.kosta.eterna.coupon.service.CouponServiceImpl;
-import kr.or.kosta.eterna.user.domain.User;
-import kr.or.kosta.eterna.user.service.UserService;
-import kr.or.kosta.eterna.user.service.UserServiceImpl;
 
 /**
  * /user/orderNumber.mall에 대한 요청 처리 컨트롤러

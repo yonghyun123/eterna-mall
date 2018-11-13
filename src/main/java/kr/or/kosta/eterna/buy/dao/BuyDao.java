@@ -55,5 +55,7 @@ public interface BuyDao {
 	public void nonCreateInfo(Buy buy) throws Exception;
 	/* 최근 주문목록 조회 */
 	public String recentOrderNumber() throws Exception;
+	/* 비회원 주문번호 비밀번호 조회 */
+	public Buy nonUserCertify(String id, String passwd) throws Exception;
 
 }

@@ -47,4 +47,6 @@ public interface BuyService {
    /* 최근주문번호 조회(비회원) */
    public String recentOrderNumber() throws Exception;
    
+   /* 비회원 주문번호 비밀번호 조회 */
+	public Buy nonUserCertify(String id, String passwd) throws Exception;
 }
